@@ -1,34 +1,14 @@
 /**
  * @author Jonathan Terrell <jonathan.terrell@springbrook.es>
  * @copyright Copyright (c) 2019-2021 Springbrook S.L.
- * @license "Apache-2.0 with Commons Clause"
+ * @license "ISC"
  */
-
-import {
-    AppEnvironment,
-    AppSession,
-    ConnectionItem,
-    Connector,
-    ConnectorCreateInterface,
-    ConnectorFolderItemCounts,
-    ConnectorItems,
-    ConnectorPreviewInterface,
-    ConnectorPreviewInterfaceSettings,
-    ConnectorReadInterface,
-    ConnectorReadInterfaceSettings,
-    ConnectorWriteInterface,
-    IndexEntry,
-    ResultSetRow,
-    SourceViewProperties
-} from '@nectis/nectis-common-types';
-import { ParseError, ParseResult } from 'papaparse';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations - Constants and Variables
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const connectorName = 'connectorPlugin.SampleDataConnector';
-const sourceURLPrefix = 'https://nectis-sample-data.web.app/fileShare';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations - Classes
@@ -53,106 +33,40 @@ class SampleDataConnector implements Connector {
         this.classId = this.appEnvironment.commonHelpers.connectionClassId.fileServiceConnection;
     }
 
-    /**
-     * ?
-     */
     abort(): void {
-        try {
-            this.connectionItem.isAborted = true;
-        } catch (error) {
-            throw this.appEnvironment.commonHelpers.error.addContext(error, connectorName, 'abort.1');
-        }
+        this.connectionItem.isAborted = true;
     }
 
-    /**
-     * ?
-     * @param accountId ?
-     * @param sessionAccessToken ?
-     * @param screenHeight ?
-     * @param screenWidth ?
-     * @returns ?
-     */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async authenticate(accountId: string, sessionAccessToken: string, screenHeight: number, screenWidth: number): Promise<void> {
-        return Promise.reject(this.appEnvironment.commonHelpers.error.addContext(new Error('Not implemented'), connectorName, 'authenticate.1'));
+        return Promise.reject(new Error('Not implemented'));
     }
 
-    /**
-     * ?
-     */
     createInterfaceGet(): ConnectorCreateInterface {
-        throw this.appEnvironment.commonHelpers.error.addContext(new Error('Not implemented'), connectorName, 'createInterfaceGet.1');
+        throw new Error('Not implemented');
     }
 
-    /**
-     * ?
-     * @param accountId ?
-     * @param sessionAccessToken ?
-     * @param itemId ?
-     * @returns ?
-     */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async describe(accountId: string, sessionAccessToken: string, itemId: string): Promise<ResultSetRow[]> {
-        return Promise.reject(this.appEnvironment.commonHelpers.error.addContext(new Error('Not implemented'), connectorName, 'describe.1'));
+        return Promise.reject(new Error('Not implemented'));
     }
 
-    /**
-     * ?
-     * @param accountId ?
-     * @param sessionAccessToken ?
-     * @param directory ?
-     * @returns ?
-     */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async folderItemCountsGet(accountId: string, sessionAccessToken: string, directory: string): Promise<ConnectorFolderItemCounts> {
-        return Promise.reject(this.appEnvironment.commonHelpers.error.addContext(new Error('Not implemented'), connectorName, 'folderItemCountsGet.1'));
+        return Promise.reject(new Error('Not implemented'));
     }
 
-    /**
-     * ?
-     * @param accountId ?
-     * @param sessionAccessToken ?
-     * @param directory ?
-     * @returns ?
-     */
-    // eslint-disable-next-line @typescript-eslint/require-await
     async itemList(accountId: string, sessionAccessToken: string, directory: string): Promise<ConnectorItems> {
-        try {
-            return itemList(this, directory);
-        } catch (error) {
-            throw this.appEnvironment.commonHelpers.error.addContext(error, connectorName, 'retrieveItems.1');
-        }
+        return itemList(this, directory);
     }
 
-    /**
-     * ?
-     * @returns ?
-     */
     previewInterfaceGet(): ConnectorPreviewInterface {
-        try {
-            return { connector: this, itemPreview };
-        } catch (error) {
-            throw this.appEnvironment.commonHelpers.error.addContext(error, connectorName, 'getPreviewInterface.1');
-        }
+        throw new Error('Not implemented');
     }
 
-    /**
-     * ?
-     * @returns ?
-     */
     readInterfaceGet(): ConnectorReadInterface {
-        try {
-            return { connector: this, itemRead };
-        } catch (error) {
-            throw this.appEnvironment.commonHelpers.error.addContext(error, connectorName, 'getReadInterface.1');
-        }
+        throw new Error('Not implemented');
     }
 
-    /**
-     * ?
-     */
     writeInterfaceGet(): ConnectorWriteInterface {
-        throw this.appEnvironment.commonHelpers.error.addContext(new Error('Not implemented'), connectorName, 'writeInterfaceGet.1');
+        throw new Error('Not implemented');
     }
 }
 
@@ -166,13 +80,6 @@ export default SampleDataConnector;
 // Procedure - Item - List
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-/**
- * ?
- * @param thisConnector ?
- * @param directory ?
- * @returns ?
- */
-// eslint-disable-next-line max-lines-per-function
 const itemList = (thisConnector: Connector, directory: string): ConnectorItems => {
     try {
         const items = [];
@@ -205,13 +112,6 @@ const itemList = (thisConnector: Connector, directory: string): ConnectorItems =
     }
 };
 
-/**
- * ?
- * @param thisConnector ?
- * @param directory ?
- * @param itemCount ?
- * @returns ?
- */
 const folderItemBuilder = (thisConnector: Connector, directory: string, itemCount: number): IndexEntry => {
     const lastSubDirectoryName = thisConnector.appEnvironment.commonHelpers.path.extractLastSubDirectory(directory);
     return {
@@ -232,16 +132,6 @@ const folderItemBuilder = (thisConnector: Connector, directory: string, itemCoun
     };
 };
 
-/**
- * ?
- * @param thisConnector ?
- * @param directory ?
- * @param name ?
- * @param encodingId ?
- * @param size ?
- * @param lastModifiedAtString ?
- * @returns ?
- */
 const objectItemBuilder = (thisConnector: Connector, directory: string, name: string, encodingId: string, size: number, lastModifiedAtString: string): IndexEntry => ({
     _id: null,
     childCount: undefined,
@@ -258,92 +148,3 @@ const objectItemBuilder = (thisConnector: Connector, directory: string, name: st
     size,
     typeId: thisConnector.appEnvironment.commonHelpers.itemTypeId.object
 });
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Procedure - Item - Preview
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * ?
- * @param thisConnector ?
- * @param accountId ?
- * @param sessionAccessToken ?
- * @param sourceViewProperties ?
- * @param previewInterfaceSettings ?
- * @returns ?
- */
-const itemPreview = async (
-    thisConnector: Connector,
-    accountId: string,
-    sessionAccessToken: string,
-    sourceViewProperties: SourceViewProperties,
-    previewInterfaceSettings: ConnectorPreviewInterfaceSettings
-): Promise<void> => {
-    try {
-        const response = await thisConnector.appEnvironment.axios({
-            headers: {
-                Range: `bytes=0-${previewInterfaceSettings.chunkSize}`
-            },
-            method: 'get',
-            responseType: 'arraybuffer',
-            url: `${sourceURLPrefix}${sourceViewProperties.path}`
-        });
-        previewInterfaceSettings.complete({ data: response.data, typeId: 'arrayBuffer' });
-    } catch (error) {
-        previewInterfaceSettings.error(thisConnector.appEnvironment.commonHelpers.error.addContext(error, connectorName, 'itemPreview.1'));
-    }
-};
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Procedure - Item - Read
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * ?
- * @param thisConnector ?
- * @param accountId ?
- * @param sessionAccessToken ?
- * @param sourceViewProperties ?
- * @param readInterfaceSettings ?
- * @returns ?
- */
-const itemRead = async (
-    thisConnector: Connector,
-    accountId: string,
-    sessionAccessToken: string,
-    sourceViewProperties: SourceViewProperties,
-    readInterfaceSettings: ConnectorReadInterfaceSettings
-    // eslint-disable-next-line @typescript-eslint/require-await
-): Promise<void> => {
-    try {
-        thisConnector.appEnvironment.papaParse.parse(`${sourceURLPrefix}${sourceViewProperties.path}`, {
-            beforeFirstChunk: undefined,
-            chunk: (result: ParseResult<ResultSetRow>) => {
-                readInterfaceSettings.chunk(result.data);
-            },
-            chunkSize: readInterfaceSettings.chunkSize || null,
-            comments: false,
-            complete: () => {
-                readInterfaceSettings.complete();
-            },
-            delimiter: sourceViewProperties.preview.fieldDelimiterId,
-            download: true,
-            downloadRequestHeaders: {},
-            dynamicTyping: false,
-            encoding: sourceViewProperties.preview.encodingId,
-            error: (error: ParseError) => {
-                readInterfaceSettings.error(error);
-            },
-            fastMode: undefined,
-            header: false,
-            newline: '',
-            preview: 0,
-            quoteChar: '"',
-            skipEmptyLines: false,
-            withCredentials: undefined,
-            worker: false
-        });
-    } catch (error) {
-        readInterfaceSettings.error(thisConnector.appEnvironment.commonHelpers.error.addContext(error, connectorName, 'itemRead.1'));
-    }
-};
