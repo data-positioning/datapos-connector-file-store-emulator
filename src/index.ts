@@ -8,6 +8,11 @@ enum ConnectionClassId {
     FileStorage = 'fileStorage'
 }
 
+enum ItemTypeId {
+    Folder = 'folder',
+    Object = 'object'
+}
+
 interface AppEnvironment {}
 
 interface AppSession {}
@@ -57,7 +62,7 @@ interface SourceItem {
     name: string;
     referenceId: string;
     size: number;
-    typeId: string;
+    typeId: ItemTypeId;
 }
 
 const extractLastSubDirectoryFromPath = (directory: string): string | undefined => {
@@ -75,12 +80,6 @@ const extractLastSubDirectoryFromPath = (directory: string): string | undefined 
     }
     return undefined;
 };
-
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Declarations - Constants and Variables
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-const connectorName = 'connectorPlugin.SampleDataConnector';
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations - Classes
@@ -196,7 +195,7 @@ const folderItemBuilder = (directory: string, itemCount: number): SourceItem => 
         name: lastSubDirectoryName,
         referenceId: undefined,
         size: undefined,
-        typeId: 'folder'
+        typeId: ItemTypeId.Folder
     };
 };
 
@@ -214,5 +213,5 @@ const objectItemBuilder = (directory: string, name: string, encodingId: string, 
     name,
     referenceId: undefined,
     size,
-    typeId: 'object'
+    typeId: ItemTypeId.Object
 });
