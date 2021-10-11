@@ -1,0 +1,19 @@
+{
+    "name": "@nectis/nectis-connector-sample-files",
+    "description": "Nectis sample files connector.",
+    "author": "Jonathan Terrell <jonathan.terrell@springbrook.es>",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/nectis/nectis-connector-sample-files.git"
+    },
+    "keywords": [
+        "nectis",
+        "plugin",
+        "connector"
+    ],
+    "main": "./src/index.ts",
+    "version": "0.1.0",
+    "devDependencies": {},
+    "scripts": {}
+}

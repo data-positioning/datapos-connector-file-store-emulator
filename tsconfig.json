@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "declarationDir": "./dist",
+        "downlevelIteration": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "outDir": "./dist",
+        "target": "esnext"
+    }
+}
