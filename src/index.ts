@@ -4,82 +4,21 @@
  * @license "ISC"
  */
 
-enum ConnectionClassId {
-    FileStorage = 'fileStorage'
-}
-
-enum ItemTypeId {
-    Folder = 'folder',
-    Object = 'object'
-}
-
-interface AppEnvironment {}
-
-interface AppSession {}
-
-interface Connection {
-    isAborted: boolean;
-}
-
-interface Connector {
-    appEnvironment: AppEnvironment;
-    appSession: AppSession;
-    connection: Connection;
-    connectionClassId: ConnectionClassId;
-    abort(): void;
-    authenticate(accountId: string, sessionAccessToken: string, screenHeight: number, screenWidth: number): Promise<void>;
-    describe(accountId: string, sessionAccessToken: string, itemId: string): Promise<unknown>;
-    getCreateInterface(): ConnectorCreateInterface;
-    getFolderItemCounts(accountId: string, sessionAccessToken: string, directory: string): Promise<unknown>;
-    getPreviewInterface(): ConnectorPreviewInterface;
-    getReadInterface(): ConnectorReadInterface;
-    getWriteInterface(): ConnectorWriteInterface;
-    retrieveItems(accountId: string | undefined, sessionAccessToken: string | undefined, directory: string): Promise<unknown>;
-}
-
-interface ConnectorCreateInterface {}
-interface ConnectorPreviewInterface {}
-interface ConnectorReadInterface {}
-interface ConnectorWriteInterface {}
-
-interface SourceItemPage {
-    cursor: string | undefined;
-    isMore: boolean;
-    items: SourceItem[];
-}
-
-interface SourceItem {
-    _id: string;
-    childCount: number;
-    directory: string;
-    encodingId: string;
-    extension: string;
-    id: string;
-    insertedId: string;
-    kind: string;
-    label: string;
-    lastModifiedAt: number;
-    name: string;
-    referenceId: string;
-    size: number;
-    typeId: ItemTypeId;
-}
-
-const extractLastSubDirectoryFromPath = (directory: string): string | undefined => {
-    if (directory) {
-        let lastSeparatorIndex;
-        let lastCharacterIndex;
-        if (directory.endsWith('/')) {
-            lastSeparatorIndex = directory.lastIndexOf('/', directory.length - 2);
-            lastCharacterIndex = directory.length - 1;
-        } else {
-            lastSeparatorIndex = directory.lastIndexOf('/');
-            lastCharacterIndex = directory.length;
-        }
-        if (lastSeparatorIndex > -1) return directory.substring(lastSeparatorIndex + 1, lastCharacterIndex);
-    }
-    return undefined;
-};
+import {
+    AppEnvironment,
+    AppSession,
+    Connection,
+    ConnectionClassId,
+    Connector,
+    ConnectorCreateInterface,
+    ConnectorPreviewInterface,
+    ConnectorReadInterface,
+    ConnectorWriteInterface,
+    ItemTypeId,
+    SourceItem,
+    SourceItemPage,
+    extractLastSubDirectoryFromPath
+} from './common';
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations - Classes

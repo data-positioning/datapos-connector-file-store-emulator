@@ -15,7 +15,6 @@
     "main": "./src/index.ts",
     "version": "0.1.0",
     "devDependencies": {
-        "@nectis/eslint-config-nectis": "^0.1.71",
         "@rollup/plugin-commonjs": "^17.0.0",
         "@rollup/plugin-json": "^4.1.0",
         "@rollup/plugin-node-resolve": "^11.0.1",
