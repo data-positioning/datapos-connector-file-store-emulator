@@ -22,7 +22,7 @@ export default [
         output: [
             {
                 exports: 'auto',
-                file: './dist/nectis-connector-sampled-files-es.js',
+                file: './dist/nectis-connector-sample-files-es.js',
                 format: 'es'
             }
         ],
