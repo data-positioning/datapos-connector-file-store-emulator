@@ -40,15 +40,43 @@ export interface ConnectorPlugin {
         new (appEnvironment: AppEnvironment | undefined, appSession: AppSession | undefined, connection: Connection | undefined): Connector;
     };
 }
+
 export interface ConnectorCreateInterface {
     placeholder: unknown;
 }
-export interface ConnectorPreviewInterface {
-    placeholder: unknown;
+
+// export interface ConnectorPreviewInterface {
+//     connector: Connector;
+//     previewItem(
+//         connector: Connector,
+//         accountId: string | undefined,
+//         sessionAccessToken: string | undefined,
+//         sourceViewProperties: SourceViewProperties,
+//         previewInterfaceSettings: ConnectorPreviewInterfaceSettings
+//     ): Promise<ConnectorPreviewInterfaceResult>;
+// }
+export interface SourceViewProperties {
+    path: string;
 }
+export enum ConnectorInterfaceResultType {
+    ArrayBuffer = 'arrayBuffer',
+    JSON = 'json'
+}
+export interface ConnectorPreviewInterface {
+    connector: Connector;
+    previewItem(
+        connector: Connector,
+        accountId: string | undefined,
+        sessionAccessToken: string | undefined,
+        sourceViewProperties: SourceViewProperties
+        // previewInterfaceSettings: ConnectorPreviewInterfaceSettings
+    ): Promise<unknown>;
+}
+
 export interface ConnectorReadInterface {
     placeholder: unknown;
 }
+
 export interface ConnectorWriteInterface {
     placeholder: unknown;
 }

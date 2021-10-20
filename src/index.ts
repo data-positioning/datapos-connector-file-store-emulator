@@ -11,14 +11,22 @@ import {
     ConnectionClassId,
     Connector,
     ConnectorCreateInterface,
+    ConnectorInterfaceResultType,
     ConnectorPreviewInterface,
     ConnectorReadInterface,
     ConnectorWriteInterface,
     ItemTypeId,
     SourceItem,
     SourceItemPage,
+    SourceViewProperties,
     extractLastSubDirectoryFromPath
 } from './common';
+
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Declarations - Variables
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const sourceURLPrefix = 'https://nectis-sample-data.web.app/fileShare';
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations - Classes
@@ -64,7 +72,7 @@ class SampleFileConnector implements Connector {
     }
 
     getPreviewInterface(): ConnectorPreviewInterface {
-        throw new Error('Not implemented');
+        return { connector: this, previewItem };
     }
 
     getReadInterface(): ConnectorReadInterface {
@@ -154,3 +162,37 @@ const objectItemBuilder = (directory: string, name: string, encodingId: string, 
     size,
     typeId: ItemTypeId.Object
 });
+
+const previewItem = async (
+    thisConnector: Connector,
+    accountId: string | undefined,
+    sessionAccessToken: string | undefined,
+    sourceViewProperties: SourceViewProperties
+    // previewInterfaceSettings: ConnectorPreviewInterfaceSettings
+): Promise<unknown> => {
+    try {
+        console.log(4444, sourceViewProperties);
+        // if (!sourceViewProperties.path) throw new Error('Missing path');
+
+        const headers: Record<string, unknown> = {};
+        // if (previewInterfaceSettings.chunkSize) headers.Range = `bytes=0-${previewInterfaceSettings.chunkSize}`;
+
+        // const response = await thisConnector.appEnvironment.axios<Buffer>({
+        //     headers,
+        //     method: 'get',
+        //     responseType: 'arraybuffer',
+        //     url: `${sourceURLPrefix}${sourceViewProperties.path}`
+        // });
+
+        const response = await fetch(`${sourceURLPrefix}${sourceViewProperties.path}`);
+        // const response = await fetch(`${sourceURLPrefix}/SAP Employee Central/ADDRESS_INFO.csv`);
+        console.log(7777, response);
+        const blob = await response.text();
+        console.log(8888, blob);
+
+        return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
+    } catch (error) {
+        console.log(9999, error);
+        // throw thisConnector.appEnvironment.commonHelpers.error.addContext(error, connectorName, 'previewItem.2');
+    }
+};

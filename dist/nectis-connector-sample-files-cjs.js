@@ -1,10 +1,5 @@
 'use strict';
 
-/**
- * @author Jonathan Terrell <jonathan.terrell@springbrook.es>
- * @copyright Copyright (c) 2019-2021 Springbrook S.L.
- * @license "ISC"
- */
 var ConnectionClassId;
 (function (ConnectionClassId) {
     ConnectionClassId["FileStorage"] = "fileStorage";
@@ -14,6 +9,11 @@ var ItemTypeId;
     ItemTypeId["Folder"] = "folder";
     ItemTypeId["Object"] = "object";
 })(ItemTypeId || (ItemTypeId = {}));
+var ConnectorInterfaceResultType;
+(function (ConnectorInterfaceResultType) {
+    ConnectorInterfaceResultType["ArrayBuffer"] = "arrayBuffer";
+    ConnectorInterfaceResultType["JSON"] = "json";
+})(ConnectorInterfaceResultType || (ConnectorInterfaceResultType = {}));
 const extractLastSubDirectoryFromPath = (directory) => {
     if (directory) {
         let lastSeparatorIndex;
@@ -31,6 +31,16 @@ const extractLastSubDirectoryFromPath = (directory) => {
     }
     return undefined;
 };
+
+/**
+ * @author Jonathan Terrell <jonathan.terrell@springbrook.es>
+ * @copyright Copyright (c) 2019-2021 Springbrook S.L.
+ * @license "ISC"
+ */
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Declarations - Variables
+// -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const sourceURLPrefix = 'https://nectis-sample-data.web.app/fileShare';
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations - Classes
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,7 +77,7 @@ class SampleFileConnector {
         return Promise.reject(new Error('Not implemented'));
     }
     getPreviewInterface() {
-        throw new Error('Not implemented');
+        return { connector: this, previewItem };
     }
     getReadInterface() {
         throw new Error('Not implemented');
@@ -145,5 +155,31 @@ const objectItemBuilder = (directory, name, encodingId, size, lastModifiedAtStri
     size,
     typeId: ItemTypeId.Object
 });
+const previewItem = async (thisConnector, accountId, sessionAccessToken, sourceViewProperties
+// previewInterfaceSettings: ConnectorPreviewInterfaceSettings
+) => {
+    try {
+        console.log(4444, sourceViewProperties);
+        // if (!sourceViewProperties.path) throw new Error('Missing path');
+        const headers = {};
+        // if (previewInterfaceSettings.chunkSize) headers.Range = `bytes=0-${previewInterfaceSettings.chunkSize}`;
+        // const response = await thisConnector.appEnvironment.axios<Buffer>({
+        //     headers,
+        //     method: 'get',
+        //     responseType: 'arraybuffer',
+        //     url: `${sourceURLPrefix}${sourceViewProperties.path}`
+        // });
+        const response = await fetch(`${sourceURLPrefix}${sourceViewProperties.path}`);
+        // const response = await fetch(`${sourceURLPrefix}/SAP Employee Central/ADDRESS_INFO.csv`);
+        console.log(7777, response);
+        const blob = await response.text();
+        console.log(8888, blob);
+        return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
+    }
+    catch (error) {
+        console.log(9999, error);
+        // throw thisConnector.appEnvironment.commonHelpers.error.addContext(error, connectorName, 'previewItem.2');
+    }
+};
 
 module.exports = SampleFileConnector;
