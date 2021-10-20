@@ -159,26 +159,17 @@ const previewItem = async (thisConnector, accountId, sessionAccessToken, sourceV
 // previewInterfaceSettings: ConnectorPreviewInterfaceSettings
 ) => {
     try {
-        console.log(4444, sourceViewProperties);
-        // if (!sourceViewProperties.path) throw new Error('Missing path');
+        if (!sourceViewProperties.path)
+            throw new Error('Missing path');
         const headers = {};
         // if (previewInterfaceSettings.chunkSize) headers.Range = `bytes=0-${previewInterfaceSettings.chunkSize}`;
-        // const response = await thisConnector.appEnvironment.axios<Buffer>({
-        //     headers,
-        //     method: 'get',
-        //     responseType: 'arraybuffer',
-        //     url: `${sourceURLPrefix}${sourceViewProperties.path}`
-        // });
-        const response = await fetch(`${sourceURLPrefix}${sourceViewProperties.path}`);
-        // const response = await fetch(`${sourceURLPrefix}/SAP Employee Central/ADDRESS_INFO.csv`);
-        console.log(7777, response);
+        headers.Range = 'bytes=0-10';
+        const response = await fetch(`${sourceURLPrefix}${sourceViewProperties.path}`, { headers });
         const blob = await response.text();
-        console.log(8888, blob);
         return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
     }
     catch (error) {
         console.log(9999, error);
-        // throw thisConnector.appEnvironment.commonHelpers.error.addContext(error, connectorName, 'previewItem.2');
     }
 };
 
