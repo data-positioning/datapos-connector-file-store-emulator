@@ -20,7 +20,7 @@ import {
     SourceItemPage,
     SourceViewProperties,
     extractLastSubDirectoryFromPath
-} from './common';
+} from '../../nectis-connector-interface';
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations - Variables
