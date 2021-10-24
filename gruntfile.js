@@ -4,7 +4,7 @@
  * @license "ISC"
  */
 
-module.exports = function (grunt) {
+module.exports = (grunt) => {
     // Initialise configuration.
     grunt.initConfig({
         // Bump configuration.
