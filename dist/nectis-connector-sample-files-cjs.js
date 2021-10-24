@@ -18,12 +18,12 @@ const extractLastSubDirectoryFromPath = (directory) => {
     if (directory) {
         let lastSeparatorIndex;
         let lastCharacterIndex;
-        if (directory.endsWith("/")) {
-            lastSeparatorIndex = directory.lastIndexOf("/", directory.length - 2);
+        if (directory.endsWith('/')) {
+            lastSeparatorIndex = directory.lastIndexOf('/', directory.length - 2);
             lastCharacterIndex = directory.length - 1;
         }
         else {
-            lastSeparatorIndex = directory.lastIndexOf("/");
+            lastSeparatorIndex = directory.lastIndexOf('/');
             lastCharacterIndex = directory.length;
         }
         if (lastSeparatorIndex > -1)
