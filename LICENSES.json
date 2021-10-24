@@ -1,0 +1,10 @@
+{
+  "@nectis/nectis-connector-sample-files@0.1.3": {
+    "licenses": "ISC",
+    "repository": "https://github.com/nectis/nectis-connector-sample-files",
+    "publisher": "Jonathan Terrell",
+    "email": "jonathan.terrell@springbrook.es",
+    "path": "/Users/jonathanterrell/Nectis/Github/nectis-connector-sample-files",
+    "licenseFile": "/Users/jonathanterrell/Nectis/Github/nectis-connector-sample-files/README.md"
+  }
+}
