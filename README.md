@@ -1,1 +1,1 @@
-# nectis-connector-sample-files
+# Nectis Sample Files Connector

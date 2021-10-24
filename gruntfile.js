@@ -1,12 +1,8 @@
 /**
  * @author Jonathan Terrell <jonathan.terrell@springbrook.es>
  * @copyright Copyright (c) 2019-2021 Springbrook S.L.
- * @license "Apache-2.0 with Commons Clause"
+ * @license "ISC"
  */
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Exports
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 module.exports = (grunt) => {
     // Initialise configuration.
@@ -19,6 +15,7 @@ module.exports = (grunt) => {
                 pushTo: 'origin'
             }
         },
+
         // Run configuration.
         run: {
             audit: { args: ['npm', 'audit'], cmd: 'npx' },
@@ -33,9 +30,11 @@ module.exports = (grunt) => {
             update: { args: ['npm', 'update', '--save/--save-dev'], cmd: 'npx' }
         }
     });
+
     // Load external tasks.
     grunt.loadNpmTasks('grunt-bump');
     grunt.loadNpmTasks('grunt-run');
+
     // Register local tasks.
     grunt.registerTask('audit', ['run:audit']);
     grunt.registerTask('build', ['run:rollupCJS', 'run:rollupES']);
