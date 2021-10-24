@@ -5,44 +5,34 @@
  */
 
 import {
-    AppEnvironment,
-    AppSession,
     Connection,
     ConnectionClassId,
     Connector,
     ConnectorCreateInterface,
     ConnectorInterfaceResultType,
     ConnectorPreviewInterface,
+    ConnectorPreviewInterfaceSettings,
     ConnectorReadInterface,
     ConnectorWriteInterface,
-    ItemTypeId,
     SourceItem,
     SourceItemPage,
+    SourceItemTypeId,
     SourceViewProperties,
     extractLastSubDirectoryFromPath
 } from '../../nectis-connector-interface';
 
+const defaultChunkSize = 4096;
 const sourceURLPrefix = 'https://nectis-sample-data.web.app/fileShare';
 
 // -----------------------------------------------------------------------------------------------------------------------------------------
 // Connector
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
-export class SampleFileConnector implements Connector {
-    appEnvironment: AppEnvironment;
-    appSession: AppSession;
+export default class SampleFileConnector implements Connector {
     connection: Connection;
     connectionClassId: ConnectionClassId;
 
-    /**
-     * ?
-     * @param appEnvironment ?
-     * @param appSession ?
-     * @param connection ?
-     */
-    constructor(appEnvironment: AppEnvironment, appSession: AppSession, connection: Connection) {
-        this.appEnvironment = appEnvironment;
-        this.appSession = appSession;
+    constructor(connection: Connection) {
         this.connection = connection;
         this.connectionClassId = ConnectionClassId.FileStorage;
     }
@@ -51,10 +41,12 @@ export class SampleFileConnector implements Connector {
         this.connection.isAborted = true;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async authenticate(accountId: string, sessionAccessToken: string, screenHeight: number, screenWidth: number): Promise<void> {
         return Promise.reject(new Error('Not implemented'));
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async describe(accountId: string, sessionAccessToken: string, itemId: string): Promise<unknown[]> {
         return Promise.reject(new Error('Not implemented'));
     }
@@ -63,6 +55,7 @@ export class SampleFileConnector implements Connector {
         throw new Error('Not implemented');
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async getFolderItemCounts(accountId: string, sessionAccessToken: string, directory: string): Promise<unknown> {
         return Promise.reject(new Error('Not implemented'));
     }
@@ -93,23 +86,17 @@ const previewItem = async (
     thisConnector: Connector,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
+    previewInterfaceSettings: ConnectorPreviewInterfaceSettings,
     sourceViewProperties: SourceViewProperties
-    // previewInterfaceSettings: ConnectorPreviewInterfaceSettings
 ): Promise<unknown> => {
-    try {
-        if (!sourceViewProperties.path) throw new Error('Missing path');
+    const headers: HeadersInit = {
+        Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
+    };
 
-        const headers: HeadersInit = {};
-        // if (previewInterfaceSettings.chunkSize) headers.Range = `bytes=0-${previewInterfaceSettings.chunkSize}`;
-        headers.Range = 'bytes=0-10';
+    const response = await fetch(`${sourceURLPrefix}${sourceViewProperties.path}`, { headers });
+    const blob = await response.text();
 
-        const response = await fetch(`${sourceURLPrefix}${sourceViewProperties.path}`, { headers });
-        const blob = await response.text();
-
-        return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
-    } catch (error) {
-        console.log(9999, error);
-    }
+    return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
 };
 
 // -----------------------------------------------------------------------------------------------------------------------------------------
@@ -160,7 +147,7 @@ const buildFolderItem = (directory: string, itemCount: number): SourceItem => {
         name: lastSubDirectoryName,
         referenceId: undefined,
         size: undefined,
-        typeId: ItemTypeId.Folder
+        typeId: SourceItemTypeId.Folder
     };
 };
 
@@ -178,5 +165,5 @@ const buildObjectItem = (directory: string, name: string, encodingId: string, si
     name,
     referenceId: undefined,
     size,
-    typeId: ItemTypeId.Object
+    typeId: SourceItemTypeId.Object
 });

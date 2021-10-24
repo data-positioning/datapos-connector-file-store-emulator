@@ -172,4 +172,4 @@ const buildObjectItem = (directory, name, encodingId, size, lastModifiedAtString
     typeId: ItemTypeId.Object
 });
 
-export { SampleFileConnector };
+export { SampleFileConnector as default };

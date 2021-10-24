@@ -1,7 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
 var ConnectionClassId;
 (function (ConnectionClassId) {
     ConnectionClassId["FileStorage"] = "fileStorage";
@@ -176,4 +174,4 @@ const buildObjectItem = (directory, name, encodingId, size, lastModifiedAtString
     typeId: ItemTypeId.Object
 });
 
-exports.SampleFileConnector = SampleFileConnector;
+module.exports = SampleFileConnector;
