@@ -1,6 +1,6 @@
 {
     "name": "@nectis/nectis-connector-sample-files",
-    "description": "Nectis sample files connector.",
+    "description": "Nectis sample files connector",
     "author": "Jonathan Terrell <jonathan.terrell@springbrook.es>",
     "license": "ISC",
     "repository": {
@@ -13,14 +13,14 @@
         "connector"
     ],
     "main": "./src/index.ts",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "devDependencies": {
-        "@rollup/plugin-commonjs": "^17.0.0",
+        "@rollup/plugin-commonjs": "^21.0.1",
         "@rollup/plugin-json": "^4.1.0",
-        "@rollup/plugin-node-resolve": "^11.0.1",
-        "@typescript-eslint/eslint-plugin": "^4.15.2",
-        "@typescript-eslint/parser": "^4.15.2",
-        "eslint": "^7.16.0",
+        "@rollup/plugin-node-resolve": "^13.0.06",
+        "@typescript-eslint/eslint-plugin": "^5.1.0",
+        "@typescript-eslint/parser": "^5.1.0",
+        "eslint": "^8.1.0",
         "grunt": "^1.3.0",
         "grunt-bump": "^0.8.0",
         "grunt-run": "^0.8.1",

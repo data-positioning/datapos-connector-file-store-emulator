@@ -4,7 +4,7 @@
  * @license "ISC"
  */
 
-module.exports = (grunt) => {
+module.exports = function (grunt) {
     // Initialise configuration.
     grunt.initConfig({
         // Bump configuration.
@@ -20,13 +20,13 @@ module.exports = (grunt) => {
         run: {
             audit: { args: ['npm', 'audit'], cmd: 'npx' },
             licenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
-            licenseNLF: { args: ['nlf', '-d'], cmd: 'npx' },
-            lint: { args: ['eslint', 'index.js'], cmd: 'npx' },
+            lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
+            nlf: { args: ['nlf', '-d'], cmd: 'npx' },
             outdated: { args: ['npm', 'outdated'], cmd: 'npx' },
             publish: { args: ['publish'], cmd: 'npx' },
-            rollupCJS: { args: ['rollup', '-c', 'rollup.config-cjs.js'], cmd: 'npx' },
-            rollupES: { args: ['rollup', '-c', 'rollup.config-es.js'], cmd: 'npx' },
-            test: { args: ['cypress', 'open'], cmd: 'npx' },
+            rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.js'], cmd: 'npx' },
+            rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js'], cmd: 'npx' },
+            test: { args: ['WARNING: No tests implemented.'], cmd: 'echo' },
             update: { args: ['npm', 'update', '--save/--save-dev'], cmd: 'npx' }
         }
     });
@@ -36,13 +36,13 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-run');
 
     // Register local tasks.
-    grunt.registerTask('audit', ['run:audit']);
-    grunt.registerTask('build', ['run:rollupCJS', 'run:rollupES']);
-    grunt.registerTask('licenseCheck', ['run:licenseChecker', 'run:licenseNLF']);
-    grunt.registerTask('lint', ['run:lint']);
-    grunt.registerTask('outdated', ['run:outdated']);
-    grunt.registerTask('release', ['run:rollupCJS', 'run:rollupES', 'bump', 'run:publish']);
-    grunt.registerTask('test', ['run:test']);
-    grunt.registerTask('sync', ['bump']);
-    grunt.registerTask('update', ['run:update']);
+    grunt.registerTask('audit', ['run:audit']); // CMD SHIFT A
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // CMD SHIFT B
+    grunt.registerTask('checkLicense', ['run:licenseChecker', 'run:nlf']); // CMD SHIFT C
+    grunt.registerTask('lint', ['run:lint']); // CMD SHIFT L
+    grunt.registerTask('outdated', ['run:outdated']); // CMD SHIFT O
+    grunt.registerTask('release', ['run:rollupCJS', 'run:rollupES', 'bump', 'run:publish']); // CMD SHIFT R
+    grunt.registerTask('sync', ['bump']); // CMD SHIFT S
+    grunt.registerTask('test', ['run:test']); // CMD SHIFT T
+    grunt.registerTask('update', ['run:update']); // CMD SHIFT U
 };

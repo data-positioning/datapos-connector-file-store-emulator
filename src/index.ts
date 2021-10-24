@@ -79,6 +79,7 @@ export class SampleFileConnector implements Connector {
         throw new Error('Not implemented');
     }
 
+    // eslint-disable-next-line @typescript-eslint/require-await
     async retrieveItems(accountId: string, sessionAccessToken: string, directory: string): Promise<SourceItemPage> {
         return retrieveItems(directory);
     }

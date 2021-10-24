@@ -1,6 +1,5 @@
 {
     "env": {},
-    "extends": ["@nectis/eslint-config-nectis"],
     "globals": {},
     "overrides": [
         {
