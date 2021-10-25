@@ -9,13 +9,14 @@ import {
     ConnectionClassId,
     Connector,
     ConnectorCreateInterface,
-    ConnectorInterfaceResultType,
     ConnectorPreviewInterface,
     ConnectorPreviewInterfaceSettings,
     ConnectorReadInterface,
     ConnectorWriteInterface,
     SourceItem,
     SourceItemPage,
+    SourceItemPreview,
+    SourceItemPreviewTypeId,
     SourceItemTypeId,
     SourceViewProperties,
     extractLastSubDirectoryFromPath
@@ -88,15 +89,13 @@ const previewItem = async (
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: ConnectorPreviewInterfaceSettings,
     sourceViewProperties: SourceViewProperties
-): Promise<unknown> => {
+): Promise<SourceItemPreview> => {
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-
     const response = await fetch(`${urlPrefix}${sourceViewProperties.path}`, { headers });
-    const blob = await response.text();
-
-    return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
+    const arrayBuffer = await (await response.blob()).arrayBuffer();
+    return { data: arrayBuffer, typeId: SourceItemPreviewTypeId.ArrayBuffer };
 };
 
 // -----------------------------------------------------------------------------------------------------------------------------------------

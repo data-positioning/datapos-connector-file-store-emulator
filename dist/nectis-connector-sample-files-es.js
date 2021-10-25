@@ -7,11 +7,11 @@ var ConnectionClassId;
 (function (ConnectionClassId) {
     ConnectionClassId["FileStorage"] = "fileStorage";
 })(ConnectionClassId || (ConnectionClassId = {}));
-var ConnectorInterfaceResultType;
-(function (ConnectorInterfaceResultType) {
-    ConnectorInterfaceResultType["ArrayBuffer"] = "arrayBuffer";
-    ConnectorInterfaceResultType["JSON"] = "json";
-})(ConnectorInterfaceResultType || (ConnectorInterfaceResultType = {}));
+var SourceItemPreviewTypeId;
+(function (SourceItemPreviewTypeId) {
+    SourceItemPreviewTypeId["ArrayBuffer"] = "arrayBuffer";
+    SourceItemPreviewTypeId["JSON"] = "json";
+})(SourceItemPreviewTypeId || (SourceItemPreviewTypeId = {}));
 var SourceItemTypeId;
 (function (SourceItemTypeId) {
     SourceItemTypeId["Folder"] = "folder";
@@ -95,8 +95,8 @@ const previewItem = async (thisConnector, accountId, sessionAccessToken, preview
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
     const response = await fetch(`${urlPrefix}${sourceViewProperties.path}`, { headers });
-    const blob = await response.text();
-    return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
+    const arrayBuffer = await (await response.blob()).arrayBuffer();
+    return { data: arrayBuffer, typeId: SourceItemPreviewTypeId.ArrayBuffer };
 };
 // -----------------------------------------------------------------------------------------------------------------------------------------
 // Retrieve Items
