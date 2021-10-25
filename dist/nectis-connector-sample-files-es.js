@@ -1,17 +1,25 @@
+/**
+ * @author Jonathan Terrell <jonathan.terrell@springbrook.es>
+ * @copyright Copyright (c) 2019-2021 Springbrook S.L.
+ * @license "ISC"
+ */
 var ConnectionClassId;
 (function (ConnectionClassId) {
     ConnectionClassId["FileStorage"] = "fileStorage";
 })(ConnectionClassId || (ConnectionClassId = {}));
-var ItemTypeId;
-(function (ItemTypeId) {
-    ItemTypeId["Folder"] = "folder";
-    ItemTypeId["Object"] = "object";
-})(ItemTypeId || (ItemTypeId = {}));
 var ConnectorInterfaceResultType;
 (function (ConnectorInterfaceResultType) {
     ConnectorInterfaceResultType["ArrayBuffer"] = "arrayBuffer";
     ConnectorInterfaceResultType["JSON"] = "json";
 })(ConnectorInterfaceResultType || (ConnectorInterfaceResultType = {}));
+var SourceItemTypeId;
+(function (SourceItemTypeId) {
+    SourceItemTypeId["Folder"] = "folder";
+    SourceItemTypeId["Object"] = "object";
+})(SourceItemTypeId || (SourceItemTypeId = {}));
+// -----------------------------------------------------------------------------------------------------------------------------------------
+// Utilities
+// -----------------------------------------------------------------------------------------------------------------------------------------
 const extractLastSubDirectoryFromPath = (directory) => {
     if (directory) {
         let lastSeparatorIndex;
@@ -35,39 +43,33 @@ const extractLastSubDirectoryFromPath = (directory) => {
  * @copyright Copyright (c) 2019-2021 Springbrook S.L.
  * @license "ISC"
  */
-const sourceURLPrefix = 'https://nectis-sample-data.web.app/fileShare';
+const defaultChunkSize = 4096;
+const urlPrefix = 'https://nectis-sample-data.web.app/fileShare';
 // -----------------------------------------------------------------------------------------------------------------------------------------
 // Connector
 // -----------------------------------------------------------------------------------------------------------------------------------------
 class SampleFileConnector {
-    appEnvironment;
-    appSession;
     connection;
     connectionClassId;
-    /**
-     * ?
-     * @param appEnvironment ?
-     * @param appSession ?
-     * @param connection ?
-     */
-    constructor(appEnvironment, appSession, connection) {
-        this.appEnvironment = appEnvironment;
-        this.appSession = appSession;
+    constructor(connection) {
         this.connection = connection;
         this.connectionClassId = ConnectionClassId.FileStorage;
     }
     abort() {
         this.connection.isAborted = true;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async authenticate(accountId, sessionAccessToken, screenHeight, screenWidth) {
         return Promise.reject(new Error('Not implemented'));
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async describe(accountId, sessionAccessToken, itemId) {
         return Promise.reject(new Error('Not implemented'));
     }
     getCreateInterface() {
         throw new Error('Not implemented');
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async getFolderItemCounts(accountId, sessionAccessToken, directory) {
         return Promise.reject(new Error('Not implemented'));
     }
@@ -88,22 +90,13 @@ class SampleFileConnector {
 // -----------------------------------------------------------------------------------------------------------------------------------------
 // Preview Item
 // -----------------------------------------------------------------------------------------------------------------------------------------
-const previewItem = async (thisConnector, accountId, sessionAccessToken, sourceViewProperties
-// previewInterfaceSettings: ConnectorPreviewInterfaceSettings
-) => {
-    try {
-        if (!sourceViewProperties.path)
-            throw new Error('Missing path');
-        const headers = {};
-        // if (previewInterfaceSettings.chunkSize) headers.Range = `bytes=0-${previewInterfaceSettings.chunkSize}`;
-        headers.Range = 'bytes=0-10';
-        const response = await fetch(`${sourceURLPrefix}${sourceViewProperties.path}`, { headers });
-        const blob = await response.text();
-        return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
-    }
-    catch (error) {
-        console.log(9999, error);
-    }
+const previewItem = async (thisConnector, accountId, sessionAccessToken, previewInterfaceSettings, sourceViewProperties) => {
+    const headers = {
+        Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
+    };
+    const response = await fetch(`${urlPrefix}${sourceViewProperties.path}`, { headers });
+    const blob = await response.text();
+    return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
 };
 // -----------------------------------------------------------------------------------------------------------------------------------------
 // Retrieve Items
@@ -152,7 +145,7 @@ const buildFolderItem = (directory, itemCount) => {
         name: lastSubDirectoryName,
         referenceId: undefined,
         size: undefined,
-        typeId: ItemTypeId.Folder
+        typeId: SourceItemTypeId.Folder
     };
 };
 const buildObjectItem = (directory, name, encodingId, size, lastModifiedAtString) => ({
@@ -169,7 +162,7 @@ const buildObjectItem = (directory, name, encodingId, size, lastModifiedAtString
     name,
     referenceId: undefined,
     size,
-    typeId: ItemTypeId.Object
+    typeId: SourceItemTypeId.Object
 });
 
 export { SampleFileConnector as default };

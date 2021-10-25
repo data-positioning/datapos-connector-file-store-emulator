@@ -22,7 +22,7 @@ import {
 } from '../../nectis-connector-interface';
 
 const defaultChunkSize = 4096;
-const sourceURLPrefix = 'https://nectis-sample-data.web.app/fileShare';
+const urlPrefix = 'https://nectis-sample-data.web.app/fileShare';
 
 // -----------------------------------------------------------------------------------------------------------------------------------------
 // Connector
@@ -93,7 +93,7 @@ const previewItem = async (
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
 
-    const response = await fetch(`${sourceURLPrefix}${sourceViewProperties.path}`, { headers });
+    const response = await fetch(`${urlPrefix}${sourceViewProperties.path}`, { headers });
     const blob = await response.text();
 
     return { data: blob, typeId: ConnectorInterfaceResultType.ArrayBuffer };
