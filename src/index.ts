@@ -94,8 +94,10 @@ const previewItem = async (
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
     const response = await fetch(`${urlPrefix}${sourceViewProperties.path}`, { headers });
-    const arrayBuffer = await (await response.blob()).arrayBuffer();
-    return { data: arrayBuffer, typeId: SourceItemPreviewTypeId.ArrayBuffer };
+    const blob = await response.blob();
+    const arrayBuffer = await blob.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
+    return { data: uint8Array, typeId: SourceItemPreviewTypeId.Uint8Array };
 };
 
 // -----------------------------------------------------------------------------------------------------------------------------------------

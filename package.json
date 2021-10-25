@@ -13,7 +13,7 @@
         "connector"
     ],
     "main": "./src/index.ts",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "devDependencies": {
         "@rollup/plugin-commonjs": "^21.0.1",
         "@rollup/plugin-json": "^4.1.0",
