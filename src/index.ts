@@ -97,7 +97,7 @@ const previewItem = async (
     const blob = await response.blob();
     const arrayBuffer = await blob.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
-    return { data: uint8Array, typeId: SourceItemPreviewTypeId.Uint8Array };
+    return { arrayBuffer, blob, data: uint8Array, typeId: SourceItemPreviewTypeId.Uint8Array };
 };
 
 // -----------------------------------------------------------------------------------------------------------------------------------------
@@ -105,6 +105,7 @@ const previewItem = async (
 // -----------------------------------------------------------------------------------------------------------------------------------------
 
 const retrieveItems = (directory: string): SourceItemPage => {
+    console.log('directory', directory);
     const items: SourceItem[] = [];
     if (directory.startsWith('/SAP Employee Central')) {
         items.push(buildObjectItem('/SAP Employee Central', 'ADDRESS_INFO.csv', 'utf-8', 208015, '2018-01-02T23:33:00+00:00'));
@@ -126,8 +127,14 @@ const retrieveItems = (directory: string): SourceItemPage => {
         items.push(buildObjectItem('/SAP Employee Central', 'PERSONAL_DATA.csv', 'utf-8', 105949, '2018-01-02T23:33:00+00:00'));
         items.push(buildObjectItem('/SAP Employee Central', 'PICKLISTS.csv', 'utf-8', 78044, '2018-01-02T23:33:00+00:00'));
         items.push(buildObjectItem('/SAP Employee Central', 'TERRITORY.csv', 'utf-8', 8541, '2018-01-02T23:33:00+00:00'));
+    } else if (directory.startsWith('/Test Files')) {
+        items.push(buildFolderItem('/Encoding', 19));
+        items.push(buildObjectItem('/Test Files/Encoding', 'koi8_r.txt', 'utf-8', 8541, '2018-01-02T23:33:00+00:00'));
+    } else if (directory.startsWith('/Encoding')) {
+        items.push(buildObjectItem('/Test Files/Encoding', 'koi8_r.txt', 'utf-8', 8541, '2018-01-02T23:33:00+00:00'));
     } else {
         items.push(buildFolderItem('/SAP Employee Central', 19));
+        items.push(buildFolderItem('/Test Files', 19));
     }
     return { cursor: undefined, isMore: false, items };
 };
