@@ -7,7 +7,6 @@
 module.exports = (grunt) => {
     // Initialise configuration.
     grunt.initConfig({
-        // Bump configuration.
         bump: {
             options: {
                 commitFiles: ['-a'],
@@ -16,7 +15,6 @@ module.exports = (grunt) => {
             }
         },
 
-        // Run configuration.
         run: {
             audit: { args: ['npm', 'audit'], cmd: 'npx' },
             licenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
@@ -27,7 +25,7 @@ module.exports = (grunt) => {
             rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.js'], cmd: 'npx' },
             rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js'], cmd: 'npx' },
             test: { args: ['WARNING: No tests implemented.'], cmd: 'echo' },
-            update: { args: ['npm', 'update', '--save/--save-dev'], cmd: 'npx' }
+            update: { exec: 'npx ncu -u && npm install' }
         }
     });
 
