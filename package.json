@@ -13,7 +13,7 @@
         "connector"
     ],
     "main": "./src/index.ts",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.1.0",
         "@typescript-eslint/parser": "^5.1.0",
