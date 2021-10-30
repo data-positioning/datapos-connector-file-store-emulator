@@ -95,16 +95,14 @@ const previewItem = async (thisConnector, accountId, sessionAccessToken, preview
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
     const response = await fetch(`${urlPrefix}${sourceViewProperties.path}`, { headers });
-    const blob = await response.blob();
-    const arrayBuffer = await blob.arrayBuffer();
+    const arrayBuffer = await response.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
-    return { arrayBuffer, blob, data: uint8Array, typeId: SourceItemPreviewTypeId.Uint8Array };
+    return { data: uint8Array, typeId: SourceItemPreviewTypeId.Uint8Array };
 };
 // -----------------------------------------------------------------------------------------------------------------------------------------
 // Retrieve Items
 // -----------------------------------------------------------------------------------------------------------------------------------------
 const retrieveItems = (directory) => {
-    console.log('directory', directory);
     const items = [];
     if (directory.startsWith('/SAP Employee Central')) {
         items.push(buildObjectItem('/SAP Employee Central', 'ADDRESS_INFO.csv', 'utf-8', 208015, '2018-01-02T23:33:00+00:00'));
@@ -129,10 +127,10 @@ const retrieveItems = (directory) => {
     }
     else if (directory.startsWith('/Test Files')) {
         items.push(buildFolderItem('/Encoding', 19));
-        items.push(buildObjectItem('/Test Files/Encoding', 'koi8_r.txt', 'utf-8', 8541, '2018-01-02T23:33:00+00:00'));
     }
     else if (directory.startsWith('/Encoding')) {
-        items.push(buildObjectItem('/Test Files/Encoding', 'koi8_r.txt', 'utf-8', 8541, '2018-01-02T23:33:00+00:00'));
+        items.push(buildObjectItem('/Test Files/Encoding', 'big5.txt', 'utf-8', 24, '2018-01-02T23:33:00+00:00'));
+        items.push(buildObjectItem('/Test Files/Encoding', 'koi8_r.txt', 'utf-8', 85, '2018-01-02T23:33:00+00:00'));
     }
     else {
         items.push(buildFolderItem('/SAP Employee Central', 19));
