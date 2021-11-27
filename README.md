@@ -1,4 +1,4 @@
-# Nectis Sample Files Data Driver
+# Nectis Sample Files Data Connector
 
 ### Project setup
 
@@ -27,5 +27,5 @@ cmd shift S
 ### Deploys to Firebase Storage
 
 ```
-Manually upload all files in dist directory to top level firebase storage directory.
+Manually upload all files in the dist directory to the top level firebase storage directory.
 ```

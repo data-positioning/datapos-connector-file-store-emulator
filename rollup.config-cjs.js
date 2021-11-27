@@ -18,7 +18,7 @@ export default [
         output: [
             {
                 exports: 'auto',
-                file: './dist/nectis-driver-data-sample-files-cjs.js',
+                file: './dist/nectis-connector-data-sample-files-cjs.js',
                 format: 'cjs'
             }
         ],
