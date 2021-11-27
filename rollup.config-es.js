@@ -6,6 +6,7 @@
 
 import pkg from './package.json';
 import typescript from 'rollup-plugin-typescript2';
+import { terser } from 'rollup-plugin-terser';
 
 export default [
     {
@@ -14,10 +15,10 @@ export default [
         output: [
             {
                 exports: 'auto',
-                file: './dist/nectis-connector-sample-files-es.js',
+                file: './dist/nectis-driver-data-sample-files-es.js',
                 format: 'es'
             }
         ],
-        plugins: [typescript()]
+        plugins: [typescript(), terser()]
     }
 ];

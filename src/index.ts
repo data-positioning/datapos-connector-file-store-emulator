@@ -20,7 +20,7 @@ import {
     SourceItemTypeId,
     SourceViewProperties,
     extractLastSubDirectoryFromPath
-} from '../../nectis-connector-interface';
+} from '../../nectis-driver-interface';
 
 const defaultChunkSize = 4096;
 const urlPrefix = 'https://nectis-sample-data.web.app/fileShare';

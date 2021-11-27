@@ -1,27 +1,29 @@
 {
-    "name": "@nectis/nectis-connector-sample-files",
-    "description": "Nectis sample files connector",
+    "name": "@nectis/nectis-driver-data-sample-files",
+    "description": "Nectis sample files data driver",
     "author": "Jonathan Terrell <jonathan.terrell@springbrook.es>",
     "license": "ISC",
     "repository": {
         "type": "git",
-        "url": "git://github.com/nectis/nectis-connector-sample-files.git"
+        "url": "git://github.com/nectis/nectis-driver-data-sample-files.git"
     },
     "keywords": [
         "nectis",
         "plugin",
-        "connector"
+        "driver"
     ],
     "main": "./src/index.ts",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.2.0",
         "@typescript-eslint/parser": "^5.2.0",
         "eslint": "^8.1.0",
+        "eslint-plugin-prettier": "^3.3.1",
         "grunt": "^1.4.1",
         "grunt-bump": "^0.8.0",
         "grunt-run": "^0.8.1",
         "rollup": "^2.58.3",
+        "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-typescript2": "^0.30.0",
         "typescript": "^4.4.4"
     },

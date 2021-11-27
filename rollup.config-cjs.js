@@ -9,6 +9,7 @@
 // import nodeResolve from '@rollup/plugin-node-resolve';
 import pkg from './package.json';
 import typescript from 'rollup-plugin-typescript2';
+import { terser } from 'rollup-plugin-terser';
 
 export default [
     {
@@ -17,10 +18,10 @@ export default [
         output: [
             {
                 exports: 'auto',
-                file: './dist/nectis-connector-sample-files-cjs.js',
+                file: './dist/nectis-driver-data-sample-files-cjs.js',
                 format: 'cjs'
             }
         ],
-        plugins: [/* json(), nodeResolve({ preferBuiltins: true }) commonjs(), */ typescript()]
+        plugins: [/* json(), nodeResolve({ preferBuiltins: true }) commonjs(), */ typescript(), terser()]
     }
 ];

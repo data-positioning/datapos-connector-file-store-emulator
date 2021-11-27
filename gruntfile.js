@@ -22,8 +22,8 @@ module.exports = (grunt) => {
             nlf: { args: ['nlf', '-d'], cmd: 'npx' },
             outdated: { args: ['npm', 'outdated'], cmd: 'npx' },
             publish: { args: ['publish'], cmd: 'npx' },
-            rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.js'], cmd: 'npx' },
-            rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js'], cmd: 'npx' },
+            rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.js', '--environment', 'BUILD:production'], cmd: 'npx' },
+            rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             test: { args: ['WARNING: No tests implemented.'], cmd: 'echo' },
             update: { exec: 'npx ncu -u && npm install' }
         }

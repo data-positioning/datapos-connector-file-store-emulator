@@ -2,7 +2,7 @@
 !.vscode/tasks.json
 
 dist/*
-!dist/nectis-connector-sample-files-cjs.js
-!dist/nectis-connector-sample-files-es.js
+!dist/nectis-driver-data-sample-files-cjs.js
+!dist/nectis-driver-data-sample-files-es.js
 
 node_modules
