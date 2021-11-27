@@ -23,3 +23,9 @@ cmd shift L
 ```
 cmd shift S
 ```
+
+### Deploys to Firebase Storage
+
+```
+Manually upload all files in dist directory to top level firebase storage directory.
+```

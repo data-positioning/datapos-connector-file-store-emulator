@@ -13,7 +13,7 @@
         "driver"
     ],
     "main": "./src/index.ts",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.2.0",
         "@typescript-eslint/parser": "^5.2.0",
