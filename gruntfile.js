@@ -39,7 +39,7 @@ module.exports = (grunt) => {
     grunt.registerTask('checkLicense', ['run:licenseChecker', 'run:nlf']); // CMD SHIFT C
     grunt.registerTask('lint', ['run:lint']); // CMD SHIFT L
     grunt.registerTask('outdated', ['run:outdated']); // CMD SHIFT O
-    grunt.registerTask('release', ['run:rollupCJS', 'run:rollupES', 'bump', 'run:publish']); // CMD SHIFT R
+    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:publish']); // CMD SHIFT R
     grunt.registerTask('sync', ['bump']); // CMD SHIFT S
     grunt.registerTask('test', ['run:test']); // CMD SHIFT T
     grunt.registerTask('update', ['run:update']); // CMD SHIFT U

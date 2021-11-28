@@ -7,7 +7,7 @@
 import {
     Connection,
     ConnectionClassId,
-    Connector,
+    DataConnector,
     ConnectorCreateInterface,
     ConnectorPreviewInterface,
     ConnectorPreviewInterfaceSettings,
@@ -29,7 +29,7 @@ const urlPrefix = 'https://nectis-sample-data.web.app/fileShare';
 // Connector
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-export default class SampleFileDataConnector implements Connector {
+export default class SampleFileDataConnector implements DataConnector {
     connection: Connection;
     connectionClassId: ConnectionClassId;
 
@@ -84,7 +84,7 @@ export default class SampleFileDataConnector implements Connector {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const previewItem = async (
-    thisConnector: Connector,
+    thisConnector: DataConnector,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: ConnectorPreviewInterfaceSettings,
