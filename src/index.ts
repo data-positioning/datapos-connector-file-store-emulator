@@ -32,6 +32,7 @@ const urlPrefix = 'https://nectis-sample-data.web.app/fileShare';
 export default class SampleFileDataConnector implements DataConnector {
     connection: Connection;
     connectionClassId: ConnectionClassId;
+    id: string;
 
     constructor(connection: Connection) {
         this.connection = connection;
