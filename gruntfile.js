@@ -17,6 +17,7 @@ module.exports = (grunt) => {
 
         run: {
             audit: { args: ['npm', 'audit'], cmd: 'npx' },
+            copyToFirebase: { args: ['cp', 'dist/*', 'gs://nectis-application.appspot.com'], cmd: 'gsutil' },
             licenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
             nlf: { args: ['nlf', '-d'], cmd: 'npx' },
@@ -35,7 +36,7 @@ module.exports = (grunt) => {
 
     // Register local tasks.
     grunt.registerTask('audit', ['run:audit']); // CMD SHIFT A
-    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // CMD SHIFT B
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase']); // CMD SHIFT B
     grunt.registerTask('checkLicense', ['run:licenseChecker', 'run:nlf']); // CMD SHIFT C
     grunt.registerTask('lint', ['run:lint']); // CMD SHIFT L
     grunt.registerTask('outdated', ['run:outdated']); // CMD SHIFT O
