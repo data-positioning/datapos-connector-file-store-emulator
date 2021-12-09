@@ -95,6 +95,7 @@ const previewItem = async (
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
     const response = await fetch(`${urlPrefix}${sourceViewProperties.path}`, { headers });
+    if (!response.ok) throw new Error(response.statusText);
     const arrayBuffer = await response.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
     return { data: uint8Array, typeId: SourceItemPreviewTypeId.Uint8Array };
