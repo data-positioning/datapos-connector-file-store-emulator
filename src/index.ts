@@ -23,7 +23,7 @@ import {
 } from '../../nectis-connector-interface';
 
 const defaultChunkSize = 4096;
-const urlPrefix = 'https://nectis-sample-data.web.app/fileShare';
+const urlPrefix = 'https://nectis-sample-data.web.app/fileStore';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Connector
