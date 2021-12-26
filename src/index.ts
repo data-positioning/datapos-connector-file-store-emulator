@@ -23,7 +23,7 @@ import {
 } from '../../nectis-connector-interface';
 
 const defaultChunkSize = 4096;
-const urlPrefix = 'https://nectis-sample-data.web.app/fileStore';
+const urlPrefix = 'https://nectis-resources.web.app/fileStore';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Connector
@@ -128,13 +128,41 @@ const retrieveItems = (directory: string): SourceItemPage => {
         items.push(buildObjectItem('/SAP Employee Central', 'PICKLISTS.csv', 'utf-8', 78044, '2018-01-02T23:33:00+00:00'));
         items.push(buildObjectItem('/SAP Employee Central', 'TERRITORY.csv', 'utf-8', 8541, '2018-01-02T23:33:00+00:00'));
     } else if (directory.startsWith('/Test Files')) {
-        items.push(buildFolderItem('/Encoding', 19));
+        items.push(buildFolderItem('/Encoding', 30));
     } else if (directory.startsWith('/Encoding')) {
-        items.push(buildObjectItem('/Test Files/Encoding', 'big5.txt', 'utf-8', 24, '2018-01-02T23:33:00+00:00'));
-        items.push(buildObjectItem('/Test Files/Encoding', 'koi8_r.txt', 'utf-8', 85, '2018-01-02T23:33:00+00:00'));
+        items.push(buildObjectItem('/Test Files/Encoding', 'big5', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'euc_jp', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'euc_kr', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'gb18030', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'iso2022jp', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'iso88592_cs', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'iso88595_ru', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'iso88596_ar', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'iso88597_el', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'koi8r', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'lang_arabic', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'lang_chinese', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'lang_czech', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'lang_greek', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'lang_hebrew', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'lang_japanese', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'lang_korean', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'lang_russian', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'lang_turkish', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'shiftjis', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'utf16be', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'utf16le', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'utf8', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'windows_1250', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'windows_1251', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'windows_1252', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'windows_1253', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'windows_1254', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'windows_1255', undefined, undefined, undefined));
+        items.push(buildObjectItem('/Test Files/Encoding', 'windows_1256', undefined, undefined, undefined));
     } else {
         items.push(buildFolderItem('/SAP Employee Central', 19));
-        items.push(buildFolderItem('/Test Files', 19));
+        items.push(buildFolderItem('/Test Files', 7));
     }
     return { cursor: undefined, isMore: false, items };
 };
