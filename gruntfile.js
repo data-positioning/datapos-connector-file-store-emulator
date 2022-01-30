@@ -1,6 +1,7 @@
 /**
  * @author Jonathan Terrell <jonathan.terrell@springbrook.es>
- * @copyright Copyright (c) 2019-2021 Springbrook S.L.
+ * @copyright Copyright (c) 2022 Springbrook S.L.
+ * @file gruntfile.js
  * @license "ISC"
  */
 

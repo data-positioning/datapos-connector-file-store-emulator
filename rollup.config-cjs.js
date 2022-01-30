@@ -1,12 +1,10 @@
 /**
  * @author Jonathan Terrell <jonathan.terrell@springbrook.es>
- * @copyright Copyright (c) 2019-2021 Springbrook S.L.
+ * @copyright Copyright (c) 2022 Springbrook S.L.
+ * @file rollup.config-cjs.js
  * @license "ISC"
  */
 
-// import commonjs from '@rollup/plugin-commonjs';
-// import json from '@rollup/plugin-json';
-// import nodeResolve from '@rollup/plugin-node-resolve';
 import pkg from './package.json';
 import typescript from 'rollup-plugin-typescript2';
 import { terser } from 'rollup-plugin-terser';
@@ -22,6 +20,6 @@ export default [
                 format: 'cjs'
             }
         ],
-        plugins: [/* json(), nodeResolve({ preferBuiltins: true }) commonjs(), */ typescript(), terser()]
+        plugins: [typescript(), terser()]
     }
 ];
