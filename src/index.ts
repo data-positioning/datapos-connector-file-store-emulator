@@ -4,24 +4,20 @@
  * @license "ISC"
  */
 
+// Engine component dependencies.
+import { Connection, ConnectionClassId } from '../../nectis-engine-components/src/connection';
 import {
-    Connection,
-    ConnectionClassId,
     DataConnector,
     ConnectorCreateInterface,
     ConnectorPreviewInterface,
     ConnectorPreviewInterfaceSettings,
     ConnectorReadInterface,
-    ConnectorWriteInterface,
-    SourceItem,
-    SourceItemPage,
-    SourceItemPreview,
-    SourceItemPreviewTypeId,
-    SourceItemTypeId,
-    SourceViewProperties,
-    extractLastSubDirectoryFromPath
-} from '../../nectis-connector-interface';
+    ConnectorWriteInterface
+} from '../../nectis-engine-components/src/connector/data';
+import { SourceItem, SourceItemPage, SourceItemPreview, SourceItemPreviewTypeId, SourceItemTypeId } from '../../nectis-engine-components/src/sourceItem';
+import { SourceViewProperties } from '../../nectis-engine-components/src/sourceView';
 
+// ...
 const defaultChunkSize = 4096;
 const urlPrefix = 'https://nectis-resources.web.app/fileStore';
 
@@ -203,3 +199,19 @@ const buildObjectItem = (directory: string, name: string, encodingId: string, si
     size,
     typeId: SourceItemTypeId.Object
 });
+
+export const extractLastSubDirectoryFromPath = (directory: string): string | undefined => {
+    if (directory) {
+        let lastSeparatorIndex;
+        let lastCharacterIndex;
+        if (directory.endsWith('/')) {
+            lastSeparatorIndex = directory.lastIndexOf('/', directory.length - 2);
+            lastCharacterIndex = directory.length - 1;
+        } else {
+            lastSeparatorIndex = directory.lastIndexOf('/');
+            lastCharacterIndex = directory.length;
+        }
+        if (lastSeparatorIndex > -1) return directory.substring(lastSeparatorIndex + 1, lastCharacterIndex);
+    }
+    return undefined;
+};
