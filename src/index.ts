@@ -6,7 +6,7 @@
  */
 
 // Engine component dependencies.
-import { Connection, ConnectionClassId } from '../../nectis-engine-components/src/connection';
+import { Connection } from '../../nectis-engine-components/src/connection';
 import {
     DataConnector,
     ConnectorCreateInterface,
@@ -20,7 +20,7 @@ import { SourceViewProperties } from '../../nectis-engine-components/src/sourceV
 
 // ...
 const defaultChunkSize = 4096;
-const urlPrefix = 'https://nectis-resources.web.app/fileStore';
+const urlPrefix = 'https://nectis-res-v00-dev-alpha/fileStore';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Connector
@@ -28,12 +28,10 @@ const urlPrefix = 'https://nectis-resources.web.app/fileStore';
 
 export default class SampleFileDataConnector implements DataConnector {
     connection: Connection;
-    connectionClassId: ConnectionClassId;
     id: string;
 
     constructor(connection: Connection) {
         this.connection = connection;
-        this.connectionClassId = ConnectionClassId.FileStorage;
     }
 
     abort(): void {
