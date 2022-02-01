@@ -20,7 +20,7 @@ import { SourceViewProperties } from '../../nectis-engine-components/src/sourceV
 
 // ...
 const defaultChunkSize = 4096;
-const urlPrefix = 'https://nectis-res-v00-dev-alpha/fileStore';
+const urlPrefix = 'https://nectis-res-v00-dev-alpha.web.app/fileStore';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Connector
