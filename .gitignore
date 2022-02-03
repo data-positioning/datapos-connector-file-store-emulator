@@ -7,3 +7,5 @@ dist/*
 !dist/nectis-connector-data-sample-files-es.js
 
 node_modules
+
+.env.json
