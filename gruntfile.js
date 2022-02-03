@@ -35,30 +35,44 @@ module.exports = (grunt) => {
     });
 
     grunt.task.registerTask('updateFirestore', 'Updates Firestore', async function () {
-        const done = this.async();
+        try {
+            const done = this.async();
 
-        const fetchModule = await import('node-fetch');
-        const signInResponse = await fetchModule.default(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env.FIREBASE_API_KEY}`, {
-            body: JSON.stringify({
-                email: env.FIREBASE_EMAIL_ADDRESS,
-                password: env.FIREBASE_PASSWORD,
-                returnSecureToken: true
-            }),
-            headers: { Referer: 'nectis-app-v00-dev-alpha.web.app' },
-            method: 'POST'
-        });
-        const signInResult = await signInResponse.json();
+            const fetchModule = await import('node-fetch');
+            const signInResponse = await fetchModule.default(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env.FIREBASE_API_KEY}`, {
+                body: JSON.stringify({
+                    email: env.FIREBASE_EMAIL_ADDRESS,
+                    password: env.FIREBASE_PASSWORD,
+                    returnSecureToken: true
+                }),
+                headers: { Referer: 'nectis-app-v00-dev-alpha.web.app' },
+                method: 'POST'
+            });
+            const signInResult = await signInResponse.json();
 
-        const listResponse = await fetchModule.default(`https://firestore.googleapis.com/v1/projects/${env.FIREBASE_PROJECT_ID}/databases/(default)/documents/connectors`, {
-            headers: { Authorization: `Bearer ${signInResult.idToken}` },
-            method: 'GET'
-        });
-        const listResult = await FireStoreParser(await listResponse.json());
-        for (const document of listResult.documents) {
-            console.log(document);
+            const connectorsResponse = await fetchModule.default(`https://europe-west1-nectis-app-v00-dev-alpha.cloudfunctions.net/api/connectors`, {
+                body: JSON.stringify({
+                    authenticationMethodId: 'none',
+                    categoryId: 'sampleData',
+                    classId: 'system',
+                    id: 'nectis-connector-sample-files',
+                    logoPath: 'logos/sampleData.svg',
+                    pluginPath: 'nectis-connector-sample-files-es.js',
+                    statusId: 'alpha',
+                    typeLabel: 'Files',
+                    typeLabelCollation: 'files',
+                    usageId: 'source'
+                }),
+                headers: { Authorization: signInResult.idToken, 'Content-Type': 'application/json' },
+                method: 'POST'
+            });
+            if (!connectorsResponse.ok) console.log(connectorsResponse.status, connectorsResponse.statusText, await connectorsResponse.text());
+
+            done();
+        } catch (error) {
+            console.log(error);
+            done(false);
         }
-
-        done();
     });
 
     // Load external tasks.
