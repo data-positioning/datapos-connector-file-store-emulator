@@ -6,7 +6,6 @@
  */
 
 const env = require('./.env.json');
-const FireStoreParser = require('firestore-parser');
 
 module.exports = (grunt) => {
     // Initialise configuration.
@@ -29,8 +28,7 @@ module.exports = (grunt) => {
             publish: { args: ['publish'], cmd: 'npx' },
             rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js', '--environment', 'BUILD:production'], cmd: 'npx' },
-            test: { args: ['WARNING: No tests implemented.'], cmd: 'echo' },
-            update: { exec: 'npx ncu -u && npm install' }
+            test: { args: ['WARNING: No tests implemented.'], cmd: 'echo' }
         }
     });
 
@@ -45,12 +43,12 @@ module.exports = (grunt) => {
                     password: env.FIREBASE_PASSWORD,
                     returnSecureToken: true
                 }),
-                headers: { Referer: 'nectis-app-v00-dev-alpha.web.app' },
+                headers: { Referer: `${env.FIREBASE_PROJECT_ID}.web.app` },
                 method: 'POST'
             });
             const signInResult = await signInResponse.json();
 
-            const connectorsResponse = await fetchModule.default(`https://europe-west1-nectis-app-v00-dev-alpha.cloudfunctions.net/api/connectors`, {
+            const connectorsResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
                 body: JSON.stringify({
                     authenticationMethodId: 'none',
                     categoryId: 'sampleData',
@@ -80,13 +78,12 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-run');
 
     // Register local tasks.
-    grunt.registerTask('audit', ['updateFirestore']); // CMD SHIFT A
-    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase']); // CMD SHIFT B
-    grunt.registerTask('checkLicense', ['run:licenseChecker', 'run:nlf']); // CMD SHIFT C
-    grunt.registerTask('lint', ['run:lint']); // CMD SHIFT L
-    grunt.registerTask('outdated', ['run:outdated']); // CMD SHIFT O
-    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:publish']); // CMD SHIFT R
-    grunt.registerTask('sync', ['bump']); // CMD SHIFT S
-    grunt.registerTask('test', ['run:test']); // CMD SHIFT T
-    grunt.registerTask('update', ['run:update']); // CMD SHIFT U
+    grunt.registerTask('audit', ['updateFirestore']);
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase']);
+    grunt.registerTask('checkLicense', ['run:licenseChecker', 'run:nlf']);
+    grunt.registerTask('lint', ['run:lint']);
+    grunt.registerTask('outdated', ['run:outdated']);
+    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:publish']);
+    grunt.registerTask('synchronise', ['bump']);
+    grunt.registerTask('test', ['run:test']);
 };
