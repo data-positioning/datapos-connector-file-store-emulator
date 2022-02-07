@@ -199,7 +199,7 @@ const buildObjectItem = (directory: string, name: string, encodingId: string, si
     typeId: SourceItemTypeId.Object
 });
 
-export const extractLastSubDirectoryFromPath = (directory: string): string | undefined => {
+const extractLastSubDirectoryFromPath = (directory: string): string | undefined => {
     if (directory) {
         let lastSeparatorIndex;
         let lastCharacterIndex;

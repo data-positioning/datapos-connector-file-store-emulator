@@ -53,9 +53,9 @@ module.exports = (grunt) => {
                     authenticationMethodId: 'none',
                     categoryId: 'sampleData',
                     classId: 'system',
-                    id: 'nectis-connector-sample-files',
+                    id: 'nectis-connector-data-sample-files',
                     logoPath: 'logos/sampleData.svg',
-                    pluginPath: 'nectis-connector-sample-files-es.js',
+                    pluginPath: 'nectis-connector-data-sample-files-es.js',
                     statusId: 'alpha',
                     typeLabel: 'Files',
                     typeLabelCollation: 'files',
@@ -83,6 +83,7 @@ module.exports = (grunt) => {
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']);
     grunt.registerTask('lint', ['run:lint']);
     grunt.registerTask('outdated', ['run:outdated']);
+    grunt.registerTask('publish', ['run:publish']);
     grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:copyToFirebase', 'updateFirestore']);
     grunt.registerTask('synchronise', ['bump']);
     grunt.registerTask('test', ['run:test']);
