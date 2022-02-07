@@ -1,6 +1,7 @@
 {
-  "@nectis/nectis-connector-data-sample-files@0.1.27": {
-    "licenses": "ISC",
+  "@nectis/nectis-connector-data-sample-files@0.1.31": {
+    "licenses": "UNLICENSED",
+    "private": true,
     "publisher": "Jonathan Terrell",
     "email": "jonathan.terrell@springbrook.es",
     "path": "/Users/jonathanterrell/Nectis/GitHub/nectis-connector-data-sample-files",

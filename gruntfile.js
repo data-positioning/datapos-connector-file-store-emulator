@@ -21,9 +21,9 @@ module.exports = (grunt) => {
         run: {
             audit: { args: ['npm', 'audit'], cmd: 'npx' },
             copyToFirebase: { args: ['cp', 'dist/*', 'gs://nectis-app-v00-dev-alpha.appspot.com'], cmd: 'gsutil' },
-            licenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
+            identifyLicensesUsingLicenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
+            identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
-            nlf: { args: ['nlf', '-d'], cmd: 'npx' },
             outdated: { args: ['npm', 'outdated'], cmd: 'npx' },
             publish: { args: ['publish'], cmd: 'npx' },
             rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.js', '--environment', 'BUILD:production'], cmd: 'npx' },
@@ -78,12 +78,12 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-run');
 
     // Register local tasks.
-    grunt.registerTask('audit', ['updateFirestore']);
-    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase']);
-    grunt.registerTask('checkLicense', ['run:licenseChecker', 'run:nlf']);
+    grunt.registerTask('audit', ['run:audit']);
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'updateFirestore']);
+    grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']);
     grunt.registerTask('lint', ['run:lint']);
     grunt.registerTask('outdated', ['run:outdated']);
-    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:publish']);
+    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:copyToFirebase', 'updateFirestore']);
     grunt.registerTask('synchronise', ['bump']);
     grunt.registerTask('test', ['run:test']);
 };

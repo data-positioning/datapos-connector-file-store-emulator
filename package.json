@@ -3,23 +3,23 @@
     "description": "Nectis sample files data connector",
     "author": "Jonathan Terrell <jonathan.terrell@springbrook.es>",
     "license": "ISC",
+    "private": true,
     "main": "./src/index.ts",
-    "version": "0.1.31",
+    "version": "0.1.32",
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^5.2.0",
-        "@typescript-eslint/parser": "^5.2.0",
-        "eslint": "^8.1.0",
-        "eslint-plugin-prettier": "^3.3.1",
+        "@typescript-eslint/eslint-plugin": "^5.10.2",
+        "@typescript-eslint/parser": "^5.10.2",
+        "eslint": "^8.8.0",
+        "eslint-plugin-prettier": "^4.0.0",
         "firestore-parser": "^0.9.0",
         "grunt": "^1.4.1",
         "grunt-bump": "^0.8.0",
         "grunt-run": "^0.8.1",
         "https": "^1.0.0",
         "node-fetch": "^3.2.0",
-        "rollup": "^2.58.3",
+        "rollup": "^2.67.1",
         "rollup-plugin-terser": "^7.0.2",
-        "rollup-plugin-typescript2": "^0.30.0",
-        "typescript": "^4.4.4"
-    },
-    "scripts": {}
+        "rollup-plugin-typescript2": "^0.31.2",
+        "typescript": "^4.5.5"
+    }
 }
