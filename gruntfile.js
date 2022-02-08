@@ -54,12 +54,14 @@ module.exports = (grunt) => {
                     categoryId: 'sampleData',
                     classId: 'system',
                     id: 'nectis-connector-data-sample-files',
+                    logo: '',
                     logoPath: 'logos/sampleData.svg',
                     pluginPath: 'nectis-connector-data-sample-files-es.js',
                     statusId: 'alpha',
                     typeLabel: 'Files',
                     typeLabelCollation: 'files',
-                    usageId: 'source'
+                    usageId: 'source',
+                    version: VERSION
                 }),
                 headers: { Authorization: signInResult.idToken, 'Content-Type': 'application/json' },
                 method: 'POST'
