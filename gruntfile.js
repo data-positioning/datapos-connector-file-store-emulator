@@ -15,9 +15,12 @@ module.exports = (grunt) => {
             options: {
                 commitFiles: ['-a'],
                 commitMessage: '<%if(grunt.config("commitMessage")){%><%=grunt.config("commitMessage")%><%}else{%>Release v%VERSION%<%}%>',
-                pushTo: 'origin'
+                pushTo: 'origin',
+                updateConfigs: ['pkg']
             }
         },
+
+        pkg,
 
         run: {
             audit: { args: ['npm', 'audit'], cmd: 'npx' },
