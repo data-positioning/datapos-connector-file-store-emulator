@@ -52,7 +52,7 @@ module.exports = (grunt) => {
             });
             const signInResult = await signInResponse.json();
 
-            console.log(this.pkg.version);
+            console.log(this);
             const connectorsResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
                 body: JSON.stringify({
                     authenticationMethodId: 'none',
