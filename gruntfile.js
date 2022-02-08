@@ -6,6 +6,7 @@
  */
 
 const env = require('./.env.json');
+const pkg = require('./package.json');
 
 module.exports = (grunt) => {
     // Initialise configuration.
@@ -61,7 +62,7 @@ module.exports = (grunt) => {
                     typeLabel: 'Files',
                     typeLabelCollation: 'files',
                     usageId: 'source',
-                    version: VERSION
+                    version: pkg.version
                 }),
                 headers: { Authorization: signInResult.idToken, 'Content-Type': 'application/json' },
                 method: 'POST'
