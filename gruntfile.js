@@ -36,7 +36,7 @@ module.exports = (grunt) => {
         }
     });
 
-    grunt.task.registerTask('updateFirestore', 'Updates Firestore', async function (grunt) {
+    grunt.task.registerTask('updateFirestore', 'Updates Firestore', async function () {
         try {
             const done = this.async();
 
@@ -52,7 +52,7 @@ module.exports = (grunt) => {
             });
             const signInResult = await signInResponse.json();
 
-            console.log(grunt.pkg.version);
+            console.log(this.pkg.version);
             const connectorsResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
                 body: JSON.stringify({
                     authenticationMethodId: 'none',
