@@ -52,7 +52,7 @@ module.exports = (grunt) => {
             });
             const signInResult = await signInResponse.json();
 
-            console.log(grunt.config);
+            console.log(grunt.config.pkg.version);
             const connectorsResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
                 body: JSON.stringify({
                     authenticationMethodId: 'none',
@@ -66,7 +66,7 @@ module.exports = (grunt) => {
                     typeLabel: 'Files',
                     typeLabelCollation: 'files',
                     usageId: 'source',
-                    version: pkg.version
+                    version: grunt.config.pkg.version
                 }),
                 headers: { Authorization: signInResult.idToken, 'Content-Type': 'application/json' },
                 method: 'POST'
