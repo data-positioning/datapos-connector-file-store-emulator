@@ -36,7 +36,7 @@ module.exports = (grunt) => {
         }
     });
 
-    grunt.task.registerTask('updateFirestore', 'Updates Firestore', async function () {
+    grunt.task.registerTask('updateFirestore', 'Updates Firestore', async function (grunt) {
         try {
             const done = this.async();
 
@@ -86,12 +86,12 @@ module.exports = (grunt) => {
 
     // Register local tasks.
     grunt.registerTask('audit', ['run:audit']);
-    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase(grunt)', 'updateFirestore']);
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'updateFirestore']);
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']);
     grunt.registerTask('lint', ['run:lint']);
     grunt.registerTask('outdated', ['run:outdated']);
     grunt.registerTask('publish', ['run:publish']);
-    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:copyToFirebase(grunt)', 'updateFirestore']);
+    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:copyToFirebase', 'updateFirestore']);
     grunt.registerTask('synchronise', ['bump']);
     grunt.registerTask('test', ['run:test']);
 };
