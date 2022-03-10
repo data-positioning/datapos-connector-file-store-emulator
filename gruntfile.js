@@ -22,7 +22,7 @@ module.exports = (grunt) => {
 
         copy: {
             docoToDist: {
-                files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['index.md'], rename: (dest) => `${dest}/nectis-connector-node-browser.md` }]
+                files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['index.md'], rename: (dest) => `${dest}/nectis-connector-data-sample-files.md` }]
             }
         },
 
