@@ -21,7 +21,7 @@ module.exports = (grunt) => {
         },
 
         copy: {
-            doco: {
+            docoToDist: {
                 files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['index.md'], rename: (dest) => `${dest}/nectis-connector-data-sample-files.md` }]
             }
         },
@@ -93,12 +93,12 @@ module.exports = (grunt) => {
 
     // Register local tasks.
     grunt.registerTask('audit', ['run:audit']);
-    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'copy:doco', 'run:copyToFirebase', 'updateFirestore']);
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'copy:docoToDist', 'run:copyToFirebase', 'updateFirestore']);
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']);
     grunt.registerTask('lint', ['run:lint']);
     grunt.registerTask('outdated', ['run:outdated']);
     // grunt.registerTask('publish', ['run:publish']);
-    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'copy:doco', 'run:copyToFirebase', 'updateFirestore']);
+    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'copy:docoToDist', 'run:copyToFirebase', 'updateFirestore']);
     grunt.registerTask('synchronise', ['bump']);
     grunt.registerTask('test', ['run:test']);
 };
