@@ -3,7 +3,7 @@
 !.vscode/tasks.json
 
 dist/*
-!dist/index.md
+!dist/nectis-connector-data-sample-files.md
 !dist/nectis-connector-data-sample-files-cjs.js
 !dist/nectis-connector-data-sample-files-es.js
 
