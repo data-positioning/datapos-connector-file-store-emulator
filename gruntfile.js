@@ -21,7 +21,19 @@ module.exports = (grunt) => {
         },
 
         copy: {
-            doco: { files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['index.md'] }] }
+            doco: {
+                files: [
+                    {
+                        cwd: 'src',
+                        dest: 'dist',
+                        expand: true,
+                        src: ['index.md'],
+                        rename: function (dest, src) {
+                            return dest + '/nectis-connector-data-sample-files.md';
+                        }
+                    }
+                ]
+            }
         },
 
         pkg,
