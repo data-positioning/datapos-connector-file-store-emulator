@@ -20,6 +20,10 @@ module.exports = (grunt) => {
             }
         },
 
+        copy: {
+            doco: { files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['index.md'] }] }
+        },
+
         pkg,
 
         run: {
@@ -40,6 +44,7 @@ module.exports = (grunt) => {
         try {
             const done = this.async();
 
+            // Sign in to firebase.
             const fetchModule = await import('node-fetch');
             const signInResponse = await fetchModule.default(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env.FIREBASE_API_KEY}`, {
                 body: JSON.stringify({
@@ -52,6 +57,7 @@ module.exports = (grunt) => {
             });
             const signInResult = await signInResponse.json();
 
+            // Create/update connector record in application service database (firestore).
             const connectorsResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
                 body: JSON.stringify({
                     authenticationMethodId: 'none',
@@ -80,16 +86,17 @@ module.exports = (grunt) => {
 
     // Load external tasks.
     grunt.loadNpmTasks('grunt-bump');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-run');
 
     // Register local tasks.
     grunt.registerTask('audit', ['run:audit']);
-    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'updateFirestore']);
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'updateFirestore', 'copy:doco']);
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']);
     grunt.registerTask('lint', ['run:lint']);
     grunt.registerTask('outdated', ['run:outdated']);
-    grunt.registerTask('publish', ['run:publish']);
-    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:copyToFirebase', 'updateFirestore']);
+    // grunt.registerTask('publish', ['run:publish']);
+    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'bump', 'run:copyToFirebase', 'updateFirestore', 'copy:doco']);
     grunt.registerTask('synchronise', ['bump']);
     grunt.registerTask('test', ['run:test']);
 };
