@@ -5,6 +5,7 @@
  * @license "ISC"
  */
 
+const con = require('./src/connector.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
 
