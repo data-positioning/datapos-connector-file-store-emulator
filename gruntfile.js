@@ -5,12 +5,11 @@
  * @license "ISC"
  */
 
-const con = require('./src/connector.json');
+const connector = require('./src/connector.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
 
 module.exports = (grunt) => {
-    console.log(con);
     // Initialise configuration.
     grunt.initConfig({
         bump: {
@@ -24,7 +23,7 @@ module.exports = (grunt) => {
 
         copy: {
             docoToDist: {
-                files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['index.md'], rename: (dest) => `${dest}/nectis-connector-data-sample-files.md` }]
+                files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['config.json'], rename: (dest) => `${dest}/${connector.id}.json` }]
             }
         },
 
@@ -64,16 +63,16 @@ module.exports = (grunt) => {
             // Create/update connector record in application service database (firestore).
             const connectorsResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
                 body: JSON.stringify({
-                    authenticationMethodId: 'none',
-                    categoryId: 'sampleData',
-                    classId: 'system',
-                    id: 'nectis-connector-data-sample-files',
-                    logo: '<svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="vial" class="svg-inline--fa fa-vial" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#757575" d="M504.1 183l-176-176C324.3 2.344 318.1 0 312 0s-12.28 2.344-16.97 7.031c-9.375 9.375-9.375 24.56 0 33.94l15.16 15.16l-277.3 276.5c-38.75 38.75-45.13 102-9.375 143.5C44.08 500 72.76 512 101.5 512h.4473c26.38 0 52.75-9.1 72.88-30.12l281-280.1l15.19 15.19C475.7 221.7 481.8 224 488 224s12.28-2.344 16.97-7.031C514.3 207.6 514.3 192.4 504.1 183zM333.4 256H177.7l166.3-165.9l77.82 77.73L333.4 256z"></path></svg>',
-                    pluginPath: 'nectis-connector-data-sample-files-es.js',
-                    statusId: 'alpha',
-                    typeLabel: 'Files',
-                    typeLabelCollation: 'files',
-                    usageId: 'source',
+                    authenticationMethodId: connector.authenticationMethodId,
+                    categoryId: connector.categoryId,
+                    classId: connector.classId,
+                    id: connector.id,
+                    logo: connector.logo,
+                    pluginPath: `${connector.id}-es.js`,
+                    statusId: connector.statusId,
+                    typeLabel: connector.typeLabel,
+                    typeLabelCollation: connector.typeLabelCollation,
+                    usageId: connector.usageId,
                     version: `v${grunt.config.data.pkg.version}`
                 }),
                 headers: { Authorization: signInResult.idToken, 'Content-Type': 'application/json' },
