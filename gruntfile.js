@@ -10,6 +10,7 @@ const env = require('./.env.json');
 const pkg = require('./package.json');
 
 module.exports = (grunt) => {
+    console.log(con);
     // Initialise configuration.
     grunt.initConfig({
         bump: {
