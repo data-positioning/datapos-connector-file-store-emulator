@@ -18,7 +18,10 @@ import {
 import { SourceItem, SourceItemPage, SourceItemPreview, SourceItemPreviewTypeId, SourceItemTypeId } from '../../nectis-engine-components/src/sourceItem';
 import { SourceViewProperties } from '../../nectis-engine-components/src/sourceView';
 
-// ...
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Declarations
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 const defaultChunkSize = 4096;
 const urlPrefix = 'https://nectis-res-v00-dev-alpha.web.app/fileStore';
 
