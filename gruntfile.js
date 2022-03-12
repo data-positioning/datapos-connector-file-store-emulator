@@ -23,7 +23,7 @@ module.exports = (grunt) => {
 
         copy: {
             docoToDist: {
-                files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['config.json'], rename: (dest) => `${dest}/${connector.id}.json` }]
+                files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['connector.json'], rename: (dest) => `${dest}/${connector.id}.json` }]
             }
         },
 
