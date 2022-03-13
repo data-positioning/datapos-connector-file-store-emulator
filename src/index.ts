@@ -23,7 +23,7 @@ import { SourceViewProperties } from '../../nectis-engine-components/src/sourceV
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const defaultChunkSize = 4096;
-const urlPrefix = 'https://nectis-res-v00-dev-alpha.web.app/fileStore';
+const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/nectis-app-v00-dev-alpha.appspot.com/o/fileStore';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Connector
@@ -92,6 +92,7 @@ const previewItem = async (
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
+    console.log(`${urlPrefix}${sourceViewProperties.path}`);
     const response = await fetch(`${urlPrefix}${sourceViewProperties.path}`, { headers });
     if (!response.ok) throw new Error(response.statusText);
     const arrayBuffer = await response.arrayBuffer();
