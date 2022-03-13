@@ -92,8 +92,8 @@ const previewItem = async (
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-    console.log(`${urlPrefix}${encodeURIComponent(sourceViewProperties.path)}`);
-    const response = await fetch(`${urlPrefix}${encodeURIComponent(sourceViewProperties.path)}`, { headers });
+    console.log(`${urlPrefix}${encodeURIComponent(sourceViewProperties.path)}?alt=media`);
+    const response = await fetch(`${urlPrefix}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, { headers });
     if (!response.ok) throw new Error(response.statusText);
     const arrayBuffer = await response.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
