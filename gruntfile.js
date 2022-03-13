@@ -9,7 +9,7 @@ const connector = require('./src/connector.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
 
-const firebaseStorageUrl = 'gs://nectis-app-v00-dev-alpha.appspot.com';
+const firebaseStorageUrl = 'gs://nectis-app-v00-dev-alpha.appspot.com/documentation/connectors';
 
 module.exports = (grunt) => {
     // Initialise configuration.
