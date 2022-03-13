@@ -5,7 +5,7 @@
     "license": "ISC",
     "main": "./src/index.ts",
     "private": true,
-    "version": "0.1.69",
+    "version": "0.1.70",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.11.0",
         "@typescript-eslint/parser": "^5.11.0",
