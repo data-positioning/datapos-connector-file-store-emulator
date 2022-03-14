@@ -5,7 +5,7 @@
     "license": "ISC",
     "main": "./src/index.ts",
     "private": true,
-    "version": "0.1.77",
+    "version": "0.1.78",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.11.0",
         "@typescript-eslint/parser": "^5.11.0",
@@ -15,7 +15,6 @@
         "grunt-bump": "^0.8.0",
         "grunt-contrib-copy": "^1.0.0",
         "grunt-run": "^0.8.1",
-        "node-fetch": "^3.2.0",
         "rollup": "^2.67.1",
         "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-typescript2": "^0.31.2",
