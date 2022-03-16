@@ -65,10 +65,10 @@ module.exports = (grunt) => {
             // Create/update connector record in application service database (firestore).
             const connectorsResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
                 body: JSON.stringify({
+                    id: connector.id,
                     authenticationMethodId: connector.authenticationMethodId,
                     categoryId: connector.categoryId,
                     classId: connector.classId,
-                    id: connector.id,
                     logo: connector.logo,
                     pluginPath: `${connector.id}-es.js`,
                     statusId: connector.statusId,
