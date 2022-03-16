@@ -6,7 +6,7 @@
  */
 
 // Engine component dependencies.
-import { Connection } from '../../nectis-engine-components/src/connection';
+import { Connection } from '../../../../nectis-engine-components/src/connection';
 import {
     DataConnector,
     ConnectorCreateInterface,
@@ -14,9 +14,9 @@ import {
     ConnectorPreviewInterfaceSettings,
     ConnectorReadInterface,
     ConnectorWriteInterface
-} from '../../nectis-engine-components/src/connector/data';
-import { SourceItem, SourceItemPage, SourceItemPreview, SourceItemPreviewTypeId, SourceItemTypeId } from '../../nectis-engine-components/src/sourceItem';
-import { SourceViewProperties } from '../../nectis-engine-components/src/sourceView';
+} from '../../../../nectis-engine-components/src/connector/data';
+import { SourceItem, SourceItemPage, SourceItemPreview, SourceItemPreviewTypeId, SourceItemTypeId } from '../../../../nectis-engine-components/src/sourceItem';
+import { SourceViewProperties } from '../../../../nectis-engine-components/src/sourceView';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations
