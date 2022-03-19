@@ -70,7 +70,7 @@ module.exports = (grunt) => {
                     categoryId: connector.categoryId,
                     classId: connector.classId,
                     logo: connector.logo,
-                    pluginPath: `${connector.id}-es.js`,
+                    pluginPath: `data%2F${connector.id}-es.js`,
                     statusId: connector.statusId,
                     typeLabel: connector.typeLabel,
                     typeLabelCollation: connector.typeLabelCollation,
