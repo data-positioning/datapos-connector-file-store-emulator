@@ -6,7 +6,7 @@
  */
 
 // Connector asset dependencies.
-import pkg from '../package.json';
+import { version } from '../package.json';
 
 // Engine component dependencies.
 import { Connection } from '../../../../nectis-engine-components/src/connection';
@@ -39,7 +39,7 @@ export default class SampleFileDataConnector implements DataConnector {
 
     constructor(connection: Connection) {
         this.connection = connection;
-        this.version = (pkg as { version: string }).version;
+        this.version = version as string;
     }
 
     abort(): void {
