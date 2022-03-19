@@ -5,6 +5,7 @@
  * @license "ISC"
  */
 
+import json from '@rollup/plugin-json';
 import pkg from './package.json';
 import typescript from 'rollup-plugin-typescript2';
 import { terser } from 'rollup-plugin-terser';
@@ -20,6 +21,6 @@ export default [
                 format: 'cjs'
             }
         ],
-        plugins: [typescript(), terser()]
+        plugins: [json(), typescript(), terser()]
     }
 ];
