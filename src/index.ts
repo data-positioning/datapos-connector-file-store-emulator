@@ -5,6 +5,9 @@
  * @license "ISC"
  */
 
+// Connector asset dependencies.
+import pkg from '../package.json';
+
 // Engine component dependencies.
 import { Connection } from '../../../../nectis-engine-components/src/connection';
 import {
@@ -32,9 +35,11 @@ const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/nectis-app-v00-de
 export default class SampleFileDataConnector implements DataConnector {
     connection: Connection;
     id: string;
+    version: string;
 
     constructor(connection: Connection) {
         this.connection = connection;
+        this.version = (pkg as { version: string }).version;
     }
 
     abort(): void {

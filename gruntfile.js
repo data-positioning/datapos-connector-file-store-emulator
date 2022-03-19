@@ -101,7 +101,7 @@ module.exports = (grunt) => {
     grunt.registerTask('lint', ['run:lint']);
     grunt.registerTask('outdated', ['run:outdated']);
     // grunt.registerTask('publish', ['run:publish']);
-    grunt.registerTask('release', ['run:rollup_cjs', 'run:rollup_es', 'copy:configToDist', 'bump', 'run:copyToFirebase', 'updateFirestore']);
+    grunt.registerTask('release', ['bump', 'run:rollup_cjs', 'run:rollup_es', 'copy:configToDist', 'run:copyToFirebase', 'updateFirestore']);
     grunt.registerTask('synchronise', ['bump']);
     grunt.registerTask('test', ['run:test']);
 };
