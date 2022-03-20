@@ -39,7 +39,7 @@ export default class SampleFileDataConnector implements DataConnector {
 
     constructor(connection: Connection) {
         this.connection = connection;
-        this.version = version as string;
+        this.version = version;
     }
 
     abort(): void {
