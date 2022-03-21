@@ -69,6 +69,7 @@ module.exports = (grunt) => {
                     authenticationMethodId: connector.authenticationMethodId,
                     categoryId: connector.categoryId,
                     classId: connector.classId,
+                    configPath: `data%2F${connector.id}.json`,
                     logo: connector.logo,
                     pluginPath: `data%2F${connector.id}-es.js`,
                     statusId: connector.statusId,
