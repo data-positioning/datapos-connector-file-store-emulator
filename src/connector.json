@@ -9,7 +9,7 @@
     "statusId": "alpha",
     "typeLabel": "Files",
     "typeLabelCollation": "files",
-    "usageId": "bidirectional",
+    "usageId": "source",
     "vendorAccountUrl": null,
     "vendorHelpUrl": null,
     "vendorHomeUrl": null
