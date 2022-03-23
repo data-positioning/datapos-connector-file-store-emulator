@@ -77,6 +77,7 @@ module.exports = (grunt) => {
                     logo: config.logo,
                     reference: `${componentFolderName}%2F${config.categoryId}%2F${config.id}`,
                     statusId: config.statusId,
+                    summary:config.summary,
                     typeLabel: config.typeLabel,
                     typeLabelCollation: config.typeLabelCollation,
                     usageId: config.usageId,
