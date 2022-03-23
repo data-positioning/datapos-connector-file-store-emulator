@@ -10,7 +10,7 @@ const env = require('./.env.json');
 const pkg = require('./package.json');
 
 const componentFolderName = 'connectors';
-const firebaseStorageUrl = `gs://nectis-app-v00-dev-alpha.appspot.com/${componentFolderName}/${config.categoryId}/`;
+const firebaseStorageUrl = `gs://nectis-app-v00-dev-alpha.appspot.com/${componentFolderName}/data/${config.categoryId}/`;
 
 module.exports = (grunt) => {
     // Initialise configuration.
@@ -77,7 +77,7 @@ module.exports = (grunt) => {
                     logo: config.logo,
                     reference: `${componentFolderName}%2F${config.categoryId}%2F${config.id}`,
                     statusId: config.statusId,
-                    summary:config.summary,
+                    summary: config.summary,
                     typeLabel: config.typeLabel,
                     typeLabelCollation: config.typeLabelCollation,
                     usageId: config.usageId,
