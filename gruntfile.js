@@ -5,12 +5,12 @@
  * @license "ISC"
  */
 
-const connector = require('./src/connector.json');
+const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
 
 const componentFolderName = 'connectors/data';
-const firebaseStorageUrl = `gs://nectis-app-v00-dev-alpha.appspot.com/${componentFolderName}/`;
+const firebaseStorageUrl = `gs://nectis-app-v00-dev-alpha.appspot.com/${componentFolderName}/${config.categoryId}/`;
 
 module.exports = (grunt) => {
     // Initialise configuration.
@@ -26,7 +26,7 @@ module.exports = (grunt) => {
 
         copy: {
             configToDist: {
-                files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['connector.json'], rename: (dest) => `${dest}/${connector.id}.json` }]
+                files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['config.json'], rename: (dest) => `${dest}/${config.id}.json` }]
             }
         },
 
@@ -69,17 +69,17 @@ module.exports = (grunt) => {
             // Upsert connector record in application service database (firestore).
             const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/${componentFolderName}`, {
                 body: JSON.stringify({
-                    authenticationMethodId: connector.authenticationMethodId,
-                    categoryId: connector.categoryId,
-                    classId: connector.classId,
-                    id: connector.id,
-                    label: connector.label,
-                    logo: connector.logo,
-                    reference: `${componentFolderName}%2F${connector.category}%2F${connector.id}`,
-                    statusId: connector.statusId,
-                    typeLabel: connector.typeLabel,
-                    typeLabelCollation: connector.typeLabelCollation,
-                    usageId: connector.usageId,
+                    authenticationMethodId: config.authenticationMethodId,
+                    categoryId: config.categoryId,
+                    classId: config.classId,
+                    id: config.id,
+                    label: config.label,
+                    logo: config.logo,
+                    reference: `${componentFolderName}%2F${config.category}%2F${config.id}`,
+                    statusId: config.statusId,
+                    typeLabel: config.typeLabel,
+                    typeLabelCollation: config.typeLabelCollation,
+                    usageId: config.usageId,
                     version: `v${grunt.config.data.pkg.version}`
                 }),
                 headers: {
