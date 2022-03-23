@@ -9,7 +9,8 @@ const connector = require('./src/connector.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
 
-const firebaseStorageUrl = 'gs://nectis-app-v00-dev-alpha.appspot.com/connectors/data/';
+const componentFolderName = 'connectors/data';
+const firebaseStorageUrl = `gs://nectis-app-v00-dev-alpha.appspot.com/${componentFolderName}/`;
 
 module.exports = (grunt) => {
     // Initialise configuration.
@@ -49,21 +50,24 @@ module.exports = (grunt) => {
         try {
             const done = this.async();
 
-            // Sign in to firebase.
             const fetchModule = await import('node-fetch');
+
+            // Sign in to firebase.
             const signInResponse = await fetchModule.default(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env.FIREBASE_API_KEY}`, {
                 body: JSON.stringify({
                     email: env.FIREBASE_EMAIL_ADDRESS,
                     password: env.FIREBASE_PASSWORD,
                     returnSecureToken: true
                 }),
-                headers: { Referer: `${env.FIREBASE_PROJECT_ID}.web.app` },
+                headers: {
+                    Referer: `${env.FIREBASE_PROJECT_ID}.web.app`
+                },
                 method: 'POST'
             });
             const signInResult = await signInResponse.json();
 
-            // Create/update connector record in application service database (firestore).
-            const connectorsResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
+            // Upsert connector record in application service database (firestore).
+            const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/${componentFolderName}`, {
                 body: JSON.stringify({
                     authenticationMethodId: connector.authenticationMethodId,
                     categoryId: connector.categoryId,
@@ -71,17 +75,20 @@ module.exports = (grunt) => {
                     id: connector.id,
                     label: connector.label,
                     logo: connector.logo,
-                    reference: `data%2F${connector.id}`,
+                    reference: `${componentFolderName}%2F${connector.category}%2F${connector.id}`,
                     statusId: connector.statusId,
                     typeLabel: connector.typeLabel,
                     typeLabelCollation: connector.typeLabelCollation,
                     usageId: connector.usageId,
                     version: `v${grunt.config.data.pkg.version}`
                 }),
-                headers: { Authorization: signInResult.idToken, 'Content-Type': 'application/json' },
+                headers: {
+                    Authorization: signInResult.idToken,
+                    'Content-Type': 'application/json'
+                },
                 method: 'POST'
             });
-            if (!connectorsResponse.ok) console.log(connectorsResponse.status, connectorsResponse.statusText, await connectorsResponse.text());
+            if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
             done();
         } catch (error) {
