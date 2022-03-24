@@ -1,6 +1,6 @@
 {
     "authenticationMethodId": "none",
-    "categoryId": "sampleData",
+    "categoryId": "sd",
     "classId": "system",
     "id": "nectis-connector-data-sample-files",
     "label": "Sample Files Data Connector",
