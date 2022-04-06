@@ -9,8 +9,7 @@ const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
 
-const componentFolderName = 'connectors';
-const firebaseStorageUrl = `gs://nectis-app-v00-dev-alpha.appspot.com/${componentFolderName}/data/${config.categoryId}/`;
+const firebaseStorageUrl = `gs://nectis-app-v00-dev-alpha.appspot.com/components/`;
 
 module.exports = (grunt) => {
     // Initialise configuration.
@@ -67,7 +66,7 @@ module.exports = (grunt) => {
             const signInResult = await signInResponse.json();
 
             // Upsert connector record in application service database (firestore).
-            const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/${componentFolderName}`, {
+            const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/components`, {
                 body: JSON.stringify({
                     authenticationMethodId: config.authenticationMethodId,
                     categoryId: config.categoryId,
@@ -75,7 +74,7 @@ module.exports = (grunt) => {
                     id: config.id,
                     label: config.label,
                     logo: config.logo,
-                    reference: `${componentFolderName}%2Fdata%2F${config.categoryId}%2F${config.id}`,
+                    reference: `components%2F${config.id}`,
                     statusId: config.statusId,
                     summary: config.summary,
                     typeLabel: config.typeLabel,
