@@ -9,8 +9,6 @@ const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
 
-const firebaseStorageUrl = `gs://nectis-app-v00-dev-alpha.appspot.com/components/`;
-
 module.exports = (grunt) => {
     // Initialise configuration.
     grunt.initConfig({
@@ -33,7 +31,7 @@ module.exports = (grunt) => {
 
         run: {
             audit: { args: ['npm', 'audit'], cmd: 'npx' },
-            copyToFirebase: { args: ['cp', 'dist/*', firebaseStorageUrl], cmd: 'gsutil' },
+            copyToFirebase: { args: ['cp', 'dist/*', 'gs://nectis-app-v00-dev-alpha.appspot.com/components/data/'], cmd: 'gsutil' },
             identifyLicensesUsingLicenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
@@ -76,7 +74,7 @@ module.exports = (grunt) => {
                     id: config.id,
                     label: config.label,
                     logo: config.logo,
-                    reference: `components%2F${config.id}`,
+                    reference: `components%2Fdata%2F${config.id}`,
                     statusId: config.statusId,
                     summary: config.summary,
                     typeId: config.typeId,
