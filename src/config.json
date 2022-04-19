@@ -2,7 +2,7 @@
     "authenticationMethodId": "none",
     "categoryId": "sd",
     "classId": "system",
-    "groupLabel": "Files",
+    "groupLabel": "Sample Files",
     "groupLabelCollation": "files",
     "id": "nectis-connector-data-sample-files",
     "label": "Sample Files Data Connector",
