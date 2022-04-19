@@ -69,8 +69,6 @@ module.exports = (grunt) => {
                     authenticationMethodId: config.authenticationMethodId,
                     categoryId: config.categoryId,
                     classId: config.classId,
-                    groupLabel: config.groupLabel,
-                    groupLabelCollation: config.groupLabelCollation,
                     id: config.id,
                     label: config.label,
                     logo: config.logo,
