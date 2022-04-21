@@ -1,10 +1,10 @@
 {
-  "@nectis/nectis-connector-data-sample-files@0.1.31": {
-    "licenses": "UNLICENSED",
-    "private": true,
-    "publisher": "Jonathan Terrell",
-    "email": "jonathan.terrell@springbrook.es",
-    "path": "/Users/jonathanterrell/Nectis/GitHub/nectis-connector-data-sample-files",
-    "licenseFile": "/Users/jonathanterrell/Nectis/GitHub/nectis-connector-data-sample-files/README.md"
-  }
+    "@nectis/nectis-connector-data-sample-files@0.1.31": {
+        "licenses": "UNLICENSED",
+        "private": true,
+        "publisher": "Jonathan Terrell",
+        "email": "terrell.jm@gmail.com",
+        "path": "/Users/jonathanterrell/Nectis/GitHub/nectis-connector-data-sample-files",
+        "licenseFile": "/Users/jonathanterrell/Nectis/GitHub/nectis-connector-data-sample-files/README.md"
+    }
 }

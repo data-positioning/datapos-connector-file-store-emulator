@@ -1,6 +1,6 @@
 /**
- * @author Jonathan Terrell <jonathan.terrell@springbrook.es>
- * @copyright Copyright (c) 2022 Springbrook S.L.
+ * @author Jonathan Terrell <terrell.jm@gmail.com>
+ * @copyright 2022 Jonathan Terrell
  * @file rollup.config-es.js
  * @license "ISC"
  */

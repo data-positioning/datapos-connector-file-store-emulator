@@ -1,4 +1,4 @@
-# Nectis Sample Files Data Connector
+# Sample Files Data Connector
 
 ### Project setup
 
