@@ -9,7 +9,7 @@
 import { version } from '../package.json';
 
 // Engine component dependencies.
-import { Connection } from '../../../../nectis-engine-components/src/connection';
+import { ConnectionItem } from '../../../../nectis-engine-components/src/connection';
 import {
     DataConnector,
     ConnectorCreateInterface,
@@ -33,21 +33,23 @@ const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/nectis-app-v00-de
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 export default class SampleFileDataConnector implements DataConnector {
-    connection: Connection;
+    connectionItem: ConnectionItem;
     id: string;
+    isAborted: boolean;
     version: string;
 
-    constructor(connection: Connection) {
-        this.connection = connection;
+    constructor(connectionItem: ConnectionItem) {
+        this.connectionItem = connectionItem;
+        this.isAborted = false;
         this.version = version;
     }
 
     abort(): void {
-        this.connection.isAborted = true;
+        this.isAborted = true;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async authenticate(accountId: string, sessionAccessToken: string, screenHeight: number, screenWidth: number): Promise<void> {
+    async authenticate(accountId: string, screenHeight: number, screenWidth: number): Promise<void> {
         return Promise.reject(new Error('Not implemented'));
     }
 
