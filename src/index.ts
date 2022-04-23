@@ -49,7 +49,7 @@ export default class SampleFileDataConnector implements DataConnector {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async authenticate(accountId: string, screenHeight: number, screenWidth: number): Promise<void> {
+    async authenticate(accountId: string, windowCenterX: number, windowCenterY: number): Promise<void> {
         return Promise.reject(new Error('Not implemented'));
     }
 
