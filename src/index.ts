@@ -9,7 +9,7 @@
 import { version } from '../package.json';
 
 // Engine component dependencies.
-import { ConnectionItem } from '../../../../nectis-engine-components/src/connection';
+import { ConnectionItem } from '../../../../dataposapp-engine-components/src/connection';
 import {
     DataConnector,
     ConnectorCreateInterface,
@@ -17,9 +17,9 @@ import {
     ConnectorPreviewInterfaceSettings,
     ConnectorReadInterface,
     ConnectorWriteInterface
-} from '../../../../nectis-engine-components/src/connector/data';
-import { SourceItem, SourceItemPage, SourceItemPreview, SourceItemPreviewTypeId, SourceItemTypeId } from '../../../../nectis-engine-components/src/sourceItem';
-import { SourceViewProperties } from '../../../../nectis-engine-components/src/sourceView';
+} from '../../../../dataposapp-engine-components/src/connector/data';
+import { SourceItem, SourceItemPage, SourceItemPreview, SourceItemPreviewTypeId, SourceItemTypeId } from '../../../../dataposapp-engine-components/src/sourceItem';
+import { SourceViewProperties } from '../../../../dataposapp-engine-components/src/sourceView';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations

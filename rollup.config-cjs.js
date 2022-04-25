@@ -17,7 +17,7 @@ export default [
         output: [
             {
                 exports: 'auto',
-                file: './dist/nectis-connector-data-sample-files-cjs.js',
+                file: './dist/dataposapp-connector-data-sample-files-cjs.js',
                 format: 'cjs'
             }
         ],
