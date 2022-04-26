@@ -25,7 +25,7 @@ import { SourceViewProperties } from '../../../../dataposapp-engine-components/s
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const defaultChunkSize = 4096;
-const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/nectis-app-v00-dev-alpha.appspot.com/o/fileStore';
+const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-dev-alpha.appspot.com/o/fileStore';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Connector

@@ -31,7 +31,7 @@ module.exports = (grunt) => {
 
         run: {
             audit: { args: ['npm', 'audit'], cmd: 'npx' },
-            copyToFirebase: { args: ['cp', 'dist/*', 'gs://nectis-app-v00-dev-alpha.appspot.com/components/connectors/data/'], cmd: 'gsutil' },
+            copyToFirebase: { args: ['cp', 'dist/*', 'gs://dataposapp-v00-dev-alpha.appspot.com/components/connectors/data/'], cmd: 'gsutil' },
             identifyLicensesUsingLicenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
