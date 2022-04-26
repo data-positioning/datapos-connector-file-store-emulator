@@ -9,7 +9,6 @@
 import { version } from '../package.json';
 
 // Engine component dependencies.
-import { ConnectionItem } from '../../../../dataposapp-engine-components/src/connection';
 import {
     DataConnector,
     ConnectorCreateInterface,
@@ -33,13 +32,13 @@ const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/nectis-app-v00-de
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 export default class SampleFileDataConnector implements DataConnector {
-    connectionItem: ConnectionItem;
+    connectionItemId: string;
     id: string;
     isAborted: boolean;
     version: string;
 
-    constructor(connectionItem: ConnectionItem) {
-        this.connectionItem = connectionItem;
+    constructor(connectionItemId: string) {
+        this.connectionItemId = connectionItemId;
         this.isAborted = false;
         this.version = version;
     }
