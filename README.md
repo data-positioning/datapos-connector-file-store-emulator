@@ -1,4 +1,4 @@
-# Sample Files Data Connector
+# Data Positioning Application Sample Files Data Connector
 
 ### Project setup
 

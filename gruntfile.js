@@ -100,13 +100,13 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-run');
 
     // Register local tasks.
-    grunt.registerTask('audit', ['run:audit']);
-    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'copy:configToDist', 'run:copyToFirebase', 'updateFirestore']);
-    grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']);
-    grunt.registerTask('lint', ['run:lint']);
-    grunt.registerTask('outdated', ['run:outdated']);
-    // grunt.registerTask('publish', ['run:publish']);
-    grunt.registerTask('release', ['bump', 'run:rollup_cjs', 'run:rollup_es', 'copy:configToDist', 'run:copyToFirebase', 'updateFirestore']);
-    grunt.registerTask('synchronise', ['bump']);
-    grunt.registerTask('test', ['run:test']);
+    grunt.registerTask('audit', ['run:audit']); // cmd+shift+a.
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es', 'copy:configToDist', 'run:copyToFirebase', 'updateFirestore']); // cmd+shift+b.
+    grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
+    grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
+    grunt.registerTask('outdated', ['run:outdated']); // cmd+shift+o.
+    grunt.registerTask('publish', ['run:publish']); // cmd+shift+u.
+    grunt.registerTask('release', ['bump', 'run:rollup_cjs', 'run:rollup_es', 'copy:configToDist', 'run:copyToFirebase', 'updateFirestore']); // cmd+shift+r.
+    grunt.registerTask('synchronise', ['bump']); // cmd+shift+s.
+    grunt.registerTask('test', ['run:test']); // cmd+shift+t.
 };
