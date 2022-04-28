@@ -10,15 +10,19 @@ import { version } from '../package.json';
 
 // Engine component dependencies.
 import {
-    DataConnector,
     ConnectorCreateInterface,
     ConnectorPreviewInterface,
     ConnectorPreviewInterfaceSettings,
     ConnectorReadInterface,
-    ConnectorWriteInterface
-} from '../../../../dataposapp-engine-components/src/connector/data';
-import { SourceItem, SourceItemPage, SourceItemPreview, SourceItemPreviewTypeId, SourceItemTypeId } from '../../../../dataposapp-engine-components/src/sourceItem';
-import { SourceViewProperties } from '../../../../dataposapp-engine-components/src/sourceView';
+    ConnectorWriteInterface,
+    DataConnector,
+    SourceItem,
+    SourceItemPage,
+    SourceItemPreview,
+    SourceItemPreviewTypeId,
+    SourceItemTypeId,
+    SourceViewProperties
+} from '../../../../dataposapp-engine-components/src';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Declarations
