@@ -1,5 +1,5 @@
 {
-    "authenticationMethodId": "none",
+    "authMethodId": "none",
     "categoryId": "fileStorage",
     "classId": "system",
     "id": "dataposapp-connector-data-sample-files",
