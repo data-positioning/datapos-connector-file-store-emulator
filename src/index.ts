@@ -10,12 +10,12 @@ import { version } from '../package.json';
 
 // Engine component dependencies.
 import {
-    ConnectorCreateInterface,
-    ConnectorPreviewInterface,
-    ConnectorPreviewInterfaceSettings,
-    ConnectorReadInterface,
-    ConnectorWriteInterface,
     DataConnector,
+    DataConnectorCreateInterface,
+    DataConnectorPreviewInterface,
+    DataConnectorPreviewInterfaceSettings,
+    DataConnectorReadInterface,
+    DataConnectorWriteInterface,
     SourceItem,
     SourceItemPage,
     SourceItemPreview,
@@ -61,7 +61,7 @@ export default class SampleFileDataConnector implements DataConnector {
         return Promise.reject(new Error('Not implemented'));
     }
 
-    getCreateInterface(): ConnectorCreateInterface {
+    getCreateInterface(): DataConnectorCreateInterface {
         throw new Error('Not implemented');
     }
 
@@ -70,15 +70,15 @@ export default class SampleFileDataConnector implements DataConnector {
         return Promise.reject(new Error('Not implemented'));
     }
 
-    getPreviewInterface(): ConnectorPreviewInterface {
+    getPreviewInterface(): DataConnectorPreviewInterface {
         return { connector: this, previewItem };
     }
 
-    getReadInterface(): ConnectorReadInterface {
+    getReadInterface(): DataConnectorReadInterface {
         throw new Error('Not implemented');
     }
 
-    getWriteInterface(): ConnectorWriteInterface {
+    getWriteInterface(): DataConnectorWriteInterface {
         throw new Error('Not implemented');
     }
 
@@ -96,7 +96,7 @@ const previewItem = async (
     thisConnector: DataConnector,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
-    previewInterfaceSettings: ConnectorPreviewInterfaceSettings,
+    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
     sourceViewProperties: SourceViewProperties
 ): Promise<SourceItemPreview> => {
     const headers: HeadersInit = {
