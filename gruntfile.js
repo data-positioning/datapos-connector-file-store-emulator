@@ -72,6 +72,7 @@ module.exports = (grunt) => {
                     id: config.id,
                     label: config.label,
                     logo: config.logo,
+                    maxConnectionsCount: config.maxConnectionsCount,
                     reference: `components%2Fconnectors%2Fdata%2F${config.id}`,
                     statusId: config.statusId,
                     summary: config.summary,
