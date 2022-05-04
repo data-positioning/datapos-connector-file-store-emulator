@@ -70,7 +70,6 @@ module.exports = (grunt) => {
                     categoryId: config.categoryId,
                     classId: config.classId,
                     id: config.id,
-                    implementationLabel: config.implementationLabel,
                     label: config.label,
                     logo: config.logo,
                     logoWidth: config.logoWidth,
