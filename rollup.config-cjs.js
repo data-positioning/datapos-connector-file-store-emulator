@@ -5,6 +5,7 @@
  * @license "ISC"
  */
 
+import config from './src/config.json';
 import json from '@rollup/plugin-json';
 import pkg from './package.json';
 import typescript from 'rollup-plugin-typescript2';
@@ -17,7 +18,7 @@ export default [
         output: [
             {
                 exports: 'auto',
-                file: './dist/dataposapp-connector-data-sample-files-cjs.js',
+                file: `./dist/${config.id}-cjs.js`,
                 format: 'cjs'
             }
         ],
