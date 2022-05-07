@@ -5,6 +5,7 @@
  * @license "ISC"
  */
 
+const { getConnectorConfig } = require('../../../dataposapp-engine-components/src/gruntComponentHelpers.js');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
@@ -65,22 +66,7 @@ module.exports = (grunt) => {
 
             // Upsert connector record in application service database (firestore).
             const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/components`, {
-                body: JSON.stringify({
-                    authMethodId: config.authMethodId,
-                    categoryId: config.categoryId,
-                    classId: config.classId,
-                    id: config.id,
-                    label: config.label,
-                    logo: config.logo,
-                    logoWidth: config.logoWidth,
-                    maxConnectionsCount: config.maxConnectionsCount,
-                    reference: `components%2Fconnectors%2Fdata%2F${config.id}`,
-                    statusId: config.statusId,
-                    summary: config.summary,
-                    typeId: config.typeId,
-                    usageId: config.usageId,
-                    version: `v${grunt.config.data.pkg.version}`
-                }),
+                body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
                 headers: {
                     Authorization: signInResult.idToken,
                     'Content-Type': 'application/json'
