@@ -1,9 +1,9 @@
 {
-  "@dataposapp/dataposapp-connector-data-sample-files@0.1.141": {
-    "licenses": "ISC",
-    "publisher": "Jonathan Terrell",
-    "email": "terrell.jm@gmail.com",
-    "path": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files",
-    "licenseFile": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files/LICENSE"
-  }
+    "@dataposapp/dataposapp-connector-data-sample-files@0.1.141": {
+        "licenses": "ISC",
+        "publisher": "Jonathan Terrell",
+        "email": "terrell.jm@gmail.com",
+        "path": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files",
+        "licenseFile": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files/LICENSE"
+    }
 }

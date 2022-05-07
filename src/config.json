@@ -1,6 +1,6 @@
 {
     "authMethodId": "none",
-    "categoryId": "fileStorage",
+    "categoryId": "fileStore",
     "classId": "emulator",
     "id": "dataposapp-connector-data-sample-files",
     "label": "Sample Files",
