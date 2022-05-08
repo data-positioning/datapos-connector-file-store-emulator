@@ -46,7 +46,6 @@ export default class SampleFileDataConnector implements DataConnector {
         this.connectionItem = connectionItem;
         this.isAborted = false;
         this.version = version;
-        console.log(this.connectionItem);
     }
 
     abort(): void {
