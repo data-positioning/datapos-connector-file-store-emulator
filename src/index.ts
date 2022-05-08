@@ -10,6 +10,7 @@ import { version } from '../package.json';
 
 // Engine component dependencies.
 import {
+    ConnectionItem,
     DataConnector,
     DataConnectorCreateInterface,
     DataConnectorPreviewInterface,
@@ -36,15 +37,16 @@ const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-de
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 export default class SampleFileDataConnector implements DataConnector {
-    connectionItemId: string;
+    connectionItem: ConnectionItem;
     id: string;
     isAborted: boolean;
     version: string;
 
-    constructor(connectionItemId: string) {
-        this.connectionItemId = connectionItemId;
+    constructor(connectionItem: ConnectionItem) {
+        this.connectionItem = connectionItem;
         this.isAborted = false;
         this.version = version;
+        console.log(this.connectionItem);
     }
 
     abort(): void {
