@@ -18,9 +18,9 @@ import {
     DataConnectorReadInterface,
     DataConnectorWriteInterface,
     SourceItem,
-    SourceItemPage,
     SourceItemPreview,
     SourceItemPreviewTypeId,
+    SourceItemsPage,
     SourceItemTypeId,
     SourceViewProperties
 } from '../../../../dataposapp-engine-components/src';
@@ -84,8 +84,8 @@ export default class SampleFileDataConnector implements DataConnector {
     }
 
     // eslint-disable-next-line @typescript-eslint/require-await
-    async retrieveItems(accountId: string, sessionAccessToken: string, directory: string): Promise<SourceItemPage> {
-        return retrieveItems(directory);
+    async listItemsForDirectory(accountId: string, sessionAccessToken: string, directory: string): Promise<SourceItemsPage> {
+        return listItemsForDirectory(directory);
     }
 }
 
@@ -114,7 +114,7 @@ const previewItem = async (
 // Retrieve Items
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-const retrieveItems = (directory: string): SourceItemPage => {
+const listItemsForDirectory = (directory: string): SourceItemsPage => {
     const items: SourceItem[] = [];
     if (directory.startsWith('/SAP Employee Central')) {
         items.push(buildObjectItem('/SAP Employee Central', 'ADDRESS_INFO.csv', 'utf-8', 208015, '2018-01-02T23:33:00+00:00'));
