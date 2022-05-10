@@ -153,7 +153,7 @@ const previewItem = async (
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
     const response = await fetch(`${urlPrefix}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, { headers });
-    if (!response.ok) throw new Error(response.statusText);
+    if (!response.ok) throw new Error('|' + (await response.text()));
     const arrayBuffer = await response.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
     return { data: uint8Array, typeId: SourceItemPreviewTypeId.Uint8Array };
