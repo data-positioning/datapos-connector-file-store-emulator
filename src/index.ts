@@ -36,7 +36,10 @@ const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-de
 // Connector
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-export default class SampleFileDataConnector implements DataConnector {
+/**
+ * Encapsulates the sample files data connector.
+ */
+export default class SampleFilesDataConnector implements DataConnector {
     connectionItem: ConnectionItem;
     id: string;
     isAborted: boolean;
@@ -48,20 +51,40 @@ export default class SampleFileDataConnector implements DataConnector {
         this.version = version;
     }
 
+    /**
+     *
+     */
     abort(): void {
         this.isAborted = true;
     }
 
+    /**
+     *
+     * @param accountId
+     * @param windowCenterX
+     * @param windowCenterY
+     * @returns
+     */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async authenticate(accountId: string, windowCenterX: number, windowCenterY: number): Promise<void> {
         return Promise.reject(new Error('Not implemented'));
     }
 
+    /**
+     *
+     * @param accountId
+     * @param sessionAccessToken
+     * @param itemId
+     * @returns
+     */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async describe(accountId: string, sessionAccessToken: string, itemId: string): Promise<unknown[]> {
         return Promise.reject(new Error('Not implemented'));
     }
 
+    /**
+     *
+     */
     getCreateInterface(): DataConnectorCreateInterface {
         throw new Error('Not implemented');
     }
@@ -71,21 +94,38 @@ export default class SampleFileDataConnector implements DataConnector {
         return Promise.reject(new Error('Not implemented'));
     }
 
+    /**
+     *
+     * @returns
+     */
     getPreviewInterface(): DataConnectorPreviewInterface {
         return { connector: this, previewItem };
     }
 
+    /**
+     *
+     */
     getReadInterface(): DataConnectorReadInterface {
         throw new Error('Not implemented');
     }
 
+    /**
+     *
+     */
     getWriteInterface(): DataConnectorWriteInterface {
         throw new Error('Not implemented');
     }
 
+    /**
+     * List the data source items for a given directory path.
+     * @param accountId The identifier of the account to which the data source belongs.
+     * @param sessionAccessToken An active session access token.
+     * @param directoryPath The directory path for which to list the items.
+     * @returns A page of source items.
+     */
     // eslint-disable-next-line @typescript-eslint/require-await
-    async listItemsForDirectory(accountId: string, sessionAccessToken: string, directory: string): Promise<SourceItemsPage> {
-        return listItemsForDirectory(directory);
+    async listItemsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<SourceItemsPage> {
+        return listItemsForDirectoryPath(directoryPath);
     }
 }
 
@@ -93,6 +133,15 @@ export default class SampleFileDataConnector implements DataConnector {
 // Preview Item
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+/**
+ *
+ * @param thisConnector
+ * @param accountId
+ * @param sessionAccessToken
+ * @param previewInterfaceSettings
+ * @param sourceViewProperties
+ * @returns
+ */
 const previewItem = async (
     thisConnector: DataConnector,
     accountId: string | undefined,
@@ -111,12 +160,17 @@ const previewItem = async (
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Retrieve Items
+// List Items for Directory
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-const listItemsForDirectory = (directory: string): SourceItemsPage => {
+/**
+ * List the source items for a given directory path.
+ * @param directoryPath The directory path for which to list the items.
+ * @returns A page of source items.
+ */
+const listItemsForDirectoryPath = (directoryPath: string): SourceItemsPage => {
     const items: SourceItem[] = [];
-    if (directory.startsWith('/SAP Employee Central')) {
+    if (directoryPath.startsWith('/SAP Employee Central')) {
         items.push(buildObjectItem('/SAP Employee Central', 'ADDRESS_INFO.csv', 'utf-8', 208015, '2018-01-02T23:33:00+00:00'));
         items.push(buildObjectItem('/SAP Employee Central', 'COMP_CUR_CONV.csv', 'utf-8', 2245, '2018-01-02T23:33:00+00:00'));
         items.push(buildObjectItem('/SAP Employee Central', 'EMP_COMP_INFO.csv', 'utf-8', 1665179, '2018-01-02T23:33:00+00:00'));
@@ -136,9 +190,9 @@ const listItemsForDirectory = (directory: string): SourceItemsPage => {
         items.push(buildObjectItem('/SAP Employee Central', 'PERSONAL_DATA.csv', 'utf-8', 105949, '2018-01-02T23:33:00+00:00'));
         items.push(buildObjectItem('/SAP Employee Central', 'PICKLISTS.csv', 'utf-8', 78044, '2018-01-02T23:33:00+00:00'));
         items.push(buildObjectItem('/SAP Employee Central', 'TERRITORY.csv', 'utf-8', 8541, '2018-01-02T23:33:00+00:00'));
-    } else if (directory.startsWith('/Test Files')) {
+    } else if (directoryPath.startsWith('/Test Files')) {
         items.push(buildFolderItem('/Encoding', 30));
-    } else if (directory.startsWith('/Encoding')) {
+    } else if (directoryPath.startsWith('/Encoding')) {
         items.push(buildObjectItem('/Test Files/Encoding', 'big5', undefined, undefined, undefined));
         items.push(buildObjectItem('/Test Files/Encoding', 'euc_jp', undefined, undefined, undefined));
         items.push(buildObjectItem('/Test Files/Encoding', 'euc_kr', undefined, undefined, undefined));
@@ -176,12 +230,18 @@ const listItemsForDirectory = (directory: string): SourceItemsPage => {
     return { cursor: undefined, isMore: false, items };
 };
 
-const buildFolderItem = (directory: string, itemCount: number): SourceItem => {
-    const lastSubDirectoryName = extractLastSubDirectoryFromPath(directory);
+/**
+ * Build a folder item.
+ * @param directoryPath
+ * @param childItemCount
+ * @returns
+ */
+const buildFolderItem = (directoryPath: string, childItemCount: number): SourceItem => {
+    const lastSubDirectoryName = extractLastDirectoryNameFromPath(directoryPath);
     return {
         _id: undefined,
-        childCount: itemCount,
-        directory,
+        childItemCount,
+        directoryPath,
         encodingId: undefined,
         extension: undefined,
         id: undefined,
@@ -196,10 +256,19 @@ const buildFolderItem = (directory: string, itemCount: number): SourceItem => {
     };
 };
 
-const buildObjectItem = (directory: string, name: string, encodingId: string, size: number, lastModifiedAtString: string): SourceItem => ({
+/**
+ * Build an object item.
+ * @param directoryPath
+ * @param name
+ * @param encodingId
+ * @param size
+ * @param lastModifiedAtString
+ * @returns
+ */
+const buildObjectItem = (directoryPath: string, name: string, encodingId: string, size: number, lastModifiedAtString: string): SourceItem => ({
     _id: undefined,
-    childCount: undefined,
-    directory,
+    childItemCount: undefined,
+    directoryPath,
     encodingId,
     extension: 'csv',
     id: name,
@@ -213,18 +282,23 @@ const buildObjectItem = (directory: string, name: string, encodingId: string, si
     typeId: SourceItemTypeId.Object
 });
 
-const extractLastSubDirectoryFromPath = (directory: string): string | undefined => {
-    if (directory) {
+/**
+ * Extract the last directory name from a path of directory names.
+ * @param directoryPath The path of directory names separated by slashes ('/').
+ * @returns The name of the last directory in the path, or undefined if path is empty.
+ */
+const extractLastDirectoryNameFromPath = (directoryPath: string): string | undefined => {
+    if (directoryPath) {
         let lastSeparatorIndex;
         let lastCharacterIndex;
-        if (directory.endsWith('/')) {
-            lastSeparatorIndex = directory.lastIndexOf('/', directory.length - 2);
-            lastCharacterIndex = directory.length - 1;
+        if (directoryPath.endsWith('/')) {
+            lastSeparatorIndex = directoryPath.lastIndexOf('/', directoryPath.length - 2);
+            lastCharacterIndex = directoryPath.length - 1;
         } else {
-            lastSeparatorIndex = directory.lastIndexOf('/');
-            lastCharacterIndex = directory.length;
+            lastSeparatorIndex = directoryPath.lastIndexOf('/');
+            lastCharacterIndex = directoryPath.length;
         }
-        if (lastSeparatorIndex > -1) return directory.substring(lastSeparatorIndex + 1, lastCharacterIndex);
+        if (lastSeparatorIndex > -1) return directoryPath.substring(lastSeparatorIndex + 1, lastCharacterIndex);
     }
     return undefined;
 };
