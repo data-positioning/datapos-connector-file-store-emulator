@@ -117,15 +117,15 @@ export default class SampleFilesDataConnector implements DataConnector {
     }
 
     /**
-     * List the data source items for a given directory path.
-     * @param accountId The identifier of the account to which the data source belongs.
+     * List a page of source items for a given directory path.
+     * @param accountId The identifier of the account to which the source belongs.
      * @param sessionAccessToken An active session access token.
      * @param directoryPath The directory path for which to list the items.
      * @returns A page of source items.
      */
     // eslint-disable-next-line @typescript-eslint/require-await
-    async listItemsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<SourceItemsPage> {
-        return listItemsForDirectoryPath(directoryPath);
+    async listPageOfItemsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<SourceItemsPage> {
+        return listPageOfItemsForDirectoryPath(directoryPath);
     }
 }
 
@@ -164,11 +164,11 @@ const previewItem = async (
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * List the source items for a given directory path.
+ * List a page of source items for a given directory path.
  * @param directoryPath The directory path for which to list the items.
  * @returns A page of source items.
  */
-const listItemsForDirectoryPath = (directoryPath: string): SourceItemsPage => {
+const listPageOfItemsForDirectoryPath = (directoryPath: string): SourceItemsPage => {
     const items: SourceItem[] = [];
     if (directoryPath.startsWith('/SAP Employee Central')) {
         items.push(buildObjectItem('/SAP Employee Central', 'ADDRESS_INFO.csv', 'utf-8', 208015, '2018-01-02T23:33:00+00:00'));
