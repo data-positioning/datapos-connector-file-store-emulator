@@ -3,6 +3,9 @@
  * @copyright 2022 Jonathan Terrell
  * @file src/index.ts
  * @license "ISC"
+ *
+ * The sample files are maintained within the 'fileStore' directory of the 'dataposapp/dataposapp-resources' project and release to Firebase storage.
+ * They are located at https://console.firebase.google.com/project/dataposapp-v00-dev-alpha/storage/dataposapp-v00-dev-alpha.appspot.com/files/~2FfileStore.
  */
 
 // Connector asset dependencies.
