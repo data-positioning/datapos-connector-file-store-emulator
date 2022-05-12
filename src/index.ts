@@ -61,18 +61,6 @@ export default class SampleFilesDataConnector implements DataConnector {
     /**
      *
      * @param accountId
-     * @param windowCenterX
-     * @param windowCenterY
-     * @returns
-     */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async authenticate(accountId: string, windowCenterX: number, windowCenterY: number): Promise<void> {
-        return Promise.reject(new Error('Not implemented'));
-    }
-
-    /**
-     *
-     * @param accountId
      * @param sessionAccessToken
      * @param itemId
      * @returns
