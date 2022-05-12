@@ -17,6 +17,7 @@ import {
     DataConnectorPreviewInterface,
     DataConnectorPreviewInterfaceSettings,
     DataConnectorReadInterface,
+    extractLastDirectoryNameFromDirectoryPath,
     SourceItem,
     SourceItemPreview,
     SourceItemPreviewTypeId,
@@ -49,13 +50,6 @@ export default class SampleFilesDataConnector implements DataConnector {
         this.id = config.id;
         this.isAborted = false;
         this.version = version;
-    }
-
-    /**
-     *
-     */
-    abort(): void {
-        this.isAborted = true;
     }
 
     /**
@@ -116,7 +110,7 @@ const previewItem = async (
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// List Items for Directory
+// List Page of Items for Directory Path
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -243,24 +237,3 @@ const buildObjectItem = (directoryPath: string, name: string, encodingId: string
     size,
     typeId: SourceItemTypeId.Object
 });
-
-/**
- * Extract the last directory name from a path of directory names.
- * @param directoryPath The path of directory names separated by slashes ('/').
- * @returns The name of the last directory in the path, or undefined if path is empty.
- */
-const extractLastDirectoryNameFromDirectoryPath = (directoryPath: string): string | undefined => {
-    if (directoryPath) {
-        let lastSeparatorIndex;
-        let lastCharacterIndex;
-        if (directoryPath.endsWith('/')) {
-            lastSeparatorIndex = directoryPath.lastIndexOf('/', directoryPath.length - 2);
-            lastCharacterIndex = directoryPath.length - 1;
-        } else {
-            lastSeparatorIndex = directoryPath.lastIndexOf('/');
-            lastCharacterIndex = directoryPath.length;
-        }
-        if (lastSeparatorIndex > -1) return directoryPath.substring(lastSeparatorIndex + 1, lastCharacterIndex);
-    }
-    return undefined;
-};
