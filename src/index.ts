@@ -6,11 +6,9 @@
  */
 
 // TODO:
-//  1.  Review the need for language encoding test files.
-//  2.  Enter sizes and last modified dates for all sample files.
-//  3.  Implement read interface.
-//  4.  Check the SAP Employee Central files are all encoded as UTF-8;
-//  5.  Check the encoding test files all return the correct encoding when previewed.
+//  1.  Enter sizes and last modified dates for all sample files.
+//  2.  Implement read interface.
+//  3.  Check the SAP Employee Central files are all encoded as UTF-8;
 
 // Connector asset dependencies.
 import config from './config.json';
@@ -171,7 +169,7 @@ const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<SourceI
                 items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-6', undefined, 'application/octet-stream', undefined, undefined));
                 items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-7', undefined, 'application/octet-stream', undefined, undefined));
                 items.push(buildDataItem('/Test Files/Encoding', 'koi8-r', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'shift-jis', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'shift_jis', undefined, 'application/octet-stream', undefined, undefined));
                 items.push(buildDataItem('/Test Files/Encoding', 'utf-16be', undefined, 'application/octet-stream', undefined, undefined));
                 items.push(buildDataItem('/Test Files/Encoding', 'utf-16le', undefined, 'application/octet-stream', undefined, undefined));
                 items.push(buildDataItem('/Test Files/Encoding', 'utf-8', undefined, 'application/octet-stream', undefined, undefined));
