@@ -2,7 +2,7 @@
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2022 Jonathan Terrell
  * @file rollup.config-es.js
- * @license "ISC"
+ * @license ISC
  */
 
 import config from './src/config.json';

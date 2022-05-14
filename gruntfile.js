@@ -2,7 +2,7 @@
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2022 Jonathan Terrell
  * @file gruntfile.js
- * @license "ISC"
+ * @license ISC
  */
 
 const { getConnectorConfig } = require('../../../dataposapp-engine-components/src/gruntComponentHelpers.js');

@@ -2,7 +2,7 @@
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2022 Jonathan Terrell
  * @file src/index.ts
- * @license "ISC"
+ * @license ISC
  * 
  * Sample Files Data Connector
  */
