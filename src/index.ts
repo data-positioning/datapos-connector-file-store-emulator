@@ -6,9 +6,8 @@
  */
 
 // TODO:
-//  1.  Enter sizes and last modified dates for all sample files.
+//  1.  Enter sizes for all sample files.
 //  2.  Implement read interface.
-//  3.  Check the SAP Employee Central files are all encoded as UTF-8;
 
 // Connector asset dependencies.
 import config from './config.json';
@@ -23,7 +22,9 @@ import {
     DataConnectorPreviewInterfaceSettings,
     DataConnectorReadInterface,
     ErrorData,
+    extractExtensionFromItemPath,
     extractLastDirectoryNameFromDirectoryPath,
+    lookupDataMimeType,
     SourceDataItemPreview,
     SourceDataItemPreviewTypeId,
     SourceItem,
@@ -136,52 +137,52 @@ const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<SourceI
     return new Promise((resolve, reject) => {
         try {
             const items: SourceItem[] = [];
-            if (directoryPath.startsWith('/SAP Employee Central')) {
-                items.push(buildDataItem('/SAP Employee Central', 'ADDRESS_INFO.csv', 'csv', 'text/csv', 208015, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'COMP_CUR_CONV.csv', 'csv', 'text/csv', 2245, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'EMP_COMP_INFO.csv', 'csv', 'text/csv', 1665179, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'EMP_PAYCOMP_RECURRING.csv', 'csv', 'text/csv', 1551764, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'EMPLOYMENT_INFO.csv', 'csv', 'text/csv', 128575, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'EVENT_REASONS.csv', 'csv', 'text/csv', 7775, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'FREQUENCY.csv', 'csv', 'text/csv', 1704, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'GENERIC_OBJECTS.csv', 'csv', 'text/csv', 1662477, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'GENERIC_RELATIONSHIPS.csv', 'csv', 'text/csv', 98782, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'JOB_CLASS.csv', 'csv', 'text/csv', 338260, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'JOB_INFO.csv', 'csv', 'text/csv', 1546379, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'LABELS.csv', 'csv', 'text/csv', 126838, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'LOCATIONS.csv', 'csv', 'text/csv', 2995, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PAY_COMPONENT.csv', 'csv', 'text/csv', 1234, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PERSON_INFO_GLOBAL.csv', 'csv', 'text/csv', 82438, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PERSON.csv', 'csv', 'text/csv', 44896, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PERSONAL_DATA.csv', 'csv', 'text/csv', 105949, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PICKLISTS.csv', 'csv', 'text/csv', 78044, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'TERRITORY.csv', 'csv', 'text/csv', 8541, '2018-01-02T23:33:00+00:00'));
+            if (directoryPath.startsWith('/SAP Employee Central Extract')) {
+                items.push(buildDataItem('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'COMP_CUR_CONV.csv', 2245));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'EMP_COMP_INFO.csv', 1665179));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'EMP_PAYCOMP_RECURRING.csv', 1551764));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'EMPLOYMENT_INFO.csv', 128575));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'EVENT_REASONS.csv', 7775));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'FREQUENCY.csv', 1704));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'GENERIC_OBJECTS.csv', 1662477));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'GENERIC_RELATIONSHIPS.csv', 98782));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'JOB_CLASS.csv', 338260));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'JOB_INFO.csv', 1546379));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'LABELS.csv', 126838));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'LOCATIONS.csv', 2995));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'PAY_COMPONENT.csv', 1234));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'PERSON_INFO_GLOBAL.csv', 82438));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'PERSON.csv', 44896));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'PERSONAL_DATA.csv', 105949));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'PICKLISTS.csv', 78044));
+                items.push(buildDataItem('/SAP Employee Central Extract', 'TERRITORY.csv', 8541));
             } else if (directoryPath.startsWith('/Test Files')) {
-                items.push(buildFolderItem('/Encoding', 30));
+                items.push(buildFolderItem('/Encoding', 21));
             } else if (directoryPath.startsWith('/Encoding')) {
-                items.push(buildDataItem('/Test Files/Encoding', 'big5', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'euc-jp', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'euc-kr', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'gb18030', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-2022-jp', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-2', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-5', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-6', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-7', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'koi8-r', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'shift_jis', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf-16be', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf-16le', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf-8', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1250', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1251', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1252', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1253', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1254', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1255', undefined, 'application/octet-stream', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1256', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'big5', 614));
+                items.push(buildDataItem('/Test Files/Encoding', 'euc-jp', 3919));
+                items.push(buildDataItem('/Test Files/Encoding', 'euc-kr', 2480));
+                items.push(buildDataItem('/Test Files/Encoding', 'gb18030', 1665));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso-2022-jp', 2924));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-2', 1600));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-5', 1024));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-6', 2241));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-7', 1033));
+                items.push(buildDataItem('/Test Files/Encoding', 'koi8-r', 1024));
+                items.push(buildDataItem('/Test Files/Encoding', 'shift_jis', 2816));
+                items.push(buildDataItem('/Test Files/Encoding', 'utf-16be', 1334));
+                items.push(buildDataItem('/Test Files/Encoding', 'utf-16le', 1334));
+                items.push(buildDataItem('/Test Files/Encoding', 'utf-8', 1125));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1250', 1617));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1251', 1024));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1252', 2976));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1253', 1052));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1254', 2445));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1255', 2405));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1256', 2241));
             } else {
-                items.push(buildFolderItem('/SAP Employee Central', 19));
+                items.push(buildFolderItem('/SAP Employee Central Extract', 19));
                 items.push(buildFolderItem('/Test Files', 7));
             }
             resolve({ cursor: undefined, isMore: false, items });
@@ -221,25 +222,25 @@ const buildFolderItem = (directoryPath: string, childItemCount: number): SourceI
  * Build a sample file data item.
  * @param directoryPath The data item directory path.
  * @param name The data item name.
- * @param extension The data item extension.
- * @param mimeType The data item mimeType.
  * @param size The data item size.
- * @param lastModifiedAtString The data item last modified date.
  * @returns A sample file data item.
  */
-const buildDataItem = (directoryPath: string, name: string, extension: string, mimeType: string, size: number, lastModifiedAtString: string): SourceItem => ({
-    _id: undefined,
-    childItemCount: undefined,
-    directoryPath,
-    encodingId: undefined,
-    extension,
-    id: name,
-    insertedId: undefined,
-    label: name,
-    lastModifiedAt: Date.parse(lastModifiedAtString),
-    mimeType,
-    name,
-    referenceId: undefined,
-    size,
-    typeId: SourceItemTypeId.Data
-});
+const buildDataItem = (directoryPath: string, name: string, size: number): SourceItem => {
+    const extension = extractExtensionFromItemPath(name);
+    return {
+        _id: undefined,
+        childItemCount: undefined,
+        directoryPath,
+        encodingId: undefined,
+        extension,
+        id: name,
+        insertedId: undefined,
+        label: name,
+        lastModifiedAt: Date.parse('2022-01-03T23:33:00+00:00'),
+        mimeType: lookupDataMimeType(extension),
+        name,
+        referenceId: undefined,
+        size,
+        typeId: SourceItemTypeId.Data
+    };
+};
