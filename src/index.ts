@@ -3,13 +3,14 @@
  * @copyright 2022 Jonathan Terrell
  * @file src/index.ts
  * @license "ISC"
+ * 
+ * Sample Files Data Connector
  */
 
 // TODO:
-//  1.  Enter sizes for all sample files.
-//  2.  Implement read interface.
+//  1.  Implement read interface.
 
-// Connector asset dependencies.
+// Asset dependencies.
 import config from './config.json';
 import env from '../.env.json';
 import { version } from '../package.json';
@@ -93,7 +94,7 @@ export default class SampleFilesDataConnector implements DataConnector {
 
 /**
  * Preview a sample file data item.
- * @param thisConnector The sample files data connector.
+ * @param connector This sample files data connector.
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
  * @param previewInterfaceSettings The preview interface settings.
@@ -101,7 +102,7 @@ export default class SampleFilesDataConnector implements DataConnector {
  * @returns A source data item preview.
  */
 const previewDataItem = async (
-    thisConnector: DataConnector,
+    connector: DataConnector,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
@@ -131,7 +132,7 @@ const previewDataItem = async (
 /**
  * List a page of source items for a given directory path.
  * @param directoryPath The directory path for which to list the items.
- * @returns A page of sample source items.
+ * @returns A page of sample file items.
  */
 const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<SourceItemsPage> => {
     return new Promise((resolve, reject) => {
