@@ -131,58 +131,58 @@ const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<SourceI
         try {
             const items: SourceItem[] = [];
             if (directoryPath.startsWith('/SAP Employee Central')) {
-                items.push(buildDataItem('/SAP Employee Central', 'ADDRESS_INFO.csv', 'text/csv', 208015, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'COMP_CUR_CONV.csv', 'text/csv', 2245, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'EMP_COMP_INFO.csv', 'text/csv', 1665179, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'EMP_PAYCOMP_RECURRING.csv', 'text/csv', 1551764, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'EMPLOYMENT_INFO.csv', 'text/csv', 128575, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'EVENT_REASONS.csv', 'text/csv', 7775, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'FREQUENCY.csv', 'text/csv', 1704, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'GENERIC_OBJECTS.csv', 'text/csv', 1662477, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'GENERIC_RELATIONSHIPS.csv', 'text/csv', 98782, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'JOB_CLASS.csv', 'text/csv', 338260, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'JOB_INFO.csv', 'text/csv', 1546379, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'LABELS.csv', 'text/csv', 126838, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'LOCATIONS.csv', 'text/csv', 2995, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PAY_COMPONENT.csv', 'text/csv', 1234, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PERSON_INFO_GLOBAL.csv', 'text/csv', 82438, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PERSON.csv', 'text/csv', 44896, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PERSONAL_DATA.csv', 'text/csv', 105949, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'PICKLISTS.csv', 'text/csv', 78044, '2018-01-02T23:33:00+00:00'));
-                items.push(buildDataItem('/SAP Employee Central', 'TERRITORY.csv', 'text/csv', 8541, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'ADDRESS_INFO.csv', 'csv', 'text/csv', 208015, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'COMP_CUR_CONV.csv', 'csv', 'text/csv', 2245, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'EMP_COMP_INFO.csv', 'csv', 'text/csv', 1665179, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'EMP_PAYCOMP_RECURRING.csv', 'csv', 'text/csv', 1551764, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'EMPLOYMENT_INFO.csv', 'csv', 'text/csv', 128575, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'EVENT_REASONS.csv', 'csv', 'text/csv', 7775, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'FREQUENCY.csv', 'csv', 'text/csv', 1704, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'GENERIC_OBJECTS.csv', 'csv', 'text/csv', 1662477, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'GENERIC_RELATIONSHIPS.csv', 'csv', 'text/csv', 98782, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'JOB_CLASS.csv', 'csv', 'text/csv', 338260, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'JOB_INFO.csv', 'csv', 'text/csv', 1546379, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'LABELS.csv', 'csv', 'text/csv', 126838, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'LOCATIONS.csv', 'csv', 'text/csv', 2995, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'PAY_COMPONENT.csv', 'csv', 'text/csv', 1234, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'PERSON_INFO_GLOBAL.csv', 'csv', 'text/csv', 82438, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'PERSON.csv', 'csv', 'text/csv', 44896, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'PERSONAL_DATA.csv', 'csv', 'text/csv', 105949, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'PICKLISTS.csv', 'csv', 'text/csv', 78044, '2018-01-02T23:33:00+00:00'));
+                items.push(buildDataItem('/SAP Employee Central', 'TERRITORY.csv', 'csv', 'text/csv', 8541, '2018-01-02T23:33:00+00:00'));
             } else if (directoryPath.startsWith('/Test Files')) {
                 items.push(buildFolderItem('/Encoding', 30));
             } else if (directoryPath.startsWith('/Encoding')) {
-                items.push(buildDataItem('/Test Files/Encoding', 'big5', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'euc_jp', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'euc_kr', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'gb18030', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso2022jp', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso88592_cs', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso88595_ru', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso88596_ar', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso88597_el', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'koi8r', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_arabic', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_chinese', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_czech', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_greek', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_hebrew', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_japanese', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_korean', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_russian', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_turkish', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'shiftjis', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf16be', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf16le', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf8', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1250', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1251', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1252', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1253', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1254', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1255', 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1256', 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'big5', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'euc_jp', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'euc_kr', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'gb18030', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso2022jp', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso88592_cs', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso88595_ru', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso88596_ar', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso88597_el', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'koi8r', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'lang_arabic', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'lang_chinese', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'lang_czech', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'lang_greek', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'lang_hebrew', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'lang_japanese', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'lang_korean', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'lang_russian', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'lang_turkish', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'shiftjis', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'utf16be', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'utf16le', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'utf8', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows_1250', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows_1251', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows_1252', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows_1253', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows_1254', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows_1255', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows_1256', undefined, 'text/plain', undefined, undefined));
             } else {
                 items.push(buildFolderItem('/SAP Employee Central', 19));
                 items.push(buildFolderItem('/Test Files', 7));
@@ -224,16 +224,18 @@ const buildFolderItem = (directoryPath: string, childItemCount: number): SourceI
  * Build a sample file data item.
  * @param directoryPath The data item directory path.
  * @param name The data item name.
+ * @param extension The data item extension.
+ * @param mimeType The data item mimeType.
  * @param size The data item size.
  * @param lastModifiedAtString The data item last modified date.
  * @returns A sample file data item.
  */
-const buildDataItem = (directoryPath: string, name: string, mimeType: string, size: number, lastModifiedAtString: string): SourceItem => ({
+const buildDataItem = (directoryPath: string, name: string, extension: string, mimeType: string, size: number, lastModifiedAtString: string): SourceItem => ({
     _id: undefined,
     childItemCount: undefined,
     directoryPath,
     encodingId: undefined,
-    extension: 'csv',
+    extension,
     id: name,
     insertedId: undefined,
     label: name,
