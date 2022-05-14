@@ -5,11 +5,12 @@
  * @license "ISC"
  */
 
-// TODO
+// TODO:
 //  1.  Review the need for language encoding test files.
 //  2.  Enter sizes and last modified dates for all sample files.
 //  3.  Implement read interface.
 //  4.  Check the SAP Employee Central files are all encoded as UTF-8;
+//  5.  Check the encoding test files all return the correct encoding when previewed.
 
 // Connector asset dependencies.
 import config from './config.json';
@@ -23,12 +24,13 @@ import {
     DataConnectorPreviewInterface,
     DataConnectorPreviewInterfaceSettings,
     DataConnectorReadInterface,
+    ErrorData,
     extractLastDirectoryNameFromDirectoryPath,
+    SourceDataItemPreview,
+    SourceDataItemPreviewTypeId,
     SourceItem,
     SourceItemsPage,
     SourceItemTypeId,
-    SourceDataItemPreview,
-    SourceDataItemPreviewTypeId,
     SourceViewProperties
 } from '../../../../dataposapp-engine-components/src';
 
@@ -81,7 +83,7 @@ export default class SampleFilesDataConnector implements DataConnector {
      * @param directoryPath The directory path for which to list the items.
      * @returns A page of source items.
      */
-    async listPageOfItemsForDirectoryPath(accountId: string, _sessionAccessToken: string, directoryPath: string): Promise<SourceItemsPage> {
+    async listPageOfItemsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<SourceItemsPage> {
         return await listPageOfItemsForDirectoryPath(directoryPath);
     }
 }
@@ -110,10 +112,16 @@ const previewDataItem = async (
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, { headers });
-    if (!response.ok) throw new Error('|' + (await response.text()));
+    if (!response.ok) {
+        const data: ErrorData = {
+            body: { context: 'previewDataItem', message: await response.text() },
+            statusCode: response.status,
+            statusText: response.statusText
+        };
+        throw new Error('Unable to preview item.|' + JSON.stringify(data));
+    }
 
-    const arrayBuffer = await response.arrayBuffer();
-    const uint8Array = new Uint8Array(arrayBuffer);
+    const uint8Array = new Uint8Array(await response.arrayBuffer());
     return { data: uint8Array, typeId: SourceDataItemPreviewTypeId.Uint8Array };
 };
 
@@ -153,36 +161,27 @@ const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<SourceI
             } else if (directoryPath.startsWith('/Test Files')) {
                 items.push(buildFolderItem('/Encoding', 30));
             } else if (directoryPath.startsWith('/Encoding')) {
-                items.push(buildDataItem('/Test Files/Encoding', 'big5', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'euc_jp', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'euc_kr', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'gb18030', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso2022jp', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso88592_cs', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso88595_ru', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso88596_ar', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso88597_el', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'koi8r', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_arabic', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_chinese', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_czech', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_greek', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_hebrew', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_japanese', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_korean', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_russian', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'lang_turkish', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'shiftjis', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf16be', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf16le', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf8', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1250', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1251', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1252', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1253', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1254', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1255', undefined, 'text/plain', undefined, undefined));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows_1256', undefined, 'text/plain', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'big5', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'euc_jp', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'euc_kr', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'gb18030', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso2022jp', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso88592_cs', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso88595_ru', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso88596_ar', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'iso88597_el', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'koi8r', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'shiftjis', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'utf16be', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'utf16le', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'utf8', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1250', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1251', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1252', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1253', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1254', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1255', undefined, 'application/octet-stream', undefined, undefined));
+                items.push(buildDataItem('/Test Files/Encoding', 'windows-1256', undefined, 'application/octet-stream', undefined, undefined));
             } else {
                 items.push(buildFolderItem('/SAP Employee Central', 19));
                 items.push(buildFolderItem('/Test Files', 7));
