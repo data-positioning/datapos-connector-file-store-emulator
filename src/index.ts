@@ -3,7 +3,7 @@
  * @copyright 2022 Jonathan Terrell
  * @file src/index.ts
  * @license ISC
- * 
+ *
  * Sample Files Data Connector
  */
 
@@ -77,11 +77,11 @@ export default class SampleFilesDataConnector implements DataConnector {
     }
 
     /**
-     * List a page of source items for a given directory path.
+     * List a page of items for a given directory path.
      * @param accountId The identifier of the account to which the source belongs.
      * @param sessionAccessToken An active session access token.
      * @param directoryPath The directory path for which to list the items.
-     * @returns A page of source items.
+     * @returns A page of items.
      */
     async listPageOfItemsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<SourceItemsPage> {
         return await listPageOfItemsForDirectoryPath(directoryPath);
@@ -130,7 +130,7 @@ const previewDataItem = async (
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * List a page of source items for a given directory path.
+ * List a page of sample file items for a given directory path.
  * @param directoryPath The directory path for which to list the items.
  * @returns A page of sample file items.
  */
