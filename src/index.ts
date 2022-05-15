@@ -7,6 +7,7 @@
 
 // TODO:
 //  1.  Implement read interface.
+//  2.  Sequence of procedures?
 
 // Asset dependencies.
 import config from './config.json';
@@ -122,6 +123,10 @@ const previewDataItem = async (
     const uint8Array = new Uint8Array(await response.arrayBuffer());
     return { data: uint8Array, typeId: SourceDataItemPreviewTypeId.Uint8Array };
 };
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Read Data Item
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // List Page of Items for Directory Path
