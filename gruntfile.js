@@ -1,7 +1,7 @@
 /**
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2022 Jonathan Terrell
- * @file gruntfile.js
+ * @file dataposapp-connector-data-sample-files/gruntfile.js
  * @license ISC
  */
 

@@ -1,7 +1,7 @@
 /**
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2022 Jonathan Terrell
- * @file rollup.config-cjs.js
+ * @file dataposapp-connector-data-sample-files/rollup.config-cjs.js
  * @license ISC
  */
 

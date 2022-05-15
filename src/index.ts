@@ -1,10 +1,8 @@
 /**
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2022 Jonathan Terrell
- * @file src/index.ts
+ * @file dataposapp-connector-data-sample-files/src/index.ts
  * @license ISC
- *
- * Sample Files Data Connector
  */
 
 // TODO:
