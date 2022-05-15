@@ -8,6 +8,7 @@
 // TODO:
 //  1.  Implement read interface.
 //  2.  Sequence of procedures?
+//  3.  Do we need config.json in dist?
 
 // Asset dependencies.
 import config from './config.json';
