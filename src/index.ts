@@ -302,7 +302,6 @@ const readDataItem = (
                 withCredentials: undefined,
                 worker: false
             });
-            resolve();
         } catch (error) {
             reject(error);
         }
