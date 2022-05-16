@@ -237,7 +237,6 @@ const previewDataItem = async (
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-    console.log(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`);
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, { headers });
     if (!response.ok) {
         const data: ErrorData = {
@@ -306,10 +305,8 @@ const readDataItem = async (
     const streamReader = stream?.getReader();
 
     let result;
-    while (!(result = await streamReader?.read()).done) {
-        console.log(result.done, result.value ? result.value.length : 0);
-        parser.write(result.value);
-    }
+    while (!(result = await streamReader?.read()).done) parser.write(result.value);
+
     parser.end();
 };
 
