@@ -262,7 +262,8 @@ const readDataItem = (
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    sourceViewProperties: SourceViewProperties
+    sourceViewProperties: SourceViewProperties,
+    papaparse: unknown
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
@@ -295,6 +296,7 @@ const readDataItem = (
             //     withCredentials: undefined,
             //     worker: false
             // });
+            console.log('papaparse', papaparse);
             resolve();
         } catch (error) {
             reject(error);
