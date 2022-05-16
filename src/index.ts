@@ -34,7 +34,8 @@ import {
 } from '../../../../dataposapp-engine-components/src';
 
 // Vendor dependencies.
-// import { parse, ParseError, ParseResult } from 'papaparse';
+import { parse, ParseError, ParseResult } from 'papaparse';
+console.log(parse);
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
