@@ -33,9 +33,6 @@ import {
     SourceViewProperties
 } from '../../../../dataposapp-engine-components/src';
 
-// Vendor dependencies.
-import { ParseError, ParseRemoteConfig, ParseResult } from 'papaparse';
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -261,55 +258,15 @@ const previewDataItem = async (
 // #region Read Data Item
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-const readDataItem1 = (
-    connector: DataConnector,
-    accountId: string,
-    sessionAccessToken: string,
-    readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    sourceViewProperties: SourceViewProperties,
-    papaparse: typeof import('papaparse')
-): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        try {
-            const options: ParseRemoteConfig<string[]> = {
-                beforeFirstChunk: undefined,
-                chunk: (result) => {
-                    console.log(result.data);
-                    readInterfaceSettings.chunk(result.data);
-                },
-                chunkSize: readInterfaceSettings.chunkSize || null,
-                comments: false,
-                complete: () => {
-                    readInterfaceSettings.complete();
-                    resolve(); // TODO?
-                },
-                delimiter: sourceViewProperties.preview.fieldDelimiter,
-                download: true,
-                downloadRequestBody: undefined,
-                downloadRequestHeaders: undefined,
-                dynamicTyping: false,
-                // encoding: sourceViewProperties.preview.encodingId,
-                error: (error: Error, file: string) => {
-                    console.log(error);
-                    readInterfaceSettings.error(error);
-                    reject(error); // TODO?
-                },
-                fastMode: undefined,
-                header: false,
-                newline: undefined,
-                preview: 0,
-                quoteChar: '"',
-                skipEmptyLines: false,
-                withCredentials: undefined,
-                worker: false
-            };
-            papaparse.parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, options);
-        } catch (error) {
-            reject(error);
-        }
-    });
-};
-
+/**
+ *
+ * @param connector
+ * @param accountId
+ * @param sessionAccessToken
+ * @param readInterfaceSettings
+ * @param sourceViewProperties
+ * @param csvParse
+ */
 const readDataItem = async (
     connector: DataConnector,
     accountId: string,
