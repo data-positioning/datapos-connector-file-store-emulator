@@ -301,12 +301,10 @@ const readDataItem = async (
         }
         readInterfaceSettings.complete({ totalRecordCount });
     });
-    const stream = response.body?.pipeThrough(new TextDecoderStream(sourceViewProperties.preview.encodingId));
-    const streamReader = stream?.getReader();
-
+    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewProperties.preview.encodingId));
+    const streamReader = stream.getReader();
     let result;
-    while (!(result = await streamReader?.read()).done) parser.write(result.value);
-
+    while (!(result = await streamReader.read()).done) parser.write(result.value);
     parser.end();
 };
 
