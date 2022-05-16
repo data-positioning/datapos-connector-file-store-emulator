@@ -34,7 +34,7 @@ import {
 } from '../../../../dataposapp-engine-components/src';
 
 // Vendor dependencies.
-import { parse, ParseError, ParseResult } from 'papaparse';
+// import { parse, ParseError, ParseResult } from 'papaparse';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
@@ -269,33 +269,36 @@ const readDataItem = (
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
-            parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, {
-                beforeFirstChunk: undefined,
-                chunk: (result: ParseResult<unknown>) => {
-                    readInterfaceSettings.chunk(result.data);
-                },
-                chunkSize: readInterfaceSettings.chunkSize || null,
-                comments: false,
-                complete: () => {
-                    readInterfaceSettings.complete();
-                },
-                delimiter: sourceViewProperties.preview.fieldDelimiter,
-                download: true,
-                downloadRequestHeaders: {},
-                dynamicTyping: false,
-                encoding: sourceViewProperties.preview.encodingId,
-                error: (error: ParseError) => {
-                    readInterfaceSettings.error(error);
-                },
-                fastMode: undefined,
-                header: false,
-                newline: '',
-                preview: 0,
-                quoteChar: '"',
-                skipEmptyLines: false,
-                withCredentials: undefined,
-                worker: false
-            });
+            // parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, {
+            //     beforeFirstChunk: undefined,
+            //     chunk: (result: ParseResult<unknown>) => {
+            //         readInterfaceSettings.chunk(result.data);
+            //     },
+            //     chunkSize: readInterfaceSettings.chunkSize || null,
+            //     comments: false,
+            //     complete: () => {
+            //         readInterfaceSettings.complete();
+            //         resolve(); // TODO?
+            //     },
+            //     delimiter: sourceViewProperties.preview.fieldDelimiter,
+            //     download: true,
+            //     downloadRequestHeaders: {},
+            //     dynamicTyping: false,
+            //     encoding: sourceViewProperties.preview.encodingId,
+            //     error: (error: ParseError) => {
+            //         readInterfaceSettings.error(error);
+            //         reject(error); // TODO?
+            //     },
+            //     fastMode: undefined,
+            //     header: false,
+            //     newline: '',
+            //     preview: 0,
+            //     quoteChar: '"',
+            //     skipEmptyLines: false,
+            //     withCredentials: undefined,
+            //     worker: false
+            // });
+            resolve();
         } catch (error) {
             reject(error);
         }
