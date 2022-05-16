@@ -282,7 +282,7 @@ const readDataItem = async (
 
     let totalRecordCount = 0;
     let chunk: string[][] = [];
-    const maxChunkSize = 50;
+    const maxChunkSize = 1000;
     parser.on('readable', () => {
         let record;
         while ((record = parser.read() as string[]) !== null) {
