@@ -240,6 +240,7 @@ const previewDataItem = async (
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
+    console.log(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`);
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, { headers });
     if (!response.ok) {
         const data: ErrorData = {
@@ -302,7 +303,6 @@ const readDataItem = (
                 withCredentials: undefined,
                 worker: false
             };
-            console.log(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`);
             papaparse.parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, options);
         } catch (error) {
             reject(error);
