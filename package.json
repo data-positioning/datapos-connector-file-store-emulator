@@ -4,7 +4,7 @@
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
     "main": "./src/index.ts",
-    "version": "0.1.203",
+    "version": "0.1.204",
     "dependencies": {
         "chardet": "^1.4.0",
         "nanoid": "^3.3.4"
