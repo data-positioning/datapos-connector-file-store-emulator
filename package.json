@@ -4,7 +4,7 @@
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
     "main": "./src/index.ts",
-    "version": "0.1.202",
+    "version": "0.1.203",
     "dependencies": {
         "chardet": "^1.4.0",
         "nanoid": "^3.3.4"
@@ -17,7 +17,6 @@
         "eslint-plugin-prettier": "^4.0.0",
         "grunt": "^1.4.1",
         "grunt-bump": "^0.8.0",
-        "grunt-contrib-copy": "^1.0.0",
         "grunt-run": "^0.8.1",
         "node-fetch": "^3.2.3",
         "rollup": "^2.67.1",

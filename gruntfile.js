@@ -38,6 +38,7 @@ module.exports = (grunt) => {
         }
     });
 
+    // Register update Firebase component task.
     grunt.task.registerTask('updateFirestore', 'Updates Firestore', async function () {
         try {
             const done = this.async();
