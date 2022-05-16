@@ -33,12 +33,6 @@ import {
     SourceViewProperties
 } from '../../../../dataposapp-engine-components/src';
 
-// Vendor dependencies.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import Papa from '../node_modules/papaparse';
-console.log(Papa);
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
