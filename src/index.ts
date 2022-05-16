@@ -285,7 +285,7 @@ const readDataItem = (
                 delimiter: sourceViewProperties.preview.fieldDelimiter,
                 download: true,
                 downloadRequestBody: undefined,
-                downloadRequestHeaders: { 'Content-Type': 'application/octet-stream;charset=UTF-8' },
+                downloadRequestHeaders: undefined,
                 dynamicTyping: false,
                 // encoding: sourceViewProperties.preview.encodingId,
                 error: (error: Error, file: string) => {
