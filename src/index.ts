@@ -33,6 +33,9 @@ import {
     SourceViewProperties
 } from '../../../../dataposapp-engine-components/src';
 
+// Vendor dependencies.
+import { ParseError, ParseRemoteConfig, ParseResult } from 'papaparse';
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,17 +55,13 @@ export default class SampleFilesDataConnector implements DataConnector {
     connectionItem: ConnectionItem;
     id: string;
     isAborted: boolean;
-    papaparse: unknown;
     version: string;
 
-    constructor(connectionItem: ConnectionItem, papaparse?: unknown) {
+    constructor(connectionItem: ConnectionItem) {
         this.connectionItem = connectionItem;
         this.id = config.id;
         this.isAborted = false;
-        this.papaparse = papaparse;
         this.version = version;
-
-        console.log('papaparse', papaparse);
     }
 
     /**
@@ -266,14 +265,14 @@ const readDataItem = (
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    sourceViewProperties: SourceViewProperties
+    sourceViewProperties: SourceViewProperties,
+    papaparse: typeof import('papaparse')
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
-            const parse = (connector.papaparse as { parse: (url: string, options: Record<string, unknown>) => void }).parse;
-            parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, {
+            const options: ParseRemoteConfig<string[]> = {
                 beforeFirstChunk: undefined,
-                chunk: (result: { data: unknown }) => {
+                chunk: (result) => {
                     console.log(result.data);
                     readInterfaceSettings.chunk(result.data);
                 },
@@ -287,21 +286,22 @@ const readDataItem = (
                 download: true,
                 downloadRequestHeaders: {},
                 dynamicTyping: false,
-                encoding: sourceViewProperties.preview.encodingId,
-                error: (error: unknown) => {
+                // encoding: sourceViewProperties.preview.encodingId,
+                error: (error: Error, file: string) => {
                     console.log(error);
                     readInterfaceSettings.error(error);
                     reject(error); // TODO?
                 },
                 fastMode: undefined,
                 header: false,
-                newline: '',
+                newline: undefined,
                 preview: 0,
                 quoteChar: '"',
                 skipEmptyLines: false,
                 withCredentials: undefined,
                 worker: false
-            });
+            };
+            papaparse.parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, options);
         } catch (error) {
             reject(error);
         }
