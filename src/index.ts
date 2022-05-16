@@ -270,35 +270,38 @@ const readDataItem = (
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
-            // parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, {
-            //     beforeFirstChunk: undefined,
-            //     chunk: (result: ParseResult<unknown>) => {
-            //         readInterfaceSettings.chunk(result.data);
-            //     },
-            //     chunkSize: readInterfaceSettings.chunkSize || null,
-            //     comments: false,
-            //     complete: () => {
-            //         readInterfaceSettings.complete();
-            //         resolve(); // TODO?
-            //     },
-            //     delimiter: sourceViewProperties.preview.fieldDelimiter,
-            //     download: true,
-            //     downloadRequestHeaders: {},
-            //     dynamicTyping: false,
-            //     encoding: sourceViewProperties.preview.encodingId,
-            //     error: (error: ParseError) => {
-            //         readInterfaceSettings.error(error);
-            //         reject(error); // TODO?
-            //     },
-            //     fastMode: undefined,
-            //     header: false,
-            //     newline: '',
-            //     preview: 0,
-            //     quoteChar: '"',
-            //     skipEmptyLines: false,
-            //     withCredentials: undefined,
-            //     worker: false
-            // });
+            const parse = (connector.papaparse as { parse: (url: string, options: Record<string, unknown>) => void }).parse;
+            parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, {
+                beforeFirstChunk: undefined,
+                chunk: (result: { data: unknown }) => {
+                    console.log(result.data);
+                    readInterfaceSettings.chunk(result.data);
+                },
+                chunkSize: readInterfaceSettings.chunkSize || null,
+                comments: false,
+                complete: () => {
+                    readInterfaceSettings.complete();
+                    resolve(); // TODO?
+                },
+                delimiter: sourceViewProperties.preview.fieldDelimiter,
+                download: true,
+                downloadRequestHeaders: {},
+                dynamicTyping: false,
+                encoding: sourceViewProperties.preview.encodingId,
+                error: (error: unknown) => {
+                    console.log(error);
+                    readInterfaceSettings.error(error);
+                    reject(error); // TODO?
+                },
+                fastMode: undefined,
+                header: false,
+                newline: '',
+                preview: 0,
+                quoteChar: '"',
+                skipEmptyLines: false,
+                withCredentials: undefined,
+                worker: false
+            });
             resolve();
         } catch (error) {
             reject(error);
