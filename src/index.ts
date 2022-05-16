@@ -336,11 +336,10 @@ const readDataItem = async (
     const stream = response.body?.pipeThrough(new TextDecoderStream('utf-8'));
     const streamReader = stream?.getReader();
 
-    let result = await streamReader?.read();
-    while (!result.done) {
+    let result;
+    while (!(result = await streamReader?.read()).done) {
         console.log(result.done, result.value ? result.value.length : 0);
         readInterfaceSettings.chunk(result.value);
-        result = await streamReader?.read();
     }
     parser.end();
 };
