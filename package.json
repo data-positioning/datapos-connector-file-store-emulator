@@ -4,7 +4,7 @@
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
     "main": "./src/index.ts",
-    "version": "0.1.230",
+    "version": "0.1.231",
     "devDependencies": {
         "@rollup/plugin-commonjs": "^22.0.0",
         "@rollup/plugin-json": "^4.1.0",
@@ -12,6 +12,7 @@
         "@types/papaparse": "^5.3.2",
         "@typescript-eslint/eslint-plugin": "^5.11.0",
         "@typescript-eslint/parser": "^5.11.0",
+        "csv-parse": "^5.0.4",
         "eslint": "^8.8.0",
         "eslint-plugin-prettier": "^4.0.0",
         "grunt": "^1.4.1",
