@@ -284,7 +284,7 @@ const readDataItem = (
                 },
                 delimiter: sourceViewProperties.preview.fieldDelimiter,
                 download: true,
-                downloadRequestHeaders: { 'Content-Type': 'text/csv;charset=big5' },
+                downloadRequestHeaders: { 'Content-Type': 'text/csv; charset=UTF-8' },
                 dynamicTyping: false,
                 // encoding: sourceViewProperties.preview.encodingId,
                 error: (error: Error, file: string) => {
