@@ -7,7 +7,6 @@
 
 // TODO:
 //  1.  Implement read interface.
-//  2.  Sequence of procedures?
 //  3.  Do we need config.json in dist?
 
 // Asset dependencies.
@@ -87,47 +86,6 @@ export default class SampleFilesDataConnector implements DataConnector {
         return await listPageOfItemsForDirectoryPath(directoryPath);
     }
 }
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Preview Data Item
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * Preview a sample file data item.
- * @param connector This sample files data connector.
- * @param accountId The identifier of the account to which the source belongs.
- * @param sessionAccessToken An active session token.
- * @param previewInterfaceSettings The preview interface settings.
- * @param sourceViewProperties The source view properties.
- * @returns A source data item preview.
- */
-const previewDataItem = async (
-    connector: DataConnector,
-    accountId: string | undefined,
-    sessionAccessToken: string | undefined,
-    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    sourceViewProperties: SourceViewProperties
-): Promise<SourceDataItemPreview> => {
-    const headers: HeadersInit = {
-        Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
-    };
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, { headers });
-    if (!response.ok) {
-        const data: ErrorData = {
-            body: { context: 'previewDataItem', message: await response.text() },
-            statusCode: response.status,
-            statusText: response.statusText
-        };
-        throw new Error('Unable to preview item.|' + JSON.stringify(data));
-    }
-
-    const uint8Array = new Uint8Array(await response.arrayBuffer());
-    return { data: uint8Array, typeId: SourceDataItemPreviewTypeId.Uint8Array };
-};
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Read Data Item
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // List Page of Items for Directory Path
@@ -249,3 +207,44 @@ const buildDataItem = (directoryPath: string, name: string, size: number): Sourc
         typeId: SourceItemTypeId.Data
     };
 };
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Preview Data Item
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Preview a sample file data item.
+ * @param connector This sample files data connector.
+ * @param accountId The identifier of the account to which the source belongs.
+ * @param sessionAccessToken An active session token.
+ * @param previewInterfaceSettings The preview interface settings.
+ * @param sourceViewProperties The source view properties.
+ * @returns A source data item preview.
+ */
+const previewDataItem = async (
+    connector: DataConnector,
+    accountId: string | undefined,
+    sessionAccessToken: string | undefined,
+    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
+    sourceViewProperties: SourceViewProperties
+): Promise<SourceDataItemPreview> => {
+    const headers: HeadersInit = {
+        Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
+    };
+    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, { headers });
+    if (!response.ok) {
+        const data: ErrorData = {
+            body: { context: 'previewDataItem', message: await response.text() },
+            statusCode: response.status,
+            statusText: response.statusText
+        };
+        throw new Error('Unable to preview item.|' + JSON.stringify(data));
+    }
+
+    const uint8Array = new Uint8Array(await response.arrayBuffer());
+    return { data: uint8Array, typeId: SourceDataItemPreviewTypeId.Uint8Array };
+};
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Read Data Item
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
