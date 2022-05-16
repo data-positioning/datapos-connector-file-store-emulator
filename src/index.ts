@@ -20,6 +20,7 @@ import {
     DataConnectorPreviewInterface,
     DataConnectorPreviewInterfaceSettings,
     DataConnectorReadInterface,
+    DataConnectorReadInterfaceSettings,
     ErrorData,
     extractExtensionFromItemPath,
     extractLastDirectoryNameFromDirectoryPath,
@@ -31,6 +32,9 @@ import {
     SourceItemTypeId,
     SourceViewProperties
 } from '../../../../dataposapp-engine-components/src';
+
+// Vendor dependencies.
+import { parse, ParseError, ParseResult } from 'papaparse';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
@@ -73,7 +77,7 @@ export default class SampleFilesDataConnector implements DataConnector {
      * @returns The sample files read interface.
      */
     getReadInterface(): DataConnectorReadInterface {
-        throw new Error('Not implemented');
+        return { connector: this, readDataItem };
     }
 
     /**
@@ -255,5 +259,47 @@ const previewDataItem = async (
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Read Data Item
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const readDataItem = (
+    connector: DataConnector,
+    accountId: string,
+    sessionAccessToken: string,
+    readInterfaceSettings: DataConnectorReadInterfaceSettings,
+    sourceViewProperties: SourceViewProperties
+): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        try {
+            parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, {
+                beforeFirstChunk: undefined,
+                chunk: (result: ParseResult<unknown>) => {
+                    readInterfaceSettings.chunk(result.data);
+                },
+                chunkSize: readInterfaceSettings.chunkSize || null,
+                comments: false,
+                complete: () => {
+                    readInterfaceSettings.complete();
+                },
+                delimiter: sourceViewProperties.preview.fieldDelimiter,
+                download: true,
+                downloadRequestHeaders: {},
+                dynamicTyping: false,
+                encoding: sourceViewProperties.preview.encodingId,
+                error: (error: ParseError) => {
+                    readInterfaceSettings.error(error);
+                },
+                fastMode: undefined,
+                header: false,
+                newline: '',
+                preview: 0,
+                quoteChar: '"',
+                skipEmptyLines: false,
+                withCredentials: undefined,
+                worker: false
+            });
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
 
 // #endregion
