@@ -318,9 +318,7 @@ const readDataItem = async (
     sourceViewProperties: SourceViewProperties,
     csvParse: typeof import('csv-parse/browser/esm')
 ): Promise<void> => {
-    const response = await fetch(
-        'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-dev-alpha.appspot.com/o/fileStore%2FSAP%20Employee%20Central%20Extract%2FLABELS.csv?alt=media'
-    );
+    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`);
 
     const parser = csvParse.parse({
         delimiter: ','
@@ -333,8 +331,8 @@ const readDataItem = async (
             counter++;
         }
     });
-    parser.on('error', (error) => console.error(error.message));
-    parser.on('end', () => console.log(counter));
+    parser.on('error', (error) => readInterfaceSettings.error(error));
+    parser.on('end', () => readInterfaceSettings.complete());
     const stream = response.body?.pipeThrough(new TextDecoderStream('utf-8'));
     const streamReader = stream?.getReader();
 
@@ -342,6 +340,7 @@ const readDataItem = async (
     do {
         result = (await streamReader?.read()) as { done: boolean; value: string | undefined };
         console.log(result.done, result.value ? result.value.length : 0);
+        if (!result.done) readInterfaceSettings.chunk(result.value);
     } while (!result.done);
 };
 
