@@ -52,13 +52,17 @@ export default class SampleFilesDataConnector implements DataConnector {
     connectionItem: ConnectionItem;
     id: string;
     isAborted: boolean;
+    papaparse: unknown;
     version: string;
 
-    constructor(connectionItem: ConnectionItem) {
+    constructor(connectionItem: ConnectionItem, papaparse?: unknown) {
         this.connectionItem = connectionItem;
         this.id = config.id;
         this.isAborted = false;
+        this.papaparse = papaparse;
         this.version = version;
+
+        console.log('papaparse', papaparse);
     }
 
     /**
@@ -262,8 +266,7 @@ const readDataItem = (
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    sourceViewProperties: SourceViewProperties,
-    papaparse: unknown
+    sourceViewProperties: SourceViewProperties
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
@@ -296,7 +299,6 @@ const readDataItem = (
             //     withCredentials: undefined,
             //     worker: false
             // });
-            console.log('papaparse', papaparse);
             resolve();
         } catch (error) {
             reject(error);
