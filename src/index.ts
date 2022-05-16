@@ -286,17 +286,18 @@ const readDataItem = async (
         let record;
         while ((record = parser.read() as string[]) !== null) {
             counter++;
+            readInterfaceSettings.chunk(record);
         }
     });
     parser.on('error', (error) => readInterfaceSettings.error(error));
-    parser.on('end', () => readInterfaceSettings.complete());
+    parser.on('end', () => readInterfaceSettings.complete(counter));
     const stream = response.body?.pipeThrough(new TextDecoderStream('utf-8'));
     const streamReader = stream?.getReader();
 
     let result;
     while (!(result = await streamReader?.read()).done) {
         console.log(result.done, result.value ? result.value.length : 0);
-        readInterfaceSettings.chunk(result.value);
+        parser.write(result.value);
     }
     parser.end();
 };
