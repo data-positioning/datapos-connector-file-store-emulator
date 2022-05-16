@@ -22,12 +22,6 @@ module.exports = (grunt) => {
             }
         },
 
-        copy: {
-            configToDist: {
-                files: [{ cwd: 'src', dest: 'dist', expand: true, src: ['config.json'], rename: (dest) => `${dest}/${config.id}.json` }]
-            }
-        },
-
         pkg,
 
         run: {
@@ -84,7 +78,6 @@ module.exports = (grunt) => {
 
     // Load external tasks.
     grunt.loadNpmTasks('grunt-bump');
-    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-run');
 
     // Register local tasks.
