@@ -302,6 +302,7 @@ const readDataItem = (
                 withCredentials: undefined,
                 worker: false
             };
+            console.log(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`);
             papaparse.parse(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, options);
         } catch (error) {
             reject(error);
