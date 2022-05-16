@@ -290,12 +290,18 @@ const readDataItem = async (
             chunk.push(record);
             totalRecordCount++;
             if (chunk.length < maxChunkSize) continue;
-            readInterfaceSettings.chunk(record);
+            readInterfaceSettings.chunk(chunk);
             chunk = [];
         }
     });
     parser.on('error', (error) => readInterfaceSettings.error(error));
-    parser.on('end', () => readInterfaceSettings.complete({ totalRecordCount }));
+    parser.on('end', () => {
+        if (chunk.length > 0) {
+            readInterfaceSettings.chunk(chunk);
+            chunk = [];
+        }
+        readInterfaceSettings.complete({ totalRecordCount });
+    });
     const stream = response.body?.pipeThrough(new TextDecoderStream('utf-8'));
     const streamReader = stream?.getReader();
 
