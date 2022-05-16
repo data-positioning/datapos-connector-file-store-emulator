@@ -301,7 +301,7 @@ const readDataItem = async (
         }
         readInterfaceSettings.complete({ totalRecordCount });
     });
-    const stream = response.body?.pipeThrough(new TextDecoderStream('utf-8'));
+    const stream = response.body?.pipeThrough(new TextDecoderStream(sourceViewProperties.preview.encodingId));
     const streamReader = stream?.getReader();
 
     let result;
