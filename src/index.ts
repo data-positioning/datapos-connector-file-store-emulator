@@ -336,12 +336,13 @@ const readDataItem = async (
     const stream = response.body?.pipeThrough(new TextDecoderStream('utf-8'));
     const streamReader = stream?.getReader();
 
-    let result;
-    do {
-        result = (await streamReader?.read()) as { done: boolean; value: string | undefined };
+    let result = await streamReader?.read();
+    while (!result.done) {
         console.log(result.done, result.value ? result.value.length : 0);
-        if (!result.done) readInterfaceSettings.chunk(result.value);
-    } while (!result.done);
+        readInterfaceSettings.chunk(result.value);
+        result = await streamReader?.read();
+    }
+    parser.end();
 };
 
 // #endregion
