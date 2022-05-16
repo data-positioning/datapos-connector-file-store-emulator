@@ -13,7 +13,7 @@ import { terser } from 'rollup-plugin-terser';
 
 export default [
     {
-        external: ['chardet'],
+        external: [],
         input: pkg.main,
         output: [
             {
