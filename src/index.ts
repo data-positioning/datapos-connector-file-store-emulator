@@ -222,6 +222,7 @@ const buildDataItem = (directoryPath: string, name: string, size: number): Sourc
  * @param sessionAccessToken An active session token.
  * @param previewInterfaceSettings The preview interface settings.
  * @param sourceViewProperties The source view properties.
+ * @param sourceItem
  * @returns A source data item preview.
  */
 const previewDataItem = async (
@@ -229,7 +230,8 @@ const previewDataItem = async (
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    sourceViewProperties: SourceViewProperties
+    sourceViewProperties: SourceViewProperties,
+    sourceItem: SourceItem
 ): Promise<SourceDataItemPreview> => {
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
