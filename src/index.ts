@@ -5,9 +5,6 @@
  * @license ISC
  */
 
-// TODO:
-//  1.  Implement read interface.
-
 // Asset dependencies.
 import config from './config.json';
 import env from '../.env.json';
