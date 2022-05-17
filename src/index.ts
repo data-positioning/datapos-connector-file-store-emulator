@@ -12,6 +12,7 @@ import { version } from '../package.json';
 
 // Engine component dependencies.
 import {
+    ConnectionElementTypeId,
     ConnectionItem,
     DataConnector,
     DataConnectorPreviewInterface,
@@ -26,9 +27,8 @@ import {
     SourceDataItemPreviewTypeId,
     SourceItem,
     SourceItemsPage,
-    SourceItemTypeId,
     SourceViewProperties
-} from '../../../../dataposapp-engine-components/src';
+} from '../../../../dataposapp-engine-general/src';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
@@ -178,7 +178,7 @@ const buildFolderItem = (directoryPath: string, childItemCount: number): SourceI
         name: lastDirectoryName,
         referenceId: undefined,
         size: undefined,
-        typeId: SourceItemTypeId.Folder
+        typeId: ConnectionElementTypeId.Folder
     };
 };
 
@@ -205,7 +205,7 @@ const buildDataItem = (directoryPath: string, name: string, size: number): Sourc
         name,
         referenceId: undefined,
         size,
-        typeId: SourceItemTypeId.Data
+        typeId: ConnectionElementTypeId.File
     };
 };
 

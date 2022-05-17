@@ -5,7 +5,7 @@
  * @license ISC
  */
 
-const { getConnectorConfig } = require('../../../dataposapp-engine-components/src/gruntComponentHelpers.js');
+const { getConnectorConfig } = require('../../../dataposapp-engine-general/src/gruntComponentHelpers.js');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
