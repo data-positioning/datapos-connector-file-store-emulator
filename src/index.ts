@@ -255,13 +255,13 @@ const previewDataItem = async (
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- *
- * @param connector
- * @param accountId
- * @param sessionAccessToken
- * @param readInterfaceSettings
- * @param sourceViewProperties
- * @param csvParse
+ * Read a sample file data item.
+ * @param connector The Dropbox data connector.
+ * @param accountId The identifier of the account to which the source belongs.
+ * @param sessionAccessToken An active session token.
+ * @param readInterfaceSettings The read interface settings.
+ * @param sourceViewProperties The source view properties.
+ * @param csvParse The csv-parse library.
  */
 const readDataItem = async (
     connector: DataConnector,
