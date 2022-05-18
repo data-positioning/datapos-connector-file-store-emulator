@@ -28,7 +28,7 @@ import {
     SourceItem,
     SourceItemsPage,
     SourceViewProperties
-} from '../../../../dataposapp-engine-general/src';
+} from '../../../../dataposapp-engine-main/src';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
