@@ -12,6 +12,10 @@ import { version } from '../package.json';
 
 // Engine component dependencies.
 import {
+    ConnectionElement,
+    ConnectionElementPreview,
+    ConnectionElementPreviewTypeId,
+    ConnectionElementsPage,
     ConnectionElementTypeId,
     ConnectionItem,
     DataConnector,
@@ -23,10 +27,6 @@ import {
     extractExtensionFromItemPath,
     extractLastDirectoryNameFromDirectoryPath,
     lookupDataMimeType,
-    SourceDataItemPreview,
-    SourceDataItemPreviewTypeId,
-    SourceItem,
-    SourceItemsPage,
     SourceViewProperties
 } from '../../../../dataposapp-engine-main/src';
 
@@ -63,7 +63,7 @@ export default class SampleFilesDataConnector implements DataConnector {
      * @returns The sample files preview interface.
      */
     getPreviewInterface(): DataConnectorPreviewInterface {
-        return { connector: this, previewDataItem };
+        return { connector: this, previewFileElement };
     }
 
     /**
@@ -71,7 +71,7 @@ export default class SampleFilesDataConnector implements DataConnector {
      * @returns The sample files read interface.
      */
     getReadInterface(): DataConnectorReadInterface {
-        return { connector: this, readDataItem };
+        return { connector: this, readFileElement };
     }
 
     /**
@@ -81,7 +81,7 @@ export default class SampleFilesDataConnector implements DataConnector {
      * @param directoryPath The directory path for which to list the items.
      * @returns A page of items.
      */
-    async listPageOfItemsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<SourceItemsPage> {
+    async listPageOfItemsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<ConnectionElementsPage> {
         return await listPageOfItemsForDirectoryPath(directoryPath);
     }
 }
@@ -97,10 +97,10 @@ export default class SampleFilesDataConnector implements DataConnector {
  * @param directoryPath The directory path for which to list the items.
  * @returns A page of sample file items.
  */
-const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<SourceItemsPage> => {
+const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<ConnectionElementsPage> => {
     return new Promise((resolve, reject) => {
         try {
-            const items: SourceItem[] = [];
+            const items: ConnectionElement[] = [];
             if (directoryPath.startsWith('/SAP Employee Central Extract')) {
                 items.push(buildDataItem('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
                 items.push(buildDataItem('/SAP Employee Central Extract', 'COMP_CUR_CONV.csv', 2245));
@@ -162,7 +162,7 @@ const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<SourceI
  * @param childItemCount The folder item child item count.
  * @returns A sample file folder item.
  */
-const buildFolderItem = (directoryPath: string, childItemCount: number): SourceItem => {
+const buildFolderItem = (directoryPath: string, childItemCount: number): ConnectionElement => {
     const lastDirectoryName = extractLastDirectoryNameFromDirectoryPath(directoryPath);
     return {
         _id: undefined,
@@ -189,7 +189,7 @@ const buildFolderItem = (directoryPath: string, childItemCount: number): SourceI
  * @param size The data item size.
  * @returns A sample file data item.
  */
-const buildDataItem = (directoryPath: string, name: string, size: number): SourceItem => {
+const buildDataItem = (directoryPath: string, name: string, size: number): ConnectionElement => {
     const extension = extractExtensionFromItemPath(name);
     return {
         _id: undefined,
@@ -212,27 +212,27 @@ const buildDataItem = (directoryPath: string, name: string, size: number): Sourc
 // #endregion
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region Preview Data Item
+// #region Preview File Element
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Preview a sample file data item.
+ * Preview a Sample Files file element.
  * @param connector This sample files data connector.
+ * @param sourceViewProperties The source view properties.
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
  * @param previewInterfaceSettings The preview interface settings.
- * @param sourceViewProperties The source view properties.
- * @param sourceItem
+ * @param connectionElement
  * @returns A source data item preview.
  */
-const previewDataItem = async (
+const previewFileElement = async (
     connector: DataConnector,
+    sourceViewProperties: SourceViewProperties,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    sourceViewProperties: SourceViewProperties,
-    sourceItem: SourceItem
-): Promise<SourceDataItemPreview> => {
+    connectionElement: ConnectionElement
+): Promise<ConnectionElementPreview> => {
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
@@ -247,30 +247,32 @@ const previewDataItem = async (
     }
 
     const uint8Array = new Uint8Array(await response.arrayBuffer());
-    return { data: uint8Array, typeId: SourceDataItemPreviewTypeId.Uint8Array };
+    return { data: uint8Array, typeId: ConnectionElementPreviewTypeId.Uint8Array };
 };
 
 // #endregion
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region Read Data Item
+// #region Read File Element
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Read a sample file data item.
+ * Read a Sample Files file element.
  * @param connector The Dropbox data connector.
+ * @param sourceViewProperties The source view properties.
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
  * @param readInterfaceSettings The read interface settings.
- * @param sourceViewProperties The source view properties.
+ * @param connectionElement
  * @param csvParse The csv-parse library.
  */
-const readDataItem = async (
+const readFileElement = async (
     connector: DataConnector,
+    sourceViewProperties: SourceViewProperties,
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    sourceViewProperties: SourceViewProperties,
+    connectionElement: ConnectionElement,
     csvParse: typeof import('csv-parse/browser/esm')
 ): Promise<void> => {
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`);
