@@ -233,6 +233,7 @@ const previewFileElement = async (
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
     connectionElement: ConnectionElement
 ): Promise<ConnectionElementPreview> => {
+    console.log(2222, sourceViewProperties, previewInterfaceSettings, connectionElement);
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
