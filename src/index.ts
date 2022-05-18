@@ -237,7 +237,7 @@ const previewFileElement = async (
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, { headers });
+    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionElement.directoryPath}/${connectionElement.name}`)}?alt=media`, { headers });
     if (!response.ok) {
         const data: ErrorData = {
             body: { context: 'previewFileElement', message: await response.text() },
@@ -276,7 +276,7 @@ const readFileElement = async (
     connectionElement: ConnectionElement,
     csvParse: typeof import('csv-parse/browser/esm')
 ): Promise<void> => {
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`);
+    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionElement.directoryPath}/${connectionElement.name}`)}?alt=media`);
 
     const parser = csvParse.parse({
         delimiter: ','
