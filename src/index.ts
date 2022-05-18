@@ -24,9 +24,9 @@ import {
     DataConnectorReadInterface,
     DataConnectorReadInterfaceSettings,
     ErrorData,
-    extractExtensionFromItemPath,
+    extractExtensionFromElementPath,
     extractLastDirectoryNameFromDirectoryPath,
-    lookupDataMimeType,
+    lookupMimeTypeForFileExtension,
     SourceViewProperties
 } from '../../../../dataposapp-engine-main/src';
 
@@ -75,81 +75,81 @@ export default class SampleFilesDataConnector implements DataConnector {
     }
 
     /**
-     * List a page of items for a given directory path.
+     * List a page of elements for a given directory path.
      * @param accountId The identifier of the account to which the source belongs.
      * @param sessionAccessToken An active session access token.
-     * @param directoryPath The directory path for which to list the items.
-     * @returns A page of items.
+     * @param directoryPath The directory path for which to list the elements.
+     * @returns A page of elements.
      */
-    async listPageOfItemsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<ConnectionElementsPage> {
-        return await listPageOfItemsForDirectoryPath(directoryPath);
+    async listPageOfElementsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<ConnectionElementsPage> {
+        return await listPageOfElementsForDirectoryPath(directoryPath);
     }
 }
 
 // #endregion
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// region List Page of Items for Directory Path
+// region List Page of Elements for Directory Path
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * List a page of sample file items for a given directory path.
- * @param directoryPath The directory path for which to list the items.
- * @returns A page of sample file items.
+ * List a page of sample file elements for a given directory path.
+ * @param directoryPath The directory path for which to list the elements.
+ * @returns A page of sample file elements.
  */
-const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<ConnectionElementsPage> => {
+const listPageOfElementsForDirectoryPath = (directoryPath: string): Promise<ConnectionElementsPage> => {
     return new Promise((resolve, reject) => {
         try {
-            const items: ConnectionElement[] = [];
+            const elements: ConnectionElement[] = [];
             if (directoryPath.startsWith('/SAP Employee Central Extract')) {
-                items.push(buildDataItem('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'COMP_CUR_CONV.csv', 2245));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'EMP_COMP_INFO.csv', 1665179));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'EMP_PAYCOMP_RECURRING.csv', 1551764));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'EMPLOYMENT_INFO.csv', 128575));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'EVENT_REASONS.csv', 7775));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'FREQUENCY.csv', 1704));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'GENERIC_OBJECTS.csv', 1662477));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'GENERIC_RELATIONSHIPS.csv', 98782));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'JOB_CLASS.csv', 338260));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'JOB_INFO.csv', 1546379));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'LABELS.csv', 126838));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'LOCATIONS.csv', 2995));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'PAY_COMPONENT.csv', 1234));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'PERSON_INFO_GLOBAL.csv', 82438));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'PERSON.csv', 44896));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'PERSONAL_DATA.csv', 105949));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'PICKLISTS.csv', 78044));
-                items.push(buildDataItem('/SAP Employee Central Extract', 'TERRITORY.csv', 8541));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'COMP_CUR_CONV.csv', 2245));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'EMP_COMP_INFO.csv', 1665179));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'EMP_PAYCOMP_RECURRING.csv', 1551764));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'EMPLOYMENT_INFO.csv', 128575));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'EVENT_REASONS.csv', 7775));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'FREQUENCY.csv', 1704));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'GENERIC_OBJECTS.csv', 1662477));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'GENERIC_RELATIONSHIPS.csv', 98782));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'JOB_CLASS.csv', 338260));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'JOB_INFO.csv', 1546379));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'LABELS.csv', 126838));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'LOCATIONS.csv', 2995));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'PAY_COMPONENT.csv', 1234));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'PERSON_INFO_GLOBAL.csv', 82438));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'PERSON.csv', 44896));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'PERSONAL_DATA.csv', 105949));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'PICKLISTS.csv', 78044));
+                elements.push(buildFileElement('/SAP Employee Central Extract', 'TERRITORY.csv', 8541));
             } else if (directoryPath.startsWith('/Test Files')) {
-                items.push(buildFolderItem('/Encoding', 21));
+                elements.push(buildFolderElement('/Encoding', 21));
             } else if (directoryPath.startsWith('/Encoding')) {
-                items.push(buildDataItem('/Test Files/Encoding', 'big5', 614));
-                items.push(buildDataItem('/Test Files/Encoding', 'euc-jp', 3919));
-                items.push(buildDataItem('/Test Files/Encoding', 'euc-kr', 2480));
-                items.push(buildDataItem('/Test Files/Encoding', 'gb18030', 1665));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-2022-jp', 2924));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-2', 1600));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-5', 1024));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-6', 2241));
-                items.push(buildDataItem('/Test Files/Encoding', 'iso-8859-7', 1033));
-                items.push(buildDataItem('/Test Files/Encoding', 'koi8-r', 1024));
-                items.push(buildDataItem('/Test Files/Encoding', 'shift_jis', 2816));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf-16be', 1334));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf-16le', 1334));
-                items.push(buildDataItem('/Test Files/Encoding', 'utf-8', 1125));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1250', 1617));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1251', 1024));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1252', 2976));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1253', 1052));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1254', 2445));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1255', 2405));
-                items.push(buildDataItem('/Test Files/Encoding', 'windows-1256', 2241));
+                elements.push(buildFileElement('/Test Files/Encoding', 'big5', 614));
+                elements.push(buildFileElement('/Test Files/Encoding', 'euc-jp', 3919));
+                elements.push(buildFileElement('/Test Files/Encoding', 'euc-kr', 2480));
+                elements.push(buildFileElement('/Test Files/Encoding', 'gb18030', 1665));
+                elements.push(buildFileElement('/Test Files/Encoding', 'iso-2022-jp', 2924));
+                elements.push(buildFileElement('/Test Files/Encoding', 'iso-8859-2', 1600));
+                elements.push(buildFileElement('/Test Files/Encoding', 'iso-8859-5', 1024));
+                elements.push(buildFileElement('/Test Files/Encoding', 'iso-8859-6', 2241));
+                elements.push(buildFileElement('/Test Files/Encoding', 'iso-8859-7', 1033));
+                elements.push(buildFileElement('/Test Files/Encoding', 'koi8-r', 1024));
+                elements.push(buildFileElement('/Test Files/Encoding', 'shift_jis', 2816));
+                elements.push(buildFileElement('/Test Files/Encoding', 'utf-16be', 1334));
+                elements.push(buildFileElement('/Test Files/Encoding', 'utf-16le', 1334));
+                elements.push(buildFileElement('/Test Files/Encoding', 'utf-8', 1125));
+                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1250', 1617));
+                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1251', 1024));
+                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1252', 2976));
+                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1253', 1052));
+                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1254', 2445));
+                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1255', 2405));
+                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1256', 2241));
             } else {
-                items.push(buildFolderItem('/SAP Employee Central Extract', 19));
-                items.push(buildFolderItem('/Test Files', 7));
+                elements.push(buildFolderElement('/SAP Employee Central Extract', 19));
+                elements.push(buildFolderElement('/Test Files', 7));
             }
-            resolve({ cursor: undefined, isMore: false, items });
+            resolve({ cursor: undefined, isMore: false, elements });
         } catch (error) {
             reject(error);
         }
@@ -157,16 +157,16 @@ const listPageOfItemsForDirectoryPath = (directoryPath: string): Promise<Connect
 };
 
 /**
- * Build a sample file folder item.
- * @param directoryPath The folder item directory path.
- * @param childItemCount The folder item child item count.
- * @returns A sample file folder item.
+ * Build a 'Sample Files' folder element.
+ * @param directoryPath The folder element directory path.
+ * @param childElementCount The folder element child element count.
+ * @returns A 'Sample Files' folder element.
  */
-const buildFolderItem = (directoryPath: string, childItemCount: number): ConnectionElement => {
+const buildFolderElement = (directoryPath: string, childElementCount: number): ConnectionElement => {
     const lastDirectoryName = extractLastDirectoryNameFromDirectoryPath(directoryPath);
     return {
         _id: undefined,
-        childItemCount,
+        childElementCount,
         directoryPath,
         encodingId: undefined,
         extension: undefined,
@@ -183,17 +183,17 @@ const buildFolderItem = (directoryPath: string, childItemCount: number): Connect
 };
 
 /**
- * Build a sample file data item.
- * @param directoryPath The data item directory path.
- * @param name The data item name.
- * @param size The data item size.
- * @returns A sample file data item.
+ * Build a 'Sample Files' file element.
+ * @param directoryPath The file element directory path.
+ * @param name The file element name.
+ * @param size The file element size.
+ * @returns A 'Sample Files' file element.
  */
-const buildDataItem = (directoryPath: string, name: string, size: number): ConnectionElement => {
-    const extension = extractExtensionFromItemPath(name);
+const buildFileElement = (directoryPath: string, name: string, size: number): ConnectionElement => {
+    const extension = extractExtensionFromElementPath(name);
     return {
         _id: undefined,
-        childItemCount: undefined,
+        childElementCount: undefined,
         directoryPath,
         encodingId: undefined,
         extension,
@@ -201,7 +201,7 @@ const buildDataItem = (directoryPath: string, name: string, size: number): Conne
         insertedId: undefined,
         label: name,
         lastModifiedAt: Date.parse('2022-01-03T23:33:00+00:00'),
-        mimeType: lookupDataMimeType(extension),
+        mimeType: lookupMimeTypeForFileExtension(extension),
         name,
         referenceId: undefined,
         size,
@@ -223,7 +223,7 @@ const buildDataItem = (directoryPath: string, name: string, size: number): Conne
  * @param sessionAccessToken An active session token.
  * @param previewInterfaceSettings The preview interface settings.
  * @param connectionElement
- * @returns A source data item preview.
+ * @returns A source file element preview.
  */
 const previewFileElement = async (
     connector: DataConnector,
@@ -239,11 +239,11 @@ const previewFileElement = async (
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(sourceViewProperties.path)}?alt=media`, { headers });
     if (!response.ok) {
         const data: ErrorData = {
-            body: { context: 'previewDataItem', message: await response.text() },
+            body: { context: 'previewFileElement', message: await response.text() },
             statusCode: response.status,
             statusText: response.statusText
         };
-        throw new Error('Unable to preview item.|' + JSON.stringify(data));
+        throw new Error('Unable to preview element.|' + JSON.stringify(data));
     }
 
     const uint8Array = new Uint8Array(await response.arrayBuffer());
