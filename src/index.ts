@@ -236,6 +236,9 @@ const previewFileElement = async (
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
+
+    console.log(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionElement.directoryPath}/${connectionElement.name}`)}?alt=media`);
+
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionElement.directoryPath}/${connectionElement.name}`)}?alt=media`, { headers });
     if (!response.ok) {
         const data: ErrorData = {
