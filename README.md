@@ -1,4 +1,4 @@
-# Data Positioning Application Sample Files Data Connector
+# Data Positioning Application - Data Connector - File Store Emulator
 
 ### Project setup
 
