@@ -12,11 +12,11 @@ import { version } from '../package.json';
 
 // Engine component dependencies.
 import {
-    ConnectionElement,
-    ConnectionElementPreview,
-    ConnectionElementPreviewTypeId,
-    ConnectionElementsPage,
-    ConnectionElementTypeId,
+    ConnectionEntry,
+    ConnectionEntryPreview,
+    ConnectionEntryPreviewTypeId,
+    ConnectionEntriesPage,
+    ConnectionEntryTypeId,
     ConnectionItem,
     DataConnector,
     DataConnectorPreviewInterface,
@@ -24,7 +24,7 @@ import {
     DataConnectorReadInterface,
     DataConnectorReadInterfaceSettings,
     ErrorData,
-    extractExtensionFromElementPath,
+    extractExtensionFromEntryPath,
     extractLastDirectoryNameFromDirectoryPath,
     lookupMimeTypeForFileExtension,
     SourceViewProperties
@@ -63,7 +63,7 @@ export default class SampleFilesDataConnector implements DataConnector {
      * @returns The sample files preview interface.
      */
     getPreviewInterface(): DataConnectorPreviewInterface {
-        return { connector: this, previewFileElement };
+        return { connector: this, previewFileEntry };
     }
 
     /**
@@ -71,85 +71,85 @@ export default class SampleFilesDataConnector implements DataConnector {
      * @returns The sample files read interface.
      */
     getReadInterface(): DataConnectorReadInterface {
-        return { connector: this, readFileElement };
+        return { connector: this, readFileEntry };
     }
 
     /**
-     * List a page of elements for a given directory path.
+     * List a page of entries for a given directory path.
      * @param accountId The identifier of the account to which the source belongs.
      * @param sessionAccessToken An active session access token.
-     * @param directoryPath The directory path for which to list the elements.
-     * @returns A page of elements.
+     * @param directoryPath The directory path for which to list the entries.
+     * @returns A page of entries.
      */
-    async listPageOfElementsForDirectoryPath(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<ConnectionElementsPage> {
-        return await listPageOfElementsForDirectoryPath(directoryPath);
+    async listEntries(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<ConnectionEntriesPage> {
+        return await listEntries(directoryPath);
     }
 }
 
 // #endregion
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// region List Page of Elements for Directory Path
+// region List Page of Entries for Directory Path
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * List a page of sample file elements for a given directory path.
- * @param directoryPath The directory path for which to list the elements.
- * @returns A page of sample file elements.
+ * List a page of sample file entries for a given directory path.
+ * @param directoryPath The directory path for which to list the entries.
+ * @returns A page of sample file entries.
  */
-const listPageOfElementsForDirectoryPath = (directoryPath: string): Promise<ConnectionElementsPage> => {
+const listEntries = (directoryPath: string): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
         try {
-            const elements: ConnectionElement[] = [];
+            const entries: ConnectionEntry[] = [];
             if (directoryPath.startsWith('/SAP Employee Central Extract')) {
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'COMP_CUR_CONV.csv', 2245));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'EMP_COMP_INFO.csv', 1665179));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'EMP_PAYCOMP_RECURRING.csv', 1551764));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'EMPLOYMENT_INFO.csv', 128575));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'EVENT_REASONS.csv', 7775));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'FREQUENCY.csv', 1704));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'GENERIC_OBJECTS.csv', 1662477));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'GENERIC_RELATIONSHIPS.csv', 98782));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'JOB_CLASS.csv', 338260));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'JOB_INFO.csv', 1546379));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'LABELS.csv', 126838));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'LOCATIONS.csv', 2995));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'PAY_COMPONENT.csv', 1234));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'PERSON_INFO_GLOBAL.csv', 82438));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'PERSON.csv', 44896));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'PERSONAL_DATA.csv', 105949));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'PICKLISTS.csv', 78044));
-                elements.push(buildFileElement('/SAP Employee Central Extract', 'TERRITORY.csv', 8541));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'COMP_CUR_CONV.csv', 2245));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMP_COMP_INFO.csv', 1665179));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMP_PAYCOMP_RECURRING.csv', 1551764));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMPLOYMENT_INFO.csv', 128575));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'EVENT_REASONS.csv', 7775));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'FREQUENCY.csv', 1704));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'GENERIC_OBJECTS.csv', 1662477));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'GENERIC_RELATIONSHIPS.csv', 98782));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'JOB_CLASS.csv', 338260));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'JOB_INFO.csv', 1546379));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'LABELS.csv', 126838));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'LOCATIONS.csv', 2995));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PAY_COMPONENT.csv', 1234));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSON_INFO_GLOBAL.csv', 82438));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSON.csv', 44896));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSONAL_DATA.csv', 105949));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PICKLISTS.csv', 78044));
+                entries.push(buildFileEntry('/SAP Employee Central Extract', 'TERRITORY.csv', 8541));
             } else if (directoryPath.startsWith('/Test Files')) {
-                elements.push(buildFolderElement('/Encoding', 21));
+                entries.push(buildFolderEntry('/Encoding', 21));
             } else if (directoryPath.startsWith('/Encoding')) {
-                elements.push(buildFileElement('/Test Files/Encoding', 'big5', 614));
-                elements.push(buildFileElement('/Test Files/Encoding', 'euc-jp', 3919));
-                elements.push(buildFileElement('/Test Files/Encoding', 'euc-kr', 2480));
-                elements.push(buildFileElement('/Test Files/Encoding', 'gb18030', 1665));
-                elements.push(buildFileElement('/Test Files/Encoding', 'iso-2022-jp', 2924));
-                elements.push(buildFileElement('/Test Files/Encoding', 'iso-8859-2', 1600));
-                elements.push(buildFileElement('/Test Files/Encoding', 'iso-8859-5', 1024));
-                elements.push(buildFileElement('/Test Files/Encoding', 'iso-8859-6', 2241));
-                elements.push(buildFileElement('/Test Files/Encoding', 'iso-8859-7', 1033));
-                elements.push(buildFileElement('/Test Files/Encoding', 'koi8-r', 1024));
-                elements.push(buildFileElement('/Test Files/Encoding', 'shift_jis', 2816));
-                elements.push(buildFileElement('/Test Files/Encoding', 'utf-16be', 1334));
-                elements.push(buildFileElement('/Test Files/Encoding', 'utf-16le', 1334));
-                elements.push(buildFileElement('/Test Files/Encoding', 'utf-8', 1125));
-                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1250', 1617));
-                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1251', 1024));
-                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1252', 2976));
-                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1253', 1052));
-                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1254', 2445));
-                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1255', 2405));
-                elements.push(buildFileElement('/Test Files/Encoding', 'windows-1256', 2241));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'big5', 614));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'euc-jp', 3919));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'euc-kr', 2480));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'gb18030', 1665));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-2022-jp', 2924));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-2', 1600));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-5', 1024));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-6', 2241));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-7', 1033));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'koi8-r', 1024));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'shift_jis', 2816));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'utf-16be', 1334));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'utf-16le', 1334));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'utf-8', 1125));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1250', 1617));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1251', 1024));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1252', 2976));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1253', 1052));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1254', 2445));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1255', 2405));
+                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1256', 2241));
             } else {
-                elements.push(buildFolderElement('/SAP Employee Central Extract', 19));
-                elements.push(buildFolderElement('/Test Files', 7));
+                entries.push(buildFolderEntry('/SAP Employee Central Extract', 19));
+                entries.push(buildFolderEntry('/Test Files', 7));
             }
-            resolve({ cursor: undefined, isMore: false, elements });
+            resolve({ cursor: undefined, isMore: false, entries });
         } catch (error) {
             reject(error);
         }
@@ -157,16 +157,16 @@ const listPageOfElementsForDirectoryPath = (directoryPath: string): Promise<Conn
 };
 
 /**
- * Build a 'Sample Files' folder element.
- * @param directoryPath The folder element directory path.
- * @param childElementCount The folder element child element count.
- * @returns A 'Sample Files' folder element.
+ * Build a 'Sample Files' folder entry.
+ * @param directoryPath The folder entry directory path.
+ * @param childEntryCount The folder entry child entry count.
+ * @returns A 'Sample Files' folder entry.
  */
-const buildFolderElement = (directoryPath: string, childElementCount: number): ConnectionElement => {
+const buildFolderEntry = (directoryPath: string, childEntryCount: number): ConnectionEntry => {
     const lastDirectoryName = extractLastDirectoryNameFromDirectoryPath(directoryPath);
     return {
         _id: undefined,
-        childElementCount,
+        childEntryCount,
         directoryPath,
         encodingId: undefined,
         extension: undefined,
@@ -178,22 +178,22 @@ const buildFolderElement = (directoryPath: string, childElementCount: number): C
         name: lastDirectoryName,
         referenceId: undefined,
         size: undefined,
-        typeId: ConnectionElementTypeId.Folder
+        typeId: ConnectionEntryTypeId.Folder
     };
 };
 
 /**
- * Build a 'Sample Files' file element.
- * @param directoryPath The file element directory path.
- * @param name The file element name.
- * @param size The file element size.
- * @returns A 'Sample Files' file element.
+ * Build a 'Sample Files' file entry.
+ * @param directoryPath The file entry directory path.
+ * @param name The file entry name.
+ * @param size The file entry size.
+ * @returns A 'Sample Files' file entry.
  */
-const buildFileElement = (directoryPath: string, name: string, size: number): ConnectionElement => {
-    const extension = extractExtensionFromElementPath(name);
+const buildFileEntry = (directoryPath: string, name: string, size: number): ConnectionEntry => {
+    const extension = extractExtensionFromEntryPath(name);
     return {
         _id: undefined,
-        childElementCount: undefined,
+        childEntryCount: undefined,
         directoryPath,
         encodingId: undefined,
         extension,
@@ -205,80 +205,80 @@ const buildFileElement = (directoryPath: string, name: string, size: number): Co
         name,
         referenceId: undefined,
         size,
-        typeId: ConnectionElementTypeId.File
+        typeId: ConnectionEntryTypeId.File
     };
 };
 
 // #endregion
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region Preview File Element
+// #region Preview File Entry
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Preview a Sample Files file element.
+ * Preview a Sample Files file entry.
  * @param connector This sample files data connector.
  * @param sourceViewProperties The source view properties.
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
  * @param previewInterfaceSettings The preview interface settings.
- * @param connectionElement
- * @returns A source file element preview.
+ * @param connectionEntry
+ * @returns A source file entry preview.
  */
-const previewFileElement = async (
+const previewFileEntry = async (
     connector: DataConnector,
     sourceViewProperties: SourceViewProperties,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    connectionElement: ConnectionElement
-): Promise<ConnectionElementPreview> => {
+    connectionEntry: ConnectionEntry
+): Promise<ConnectionEntryPreview> => {
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
 
-    console.log(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionElement.directoryPath}/${connectionElement.name}`)}?alt=media`);
+    console.log(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionEntry.directoryPath}/${connectionEntry.name}`)}?alt=media`);
 
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionElement.directoryPath}/${connectionElement.name}`)}?alt=media`, { headers });
+    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionEntry.directoryPath}/${connectionEntry.name}`)}?alt=media`, { headers });
     if (!response.ok) {
         const data: ErrorData = {
-            body: { context: 'previewFileElement', message: await response.text() },
+            body: { context: 'previewFileEntry', message: await response.text() },
             statusCode: response.status,
             statusText: response.statusText
         };
-        throw new Error('Unable to preview element.|' + JSON.stringify(data));
+        throw new Error('Unable to preview entry.|' + JSON.stringify(data));
     }
 
     const uint8Array = new Uint8Array(await response.arrayBuffer());
-    return { data: uint8Array, typeId: ConnectionElementPreviewTypeId.Uint8Array };
+    return { data: uint8Array, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
 
 // #endregion
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region Read File Element
+// #region Read File Entry
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Read a Sample Files file element.
+ * Read a Sample Files file entry.
  * @param connector The Dropbox data connector.
  * @param sourceViewProperties The source view properties.
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
  * @param readInterfaceSettings The read interface settings.
- * @param connectionElement
+ * @param connectionEntry
  * @param csvParse The csv-parse library.
  */
-const readFileElement = async (
+const readFileEntry = async (
     connector: DataConnector,
     sourceViewProperties: SourceViewProperties,
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    connectionElement: ConnectionElement,
+    connectionEntry: ConnectionEntry,
     csvParse: typeof import('csv-parse/browser/esm')
 ): Promise<void> => {
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionElement.directoryPath}/${connectionElement.name}`)}?alt=media`);
+    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionEntry.directoryPath}/${connectionEntry.name}`)}?alt=media`);
 
     const parser = csvParse.parse({
         delimiter: ','
