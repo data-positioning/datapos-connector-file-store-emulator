@@ -308,7 +308,10 @@ const readFileEntry = async (
     const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewProperties.preview.encodingId));
     const streamReader = stream.getReader();
     let result;
-    while (!(result = await streamReader.read()).done) parser.write(result.value);
+    while (!(result = await streamReader.read()).done) {
+        console.log(result.value);
+        parser.write(result.value);
+    }
     parser.end();
 };
 
