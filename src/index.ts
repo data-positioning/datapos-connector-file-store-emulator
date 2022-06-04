@@ -27,7 +27,8 @@ import {
     extractExtensionFromEntryPath,
     extractLastDirectoryNameFromDirectoryPath,
     lookupMimeTypeForFileExtension,
-    SourceViewProperties
+    SourceViewProperties,
+    Environment
 } from '../../../../dataposapp-engine-main/src';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -265,7 +266,7 @@ const previewFileEntry = async (
  * @param sessionAccessToken An active session token.
  * @param readInterfaceSettings The read interface settings.
  * @param connectionEntry
- * @param csvParse The csv-parse library.
+ * @param environment
  */
 const readFileEntry = async (
     connector: DataConnector,
@@ -274,11 +275,11 @@ const readFileEntry = async (
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     connectionEntry: ConnectionEntry,
-    csvParse: typeof import('csv-parse/browser/esm')
+    environment: Environment
 ): Promise<void> => {
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionEntry.directoryPath}/${connectionEntry.name}`)}?alt=media`);
 
-    const parser = csvParse.parse({
+    const parser = environment.csvParse.parse({
         delimiter: ','
     });
 
