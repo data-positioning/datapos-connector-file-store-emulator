@@ -223,7 +223,6 @@ const buildFileEntry = (directoryPath: string, name: string, size: number): Conn
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
  * @param previewInterfaceSettings The preview interface settings.
- * @param connectionEntry
  * @returns A source file entry preview.
  */
 const previewFileEntry = async (
@@ -232,13 +231,13 @@ const previewFileEntry = async (
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    connectionEntry: ConnectionEntry
+    // connectionEntry: ConnectionEntry
 ): Promise<ConnectionEntryPreview> => {
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
 
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionEntry.directoryPath}/${connectionEntry.name}`)}?alt=media`, { headers });
+    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers });
     if (!response.ok) {
         const data: ErrorData = {
             body: { context: 'previewFileEntry', message: await response.text() },
@@ -265,7 +264,6 @@ const previewFileEntry = async (
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
  * @param readInterfaceSettings The read interface settings.
- * @param connectionEntry
  * @param environment
  */
 const readFileEntry = async (
@@ -274,10 +272,10 @@ const readFileEntry = async (
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    connectionEntry: ConnectionEntry,
+    // connectionEntry: ConnectionEntry,
     environment: Environment
 ): Promise<void> => {
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${connectionEntry.directoryPath}/${connectionEntry.name}`)}?alt=media`);
+    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`);
 
     const parser = environment.csvParse.parse({
         delimiter: ','
