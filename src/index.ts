@@ -230,14 +230,14 @@ const previewFileEntry = async (
     sourceViewProperties: SourceViewProperties,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
-    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    // connectionEntry: ConnectionEntry
+    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers });
+    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`, {
+        headers
+    });
     if (!response.ok) {
         const data: ErrorData = {
             body: { context: 'previewFileEntry', message: await response.text() },
@@ -272,15 +272,12 @@ const readFileEntry = async (
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    // connectionEntry: ConnectionEntry,
     environment: Environment
 ): Promise<void> => {
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`);
-
     const parser = environment.csvParse.parse({
-        delimiter: ','
+        delimiter: sourceViewProperties.preview.valueDelimiter
     });
-
     let totalRecordCount = 0;
     let chunk: string[][] = [];
     const maxChunkSize = 1000;
