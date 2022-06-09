@@ -299,6 +299,7 @@ const readFileEntry = async (
         }
         readInterfaceSettings.complete({ totalRecordCount });
     });
+    // TODO: csvParse seems to have some support for encoding. Need to test if this can be used to replace TextDecoderStream?.
     const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewProperties.preview.encodingId));
     const streamReader = stream.getReader();
     let result;
