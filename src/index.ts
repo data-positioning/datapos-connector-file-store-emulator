@@ -90,7 +90,7 @@ export default class SampleFilesDataConnector implements DataConnector {
 // #endregion
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// region List Entries
+// #region List Entries
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -166,13 +166,12 @@ const listEntries = (directoryPath: string): Promise<ConnectionEntriesPage> => {
 const buildFolderEntry = (directoryPath: string, childEntryCount: number): ConnectionEntry => {
     const lastDirectoryName = extractLastDirectoryNameFromDirectoryPath(directoryPath);
     return {
-        _id: undefined,
         childEntryCount,
         directoryPath,
         encodingId: undefined,
         extension: undefined,
+        handle: undefined,
         id: undefined,
-        insertedId: undefined,
         label: lastDirectoryName,
         lastModifiedAt: undefined,
         mimeType: undefined,
@@ -193,13 +192,12 @@ const buildFolderEntry = (directoryPath: string, childEntryCount: number): Conne
 const buildFileEntry = (directoryPath: string, name: string, size: number): ConnectionEntry => {
     const extension = extractExtensionFromEntryPath(name);
     return {
-        _id: undefined,
         childEntryCount: undefined,
         directoryPath,
         encodingId: undefined,
         extension,
+        handle: undefined,
         id: name,
-        insertedId: undefined,
         label: name,
         lastModifiedAt: Date.parse('2022-01-03T23:33:00+00:00'),
         mimeType: lookupMimeTypeForFileExtension(extension),
