@@ -47,10 +47,10 @@ const defaultChunkSize = 4096;
  * Encapsulates the sample files data connector.
  */
 export default class SampleFilesDataConnector implements DataConnector {
-    connectionItem: ConnectionItem;
-    id: string;
-    isAborted: boolean;
-    version: string;
+    readonly connectionItem: ConnectionItem;
+    readonly id: string;
+    readonly isAborted: boolean;
+    readonly version: string;
 
     constructor(connectionItem: ConnectionItem) {
         this.connectionItem = connectionItem;
@@ -273,12 +273,18 @@ const readFileEntry = async (
     environment: Environment
 ): Promise<void> => {
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`);
-    const parser = environment.csvParse.parse({
-        delimiter: sourceViewProperties.preview.valueDelimiter
-    });
+
     let totalRecordCount = 0;
     let chunk: string[][] = [];
     const maxChunkSize = 1000;
+
+    // TODO: csvParse seems to have some support for encoding. Need to test if this can be used to replace TextDecoderStream?.
+    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewProperties.preview.encodingId));
+    const decodedStreamReader = stream.getReader();
+
+    const parser = environment.csvParse.parse({
+        delimiter: sourceViewProperties.preview.valueDelimiter
+    });
     parser.on('readable', () => {
         let record;
         while ((record = parser.read() as string[]) !== null) {
@@ -297,11 +303,9 @@ const readFileEntry = async (
         }
         readInterfaceSettings.complete({ totalRecordCount });
     });
-    // TODO: csvParse seems to have some support for encoding. Need to test if this can be used to replace TextDecoderStream?.
-    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewProperties.preview.encodingId));
-    const streamReader = stream.getReader();
+
     let result;
-    while (!(result = await streamReader.read()).done) parser.write(result.value);
+    while (!(result = await decodedStreamReader.read()).done) parser.write(result.value);
 
     parser.end();
 };
