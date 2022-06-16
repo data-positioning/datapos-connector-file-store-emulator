@@ -23,12 +23,13 @@ import {
     DataConnectorPreviewInterfaceSettings,
     DataConnectorReadInterface,
     DataConnectorReadInterfaceSettings,
+    Environment,
     ErrorData,
     extractExtensionFromEntryPath,
     extractLastDirectoryNameFromDirectoryPath,
+    FieldInfos,
     lookupMimeTypeForFileExtension,
-    SourceViewProperties,
-    Environment
+    SourceViewProperties
 } from '../../../../dataposapp-engine-main/src';
 
 // Vendor dependencies.
@@ -277,7 +278,8 @@ const readFileEntry = async (
 ): Promise<void> => {
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`);
 
-    let chunk: string[][] = [];
+    let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
+    const fieldInfos: FieldInfos[] = [];
     const maxChunkSize = 1000;
 
     // TODO: csvParse seems to have some support for encoding. Need to test if this can be used to replace TextDecoderStream?.
@@ -286,6 +288,7 @@ const readFileEntry = async (
 
     const parser = environment.csvParse.parse({
         cast: (value, context) => {
+            fieldInfos[context.index] = { isQuoted: context.quoting };
             return value;
         },
         delimiter: sourceViewProperties.preview.valueDelimiter,
@@ -296,7 +299,7 @@ const readFileEntry = async (
     parser.on('readable', () => {
         let data;
         while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
-            chunk.push(data.record);
+            chunk.push({ fieldInfos, fieldValues: data.record });
             if (chunk.length < maxChunkSize) continue;
             readInterfaceSettings.chunk(chunk);
             chunk = [];
@@ -308,7 +311,12 @@ const readFileEntry = async (
             readInterfaceSettings.chunk(chunk);
             chunk = [];
         }
-        readInterfaceSettings.complete(parser.info);
+        readInterfaceSettings.complete({
+            commentLineCount: parser.info.comment_lines,
+            emptyLineCount: parser.info.empty_lines,
+            lineCount: parser.info.lines,
+            recordCount: parser.info.records
+        });
     });
 
     let result;
