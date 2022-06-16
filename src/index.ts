@@ -31,6 +31,9 @@ import {
     Environment
 } from '../../../../dataposapp-engine-main/src';
 
+// Vendor dependencies.
+import type { CastingContext } from 'csv-parse/.';
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -274,7 +277,6 @@ const readFileEntry = async (
 ): Promise<void> => {
     const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`);
 
-    let totalRecordCount = 0;
     let chunk: string[][] = [];
     const maxChunkSize = 1000;
 
@@ -283,13 +285,18 @@ const readFileEntry = async (
     const decodedStreamReader = stream.getReader();
 
     const parser = environment.csvParse.parse({
-        delimiter: sourceViewProperties.preview.valueDelimiter
+        cast: (value, context) => {
+            return value;
+        },
+        delimiter: sourceViewProperties.preview.valueDelimiter,
+        info: true,
+        relax_column_count: true,
+        relax_quotes: true
     });
     parser.on('readable', () => {
-        let record;
-        while ((record = parser.read() as string[]) !== null) {
-            chunk.push(record);
-            totalRecordCount++;
+        let data;
+        while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
+            chunk.push(data.record);
             if (chunk.length < maxChunkSize) continue;
             readInterfaceSettings.chunk(chunk);
             chunk = [];
@@ -301,7 +308,7 @@ const readFileEntry = async (
             readInterfaceSettings.chunk(chunk);
             chunk = [];
         }
-        readInterfaceSettings.complete({ totalRecordCount });
+        readInterfaceSettings.complete(parser.info);
     });
 
     let result;
