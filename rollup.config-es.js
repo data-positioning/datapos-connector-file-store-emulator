@@ -22,6 +22,6 @@ export default [
                 format: 'es'
             }
         ],
-        plugins: [json(), typescript(), terser({ output: { comments: false } })]
+        plugins: [json(), typescript()]
     }
 ];
