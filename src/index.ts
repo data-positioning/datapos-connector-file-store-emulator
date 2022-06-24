@@ -7,7 +7,6 @@
 
 // Asset dependencies.
 import config from './config.json';
-import env from '../.env.json';
 import { version } from '../package.json';
 
 // Engine component dependencies.
@@ -40,6 +39,7 @@ import type { CastingContext } from 'csv-parse/.';
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const defaultChunkSize = 4096;
+const sampleFilesURLPrefix = 'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-dev-alpha.appspot.com/o/fileStore';
 
 // #endregion
 
@@ -237,7 +237,7 @@ const previewFileEntry = async (
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`, {
+    const response = await fetch(`${sampleFilesURLPrefix}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`, {
         headers
     });
     if (!response.ok) {
@@ -276,7 +276,7 @@ const readFileEntry = async (
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     environment: Environment
 ): Promise<void> => {
-    const response = await fetch(`${env.SAMPLE_FILES_URL_PREFIX}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`);
+    const response = await fetch(`${sampleFilesURLPrefix}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`);
 
     let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
     const fieldInfos: FieldInfos[] = [];
