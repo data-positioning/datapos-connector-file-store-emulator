@@ -83,11 +83,11 @@ export default class SampleFilesDataConnector implements DataConnector {
      * List a page of entries for a given directory path.
      * @param accountId The identifier of the account to which the source belongs.
      * @param sessionAccessToken An active session access token.
-     * @param directoryPath The directory path for which to list the entries.
+     * @param folderPath The directory path for which to list the entries.
      * @returns A page of entries.
      */
-    async listEntries(accountId: string, sessionAccessToken: string, directoryPath: string): Promise<ConnectionEntriesPage> {
-        return await listEntries(directoryPath);
+    async listEntries(accountId: string, sessionAccessToken: string, folderPath: string): Promise<ConnectionEntriesPage> {
+        return await listEntries(folderPath);
     }
 }
 
@@ -99,14 +99,14 @@ export default class SampleFilesDataConnector implements DataConnector {
 
 /**
  * List a page of sample file entries for a given directory path.
- * @param directoryPath The directory path for which to list the entries.
+ * @param folderPath The directory path for which to list the entries.
  * @returns A page of sample file entries.
  */
-const listEntries = (directoryPath: string): Promise<ConnectionEntriesPage> => {
+const listEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
         try {
             const entries: ConnectionEntry[] = [];
-            if (directoryPath.startsWith('/SAP Employee Central Extract')) {
+            if (folderPath.startsWith('/SAP Employee Central Extract')) {
                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'COMP_CUR_CONV.csv', 2245));
                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMP_COMP_INFO.csv', 1665179));
@@ -126,9 +126,9 @@ const listEntries = (directoryPath: string): Promise<ConnectionEntriesPage> => {
                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSONAL_DATA.csv', 105949));
                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'PICKLISTS.csv', 78044));
                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'TERRITORY.csv', 8541));
-            } else if (directoryPath.startsWith('/Test Files')) {
+            } else if (folderPath.startsWith('/Test Files')) {
                 entries.push(buildFolderEntry('/Encoding', 21));
-            } else if (directoryPath.startsWith('/Encoding')) {
+            } else if (folderPath.startsWith('/Encoding')) {
                 entries.push(buildFileEntry('/Test Files/Encoding', 'big5', 614));
                 entries.push(buildFileEntry('/Test Files/Encoding', 'euc-jp', 3919));
                 entries.push(buildFileEntry('/Test Files/Encoding', 'euc-kr', 2480));
@@ -163,15 +163,15 @@ const listEntries = (directoryPath: string): Promise<ConnectionEntriesPage> => {
 
 /**
  * Build a 'Sample Files' folder entry.
- * @param directoryPath The folder entry directory path.
+ * @param folderPath The folder entry directory path.
  * @param childEntryCount The folder entry child entry count.
  * @returns A 'Sample Files' folder entry.
  */
-const buildFolderEntry = (directoryPath: string, childEntryCount: number): ConnectionEntry => {
-    const lastDirectoryName = extractLastDirectoryNameFromDirectoryPath(directoryPath);
+const buildFolderEntry = (folderPath: string, childEntryCount: number): ConnectionEntry => {
+    const lastDirectoryName = extractLastDirectoryNameFromDirectoryPath(folderPath);
     return {
         childEntryCount,
-        directoryPath,
+        folderPath,
         encodingId: undefined,
         extension: undefined,
         handle: undefined,
@@ -188,16 +188,16 @@ const buildFolderEntry = (directoryPath: string, childEntryCount: number): Conne
 
 /**
  * Build a 'Sample Files' file entry.
- * @param directoryPath The file entry directory path.
+ * @param folderPath The file entry directory path.
  * @param name The file entry name.
  * @param size The file entry size.
  * @returns A 'Sample Files' file entry.
  */
-const buildFileEntry = (directoryPath: string, name: string, size: number): ConnectionEntry => {
+const buildFileEntry = (folderPath: string, name: string, size: number): ConnectionEntry => {
     const extension = extractExtensionFromEntryPath(name);
     return {
         childEntryCount: undefined,
-        directoryPath,
+        folderPath,
         encodingId: undefined,
         extension,
         handle: undefined,
@@ -237,7 +237,7 @@ const previewFileEntry = async (
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-    const response = await fetch(`${sampleFilesURLPrefix}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`, {
+    const response = await fetch(`${sampleFilesURLPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, {
         headers
     });
     if (!response.ok) {
@@ -276,7 +276,7 @@ const readFileEntry = async (
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     environment: Environment
 ): Promise<void> => {
-    const response = await fetch(`${sampleFilesURLPrefix}${encodeURIComponent(`${sourceViewProperties.fileDirectoryPath}/${sourceViewProperties.fileName}`)}?alt=media`);
+    const response = await fetch(`${sampleFilesURLPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`);
 
     let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
     const fieldInfos: FieldInfos[] = [];
