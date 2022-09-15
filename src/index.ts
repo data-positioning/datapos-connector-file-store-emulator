@@ -8,7 +8,6 @@
 // Asset dependencies.
 import config from './config.json';
 import { version } from '../package.json';
-import chardet from 'chardet'; // NOTE: Cannot be imported dynamically. Generates error 'failed to fetch dynamically imported module'.
 
 // Engine component dependencies.
 import {
@@ -34,8 +33,6 @@ import {
 
 // Vendor dependencies.
 import type { CastingContext } from 'csv-parse/.';
-
-console.log('uuuu', chardet);
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // #region Declarations
