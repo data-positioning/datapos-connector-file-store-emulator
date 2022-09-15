@@ -1,25 +1,9 @@
 {
-  "@dataposapp/dataposapp-connector-data-sample-files@0.1.191": {
+  "@dataposapp/dataposapp-connector-data-file-store-emulator@0.1.304": {
     "licenses": "ISC",
     "publisher": "Jonathan Terrell",
     "email": "terrell.jm@gmail.com",
-    "path": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files",
-    "licenseFile": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files/LICENSE"
-  },
-  "chardet@1.4.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/runk/node-chardet",
-    "publisher": "Dmitry Shirokov",
-    "email": "deadrunk@gmail.com",
-    "path": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files/node_modules/chardet",
-    "licenseFile": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files/node_modules/chardet/LICENSE"
-  },
-  "nanoid@3.3.4": {
-    "licenses": "MIT",
-    "repository": "https://github.com/ai/nanoid",
-    "publisher": "Andrey Sitnik",
-    "email": "andrey@sitnik.ru",
-    "path": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files/node_modules/nanoid",
-    "licenseFile": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-sample-files/node_modules/nanoid/LICENSE"
+    "path": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-file-store-emulator",
+    "licenseFile": "/Users/jonathanterrell/Data Positioning App/GitHub/connectors/data/dataposapp-connector-data-file-store-emulator/LICENSE"
   }
 }
