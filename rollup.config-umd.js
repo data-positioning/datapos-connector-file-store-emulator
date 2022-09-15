@@ -14,7 +14,7 @@ import { terser } from 'rollup-plugin-terser';
 
 export default [
     {
-        external: ['chardet', 'csv-parse/browser/esm'], // TODO: Can be removed when 'engine main' is published as an npm package.
+        external: ['csv-parse/browser/esm', 'lodash.clonedeep'], // TODO: Can be removed when 'engine main' is published as an npm package.
         input: pkg.main,
         output: [
             {
