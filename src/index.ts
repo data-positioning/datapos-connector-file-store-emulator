@@ -9,7 +9,7 @@
 import config from './config.json';
 import { version } from '../package.json';
 
-// Engine component dependencies.
+// Engine dependencies.
 import {
     ConnectionEntry,
     ConnectionEntryPreview,
@@ -39,7 +39,7 @@ import type { CastingContext } from 'csv-parse/.';
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const defaultChunkSize = 4096;
-const sampleFilesURLPrefix = 'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-dev-alpha.appspot.com/o/fileStore';
+const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-dev-alpha.appspot.com/o/fileStore';
 
 // #endregion
 
@@ -48,9 +48,9 @@ const sampleFilesURLPrefix = 'https://firebasestorage.googleapis.com/v0/b/datapo
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Encapsulates the sample files data connector.
+ * Encapsulates the file store emulator data connector.
  */
-export default class SampleFilesDataConnector implements DataConnector {
+export default class FileStoreEmulatorDataConnector implements DataConnector {
     readonly connectionItem: ConnectionItem;
     readonly id: string;
     readonly isAborted: boolean;
@@ -64,16 +64,16 @@ export default class SampleFilesDataConnector implements DataConnector {
     }
 
     /**
-     * Get the sample files preview interface.
-     * @returns The sample files preview interface.
+     * Get the preview interface.
+     * @returns The preview interface.
      */
     getPreviewInterface(): DataConnectorPreviewInterface {
         return { connector: this, previewFileEntry };
     }
 
     /**
-     * Get the sample files read interface.
-     * @returns The sample files read interface.
+     * Get the read interface.
+     * @returns The read interface.
      */
     getReadInterface(): DataConnectorReadInterface {
         return { connector: this, readFileEntry };
@@ -98,9 +98,9 @@ export default class SampleFilesDataConnector implements DataConnector {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * List a page of sample file entries for a given directory path.
+ * List a page of entries for a given directory path.
  * @param folderPath The directory path for which to list the entries.
- * @returns A page of sample file entries.
+ * @returns A page of entries.
  */
 const listEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
@@ -162,10 +162,10 @@ const listEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
 };
 
 /**
- * Build a 'Sample Files' folder entry.
+ * Build a folder entry.
  * @param folderPath The folder entry directory path.
  * @param childEntryCount The folder entry child entry count.
- * @returns A 'Sample Files' folder entry.
+ * @returns A folder entry.
  */
 const buildFolderEntry = (folderPath: string, childEntryCount: number): ConnectionEntry => {
     const lastDirectoryName = extractLastDirectoryNameFromDirectoryPath(folderPath);
@@ -187,11 +187,11 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
 };
 
 /**
- * Build a 'Sample Files' file entry.
+ * Build a file entry.
  * @param folderPath The file entry directory path.
  * @param name The file entry name.
  * @param size The file entry size.
- * @returns A 'Sample Files' file entry.
+ * @returns A file entry.
  */
 const buildFileEntry = (folderPath: string, name: string, size: number): ConnectionEntry => {
     const extension = extractExtensionFromEntryPath(name);
@@ -219,8 +219,8 @@ const buildFileEntry = (folderPath: string, name: string, size: number): Connect
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Preview a Sample Files file entry.
- * @param connector This sample files data connector.
+ * Preview a file entry.
+ * @param connector This data connector.
  * @param sourceViewProperties The source view properties.
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
@@ -237,7 +237,7 @@ const previewFileEntry = async (
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-    const response = await fetch(`${sampleFilesURLPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, {
+    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, {
         headers
     });
     if (!response.ok) {
@@ -260,8 +260,8 @@ const previewFileEntry = async (
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Read a Sample Files file entry.
- * @param connector The Dropbox data connector.
+ * Read a file entry.
+ * @param connector This data connector.
  * @param sourceViewProperties The source view properties.
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
@@ -276,7 +276,7 @@ const readFileEntry = async (
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     environment: Environment
 ): Promise<void> => {
-    const response = await fetch(`${sampleFilesURLPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`);
+    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`);
 
     let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
     const fieldInfos: FieldInfos[] = [];
