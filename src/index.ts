@@ -25,7 +25,7 @@ import {
     Environment,
     ErrorData,
     extractExtensionFromEntryPath,
-    extractLastDirectoryNameFromDirectoryPath,
+    extractLastFolderNameFromFolderPath,
     FieldInfos,
     lookupMimeTypeForFileExtension,
     SourceViewProperties
@@ -80,10 +80,10 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 
     /**
-     * List a page of entries for a given directory path.
+     * List a page of entries for a given folder path.
      * @param accountId The identifier of the account to which the source belongs.
      * @param sessionAccessToken An active session access token.
-     * @param folderPath The directory path for which to list the entries.
+     * @param folderPath The folder path for which to list the entries.
      * @returns A page of entries.
      */
     async listEntries(accountId: string, sessionAccessToken: string, folderPath: string): Promise<ConnectionEntriesPage> {
@@ -98,8 +98,8 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * List a page of entries for a given directory path.
- * @param folderPath The directory path for which to list the entries.
+ * List a page of entries for a given folder path.
+ * @param folderPath The folder path for which to list the entries.
  * @returns A page of entries.
  */
 const listEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
@@ -163,12 +163,12 @@ const listEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
 
 /**
  * Build a folder entry.
- * @param folderPath The folder entry directory path.
+ * @param folderPath The folder entry folder path.
  * @param childEntryCount The folder entry child entry count.
  * @returns A folder entry.
  */
 const buildFolderEntry = (folderPath: string, childEntryCount: number): ConnectionEntry => {
-    const lastDirectoryName = extractLastDirectoryNameFromDirectoryPath(folderPath);
+    const lastFolderName = extractLastFolderNameFromFolderPath(folderPath);
     return {
         childEntryCount,
         folderPath,
@@ -176,10 +176,10 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
         extension: undefined,
         handle: undefined,
         id: undefined,
-        label: lastDirectoryName,
+        label: lastFolderName,
         lastModifiedAt: undefined,
         mimeType: undefined,
-        name: lastDirectoryName,
+        name: lastFolderName,
         referenceId: undefined,
         size: undefined,
         typeId: ConnectionEntryTypeId.Folder
@@ -188,7 +188,7 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
 
 /**
  * Build a file entry.
- * @param folderPath The file entry directory path.
+ * @param folderPath The file entry folder path.
  * @param name The file entry name.
  * @param size The file entry size.
  * @returns A file entry.
