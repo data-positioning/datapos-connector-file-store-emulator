@@ -291,7 +291,7 @@ const readFileEntry = async (
             fieldInfos[context.index] = { isQuoted: context.quoting };
             return value;
         },
-        delimiter: sourceViewProperties.preview.valueDelimiter,
+        delimiter: sourceViewProperties.preview.valueDelimiterId,
         info: true,
         relax_column_count: true,
         relax_quotes: true
