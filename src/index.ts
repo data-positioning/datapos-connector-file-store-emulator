@@ -83,11 +83,11 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * List a page of entries for a given folder path.
      * @param accountId The identifier of the account to which the source belongs.
      * @param sessionAccessToken An active session access token.
-     * @param folderPath The folder path for which to list the entries.
+     * @param parentConnectionEntry
      * @returns A page of entries.
      */
-    async listEntries(accountId: string, sessionAccessToken: string, folderPath: string): Promise<ConnectionEntriesPage> {
-        return await listEntries(folderPath);
+    async listEntries(accountId: string, sessionAccessToken: string, parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> {
+        return await listEntries(parentConnectionEntry);
     }
 }
 
@@ -99,12 +99,13 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 
 /**
  * List a page of entries for a given folder path.
- * @param folderPath The folder path for which to list the entries.
+ * @param parentConnectionEntry
  * @returns A page of entries.
  */
-const listEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
+const listEntries = (parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
         try {
+            const folderPath = parentConnectionEntry.folderPath || '';
             const entries: ConnectionEntry[] = [];
             if (folderPath.startsWith('/SAP Employee Central Extract')) {
                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
