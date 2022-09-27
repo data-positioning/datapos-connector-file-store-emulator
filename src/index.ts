@@ -155,7 +155,7 @@ const listEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connection
                 entries.push(buildFolderEntry('/SAP Employee Central Extract', 19));
                 entries.push(buildFolderEntry('/Test Files', 7));
             }
-            resolve({ cursor: undefined, isMore: false, entries });
+            resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
         } catch (error) {
             reject(error);
         }
@@ -251,7 +251,7 @@ const previewFileEntry = async (
     }
 
     const uint8Array = new Uint8Array(await response.arrayBuffer());
-    return { data: uint8Array, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
+    return { data: uint8Array, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
 
 // #endregion
