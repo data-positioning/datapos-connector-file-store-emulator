@@ -155,12 +155,19 @@ const listEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connection
                 entries.push(buildFolderEntry('/SAP Employee Central Extract', 19));
                 entries.push(buildFolderEntry('/Test Files', 7));
             }
+
+            console.log('SLEEPING');
+            await sleep(10000);
+            console.log('AWAKE');
+
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
         } catch (error) {
             reject(error);
         }
     });
 };
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Build a folder entry.
