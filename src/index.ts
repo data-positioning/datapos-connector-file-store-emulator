@@ -157,17 +157,21 @@ const listEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connection
             }
 
             console.log('SLEEPING');
-            await sleep(10000);
-            console.log('AWAKE');
-
-            resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
+            sleep(10000)
+                .then(() => {
+                    console.log('AWAKE');
+                    resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
+                })
+                .catch((error) => {
+                    console.log('ERROR', error);
+                });
         } catch (error) {
             reject(error);
         }
     });
 };
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Build a folder entry.
