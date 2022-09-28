@@ -87,13 +87,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @param parentConnectionEntry
      * @returns A page of entries.
      */
-    async listEntries(
-        accountId: string,
-        sessionAccessToken: string,
-        parentConnectionEntry: ConnectionEntry,
-        properties: ListEntriesProperties,
-        signal: AbortSignal
-    ): Promise<ConnectionEntriesPage> {
+    async listEntries(accountId: string, sessionAccessToken: string, parentConnectionEntry: ConnectionEntry, properties: ListEntriesProperties): Promise<ConnectionEntriesPage> {
         return await listEntries(parentConnectionEntry);
     }
 
