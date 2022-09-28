@@ -27,6 +27,7 @@ import {
     extractExtensionFromEntryPath,
     extractLastFolderNameFromFolderPath,
     FieldInfos,
+    ListEntriesProperties,
     lookupMimeTypeForFileExtension,
     SourceViewProperties
 } from '../../../../dataposapp-engine-main/src';
@@ -86,8 +87,21 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @param parentConnectionEntry
      * @returns A page of entries.
      */
-    async listEntries(accountId: string, sessionAccessToken: string, parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> {
+    async listEntries(
+        accountId: string,
+        sessionAccessToken: string,
+        parentConnectionEntry: ConnectionEntry,
+        properties: ListEntriesProperties,
+        signal: AbortSignal
+    ): Promise<ConnectionEntriesPage> {
         return await listEntries(parentConnectionEntry);
+    }
+
+    /**
+     *
+     */
+    signal(): void {
+        console.log('I WAS SIGNALED');
     }
 }
 
