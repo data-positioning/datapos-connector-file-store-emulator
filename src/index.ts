@@ -250,13 +250,15 @@ const previewFileEntry = async (
     sourceViewProperties: SourceViewProperties,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
-    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
+    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
+    signal: AbortSignal
 ): Promise<ConnectionEntryPreview> => {
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
     const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, {
-        headers
+        headers,
+        signal
     });
     if (!response.ok) {
         const data: ErrorData = {
@@ -292,7 +294,8 @@ const readFileEntry = async (
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    environment: Environment
+    environment: Environment,
+    signal: AbortSignal
 ): Promise<void> => {
     const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`);
 
