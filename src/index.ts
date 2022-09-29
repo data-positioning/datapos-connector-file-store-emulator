@@ -28,7 +28,6 @@ import {
     extractLastFolderNameFromFolderPath,
     FieldInfos,
     lookupMimeTypeForFileExtension,
-    RetrieveEntriesProperties,
     SourceViewProperties
 } from '../../../../dataposapp-engine-main/src';
 
@@ -87,12 +86,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @param parentConnectionEntry
      * @returns A page of entries.
      */
-    async retrieveEntries(
-        accountId: string,
-        sessionAccessToken: string,
-        parentConnectionEntry: ConnectionEntry,
-        properties: RetrieveEntriesProperties
-    ): Promise<ConnectionEntriesPage> {
+    async retrieveEntries(accountId: string, sessionAccessToken: string, parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> {
         return await retrieveEntries(parentConnectionEntry);
     }
 }
@@ -100,7 +94,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 // #endregion
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region List Entries
+// #region Retrieve Entries
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
