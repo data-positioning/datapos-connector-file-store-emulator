@@ -27,8 +27,8 @@ import {
     extractExtensionFromEntryPath,
     extractLastFolderNameFromFolderPath,
     FieldInfos,
-    ListEntriesProperties,
     lookupMimeTypeForFileExtension,
+    RetrieveEntriesProperties,
     SourceViewProperties
 } from '../../../../dataposapp-engine-main/src';
 
@@ -81,21 +81,19 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 
     /**
-     * List a page of entries for a given folder path.
+     * Retrieve a page of entries for a given folder path.
      * @param accountId The identifier of the account to which the source belongs.
      * @param sessionAccessToken An active session access token.
      * @param parentConnectionEntry
      * @returns A page of entries.
      */
-    async listEntries(accountId: string, sessionAccessToken: string, parentConnectionEntry: ConnectionEntry, properties: ListEntriesProperties): Promise<ConnectionEntriesPage> {
-        return await listEntries(parentConnectionEntry);
-    }
-
-    /**
-     *
-     */
-    release(): void {
-        console.log('I WAS RELEASED');
+    async retrieveEntries(
+        accountId: string,
+        sessionAccessToken: string,
+        parentConnectionEntry: ConnectionEntry,
+        properties: RetrieveEntriesProperties
+    ): Promise<ConnectionEntriesPage> {
+        return await retrieveEntries(parentConnectionEntry);
     }
 }
 
@@ -106,11 +104,11 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * List a page of entries for a given folder path.
+ * Retrieve a page of entries for a given folder path.
  * @param parentConnectionEntry
  * @returns A page of entries.
  */
-const listEntries = (parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> => {
+const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
         try {
             const folderPath = parentConnectionEntry.folderPath || '';
