@@ -161,23 +161,11 @@ const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connec
                 entries.push(buildFolderEntry('/SAP Employee Central Extract', 19));
                 entries.push(buildFolderEntry('/Test Files', 7));
             }
-
-            console.log('SLEEPING');
-            sleep(10000)
-                .then(() => {
-                    console.log('AWAKE');
-                    resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
-                })
-                .catch((error) => {
-                    console.log('ERROR', error);
-                });
         } catch (error) {
             reject(error);
         }
     });
 };
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Build a folder entry.
