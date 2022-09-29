@@ -94,11 +94,8 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     /**
      *
      */
-    signal(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            console.log('I WAS SIGNALED');
-            resolve();
-        });
+    release(): void {
+        console.log('I WAS RELEASED');
     }
 }
 
