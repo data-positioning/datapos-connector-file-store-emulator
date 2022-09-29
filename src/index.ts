@@ -162,23 +162,11 @@ const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connec
                 entries.push(buildFolderEntry('/Test Files', 7));
             }
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
-
-            // console.log('SLEEPING');
-            // sleep(10000)
-            //     .then(() => {
-            //         console.log('AWAKE');
-            //         resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
-            //     })
-            //     .catch((error) => {
-            //         console.log('ERROR', error);
-            //     });
         } catch (error) {
             reject(error);
         }
     });
 };
-
-// const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Build a folder entry.
@@ -251,16 +239,12 @@ const previewFileEntry = async (
     sourceViewProperties: SourceViewProperties,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
-    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    signal: AbortSignal
+    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, {
-        headers,
-        signal
-    });
+    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers });
     if (!response.ok) {
         const data: ErrorData = {
             body: { context: 'previewFileEntry', message: await response.text() },
@@ -295,8 +279,7 @@ const readFileEntry = async (
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    environment: Environment,
-    signal: AbortSignal
+    environment: Environment
 ): Promise<void> => {
     const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`);
 
