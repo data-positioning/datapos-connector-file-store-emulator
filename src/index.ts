@@ -51,15 +51,15 @@ const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-de
  * Encapsulates the file store emulator data connector.
  */
 export default class FileStoreEmulatorDataConnector implements DataConnector {
+    abortController: AbortController;
     readonly connectionItem: ConnectionItem;
     readonly id: string;
-    readonly isAborted: boolean;
     readonly version: string;
 
     constructor(connectionItem: ConnectionItem) {
+        this.abortController = undefined;
         this.connectionItem = connectionItem;
         this.id = config.id;
-        this.isAborted = false;
         this.version = version;
     }
 
@@ -77,6 +77,16 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      */
     getReadInterface(): DataConnectorReadInterface {
         return { connector: this, readFileEntry };
+    }
+
+    /**
+     *
+     */
+    release(): void {
+        if (this.abortController) {
+            this.abortController.abort();
+            this.abortController = undefined;
+        }
     }
 
     /**
@@ -235,10 +245,15 @@ const previewFileEntry = async (
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
+    connector.abortController = new AbortController();
+    const signal = connector.abortController.signal;
+
+    // signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true });
+
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
-    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers });
+    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
     if (!response.ok) {
         const data: ErrorData = {
             body: { context: 'previewFileEntry', message: await response.text() },
@@ -275,7 +290,12 @@ const readFileEntry = async (
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     environment: Environment
 ): Promise<void> => {
-    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`);
+    connector.abortController = new AbortController();
+    const signal = connector.abortController.signal;
+
+    // signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true });
+
+    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { signal });
 
     let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
     const fieldInfos: FieldInfos[] = [];
@@ -285,6 +305,7 @@ const readFileEntry = async (
     const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewProperties.preview.encodingId));
     const decodedStreamReader = stream.getReader();
 
+    signal.throwIfAborted();
     const parser = environment.csvParse.parse({
         cast: (value, context) => {
             fieldInfos[context.index] = { isQuoted: context.quoting };
@@ -298,6 +319,7 @@ const readFileEntry = async (
     parser.on('readable', () => {
         let data;
         while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
+            signal.throwIfAborted();
             chunk.push({ fieldInfos, fieldValues: data.record });
             if (chunk.length < maxChunkSize) continue;
             readInterfaceSettings.chunk(chunk);
@@ -306,6 +328,7 @@ const readFileEntry = async (
     });
     parser.on('error', (error) => readInterfaceSettings.error(error));
     parser.on('end', () => {
+        signal.throwIfAborted();
         if (chunk.length > 0) {
             readInterfaceSettings.chunk(chunk);
             chunk = [];
