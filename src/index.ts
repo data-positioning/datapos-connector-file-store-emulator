@@ -261,8 +261,8 @@ const previewFileEntry = async (
         };
         throw new Error('Unable to preview entry.|' + JSON.stringify(data));
     }
-
     const uint8Array = new Uint8Array(await response.arrayBuffer());
+
     return { data: uint8Array, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
 
@@ -339,10 +339,8 @@ const readFileEntry = async (
             recordCount: parser.info.records
         });
     });
-
     let result;
     while (!(result = await decodedStreamReader.read()).done) parser.write(result.value);
-
     parser.end();
 };
 
