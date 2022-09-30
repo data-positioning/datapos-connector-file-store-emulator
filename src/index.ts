@@ -247,7 +247,7 @@ const previewFileEntry = async (
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
 
-    // signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true });
+    // signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
 
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
@@ -292,7 +292,7 @@ const readFileEntry = async (
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
 
-    // signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true });
+    // signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
 
     const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { signal });
 
