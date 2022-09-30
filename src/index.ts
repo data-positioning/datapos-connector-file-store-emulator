@@ -64,6 +64,15 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 
     /**
+     * Abort current processing.
+     */
+    abort(): void {
+        if (!this.abortController) return;
+        this.abortController.abort();
+        this.abortController = undefined;
+    }
+
+    /**
      * Get the preview interface.
      * @returns The preview interface.
      */
@@ -77,16 +86,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      */
     getReadInterface(): DataConnectorReadInterface {
         return { connector: this, readFileEntry };
-    }
-
-    /**
-     *
-     */
-    release(): void {
-        if (this.abortController) {
-            this.abortController.abort();
-            this.abortController = undefined;
-        }
     }
 
     /**
