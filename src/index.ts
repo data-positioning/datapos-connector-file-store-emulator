@@ -264,6 +264,7 @@ const previewFileEntry = async (
     }
     const uint8Array = new Uint8Array(await response.arrayBuffer());
 
+    console.log('4444a');
     return { data: uint8Array, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
 
