@@ -244,6 +244,7 @@ const previewFileEntry = async (
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
+    console.log(4444);
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
 
