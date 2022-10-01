@@ -244,7 +244,6 @@ const previewFileEntry = async (
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
-    console.log(4444);
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
 
@@ -264,7 +263,7 @@ const previewFileEntry = async (
     }
     const uint8Array = new Uint8Array(await response.arrayBuffer());
 
-    console.log('4444a');
+    connector.abortController = undefined;
     return { data: uint8Array, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
 
@@ -340,6 +339,7 @@ const readFileEntry = async (
             lineCount: parser.info.lines,
             recordCount: parser.info.records
         });
+        connector.abortController = undefined;
     });
     let result;
     while (!(result = await decodedStreamReader.read()).done) parser.write(result.value);
