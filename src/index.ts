@@ -244,15 +244,14 @@ const previewFileEntry = async (
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
-    connector.abortController = new AbortController();
-    const signal = connector.abortController.signal;
-
-    // signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
-
     const headers: HeadersInit = {
         Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
     };
+    connector.abortController = new AbortController();
+    const signal = connector.abortController.signal;
+    // signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
     const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
+    connector.abortController = undefined;
     if (!response.ok) {
         const data: ErrorData = {
             body: { context: 'previewFileEntry', message: await response.text() },
@@ -263,7 +262,6 @@ const previewFileEntry = async (
     }
     const uint8Array = new Uint8Array(await response.arrayBuffer());
 
-    connector.abortController = undefined;
     return { data: uint8Array, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
 
@@ -292,9 +290,7 @@ const readFileEntry = async (
 ): Promise<void> => {
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
-
     // signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
-
     const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { signal });
 
     let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
@@ -329,6 +325,7 @@ const readFileEntry = async (
     parser.on('error', (error) => readInterfaceSettings.error(error));
     parser.on('end', () => {
         signal.throwIfAborted();
+        connector.abortController = undefined;
         if (chunk.length > 0) {
             readInterfaceSettings.chunk(chunk);
             chunk = [];
@@ -339,7 +336,6 @@ const readFileEntry = async (
             lineCount: parser.info.lines,
             recordCount: parser.info.records
         });
-        connector.abortController = undefined;
     });
     let result;
     while (!(result = await decodedStreamReader.read()).done) parser.write(result.value);
