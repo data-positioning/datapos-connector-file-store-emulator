@@ -4,19 +4,18 @@
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
     "main": "./src/index.ts",
-    "version": "0.1.352",
+    "version": "0.1.353",
     "dependencies": {
-        "@dataposapp/dataposapp-engine-main": "^0.1.451"
+        "@dataposapp/dataposapp-engine-main": "^0.1.452"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^23.0.0",
-        "@rollup/plugin-json": "^4.1.0",
+        "@rollup/plugin-json": "^5.0.0",
         "@rollup/plugin-node-resolve": "^15.0.0",
-        "@typescript-eslint/eslint-plugin": "^5.38.1",
-        "@typescript-eslint/parser": "^5.38.1",
+        "@typescript-eslint/eslint-plugin": "^5.40.1",
+        "@typescript-eslint/parser": "^5.40.1",
         "csv-parse": "^5.3.0",
-        "eslint": "^8.24.0",
-        "eslint-plugin-prettier": "^4.2.1",
+        "eslint": "^8.25.0",
         "grunt": "^1.5.3",
         "grunt-bump": "^0.8.0",
         "grunt-run": "^0.8.1",
@@ -24,7 +23,7 @@
         "node-fetch": "^3.2.10",
         "rollup": "^2.79.1",
         "rollup-plugin-terser": "^7.0.2",
-        "rollup-plugin-typescript2": "^0.34.0",
+        "rollup-plugin-typescript2": "^0.34.1",
         "typescript": "^4.8.4"
     }
 }
