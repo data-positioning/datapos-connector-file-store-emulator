@@ -5,7 +5,9 @@
  * @license ISC
  */
 
+import commonjs from '@rollup/plugin-commonjs';
 import config from './src/config.json';
+import nodeResolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
 import pkg from './package.json';
 import typescript from 'rollup-plugin-typescript2';
@@ -22,6 +24,6 @@ export default [
                 format: 'es'
             }
         ],
-        plugins: [json(), typescript(), terser({ output: { comments: false } })]
+        plugins: [nodeResolve({ browser: true }), commonjs(), json(), typescript(), terser({ output: { comments: false } })]
     }
 ];
