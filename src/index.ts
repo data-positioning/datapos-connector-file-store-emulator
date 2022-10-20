@@ -10,12 +10,10 @@ import config from './config.json';
 import { version } from '../package.json';
 
 // Engine dependencies.
-import {
+import type {
     ConnectionEntry,
     ConnectionEntryPreview,
-    ConnectionEntryPreviewTypeId,
     ConnectionEntriesPage,
-    ConnectionEntryTypeId,
     ConnectionItem,
     DataConnector,
     DataConnectorPreviewInterface,
@@ -24,12 +22,16 @@ import {
     DataConnectorReadInterfaceSettings,
     Environment,
     ErrorData,
+    FieldInfos,
+    SourceViewProperties
+} from '@dataposapp/dataposapp-engine-main';
+import {
+    ConnectionEntryPreviewTypeId,
+    ConnectionEntryTypeId,
     extractExtensionFromEntryPath,
     extractLastFolderNameFromFolderPath,
-    FieldInfos,
-    lookupMimeTypeForFileExtension,
-    SourceViewProperties
-} from '../../../../dataposapp-engine-main/src';
+    lookupMimeTypeForFileExtension
+} from '@dataposapp/dataposapp-engine-main';
 
 // Vendor dependencies.
 import type { CastingContext } from 'csv-parse/.';
