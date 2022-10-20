@@ -4,9 +4,9 @@
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
     "main": "./src/index.ts",
-    "version": "0.1.350",
+    "version": "0.1.351",
     "dependencies": {
-        "@dataposapp/dataposapp-engine-main": "^0.1.448"
+        "@dataposapp/dataposapp-engine-main": "^0.1.451"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^23.0.0",
