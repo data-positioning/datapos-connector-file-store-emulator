@@ -24,6 +24,6 @@ export default [
                 format: 'es'
             }
         ],
-        plugins: [nodeResolve(), commonjs(), json(), typescript()]
+        plugins: [nodeResolve({ browser: true }), commonjs(), json(), typescript()]
     }
 ];
