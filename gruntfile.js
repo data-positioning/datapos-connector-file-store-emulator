@@ -30,10 +30,7 @@ module.exports = (grunt) => {
             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
             npmPublish: { args: ['publish'], cmd: 'npx' },
-            // rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.js', '--environment', 'BUILD:production'], cmd: 'npx' },
-            // rollup_iife: { args: ['rollup', '-c', 'rollup.config-iife.js', '--environment', 'BUILD:production'], cmd: 'npx' },
-            rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js', '--environment', 'BUILD:production'], cmd: 'npx' },
-            // rollup_umd: { args: ['rollup', '-c', 'rollup.config-umd.js', '--environment', 'BUILD:production'], cmd: 'npx' },
+            rollup_es: { args: ['rollup', '-c', 'rollup.config-es.mjs', '--environment', 'BUILD:production'], cmd: 'npx' },
             test: { args: ['WARNING: No tests implemented.'], cmd: 'echo' },
             updateEngine: { args: ['install', '@dataposapp/dataposapp-engine-main@latest'], cmd: 'npm' }
         }
