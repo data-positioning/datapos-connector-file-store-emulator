@@ -4,11 +4,10 @@
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
     "main": "./src/index.ts",
-    "version": "0.1.336",
+    "version": "0.1.337",
     "devDependencies": {
-        "@dataposapp/dataposapp-engine-main": "^0.1.429",
+        "@dataposapp/dataposapp-engine-main": "^0.1.433",
         "@rollup/plugin-json": "^4.1.0",
-        "@types/lodash.clonedeep": "^4.5.7",
         "@typescript-eslint/eslint-plugin": "^5.38.1",
         "@typescript-eslint/parser": "^5.38.1",
         "csv-parse": "^5.3.0",
