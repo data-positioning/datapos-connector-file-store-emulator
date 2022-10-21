@@ -5,7 +5,7 @@
  * @license ISC
  */
 
-// TODO: Updating to latest version of Rollup (v3.0.0 or later) results plugin dependency errors. Appears to be in '@rollup/plugin-commonjs' and 'rollup-plugin-terser'.
+// TODO: Updating to the latest version of Rollup (v3.0.0 or later) generated plugin dependency errors. Appear to be in '@rollup/plugin-commonjs' and 'rollup-plugin-terser'.
 // TODO: Staying with latest version 2 release (2.79.1) for time being.
 
 // TODO: Upgrade syntax for JSON file imports. See: https://rollupjs.org/guide/en/#importing-packagejson.
