@@ -87,8 +87,8 @@ module.exports = (grunt) => {
     grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // cmd+shift+b.
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
     grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
-    grunt.registerTask('npmPublish', ['bump', 'run:rollup_es', 'run:npmPublish']); // cmd+shift+n.
-    grunt.registerTask('release', ['bump', 'run:rollup_es', 'run:copyToFirebase', 'updateFirestore']); // cmd+shift+r.
+    grunt.registerTask('npmPublish', ['run:updateEngine', 'bump', 'run:rollup_es', 'run:npmPublish']); // cmd+shift+n.
+    grunt.registerTask('release', ['run:updateEngine', 'bump', 'run:rollup_es', 'run:copyToFirebase', 'updateFirestore']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['bump']); // cmd+shift+s.
     grunt.registerTask('test', ['run:test']); // cmd+shift+t.
     grunt.registerTask('updateEngine', ['run:updateEngine']); // cmd+shift+e.
