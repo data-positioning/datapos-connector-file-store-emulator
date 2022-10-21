@@ -5,6 +5,9 @@
  * @license ISC
  */
 
+// TODO: Updating to latest version of Rollup (v3.0.0 or later) results plugin dependency errors. Appears to be in '@rollup/plugin-commonjs' and 'rollup-plugin-terser'.
+// TODO: Staying with latest version 2 release (2.79.1) for time being.
+
 // TODO: Upgrade syntax for JSON file imports. See: https://rollupjs.org/guide/en/#importing-packagejson.
 // The latest syntax (line below) triggers a VSCode ESlint error, so temporarily using older 'require' syntax.
 // import config from './src/config.json' assert { type: 'json' };
@@ -28,6 +31,6 @@ export default [
                 format: 'cjs'
             }
         ],
-        plugins: [nodeResolve({ browser: true }), commonjs(), json(), typescript(), terser({ output: { comments: false } })]
+        plugins: [nodeResolve(), commonjs(), json(), typescript(), terser({ output: { comments: false } })]
     }
 ];

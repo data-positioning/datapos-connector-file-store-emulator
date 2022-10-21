@@ -5,6 +5,7 @@
  * @license ISC
  */
 
+// TODO: TS warning for next line (see ... under require) suggests file can be converted to ES module, but uncertain how to do this?
 const { getConnectorConfig } = require('../../../dataposapp-engine-main/src/gruntComponentHelpers.js');
 const config = require('./src/config.json');
 const env = require('./.env.json');
@@ -30,7 +31,10 @@ module.exports = (grunt) => {
             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
             npmPublish: { args: ['publish'], cmd: 'npx' },
+            rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.mjs', '--environment', 'BUILD:production'], cmd: 'npx' },
+            rollup_iife: { args: ['rollup', '-c', 'rollup.config-iife.mjs', '--environment', 'BUILD:production'], cmd: 'npx' },
             rollup_es: { args: ['rollup', '-c', 'rollup.config-es.mjs', '--environment', 'BUILD:production'], cmd: 'npx' },
+            rollup_umd: { args: ['rollup', '-c', 'rollup.config-umd.mjs', '--environment', 'BUILD:production'], cmd: 'npx' },
             test: { args: ['WARNING: No tests implemented.'], cmd: 'echo' },
             updateEngine: { args: ['install', '@dataposapp/dataposapp-engine-main@latest'], cmd: 'npm' }
         }
@@ -80,7 +84,7 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-run');
 
     // Register local tasks.
-    grunt.registerTask('build', ['run:rollup_es']); // cmd+shift+b.
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // cmd+shift+b.
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
     grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
     grunt.registerTask('npmPublish', ['bump', 'run:rollup_es', 'run:npmPublish']); // cmd+shift+n.
