@@ -3,9 +3,9 @@
     "description": "Data positioning application file store emulator data connector",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
-    "version": "0.1.361",
+    "version": "0.1.362",
     "dependencies": {
-        "@dataposapp/dataposapp-engine-main": "^0.1.457"
+        "@dataposapp/dataposapp-engine-main": "^0.1.459"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^23.0.1",
