@@ -8,6 +8,9 @@
 // TODO: Updating to the latest version of Rollup (v3.0.0 or later) generated plugin dependency errors. Appear to be in '@rollup/plugin-commonjs' and 'rollup-plugin-terser'.
 // TODO: Staying with latest version 2 release (2.79.1) for time being.
 
+// TODO: Consider using 'rollup-plugin-esbuild' and 'rollup-plugin-dts' to build distribution. See https://blog.logrocket.com/using-rollup-package-library-typescript-javascript/.
+// TODO: Not possible until rollup is upgraded (version3 or later).
+
 // TODO: Upgrade syntax for JSON file imports. See: https://rollupjs.org/guide/en/#importing-packagejson.
 // The latest syntax (line below) triggers a VSCode ESlint error, so temporarily using older 'require' syntax.
 // import config from './src/config.json' assert { type: 'json' };
