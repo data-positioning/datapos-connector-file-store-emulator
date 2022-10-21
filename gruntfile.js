@@ -36,7 +36,7 @@ module.exports = (grunt) => {
             rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             rollup_umd: { args: ['rollup', '-c', 'rollup.config-umd.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             test: { args: ['WARNING: No tests implemented.'], cmd: 'echo' },
-            updateEngine: { args: ['install', '@dataposapp/dataposapp-engine-main@latest'], cmd: 'npm' }
+            engineUpdate: { args: ['install', '@dataposapp/dataposapp-engine-main@latest'], cmd: 'npm' }
         }
     });
 
@@ -91,5 +91,5 @@ module.exports = (grunt) => {
     grunt.registerTask('release', ['bump', 'run:rollup_es', 'run:copyToFirebase', 'updateFirestore']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['bump']); // cmd+shift+s.
     grunt.registerTask('test', ['run:test']); // cmd+shift+t.
-    grunt.registerTask('updateEngine', ['run:updateEngine']); // cmd+shift+e.
+    grunt.registerTask('engineUpdate', ['run:engineUpdate']); // cmd+shift+e.
 };
