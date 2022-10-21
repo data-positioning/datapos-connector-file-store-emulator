@@ -1,31 +1,59 @@
 # Data Positioning Application - Data Connector - File Store Emulator
 
-### Project setup
+## IDE Setup
 
-```
-npm install
+Visual Studio Code with the following extensions: [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier - Code Formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+
+## Project Setup
+
+```sh
+npm install @dataposapp/dataposapp-connector-data-file-store-emulator
 ```
 
-### Compiles and minifies for production
+### Type-Check, Compile and Minify for Production
 
-```
+```sh
 cmd shift B
 ```
 
-### Lints and fixes files
+### Update Engine
 
-```
-cmd shift L
+```sh
+cmd shift E
 ```
 
 ### Synchronises with GitHub
 
-```
+```sh
 cmd shift S
 ```
 
-### Deploys to Firebase Storage
+### Test
 
+```sh
+cmd shift T
 ```
-Manually upload all files in the dist directory to the top level firebase storage directory.
+
+### Lint
+
+```sh
+cmd shift L
+```
+
+### Identify Licenses
+
+```sh
+cmd shift I
+```
+
+### Release
+
+```sh
+cmd shift R
+```
+
+### Publish to NPM
+
+```sh
+cmd shift N
 ```
