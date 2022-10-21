@@ -24,6 +24,7 @@ npm install @dataposapp/dataposapp-connector-data-file-store-emulator
 | Identify Licenses | cmd/shift/I |                                               |
 | Release           | cmd/shift/R |                                               |
 | Publish to NPM    | cmd/shift/N |                                               |
+|                   | cmd/shift/P |                                               |
 
 ## NPM/NPX Commands
 
