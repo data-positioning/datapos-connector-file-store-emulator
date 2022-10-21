@@ -3,9 +3,10 @@
     "description": "Data positioning application file store emulator data connector",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
-    "version": "0.1.367",
+    "version": "0.1.368",
     "dependencies": {
-        "@dataposapp/dataposapp-engine-main": "^0.1.461"
+        "@dataposapp/dataposapp-engine-main": "^0.1.461",
+        "csv-parse": "^5.3.1"
     },
     "devDependencies": {
         "@rollup/plugin-commonjs": "^23.0.1",
@@ -13,7 +14,6 @@
         "@rollup/plugin-node-resolve": "^15.0.0",
         "@typescript-eslint/eslint-plugin": "^5.40.1",
         "@typescript-eslint/parser": "^5.40.1",
-        "csv-parse": "^5.3.0",
         "eslint": "^8.25.0",
         "grunt": "^1.5.3",
         "grunt-bump": "^0.8.0",
