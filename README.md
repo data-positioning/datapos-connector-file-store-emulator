@@ -1,6 +1,6 @@
 # Data Positioning Application - Data Connector - File Store Emulator
 
-...
+The File Store Emulator data connector for the Data Positioning Application (DPA).
 
 ## IDE Setup
 
@@ -15,26 +15,28 @@ git clone https://github.com/dataposapp/dataposapp-connector-data-file-store-emu
 
 ## Project Commands
 
-| Name              | Key Code    | Notes                                         |
-| ----------------- | ----------- | --------------------------------------------- |
-| Build             | cmd/shift/B | Type-Check, Compile and Minify for Production |
-| Engine Update     | cmd/shift/E |                                               |
-| Lint              | cmd/shift/L |                                               |
-| Sync with Github  | cmd/shift/S |                                               |
-| Test              | cmd/shift/T |                                               |
-| Identify Licenses | cmd/shift/I |                                               |
-| Release           | cmd/shift/R |                                               |
-| Publish to NPM    | cmd/shift/N |                                               |
-|                   | cmd/shift/P |                                               |
+| Name                      | Key Code    | Notes                                         |
+| ------------------------- | ----------- | --------------------------------------------- |
+| Build                     | cmd+shift+B | Type-Check, Compile and Minify for Production |
+| Engine Update             | cmd+shift+E |                                               |
+| Lint                      | cmd+shift+L | [ESLint](https://eslint.org/)                 |
+| Sync with Github          | cmd+shift+S |                                               |
+| Test                      | cmd+shift+T |                                               |
+| Identify Licenses         | cmd+shift+I |                                               |
+| Release                   | cmd+shift+R |                                               |
+| NPM Publish               | cmd+shift+N |                                               |
+| Quick Open, Go to File... | cmd+P       |                                               |
+| Show Command Palette      | cmd+shift+P |                                               |
 
-## NPM/NPX Commands
+## Useful NPM/NPX Commands
 
-| Command                           |
-| --------------------------------- |
-| npm audit                         |
-| npm outdated                      |
-| npm install "package name"@latest |
-| npx depcheck                      |
+| Command                           | Notes                                                                            |
+| --------------------------------- | -------------------------------------------------------------------------------- |
+| npm audit                         |                                                                                  |
+| npm outdated                      |                                                                                  |
+| npm install "package name"@latest |                                                                                  |
+| npx depcheck                      |                                                                                  |
+| npm update [--save]               | NOT RECOMMENDED. To update package.json version numbers, append the --save flag. |
 
 ## Issues
 
