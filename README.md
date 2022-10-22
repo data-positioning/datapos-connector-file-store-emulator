@@ -35,3 +35,7 @@ git clone https://github.com/dataposapp/dataposapp-connector-data-file-store-emu
 | npm outdated                      |
 | npm install "package name"@latest |
 | npx depcheck                      |
+
+## Issues
+
+1. Updating to the latest version of Rollup (v3.0.0 or later) generates plugin dependency errors. Appear to be in '@rollup/plugin-commonjs' and 'rollup-plugin-terser'. Staying with latest version 2 release (2.79.1) for time being.
