@@ -32,7 +32,7 @@ git clone https://github.com/dataposapp/dataposapp-connector-data-file-store-emu
 
 | Command                           | Notes                                                                            |
 | --------------------------------- | -------------------------------------------------------------------------------- |
-| npm audit                         |                                                                                  |
+| npm audit [fix]                   |                                                                                  |
 | npm outdated                      |                                                                                  |
 | npm install "package name"@latest |                                                                                  |
 | npx depcheck                      |                                                                                  |
