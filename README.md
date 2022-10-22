@@ -6,10 +6,11 @@
 
 Visual Studio Code with the following extensions: [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier - Code Formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
-## Project Setup
+## Project Install
 
 ```sh
-npm install @dataposapp/dataposapp-connector-data-file-store-emulator
+cd [parent directory]
+git clone https://github.com/dataposapp/dataposapp-connector-data-file-store-emulator.git
 ```
 
 ## Project Commands
