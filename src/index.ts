@@ -251,7 +251,7 @@ const previewFileEntry = async (
     };
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
-    // signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
+    // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
     const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
     connector.abortController = undefined;
     if (!response.ok) {
@@ -292,7 +292,7 @@ const readFileEntry = async (
 ): Promise<void> => {
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
-    // signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
+    // TODO: signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
     const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { signal });
 
     let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
