@@ -50,7 +50,7 @@ const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-de
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Encapsulates the file store emulator data connector.
+ * Encapsulates the File Store Emulator data connector.
  */
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController;

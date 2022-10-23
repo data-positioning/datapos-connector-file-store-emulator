@@ -5,6 +5,10 @@
  * @license ISC
  */
 
+// TODO: Can we move 'firestoreUpdateTask' to '@dataposapp/dataposapp-engine-main'. This would be made easier if we could also import node-fetch at the start of 'gruntfile.js'.
+// TODO: Standardising code in one place would simplify maintenance. Needs to apply to all related 'gruntfile.js' files.
+// TODO: Should we convert to Gulp? Would this help address the issue?
+
 // TODO: TS warning for next line (see ... under require) suggests file can be converted to ES module, but uncertain how to do this?
 const { getConnectorConfig } = require('../../../dataposapp-engine-main/src/gruntComponentHelpers.js');
 const config = require('./src/config.json');
