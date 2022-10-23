@@ -6,7 +6,7 @@
  */
 import type { ConnectionEntry, ConnectionEntriesPage, ConnectionItem, DataConnector, DataConnectorPreviewInterface, DataConnectorReadInterface } from '@dataposapp/dataposapp-engine-main';
 /**
- * Encapsulates the file store emulator data connector.
+ * Encapsulates the File Store Emulator data connector.
  */
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController;
