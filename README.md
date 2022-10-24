@@ -15,18 +15,18 @@ git clone https://github.com/dataposapp/dataposapp-connector-data-file-store-emu
 
 ## Project Commands
 
-| Name                      | Key Code    | Notes                                         |
-| ------------------------- | ----------- | --------------------------------------------- |
-| Build                     | cmd+shift+B | Type-Check, Compile and Minify for Production |
-| Engine Update             | cmd+shift+E |                                               |
-| Lint                      | cmd+shift+L | [ESLint](https://eslint.org/)                 |
-| Sync with Github          | cmd+shift+S |                                               |
-| Test                      | cmd+shift+T |                                               |
-| Identify Licenses         | cmd+shift+I |                                               |
-| Release                   | cmd+shift+R |                                               |
-| NPM Publish               | cmd+shift+N |                                               |
-| Quick Open, Go to File... | cmd+P       |                                               |
-| Show Command Palette      | cmd+shift+P |                                               |
+| Name                      | Key Code    | Notes                                                                      |
+| ------------------------- | ----------- | -------------------------------------------------------------------------- |
+| Build                     | cmd+shift+B | Type-Check, Compile and Minify for Production                              |
+| Engine Update             | cmd+shift+E |                                                                            |
+| Lint                      | cmd+shift+L | [ESLint](https://eslint.org/)                                              |
+| Sync with Github          | cmd+shift+S |                                                                            |
+| Test                      | cmd+shift+T |                                                                            |
+| Identify Licenses         | cmd+shift+I |                                                                            |
+| Release                   | cmd+shift+R | Use command line command 'npm publish' when publishing for the first time. |
+| NPM Publish               | cmd+shift+N |                                                                            |
+| Quick Open, Go to File... | cmd+P       |                                                                            |
+| Show Command Palette      | cmd+shift+P |                                                                            |
 
 ## Useful NPM/NPX Commands
 
