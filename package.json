@@ -3,7 +3,7 @@
     "description": "Data positioning application File Store Emulator data connector",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
-    "version": "0.1.397",
+    "version": "0.1.398",
     "dependencies": {
         "@datapos/datapos-engine": "^0.1.478",
         "csv-parse": "^5.3.1"
