@@ -36,7 +36,9 @@ module.exports = (grunt) => {
         try {
             const done = this.async();
 
+            // TODO:
             updateFirebase();
+            // TODO:
 
             const fetchModule = await import('node-fetch');
 
