@@ -64,6 +64,7 @@ module.exports = (grunt) => {
                 method: 'POST'
             });
             const signInResult = await signInResponse.json();
+            console.log(1111, signInResult);
 
             // Upsert connector record in application service database (firestore).
             const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/plugins`, {
