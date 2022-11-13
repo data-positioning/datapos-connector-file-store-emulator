@@ -41,7 +41,7 @@ import type { CastingContext } from 'csv-parse/.';
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const defaultChunkSize = 4096;
-const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/dataposapp-v00-dev-alpha.appspot.com/o/fileStore';
+const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/datapos-v00-dev-alpha.appspot.com/o/fileStore';
 
 // #endregion
 

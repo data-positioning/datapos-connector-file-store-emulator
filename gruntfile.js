@@ -30,7 +30,7 @@ module.exports = (grunt) => {
         pkg,
 
         run: {
-            copyToFirebase: { args: ['cp', 'dist/datapos-*', 'gs://dataposapp-v00-dev-alpha.appspot.com/plugins/connectors/data/'], cmd: 'gsutil' },
+            copyToFirebase: { args: ['cp', 'dist/datapos-*', 'gs://datapos-v00-dev-alpha.appspot.com/plugins/connectors/data/'], cmd: 'gsutil' },
             identifyLicensesUsingLicenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
