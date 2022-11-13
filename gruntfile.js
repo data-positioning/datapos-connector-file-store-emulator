@@ -1,19 +1,24 @@
 /**
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2022 Jonathan Terrell
- * @file dataposapp-connector-data-file-store-emulator/gruntfile.js
+ * @file datapos-connector-data-file-store-emulator/gruntfile.js
  * @license ISC
  */
 
-// TODO: Can we move 'firestoreUpdateTask' to '@dataposapp/dataposapp-engine-main'. This would be made easier if we could also import node-fetch at the start of 'gruntfile.js'.
+// TODO: Can we move 'firestoreUpdateTask' to '@datapos/datapos-engine'. This would be made easier if we could also import node-fetch at the start of 'gruntfile.js'.
 // TODO: Standardising code in one place would simplify maintenance. Needs to apply to all related 'gruntfile.js' files.
 // TODO: Should we convert to Gulp? Would this help address the issue?
 
 // TODO: TS warning for next line (see ... under require) suggests file can be converted to ES module, but uncertain how to do this?
-// const { getConnectorConfig } = require('@datapos/datapos-engine/src/gruntComponentHelpers');
+const { getConnectorConfig } = require('@datapos/datapos-engine/src/gruntComponentHelpers');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
+
+console.log('getConnectorConfig', getConnectorConfig);
+console.log('config', config);
+console.log('env', env);
+console.log('pkg', pkg);
 
 module.exports = (grunt) => {
     // Initialise configuration.
@@ -30,7 +35,7 @@ module.exports = (grunt) => {
         pkg,
 
         run: {
-            copyToFirebase: { args: ['cp', 'dist/dataposapp-*', 'gs://dataposapp-v00-dev-alpha.appspot.com/components/connectors/data/'], cmd: 'gsutil' },
+            copyToFirebase: { args: ['cp', 'dist/datapos-*', 'gs://dataposapp-v00-dev-alpha.appspot.com/components/connectors/data/'], cmd: 'gsutil' },
             identifyLicensesUsingLicenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
@@ -40,7 +45,7 @@ module.exports = (grunt) => {
             rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             rollup_umd: { args: ['rollup', '-c', 'rollup.config-umd.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             test: { args: ['WARNING: No tests implemented.'], cmd: 'echo' },
-            engineUpdate: { args: ['install', '@dataposapp/dataposapp-engine-main@latest'], cmd: 'npm' }
+            engineUpdate: { args: ['install', '@datapos/datapos-engine@latest'], cmd: 'npm' }
         }
     });
 
@@ -66,15 +71,15 @@ module.exports = (grunt) => {
             const signInResult = await signInResponse.json();
 
             // Upsert connector record in application service database (firestore).
-            // const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/components`, {
-            //     body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
-            //     headers: {
-            //         Authorization: signInResult.idToken,
-            //         'Content-Type': 'application/json'
-            //     },
-            //     method: 'POST'
-            // });
-            // if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
+            const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/components`, {
+                body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
+                headers: {
+                    Authorization: signInResult.idToken,
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST'
+            });
+            if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
             done();
         } catch (error) {

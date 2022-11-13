@@ -1,17 +1,17 @@
 {
+  "@datapos/datapos-connector-data-file-store-emulator@0.1.388": {
+    "licenses": "ISC",
+    "publisher": "Jonathan Terrell",
+    "email": "terrell.jm@gmail.com",
+    "path": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator",
+    "licenseFile": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator/LICENSE"
+  },
   "@datapos/datapos-engine@0.1.478": {
     "licenses": "ISC",
     "publisher": "Jonathan Terrell",
     "email": "terrell.jm@gmail.com",
     "path": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator/node_modules/@datapos/datapos-engine",
     "licenseFile": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator/node_modules/@datapos/datapos-engine/LICENSE"
-  },
-  "@dataposapp/dataposapp-connector-data-file-store-emulator@0.1.387": {
-    "licenses": "ISC",
-    "publisher": "Jonathan Terrell",
-    "email": "terrell.jm@gmail.com",
-    "path": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator",
-    "licenseFile": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator/LICENSE"
   },
   "chardet@1.5.0": {
     "licenses": "MIT",

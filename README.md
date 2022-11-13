@@ -10,7 +10,7 @@ The File Store Emulator data connector for the Data Positioning Application (DPA
 
 ```sh
 cd [parent directory]
-git clone https://github.com/dataposapp/dataposapp-connector-data-file-store-emulator.git
+git clone https://github.com/datapos/datapos-connector-data-file-store-emulator.git
 ```
 
 ## Project Commands

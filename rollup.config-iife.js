@@ -1,7 +1,7 @@
 /**
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2022 Jonathan Terrell
- * @file dataposapp-connector-data-file-store-emulator/rollup.config-iife.js
+ * @file datapos-connector-data-file-store-emulator/rollup.config-iife.js
  * @license ISC
  */
 
