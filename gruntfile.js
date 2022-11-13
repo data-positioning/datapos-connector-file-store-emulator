@@ -30,7 +30,7 @@ module.exports = (grunt) => {
         pkg,
 
         run: {
-            copyToFirebase: { args: ['cp', 'dist/datapos-*', 'gs://dataposapp-v00-dev-alpha.appspot.com/components/connectors/data/'], cmd: 'gsutil' },
+            copyToFirebase: { args: ['cp', 'dist/datapos-*', 'gs://dataposapp-v00-dev-alpha.appspot.com/plugins/connectors/data/'], cmd: 'gsutil' },
             identifyLicensesUsingLicenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
@@ -66,7 +66,7 @@ module.exports = (grunt) => {
             const signInResult = await signInResponse.json();
 
             // Upsert connector record in application service database (firestore).
-            const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/components`, {
+            const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/plugins`, {
                 body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
                 headers: {
                     Authorization: signInResult.idToken,
