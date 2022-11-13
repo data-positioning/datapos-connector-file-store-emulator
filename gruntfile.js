@@ -15,11 +15,6 @@ const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
 
-console.log('getConnectorConfig', getConnectorConfig);
-console.log('config', config);
-console.log('env', env);
-console.log('pkg', pkg);
-
 module.exports = (grunt) => {
     // Initialise configuration.
     grunt.initConfig({
