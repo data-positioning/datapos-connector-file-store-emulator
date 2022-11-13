@@ -24,14 +24,14 @@ import type {
     ErrorData,
     FieldInfos,
     SourceViewProperties
-} from '@dataposapp/dataposapp-engine-main';
+} from '@datapos/datapos-engine';
 import {
     ConnectionEntryPreviewTypeId,
     ConnectionEntryTypeId,
     extractExtensionFromEntryPath,
     extractLastFolderNameFromFolderPath,
     lookupMimeTypeForFileExtension
-} from '@dataposapp/dataposapp-engine-main';
+} from '@datapos/datapos-engine';
 
 // Vendor dependencies.
 import type { CastingContext } from 'csv-parse/.';

@@ -10,7 +10,7 @@
 // TODO: Should we convert to Gulp? Would this help address the issue?
 
 // TODO: TS warning for next line (see ... under require) suggests file can be converted to ES module, but uncertain how to do this?
-const { getConnectorConfig } = require('../../../dataposapp-engine-main/src/gruntComponentHelpers.js');
+// const { getConnectorConfig } = require('@datapos/datapos-engine/src/gruntComponentHelpers');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
@@ -66,15 +66,15 @@ module.exports = (grunt) => {
             const signInResult = await signInResponse.json();
 
             // Upsert connector record in application service database (firestore).
-            const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/components`, {
-                body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
-                headers: {
-                    Authorization: signInResult.idToken,
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST'
-            });
-            if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
+            // const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/components`, {
+            //     body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
+            //     headers: {
+            //         Authorization: signInResult.idToken,
+            //         'Content-Type': 'application/json'
+            //     },
+            //     method: 'POST'
+            // });
+            // if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
             done();
         } catch (error) {
