@@ -84,7 +84,7 @@ module.exports = (grunt) => {
 **Some bold text...**
 ***Some italic & bold text...***
 Some regular text...`,
-                icon: { asset: { _ref: 'image-d1687edf8b9ab6e5844f43c44e05835422457775-43x40-svg' }, _type: 'reference' },
+                icon: { asset: { _ref: 'image-65aa51823e6437a14db0e6d86df0b2eca001b5cb-1200x800-svg' }, _type: 'reference' },
                 label: config.label,
                 logo: config.logo,
                 status: config.statusId,
