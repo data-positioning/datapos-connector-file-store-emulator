@@ -32,6 +32,7 @@ module.exports = (grunt) => {
     });
 
     // ...
+    // TODO: 'grunt.task.registerTask' can be changed to 'grunt.registerTask'.
     grunt.task.registerTask('updateFirestore', 'Updates Firestore', async function () {
         try {
             const done = this.async();
@@ -70,6 +71,8 @@ module.exports = (grunt) => {
             done();
         } catch (error) {
             console.log(error);
+            // TODO: This is not declared 'done'. No error is reported. Does report error in 'datapos-content'.
+            // TODO: Have changed 'datapos-content' to move 'done' outside try/catch block.
             done(false);
         }
     });
