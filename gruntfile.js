@@ -69,21 +69,15 @@ module.exports = (grunt) => {
             });
             if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
-            // const body = {
-            //     mutations: [
-            //         {
-            //             createOrReplace: {
-            //                 _id: config.id,
-            //                 _type: 'dataStore',
-            //                 category: config.categoryId,
-            //                 logo: config.logo,
-            //                 name: config.label,
-            //                 status: config.statusId,
-            //                 usage: config.usageId
-            //             }
-            //         }
-            //     ]
-            // };
+            const createOrReplace = {
+                _id: config.id,
+                _type: 'dataStore',
+                category: config.categoryId,
+                logo: config.logo,
+                name: config.label,
+                status: config.statusId,
+                usage: config.usageId
+            };
 
             var requestOptions = {
                 method: 'POST',
