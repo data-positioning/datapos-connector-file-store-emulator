@@ -73,9 +73,7 @@ module.exports = (grunt) => {
                 _id: config.id,
                 _type: 'dataStore',
                 category: config.categoryId,
-                logo: config.logo,
-                label: config.label,
-                // narrative: config.narrative,
+                // description: config.narrative,
                 description: `# Heading 1
 ## Heading 2
 ### Heading 3
@@ -86,6 +84,8 @@ module.exports = (grunt) => {
 **Some bold more text...**
 ***Some italic & bold more text...***
 Some regular text...`,
+                label: config.label,
+                logo: config.logo,
                 status: config.statusId,
                 usage: config.usageId
             };
