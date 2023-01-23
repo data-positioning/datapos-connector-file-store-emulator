@@ -94,7 +94,7 @@ module.exports = (grunt) => {
                 // redirect: 'follow'
             };
 
-            fetchModule('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
+            fetchModule.default('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
                 .then((response) => response.text())
                 .then((result) => console.log(result))
                 .catch((error) => console.log('error', error));
