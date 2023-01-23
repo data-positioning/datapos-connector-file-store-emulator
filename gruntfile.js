@@ -79,7 +79,7 @@ module.exports = (grunt) => {
                 mutations: [
                     {
                         createOrReplace: {
-                            _id: 'myUniqueId',
+                            _id: config.id,
                             _type: 'dataStore',
                             name: 'XXXX'
                         }
