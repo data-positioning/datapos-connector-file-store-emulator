@@ -79,7 +79,13 @@ module.exports = (grunt) => {
                 narrative: `# Heading 1
 ## Heading 2
 ### Heading 3
-#### Heading 4`,
+#### Heading 4
+##### Heading 5
+###### Heading 6
+*Some italic more text...*
+**Some bold more text...**
+***Some italic & bold more text...***
+Some regular text...`,
                 status: config.statusId,
                 usage: config.usageId
             };
