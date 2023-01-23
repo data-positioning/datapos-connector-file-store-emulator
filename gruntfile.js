@@ -95,14 +95,14 @@ module.exports = (grunt) => {
             };
 
             console.log(1111, requestOptions);
-            fetchModule
-                .default('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
-                .then((response) => {
-                    console.log(2222, response);
-                    response.text();
-                })
-                .then((result) => console.log(result))
-                .catch((error) => console.log('error', error));
+            const xxxx = await fetchModule.default('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions);
+            console.log(2222, xxxx);
+            // .then((response) => {
+            //     console.log(2222, response);
+            //     response.text();
+            // })
+            // .then((result) => console.log(result))
+            // .catch((error) => console.log('error', error));
 
             done();
         } catch (error) {
