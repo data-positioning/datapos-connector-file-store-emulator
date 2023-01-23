@@ -80,9 +80,9 @@ module.exports = (grunt) => {
 #### Heading 4
 ##### Heading 5
 ###### Heading 6
-*Some italic more text...*
-**Some bold more text...**
-***Some italic & bold more text...***
+*Some italic text...*
+**Some bold text...**
+***Some italic & bold text...***
 Some regular text...`,
                 label: config.label,
                 logo: config.logo,
