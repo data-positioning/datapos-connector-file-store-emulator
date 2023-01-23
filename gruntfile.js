@@ -77,7 +77,10 @@ module.exports = (grunt) => {
                 logo: config.logo,
                 name: config.label,
                 status: config.statusId,
-                test: '#abcde ##ertty',
+                test: `
+                # Heading 11
+                ## Heading 22
+                *Some more text`,
                 usage: config.usageId
             };
 
