@@ -70,7 +70,7 @@ module.exports = (grunt) => {
             });
             if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
-            var myHeaders = new Headers();
+            var myHeaders = new fetchModule.Headers();
             // myHeaders.append('Content-Transfer-Encoding', 'application/json');
             myHeaders.append('Authorization', `Bearer ${env.SANITY_TOKEN}`);
             myHeaders.append('Content-Type', 'application/json');
@@ -94,7 +94,7 @@ module.exports = (grunt) => {
                 // redirect: 'follow'
             };
 
-            fetch('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
+            fetchModule('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
                 .then((response) => response.text())
                 .then((result) => console.log(result))
                 .catch((error) => console.log('error', error));
