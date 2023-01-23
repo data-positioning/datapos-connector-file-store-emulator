@@ -5,6 +5,8 @@
  * @license ISC
  */
 
+// TODO: See new formatting in datapos-content.
+
 // TODO: TS warning for next line (see ... under require) suggests file can be converted to ES module, but uncertain how to do this?
 const { getConnectorConfig, updateFirebase } = require('@datapos/datapos-engine/src/gruntPluginHelpers');
 const config = require('./src/config.json');
