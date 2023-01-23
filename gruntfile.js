@@ -81,7 +81,8 @@ module.exports = (grunt) => {
                             _id: config.id,
                             _type: 'dataStore',
                             name: config.label,
-                            category: config.categoryId
+                            category: config.categoryId,
+                            status: config.statusId
                         }
                     }
                 ]
