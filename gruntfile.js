@@ -76,7 +76,8 @@ module.exports = (grunt) => {
                 logo: config.logo,
                 name: config.label,
                 // narrative: config.narrative,
-                narrative: `# Heading 1 ## Heading 2.2
+                narrative: `# Heading 1
+## Heading 2
 ### Heading 3
 #### Heading 4
 ##### Heading 5
