@@ -79,9 +79,9 @@ module.exports = (grunt) => {
                 mutations: [
                     {
                         createOrReplace: {
-                            _id: config.id,
+                            _id: 'myUniqueId',
                             _type: 'dataStore',
-                            name: config.label
+                            name: 'XXXX'
                         }
                     }
                 ]
@@ -94,7 +94,7 @@ module.exports = (grunt) => {
                 // redirect: 'follow'
             };
 
-            console.log(1111);
+            console.log(1111, requestOptions);
             fetchModule
                 .default('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
                 .then((response) => {
