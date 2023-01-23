@@ -73,7 +73,7 @@ module.exports = (grunt) => {
                 _id: config.id,
                 _type: 'dataStore',
                 category: config.categoryId,
-                description: [{ _type: 'block', children: [{ _type: 'span', marks: [], text: 'some loaded text...' }], markDefs: [], style: 'normal' }],
+                description: [{ _key: '1', _type: 'block', children: [{ _key: '1', _type: 'span', marks: [], text: 'some loaded text...' }], markDefs: [], style: 'normal' }],
                 logo: config.logo,
                 name: config.label,
                 status: config.statusId,
