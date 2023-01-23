@@ -36,9 +36,8 @@ module.exports = (grunt) => {
     // ...
     // TODO: 'grunt.task.registerTask' can be changed to 'grunt.registerTask'.
     grunt.task.registerTask('updateFirestore', 'Updates Firestore', async function () {
+        const done = this.async();
         try {
-            const done = this.async();
-
             // TODO:
             updateFirebase();
             // TODO:
@@ -70,10 +69,6 @@ module.exports = (grunt) => {
             });
             if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
-            // var myHeaders = new fetchModule.Headers();
-            // myHeaders.append('Authorization', `Bearer ${env.SANITY_TOKEN}`);
-            // myHeaders.append('Content-Type', 'application/json');
-
             const body = {
                 mutations: [
                     {
@@ -95,16 +90,8 @@ module.exports = (grunt) => {
                 body: JSON.stringify(body)
             };
 
-            console.log(1111, requestOptions);
-            const xxxx = await fetchModule.default('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions);
-            console.log(2222, xxxx);
-            // .then((response) => {
-            //     console.log(2222, response);
-            //     response.text();
-            // })
-            // .then((result) => console.log(result))
-            // .catch((error) => console.log('error', error));
-
+            const sanityResponse = await fetchModule.default('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions);
+            if (!sanityResponse.ok) console.log(sanityResponse.status, sanityResponse.statusText, await sanityResponse.text());
             done();
         } catch (error) {
             console.log(error);
