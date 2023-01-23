@@ -70,34 +70,34 @@ module.exports = (grunt) => {
             });
             if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
-            var myHeaders = new Headers();
-            // myHeaders.append('Content-Transfer-Encoding', 'application/json');
-            myHeaders.append('Authorization', `Bearer ${env.SANITY_TOKEN}`);
-            myHeaders.append('Content-Type', 'application/json');
+            // var myHeaders = new Headers();
+            // // myHeaders.append('Content-Transfer-Encoding', 'application/json');
+            // myHeaders.append('Authorization', `Bearer ${env.SANITY_TOKEN}`);
+            // myHeaders.append('Content-Type', 'application/json');
 
-            var raw = JSON.stringify({
-                mutations: [
-                    {
-                        createOrReplace: {
-                            _id: config.id,
-                            _type: 'dataStore',
-                            name: config.label
-                        }
-                    }
-                ]
-            });
+            // var raw = JSON.stringify({
+            //     mutations: [
+            //         {
+            //             createOrReplace: {
+            //                 _id: config.id,
+            //                 _type: 'dataStore',
+            //                 name: config.label
+            //             }
+            //         }
+            //     ]
+            // });
 
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw
-                // redirect: 'follow'
-            };
+            // var requestOptions = {
+            //     method: 'POST',
+            //     headers: myHeaders,
+            //     body: raw
+            //     // redirect: 'follow'
+            // };
 
-            fetch('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
-                .then((response) => response.text())
-                .then((result) => console.log(result))
-                .catch((error) => console.log('error', error));
+            // fetch('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
+            //     .then((response) => response.text())
+            //     .then((result) => console.log(result))
+            //     .catch((error) => console.log('error', error));
 
             done();
         } catch (error) {
