@@ -46,7 +46,6 @@ module.exports = (grunt) => {
             const fetchModule = await import('node-fetch');
 
             // Sign in to firebase.
-            console.log(1111);
             const signInResponse = await fetchModule.default(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env.FIREBASE_API_KEY}`, {
                 body: JSON.stringify({
                     email: env.FIREBASE_EMAIL_ADDRESS,
@@ -58,11 +57,9 @@ module.exports = (grunt) => {
                 },
                 method: 'POST'
             });
-            console.log(1111, signInResponse);
             const signInResult = await signInResponse.json();
 
             // Upsert connector record in application service database (firestore).
-            console.log(2222);
             const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/plugins`, {
                 body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
                 headers: {
@@ -71,37 +68,36 @@ module.exports = (grunt) => {
                 },
                 method: 'POST'
             });
-            console.log(2222, upsertResponse);
             if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
-            // var myHeaders = new Headers();
-            // // myHeaders.append('Content-Transfer-Encoding', 'application/json');
-            // myHeaders.append('Authorization', `Bearer ${env.SANITY_TOKEN}`);
-            // myHeaders.append('Content-Type', 'application/json');
+            var myHeaders = new Headers();
+            // myHeaders.append('Content-Transfer-Encoding', 'application/json');
+            myHeaders.append('Authorization', `Bearer ${env.SANITY_TOKEN}`);
+            myHeaders.append('Content-Type', 'application/json');
 
-            // var raw = JSON.stringify({
-            //     mutations: [
-            //         {
-            //             createOrReplace: {
-            //                 _id: config.id,
-            //                 _type: 'dataStore',
-            //                 name: config.label
-            //             }
-            //         }
-            //     ]
-            // });
+            var raw = JSON.stringify({
+                mutations: [
+                    {
+                        createOrReplace: {
+                            _id: config.id,
+                            _type: 'dataStore',
+                            name: config.label
+                        }
+                    }
+                ]
+            });
 
-            // var requestOptions = {
-            //     method: 'POST',
-            //     headers: myHeaders,
-            //     body: raw
-            //     // redirect: 'follow'
-            // };
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw
+                // redirect: 'follow'
+            };
 
-            // fetch('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
-            //     .then((response) => response.text())
-            //     .then((result) => console.log(result))
-            //     .catch((error) => console.log('error', error));
+            fetch('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions)
+                .then((response) => response.text())
+                .then((result) => console.log(result))
+                .catch((error) => console.log('error', error));
 
             done();
         } catch (error) {
