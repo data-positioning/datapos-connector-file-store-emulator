@@ -70,28 +70,27 @@ module.exports = (grunt) => {
             });
             if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
-            var myHeaders = new fetchModule.Headers();
-            // myHeaders.append('Content-Transfer-Encoding', 'application/json');
-            myHeaders.append('Authorization', `Bearer ${env.SANITY_TOKEN}`);
-            myHeaders.append('Content-Type', 'application/json');
+            // var myHeaders = new fetchModule.Headers();
+            // myHeaders.append('Authorization', `Bearer ${env.SANITY_TOKEN}`);
+            // myHeaders.append('Content-Type', 'application/json');
 
-            var raw = JSON.stringify({
+            const body = {
                 mutations: [
                     {
                         createOrReplace: {
                             _id: config.id,
                             _type: 'dataStore',
-                            name: config.label
+                            name: config.label,
+                            category: config.categoryId
                         }
                     }
                 ]
-            });
+            };
 
             var requestOptions = {
                 method: 'POST',
-                headers: myHeaders,
-                body: raw
-                // redirect: 'follow'
+                headers: { Authorization: `Bearer ${env.SANITY_TOKEN}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
             };
 
             console.log(1111, requestOptions);
