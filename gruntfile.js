@@ -76,6 +76,7 @@ module.exports = (grunt) => {
                             _id: config.id,
                             _type: 'dataStore',
                             category: config.categoryId,
+                            logo: config.logo,
                             name: config.label,
                             status: config.statusId,
                             usage: config.usageId
