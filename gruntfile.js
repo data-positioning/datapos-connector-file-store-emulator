@@ -80,9 +80,10 @@ module.exports = (grunt) => {
                         createOrReplace: {
                             _id: config.id,
                             _type: 'dataStore',
-                            name: config.label,
                             category: config.categoryId,
-                            status: config.statusId
+                            name: config.label,
+                            status: config.statusId,
+                            usage: config.usageId
                         }
                     }
                 ]
