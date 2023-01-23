@@ -69,26 +69,40 @@ module.exports = (grunt) => {
             });
             if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
 
-            const body = {
-                mutations: [
-                    {
-                        createOrReplace: {
-                            _id: config.id,
-                            _type: 'dataStore',
-                            category: config.categoryId,
-                            logo: config.logo,
-                            name: config.label,
-                            status: config.statusId,
-                            usage: config.usageId
-                        }
-                    }
-                ]
-            };
+            // const body = {
+            //     mutations: [
+            //         {
+            //             createOrReplace: {
+            //                 _id: config.id,
+            //                 _type: 'dataStore',
+            //                 category: config.categoryId,
+            //                 logo: config.logo,
+            //                 name: config.label,
+            //                 status: config.statusId,
+            //                 usage: config.usageId
+            //             }
+            //         }
+            //     ]
+            // };
 
             var requestOptions = {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${env.SANITY_TOKEN}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
+                body: JSON.stringify({
+                    mutations: [
+                        {
+                            createOrReplace: {
+                                _id: config.id,
+                                _type: 'dataStore',
+                                category: config.categoryId,
+                                logo: config.logo,
+                                name: config.label,
+                                status: config.statusId,
+                                usage: config.usageId
+                            }
+                        }
+                    ]
+                })
             };
 
             const sanityResponse = await fetchModule.default('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', requestOptions);
