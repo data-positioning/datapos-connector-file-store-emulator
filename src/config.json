@@ -3,7 +3,6 @@
     "id": "datapos-connector-data-file-store-emulator",
     "implementations": [{ "authMethodId": "none", "maxConnectionCount": 1 }],
     "label": "File Store Emulator",
-    "logoWidth": "32px",
     "statusId": "alpha",
     "summary": "Summary goes here...",
     "typeId": "dataConnector",

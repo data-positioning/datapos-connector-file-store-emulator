@@ -7,7 +7,7 @@
 
 // TODO: See new formatting in datapos-content. Has been implemented here, but needs to be implemented in all other connectors.
 
-const { getConnectorConfig, loadConnector } = require('./gruntPluginHelpers.js');
+const { loadConnector } = require('./gruntPluginHelpers.js');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
@@ -41,67 +41,17 @@ module.exports = (grunt) => {
     grunt.registerTask('loadConnector', 'Load Connector', async function () {
         const done = this.async();
         try {
-            const fetchModule = await import('node-fetch');
-
-            // TODO: Can we move following code to this function? Rename to 'loadConnector'. Currently only displays message to console.
-            loadConnector();
-
-            //         // Sign in to firebase.
-            //         const firebaseSignInResponse = await fetchModule.default(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env.FIREBASE_API_KEY}`, {
-            //             body: JSON.stringify({
-            //                 email: env.FIREBASE_EMAIL_ADDRESS,
-            //                 password: env.FIREBASE_PASSWORD,
-            //                 returnSecureToken: true
-            //             }),
-            //             headers: {
-            //                 Referer: `${env.FIREBASE_PROJECT_ID}.web.app`
-            //             },
-            //             method: 'POST'
-            //         });
-            //         if (!firebaseSignInResponse.ok) {
-            //             console.log(firebaseSignInResponse.status, firebaseSignInResponse.statusText, await firebaseSignInResponse.text());
-            //             return;
-            //         }
-            //         const firebaseSignInResult = await firebaseSignInResponse.json();
-
-            //         // Upsert connector record in application service database (firestore).
-            //         const firebaseUpsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/plugins`, {
-            //             body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
-            //             headers: {
-            //                 Authorization: firebaseSignInResult.idToken,
-            //                 'Content-Type': 'application/json'
-            //             },
-            //             method: 'POST'
-            //         });
-            //         if (!firebaseUpsertResponse.ok) {
-            //             console.log(firebaseUpsertResponse.status, firebaseUpsertResponse.statusText, await firebaseUpsertResponse.text());
-            //             return;
-            //         }
-
-            // Upsert Sanity document.
-            const createOrReplace = {
-                _id: config.id,
-                _type: 'dataStore',
-                category: config.categoryId,
-                description: grunt.file.read('./src/description.md'),
-                icon: { asset: { _ref: 'image-65aa51823e6437a14db0e6d86df0b2eca001b5cb-1200x800-svg' }, _type: 'reference' },
-                label: config.label,
-                logo: grunt.file.read('./src/logo.svg'),
-                status: config.statusId,
-                usage: config.usageId
-            };
-            const sanityUpsertResponse = await fetchModule.default('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', {
-                method: 'POST',
-                headers: { Authorization: `Bearer ${env.SANITY_TOKEN}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mutations: [{ createOrReplace }] })
-            });
-            if (!sanityUpsertResponse.ok) {
-                console.log(sanityUpsertResponse.status, sanityUpsertResponse.statusText, await sanityUpsertResponse.text());
-                return;
-            }
-
-            // Notify ok.
-            done();
+            const status = await loadConnector(
+                grunt,
+                config,
+                env.FIREBASE_API_KEY,
+                env.FIREBASE_EMAIL_ADDRESS,
+                env.FIREBASE_PASSWORD,
+                env.FIREBASE_PROJECT_ID,
+                env.SANITY_API_TOKEN,
+                await import('node-fetch')
+            );
+            done(status);
         } catch (error) {
             console.log(error);
             done(false);

@@ -1,4 +1,4 @@
-# Heading 11
+# Heading 1
 
 ## Heading 2
 
@@ -8,7 +8,7 @@
 
 ##### Heading 5
 
-###### Heading 66
+###### Heading 6
 
 _Some italic text..._
 **Some bold text...**
