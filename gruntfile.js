@@ -71,14 +71,11 @@ module.exports = (grunt) => {
 
             const description = grunt.file.read('./src/description.md');
             const logo = grunt.file.read('./src/logo.svg');
-            console.log(description);
-            console.log(logo);
 
             const createOrReplace = {
                 _id: config.id,
                 _type: 'dataStore',
                 category: config.categoryId,
-                // description: config.narrative,
                 description,
                 icon: { asset: { _ref: 'image-65aa51823e6437a14db0e6d86df0b2eca001b5cb-1200x800-svg' }, _type: 'reference' },
                 label: config.label,
@@ -109,7 +106,8 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-run');
 
     // Register local tasks.
-    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // cmd+shift+b.
+    // grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // cmd+shift+b.
+    grunt.registerTask('build', ['updateFirestore']); // cmd+shift+b.
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
     grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
     grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
