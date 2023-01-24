@@ -1,16 +1,1 @@
-# Heading 1
-
-## Heading 2
-
-### Heading 3
-
-#### Heading 4
-
-##### Heading 5
-
-###### Heading 6
-
-_Some italic text..._
-**Some bold text...**
-**_Some italic & bold text..._**
-Some regular text...
+File Store Emulator imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users.
