@@ -74,16 +74,7 @@ module.exports = (grunt) => {
                 _type: 'dataStore',
                 category: config.categoryId,
                 // description: config.narrative,
-                description: `# Heading 1
-## Heading 2
-### Heading 3
-#### Heading 4
-##### Heading 5
-###### Heading 6
-*Some italic text...*
-**Some bold text...**
-***Some italic & bold text...***
-Some regular text...`,
+                description: ``,
                 icon: { asset: { _ref: 'image-65aa51823e6437a14db0e6d86df0b2eca001b5cb-1200x800-svg' }, _type: 'reference' },
                 label: config.label,
                 logo: config.logo,
