@@ -60,14 +60,8 @@ async function loadConnector(grunt, config, firebaseAPIKey, firebaseEmailAddress
     try {
         // Sign in to firebase.
         const firebaseSignInResponse = await fetchModule.default(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseAPIKey}`, {
-            body: JSON.stringify({
-                email: firebaseEmailAddress,
-                password: firebasePassword,
-                returnSecureToken: true
-            }),
-            headers: {
-                Referer: `${firebaseProjectId}.web.app`
-            },
+            body: JSON.stringify({ email: firebaseEmailAddress, password: firebasePassword, returnSecureToken: true }),
+            headers: { Referer: `${firebaseProjectId}.web.app` },
             method: 'POST'
         });
         if (!firebaseSignInResponse.ok) {
@@ -83,10 +77,7 @@ async function loadConnector(grunt, config, firebaseAPIKey, firebaseEmailAddress
         // Upsert connector record in application service database (firestore).
         const firebaseUpsertResponse = await fetchModule.default(`https://europe-west1-${firebaseProjectId}.cloudfunctions.net/api/plugins`, {
             body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version, description, logo)),
-            headers: {
-                Authorization: firebaseSignInResult.idToken,
-                'Content-Type': 'application/json'
-            },
+            headers: { Authorization: firebaseSignInResult.idToken, 'Content-Type': 'application/json' },
             method: 'POST'
         });
         if (!firebaseUpsertResponse.ok) {
@@ -108,9 +99,9 @@ async function loadConnector(grunt, config, firebaseAPIKey, firebaseEmailAddress
             usage: config.usageId
         };
         const sanityUpsertResponse = await fetchModule.default('https://yxr5xjfo.api.sanity.io/v2021-06-07/data/mutate/library-production', {
-            method: 'POST',
+            body: JSON.stringify({ mutations: [{ createOrReplace }] }),
             headers: { Authorization: `Bearer ${sanityAPIToken}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ mutations: [{ createOrReplace }] })
+            method: 'POST'
         });
         if (!sanityUpsertResponse.ok) {
             console.log(sanityUpsertResponse.status, sanityUpsertResponse.statusText, await sanityUpsertResponse.text());
