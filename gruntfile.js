@@ -64,14 +64,14 @@ module.exports = (grunt) => {
     // });
 
     // Register standard tasks.
-    // grunt.registerTask('forceOn', () => grunt.option('force', true));
-    // grunt.registerTask('forceOff', () => grunt.option('force', false));
-    // grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // cmd+shift+b.
-    // grunt.registerTask('engineUpdate', ['forceOn', 'run:outdated', 'run:engineUpdate']); // cmd+shift+e.
-    // grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
-    // grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
-    // grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
-    // grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'loadConnector']); // cmd+shift+r.
+    grunt.registerTask('forceOn', () => grunt.option('force', true));
+    grunt.registerTask('forceOff', () => grunt.option('force', false));
+    grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // cmd+shift+b.
+    grunt.registerTask('engineUpdate', ['forceOn', 'run:outdated', 'run:engineUpdate']); // cmd+shift+e.
+    grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
+    grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
+    grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
+    grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'loadConnector']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
     // grunt.registerTask('test', ['loadConnector']); // TODO: Remove this after testing.
 };
