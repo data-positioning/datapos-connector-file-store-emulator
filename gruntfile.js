@@ -15,7 +15,7 @@ const pkg = require('./package.json');
 module.exports = (grunt) => {
     // Initialise configuration.
     grunt.initConfig({
-        bump: { options: { commitFiles: ['-a'], commitMessage: 'Release v%VERSION%', pushTo: 'origin' } },
+        bump: { options: { commitFiles: ['-a'], commitMessage: 'Release v%VERSION%', pushTo: 'origin', updateConfigs: ['pkg'] } },
         gitadd: { task: { options: { all: true } } },
         pkg,
         run: {
