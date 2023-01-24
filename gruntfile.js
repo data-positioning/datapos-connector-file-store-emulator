@@ -5,8 +5,6 @@
  * @license ISC
  */
 
-// TODO: See new formatting in datapos-content. Has been implemented here, but needs to be implemented in all other connectors.
-
 // Application Dependencies
 const { loadConnector } = require('@datapos/datapos-operations/gruntPluginHelpers');
 const config = require('./src/config.json');
