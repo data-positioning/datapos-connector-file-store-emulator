@@ -3,7 +3,7 @@
     "description": "Data Positioning - File Store Emulator Data Connector",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
-    "version": "0.1.459",
+    "version": "0.1.460",
     "dependencies": {
         "@datapos/datapos-engine": "^0.1.482",
         "csv-parse": "^5.3.1"
@@ -17,6 +17,7 @@
         "eslint": "^8.26.0",
         "grunt": "^1.5.3",
         "grunt-bump": "^0.8.0",
+        "grunt-git": "^1.1.1",
         "grunt-run": "^0.8.1",
         "lodash.camelcase": "^4.3.0",
         "node-fetch": "^3.2.10",
