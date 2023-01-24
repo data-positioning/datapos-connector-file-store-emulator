@@ -43,25 +43,25 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-run');
 
     // Register load connector task.
-    // grunt.registerTask('loadConnector', 'Load Connector', async function () {
-    //     const done = this.async();
-    //     try {
-    //         const status = await loadConnector(
-    //             grunt,
-    //             config,
-    //             env.FIREBASE_API_KEY,
-    //             env.FIREBASE_EMAIL_ADDRESS,
-    //             env.FIREBASE_PASSWORD,
-    //             env.FIREBASE_PROJECT_ID,
-    //             env.SANITY_API_TOKEN,
-    //             await import('node-fetch')
-    //         );
-    //         done(status);
-    //     } catch (error) {
-    //         console.log(error);
-    //         done(false);
-    //     }
-    // });
+    grunt.registerTask('loadConnector', 'Load Connector', async function () {
+        const done = this.async();
+        try {
+            const status = await loadConnector(
+                grunt,
+                config,
+                env.FIREBASE_API_KEY,
+                env.FIREBASE_EMAIL_ADDRESS,
+                env.FIREBASE_PASSWORD,
+                env.FIREBASE_PROJECT_ID,
+                env.SANITY_API_TOKEN,
+                await import('node-fetch')
+            );
+            done(status);
+        } catch (error) {
+            console.log(error);
+            done(false);
+        }
+    });
 
     // Register standard tasks.
     grunt.registerTask('forceOn', () => grunt.option('force', true));
