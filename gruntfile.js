@@ -7,7 +7,8 @@
 
 // TODO: See new formatting in datapos-content. Has been implemented here, but needs to be implemented in all other connectors.
 
-const { loadConnector } = require('./gruntPluginHelpers.js');
+// Application Dependencies
+const { loadConnector } = require('@datapos/datapos-operations/gruntPluginHelpers');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
