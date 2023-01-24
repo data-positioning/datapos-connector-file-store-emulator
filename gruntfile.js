@@ -44,40 +44,45 @@ module.exports = (grunt) => {
 
             const fetchModule = await import('node-fetch');
 
-            // Sign in to firebase.
-            const signInResponse = await fetchModule.default(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env.FIREBASE_API_KEY}`, {
-                body: JSON.stringify({
-                    email: env.FIREBASE_EMAIL_ADDRESS,
-                    password: env.FIREBASE_PASSWORD,
-                    returnSecureToken: true
-                }),
-                headers: {
-                    Referer: `${env.FIREBASE_PROJECT_ID}.web.app`
-                },
-                method: 'POST'
-            });
-            const signInResult = await signInResponse.json();
+            // // Sign in to firebase.
+            // const signInResponse = await fetchModule.default(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${env.FIREBASE_API_KEY}`, {
+            //     body: JSON.stringify({
+            //         email: env.FIREBASE_EMAIL_ADDRESS,
+            //         password: env.FIREBASE_PASSWORD,
+            //         returnSecureToken: true
+            //     }),
+            //     headers: {
+            //         Referer: `${env.FIREBASE_PROJECT_ID}.web.app`
+            //     },
+            //     method: 'POST'
+            // });
+            // const signInResult = await signInResponse.json();
 
-            // Upsert connector record in application service database (firestore).
-            const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/plugins`, {
-                body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
-                headers: {
-                    Authorization: signInResult.idToken,
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST'
-            });
-            if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
+            // // Upsert connector record in application service database (firestore).
+            // const upsertResponse = await fetchModule.default(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/plugins`, {
+            //     body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version)),
+            //     headers: {
+            //         Authorization: signInResult.idToken,
+            //         'Content-Type': 'application/json'
+            //     },
+            //     method: 'POST'
+            // });
+            // if (!upsertResponse.ok) console.log(upsertResponse.status, upsertResponse.statusText, await upsertResponse.text());
+
+            const description = grunt.file.read('./src/description.md');
+            const logo = grunt.file.read('./src/logo.svg');
+            console.log(description);
+            console.log(logo);
 
             const createOrReplace = {
                 _id: config.id,
                 _type: 'dataStore',
                 category: config.categoryId,
                 // description: config.narrative,
-                description: ``,
+                description,
                 icon: { asset: { _ref: 'image-65aa51823e6437a14db0e6d86df0b2eca001b5cb-1200x800-svg' }, _type: 'reference' },
                 label: config.label,
-                logo: config.logo,
+                logo,
                 status: config.statusId,
                 usage: config.usageId
             };
