@@ -73,5 +73,5 @@ module.exports = (grunt) => {
     grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'loadConnector']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
-    // grunt.registerTask('test', ['loadConnector']); // TODO: Remove this after testing.
+    grunt.registerTask('test', ['loadConnector']); // TODO: Remove this after testing.
 };
