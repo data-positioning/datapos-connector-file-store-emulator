@@ -46,16 +46,17 @@ module.exports = (grunt) => {
     grunt.registerTask('loadConnector', 'Load Connector', async function () {
         const done = this.async();
         try {
-            const status = await loadConnector(
-                grunt,
-                config,
-                env.FIREBASE_API_KEY,
-                env.FIREBASE_EMAIL_ADDRESS,
-                env.FIREBASE_PASSWORD,
-                env.FIREBASE_PROJECT_ID,
-                env.SANITY_API_TOKEN,
-                await import('node-fetch')
-            );
+            const options = {
+                firebaseAPIKey: env.FIREBASE_API_KEY,
+                firebaseEmailAddress: env.FIREBASE_EMAIL_ADDRESS,
+                firebasePassword: env.FIREBASE_PASSWORD,
+                firebaseProjectId: env.FIREBASE_PROJECT_ID,
+                sanityAPIToken: env.SANITY_API_TOKEN,
+                sanityAPIVersion: env.SANITY_API_VERSION,
+                sanityDataSetName: env.SANITY_DATASET_NAME,
+                sanityProjectId: env.SANITY_PROJECT_ID
+            };
+            const status = await loadConnector(grunt, config, options, await import('node-fetch'));
             done(status);
         } catch (error) {
             console.log(error);
