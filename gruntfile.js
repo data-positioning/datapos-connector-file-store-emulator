@@ -23,9 +23,9 @@ module.exports = (grunt) => {
         pkg,
         run: {
             copyToFirebase: { args: ['cp', 'dist/datapos-*', 'gs://datapos-v00-dev-alpha.appspot.com/plugins/connectors/data/'], cmd: 'gsutil' },
-            engineUpdate: { args: ['install', '@datapos/datapos-engine@latest'], cmd: 'npm' },
             identifyLicensesUsingLicenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
+            installLatestEngine: { args: ['install', '@datapos/datapos-engine@latest'], cmd: 'npm' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
             npmPublish: { args: ['publish'], cmd: 'npx' },
             outdated: { args: ['npm', 'outdated'], cmd: 'npx' },
@@ -35,6 +35,7 @@ module.exports = (grunt) => {
             rollup_umd: { args: ['rollup', '-c', 'rollup.config-umd.js', '--environment', 'BUILD:production'], cmd: 'npx' }
         }
     });
+
     // Load external tasks.
     grunt.loadNpmTasks('grunt-bump');
     grunt.loadNpmTasks('grunt-git');
@@ -66,11 +67,10 @@ module.exports = (grunt) => {
     grunt.registerTask('forceOn', () => grunt.option('force', true));
     grunt.registerTask('forceOff', () => grunt.option('force', false));
     grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // cmd+shift+b.
-    grunt.registerTask('engineUpdate', ['forceOn', 'run:outdated', 'run:engineUpdate']); // cmd+shift+e.
+    grunt.registerTask('installLatestEngine', ['forceOn', 'run:outdated', 'run:installLatestEngine']); // cmd+shift+e.
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
     grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
     grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'uploadConnector']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
-    grunt.registerTask('test', ['uploadConnector']); // TODO: Remove this after testing.
 };

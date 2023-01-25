@@ -8,43 +8,30 @@ This repository contains the File Store Emulator data connector.
 npm install @datapos/datapos-connector-data-file-store-emulator
 ```
 
+## IDE Setup
+
+[Visual Studio Code](https://code.visualstudio.com/) with the following extensions: [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier - Code Formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+
 ## Repository Management Commands
 
 The following commands are available for repository management. For implementation details, see the [Grunt](https://gruntjs.com/) configuration file (gruntfile.js).
 
 | Name                    | Key Code    | Notes                                                                                                                                                    |
 | ----------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build                   | cmd+shift+b | Type-check, compile and minify for production. Output in '/dist' directory.                                                                              |
+| Install Latest Engine   | cmd+shift+e | Install the latest published version of the Data Positioning engine.                                                                                     |
 | Identify Licenses       | cmd+shift+i | Identify licenses for all dependencies.                                                                                                                  |
 | Lint                    | cmd+shift+l | Run [ESLint](https://eslint.org/) against the local repository.                                                                                          |
 | Publish to NPM          | cmd+shift+n | Publish to [npm](https://www.npmjs.com/). Requires prior synchronisation. Use the command line command 'npm publish' when publishing for the first time. |
 | Release                 | cmd+shift+r | Synchronise the local repository with the GitHub repository and publish to [npm](https://www.npmjs.com/).                                                |
 | Synchronise with GitHub | cmd+shift+s | Synchronise the local repository with the GitHub repository.                                                                                             |
 
-## IDE Setup
+## Useful IDE Commands
 
-[Visual Studio Code](https://code.visualstudio.com/) with the following extensions: [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier - Code Formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
-
-## Project Install
-
-```sh
-cd [parent directory]
-git clone https://github.com/datapos/datapos-connector-data-file-store-emulator.git
-```
-
-## Project Commands
-
-| Name                      | Key Code    | Notes                                                                      |
-| ------------------------- | ----------- | -------------------------------------------------------------------------- |
-| Build                     | cmd+shift+B | Type-Check, Compile and Minify for Production                              |
-| Engine Update             | cmd+shift+E |                                                                            |
-| Lint                      | cmd+shift+L | [ESLint](https://eslint.org/)                                              |
-| Sync with Github          | cmd+shift+S |                                                                            |
-| Test                      | cmd+shift+T |                                                                            |
-| Identify Licenses         | cmd+shift+I |                                                                            |
-| Release                   | cmd+shift+R | Use command line command 'npm publish' when publishing for the first time. |
-| NPM Publish               | cmd+shift+N |                                                                            |
-| Quick Open, Go to File... | cmd+P       |                                                                            |
-| Show Command Palette      | cmd+shift+P |                                                                            |
+| Name                      | Key Code    |
+| ------------------------- | ----------- |
+| Quick Open, Go to File... | cmd+P       |
+| Show Command Palette      | cmd+shift+P |
 
 ## Useful NPM/NPX Commands
 
