@@ -26,23 +26,6 @@ The following commands are available for repository management. For implementati
 | Release                 | cmd+shift+r | Synchronise the local repository with the GitHub repository and publish to [npm](https://www.npmjs.com/).                                                |
 | Synchronise with GitHub | cmd+shift+s | Synchronise the local repository with the GitHub repository.                                                                                             |
 
-## Useful IDE Commands
-
-| Name                      | Key Code    |
-| ------------------------- | ----------- |
-| Quick Open, Go to File... | cmd+P       |
-| Show Command Palette      | cmd+shift+P |
-
-## Useful NPM/NPX Commands
-
-| Command                           | Notes                                                                            |
-| --------------------------------- | -------------------------------------------------------------------------------- |
-| npm audit [fix]                   |                                                                                  |
-| npm outdated                      |                                                                                  |
-| npm install "package name"@latest |                                                                                  |
-| npx depcheck                      |                                                                                  |
-| npm update [--save]               | NOT RECOMMENDED. To update package.json version numbers, append the --save flag. |
-
 ## Issues
 
-1. Updating to the latest version of Rollup (v3.0.0 or later) generates plugin dependency errors. Appear to be in '@rollup/plugin-commonjs' and 'rollup-plugin-terser'. Staying with latest version 2 release (2.79.1) for time being.
+1. Updating to the latest version of Rollup (v3.0.0 or later) generates plugin dependency errors. Appear to be in '@rollup/plugin-commonjs' and 'rollup-plugin-terser'. Staying with latest version 2 release (2.79.1) for time being. Maybe we should move to Vite?
