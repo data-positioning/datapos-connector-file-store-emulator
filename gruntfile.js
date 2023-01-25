@@ -6,7 +6,7 @@
  */
 
 // Application Dependencies
-const { loadConnector } = require('@datapos/datapos-operations/gruntPluginHelpers');
+// const xxxx = require('@datapos/datapos-operations/connectorHelpers');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
@@ -41,26 +41,26 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-run');
 
     // Register load connector task.
-    grunt.registerTask('loadConnector', 'Load Connector', async function () {
-        const done = this.async();
-        try {
-            const options = {
-                firebaseAPIKey: env.FIREBASE_API_KEY,
-                firebaseEmailAddress: env.FIREBASE_EMAIL_ADDRESS,
-                firebasePassword: env.FIREBASE_PASSWORD,
-                firebaseProjectId: env.FIREBASE_PROJECT_ID,
-                sanityAPIToken: env.SANITY_API_TOKEN,
-                sanityAPIVersion: env.SANITY_API_VERSION,
-                sanityDataSetName: env.SANITY_DATASET_NAME,
-                sanityProjectId: env.SANITY_PROJECT_ID
-            };
-            const status = await loadConnector(grunt, config, options, await import('node-fetch'));
-            done(status);
-        } catch (error) {
-            console.log(error);
-            done(false);
-        }
-    });
+    // grunt.registerTask('loadConnector', 'Load Connector', async function () {
+    //     const done = this.async();
+    //     try {
+    //         const settings = {
+    //             firebaseAPIKey: env.FIREBASE_API_KEY,
+    //             firebaseEmailAddress: env.FIREBASE_EMAIL_ADDRESS,
+    //             firebasePassword: env.FIREBASE_PASSWORD,
+    //             firebaseProjectId: env.FIREBASE_PROJECT_ID,
+    //             sanityAPIToken: env.SANITY_API_TOKEN,
+    //             sanityAPIVersion: env.SANITY_API_VERSION,
+    //             sanityDataSetName: env.SANITY_DATASET_NAME,
+    //             sanityProjectId: env.SANITY_PROJECT_ID
+    //         };
+    //         // const status = await uploadConnector(grunt, await import('node-fetch'), config, settings);
+    //         done(true);
+    //     } catch (error) {
+    //         console.log(error);
+    //         done(false);
+    //     }
+    // });
 
     // Register standard tasks.
     grunt.registerTask('forceOn', () => grunt.option('force', true));
@@ -72,5 +72,5 @@ module.exports = (grunt) => {
     grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'loadConnector']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
-    grunt.registerTask('test', ['loadConnector']); // TODO: Remove this after testing.
+    // grunt.registerTask('test', ['loadConnector']); // TODO: Remove this after testing.
 };
