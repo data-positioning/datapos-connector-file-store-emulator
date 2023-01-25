@@ -6,7 +6,7 @@
  */
 
 // Application Dependencies
-// const xxxx = require('@datapos/datapos-operations/connectorHelpers');
+const xxxx = require('@datapos/datapos-operations/connectorHelpers');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
