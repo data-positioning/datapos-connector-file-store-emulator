@@ -6,7 +6,7 @@
  */
 
 // Application Dependencies
-const xxxx = require('@datapos/datapos-operations/connectorHelpers');
+const { uploadConnector } = require('@datapos/datapos-operations/connectorHelpers');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
@@ -54,8 +54,8 @@ module.exports = (grunt) => {
                 sanityDataSetName: env.SANITY_DATASET_NAME,
                 sanityProjectId: env.SANITY_PROJECT_ID
             };
-            // const status = await uploadConnector(grunt, await import('node-fetch'), config, settings);
-            done(true);
+            const status = await uploadConnector(grunt, await import('node-fetch'), config, settings);
+            done(status);
         } catch (error) {
             console.log(error);
             done(false);
@@ -72,5 +72,5 @@ module.exports = (grunt) => {
     grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'loadConnector']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
-    // grunt.registerTask('test', ['loadConnector']); // TODO: Remove this after testing.
+    grunt.registerTask('test', ['loadConnector']); // TODO: Remove this after testing.
 };
