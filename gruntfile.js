@@ -41,7 +41,7 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-run');
 
     // Register load connector task.
-    grunt.registerTask('loadConnector', 'Load Connector', async function () {
+    grunt.registerTask('uploadConnector', 'Upload Connector', async function () {
         const done = this.async();
         try {
             const settings = {
@@ -70,7 +70,7 @@ module.exports = (grunt) => {
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
     grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
     grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
-    grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'loadConnector']); // cmd+shift+r.
+    grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'uploadConnector']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
-    grunt.registerTask('test', ['loadConnector']); // TODO: Remove this after testing.
+    grunt.registerTask('test', ['uploadConnector']); // TODO: Remove this after testing.
 };
