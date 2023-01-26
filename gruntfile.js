@@ -75,5 +75,6 @@ module.exports = (grunt) => {
     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_es', 'run:copyToFirebase', 'uploadConnector']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
     grunt.registerTask('updateApplicationDependencies', ['forceOn', 'run:outdated', 'run:updateEngine', 'run:updateEngineSupport', 'run:updateOperations']); // cmd+shift+u.
+
     grunt.registerTask('test', ['uploadConnector']); // cmd+shift+t.
 };
