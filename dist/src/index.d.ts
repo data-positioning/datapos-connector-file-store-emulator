@@ -4,7 +4,7 @@
  * @file datapos-connector-data-file-store-emulator/src/index.ts
  * @license ISC
  */
-import type { ConnectionEntry, ConnectionEntriesPage, ConnectionItem, DataConnector, DataConnectorPreviewInterface, DataConnectorReadInterface } from '@datapos/datapos-engine';
+import type { ConnectionEntry, ConnectionEntriesPage, ConnectionItem, DataConnector, DataConnectorPreviewInterface, DataConnectorReadInterface } from '@datapos/datapos-engine-support';
 /**
  * Encapsulates the File Store Emulator data connector.
  */

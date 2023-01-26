@@ -21,16 +21,16 @@ import type {
     DataConnectorReadInterface,
     DataConnectorReadInterfaceSettings,
     ErrorData,
-    FieldInfos,
-    SourceViewProperties
-} from '@datapos/datapos-engine';
+    FieldInfos
+} from '@datapos/datapos-engine-support';
 import {
-    ConnectionEntryPreviewTypeId,
     ConnectionEntryTypeId,
+    SourceViewProperties,
+    ConnectionEntryPreviewTypeId,
     extractExtensionFromEntryPath,
     extractLastFolderNameFromFolderPath,
     lookupMimeTypeForFileExtension
-} from '@datapos/datapos-engine';
+} from '@datapos/datapos-engine-support';
 
 // Vendor dependencies.
 import type { CastingContext } from 'csv-parse/.';
