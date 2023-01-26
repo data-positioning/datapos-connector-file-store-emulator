@@ -32,7 +32,7 @@ module.exports = (grunt) => {
             rollup_iife: { args: ['rollup', '-c', 'rollup.config-iife.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             rollup_umd: { args: ['rollup', '-c', 'rollup.config-umd.js', '--environment', 'BUILD:production'], cmd: 'npx' },
-            updateEngine: { args: ['install', '@datapos/datapos-engine@latest'], cmd: 'npm' },
+            updateEngine: { args: ['install', '@datapos/datapos-engine@latest'], cmd: 'npm' }
         }
     });
 
@@ -41,7 +41,7 @@ module.exports = (grunt) => {
     grunt.loadNpmTasks('grunt-git');
     grunt.loadNpmTasks('grunt-run');
 
-    // Register load connector task.
+    // Register upload connector task.
     grunt.registerTask('uploadConnector', 'Upload Connector', async function () {
         const done = this.async();
         try {
@@ -63,7 +63,7 @@ module.exports = (grunt) => {
         }
     });
 
-    // Register standard tasks.
+    // Register standard repository management tasks.
     grunt.registerTask('forceOn', () => grunt.option('force', true));
     grunt.registerTask('forceOff', () => grunt.option('force', false));
     grunt.registerTask('build', ['run:rollup_cjs', 'run:rollup_es']); // cmd+shift+b.
@@ -72,5 +72,5 @@ module.exports = (grunt) => {
     grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_cjs', 'run:rollup_es', 'run:copyToFirebase', 'uploadConnector']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
-    grunt.registerTask('updateApplicationDependencies', ['forceOn', 'run:outdated', 'run:installLatestEngine']); // cmd+shift+u.
+    grunt.registerTask('updateApplicationDependencies', ['forceOn', 'run:outdated', 'run:updateEngine']); // cmd+shift+u.
 };
