@@ -20,7 +20,6 @@ import type {
     DataConnectorPreviewInterfaceSettings,
     DataConnectorReadInterface,
     DataConnectorReadInterfaceSettings,
-    Environment,
     ErrorData,
     FieldInfos,
     SourceViewProperties
@@ -289,7 +288,7 @@ const readFileEntry = async (
     accountId: string,
     sessionAccessToken: string,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    environment: Environment
+    csvParse: typeof import('csv-parse/browser/esm')
 ): Promise<void> => {
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
@@ -301,7 +300,7 @@ const readFileEntry = async (
     const fieldInfos: FieldInfos[] = [];
     const maxChunkSize = 1000;
     signal.throwIfAborted();
-    const parser = environment.csvParse.parse({
+    const parser = csvParse.parse({
         cast: (value, context) => {
             fieldInfos[context.index] = { isQuoted: context.quoting };
             return value;
