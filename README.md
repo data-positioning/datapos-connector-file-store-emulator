@@ -8,10 +8,6 @@ This repository contains the File Store Emulator data connector.
 npm install @datapos/datapos-connector-data-file-store-emulator
 ```
 
-## IDE Setup
-
-[Visual Studio Code](https://code.visualstudio.com/) with the following extensions: [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker), [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier - Code Formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
-
 ## Repository Management Commands
 
 The following commands are available for repository management. For implementation details, see the [Grunt](https://gruntjs.com/) configuration file (gruntfile.js).
