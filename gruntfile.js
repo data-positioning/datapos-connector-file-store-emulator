@@ -55,7 +55,7 @@ module.exports = (grunt) => {
                 sanityDataSetName: env.SANITY_DATASET_NAME,
                 sanityProjectId: env.SANITY_PROJECT_ID
             };
-            const status = await uploadConnector(grunt, await import('node-fetch'), config, settings);
+            const status = await uploadConnector(grunt, config, await import('node-fetch'), settings);
             done(status);
         } catch (error) {
             console.log(error);
