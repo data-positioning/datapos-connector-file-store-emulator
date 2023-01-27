@@ -280,7 +280,7 @@ const previewFileEntry = async (
  * @param accountId The identifier of the account to which the source belongs.
  * @param sessionAccessToken An active session token.
  * @param readInterfaceSettings The read interface settings.
- * @param environment
+ * @param csvParse
  */
 const readFileEntry = async (
     connector: DataConnector,
