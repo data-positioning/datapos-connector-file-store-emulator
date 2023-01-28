@@ -4,9 +4,7 @@ This repository contains the File Store Emulator data connector.
 
 ## Installation
 
-```
-npm install @datapos/datapos-connector-data-file-store-emulator
-```
+The Data Positioning Engine automatically downloads the connector associated with a given connection at runtime.
 
 ## Repository Management Commands
 
