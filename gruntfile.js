@@ -26,13 +26,11 @@ module.exports = (grunt) => {
             identifyLicensesUsingLicenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
-            npmPublish: { args: ['publish'], cmd: 'npx' },
             outdated: { args: ['npm', 'outdated'], cmd: 'npx' },
             rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             rollup_iife: { args: ['rollup', '-c', 'rollup.config-iife.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js', '--environment', 'BUILD:production'], cmd: 'npx' },
             rollup_umd: { args: ['rollup', '-c', 'rollup.config-umd.js', '--environment', 'BUILD:production'], cmd: 'npx' },
-            updateEngine: { args: ['install', '@datapos/datapos-engine@latest'], cmd: 'npm' },
             updateEngineSupport: { args: ['install', '@datapos/datapos-engine-support@latest'], cmd: 'npm' },
             updateOperations: { args: ['install', '--save-dev', '@datapos/datapos-operations@latest'], cmd: 'npm' }
         }
@@ -71,10 +69,9 @@ module.exports = (grunt) => {
     grunt.registerTask('build', ['run:rollup_es']); // cmd+shift+b.
     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
     grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
-    grunt.registerTask('npmPublish', ['run:npmPublish']); // cmd+shift+n.
     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_es', 'run:copyToFirebase', 'uploadConnector']); // cmd+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
-    grunt.registerTask('updateApplicationDependencies', ['forceOn', 'run:outdated', 'run:updateEngine', 'run:updateEngineSupport', 'run:updateOperations']); // cmd+shift+u.
+    grunt.registerTask('updateApplicationDependencies', ['forceOn', 'run:outdated', 'run:updateEngineSupport', 'run:updateOperations']); // cmd+shift+u.
 
     grunt.registerTask('test', ['uploadConnector']); // cmd+shift+t.
 };
