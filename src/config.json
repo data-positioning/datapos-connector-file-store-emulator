@@ -4,7 +4,6 @@
     "implementations": [{ "authMethodId": "none", "maxConnectionCount": 1 }],
     "label": "File Store Emulator",
     "statusId": "alpha",
-    "summary": null,
     "typeId": "dataConnector",
     "usageId": "source",
     "vendorAccountURL": null,
