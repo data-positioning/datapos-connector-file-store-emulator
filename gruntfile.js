@@ -44,6 +44,21 @@ module.exports = (grunt) => {
     // Register upload connector task.
     grunt.registerTask('uploadConnector', 'Upload Connector', async function () {
         const done = this.async();
+
+        try {
+            const fetch = (await import('node-fetch')).default;
+            const response = await fetch(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
+                // body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version, description, logo)),
+                // headers: { Authorization: firebaseSignInResult.idToken, 'Content-Type': 'application/json' },
+                method: 'POST'
+            });
+            console.log(1111, response, await response.text());
+        } catch (error) {
+            console.log('ERROR', error);
+        }
+
+        return;
+
         try {
             const settings = {
                 firebaseAPIKey: env.FIREBASE_API_KEY,
