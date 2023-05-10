@@ -52,7 +52,7 @@ module.exports = (grunt) => {
                 // headers: { Authorization: firebaseSignInResult.idToken, 'Content-Type': 'application/json' },
                 method: 'POST'
             });
-            console.log(1111, response, await response.text());
+            console.log('RESPONSE', await response.text());
         } catch (error) {
             console.log('ERROR', error);
         }
