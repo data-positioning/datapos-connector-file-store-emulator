@@ -6,7 +6,7 @@
  */
 
 // Application Dependencies
-const { uploadConnector } = require('@datapos/datapos-operations/connectorHelpers');
+// const { uploadConnector } = require('@datapos/datapos-operations/connectorHelpers');
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const pkg = require('./package.json');
@@ -44,38 +44,58 @@ module.exports = (grunt) => {
     // Register upload connector task.
     grunt.registerTask('uploadConnector', 'Upload Connector', async function () {
         const done = this.async();
-
         try {
-            const fetch = (await import('node-fetch')).default;
-            const response = await fetch(`https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`, {
-                // body: JSON.stringify(getConnectorConfig(config, grunt.config.data.pkg.version, description, logo)),
-                // headers: { Authorization: firebaseSignInResult.idToken, 'Content-Type': 'application/json' },
-                method: 'POST'
+            const formData = new FormData();
+            formData.append('configuration', JSON.stringify(config));
+
+            let description;
+            try {
+                description = grunt.file.read('src/description.md');
+            } catch (error) {
+                description = '';
+            }
+            formData.append('description', description);
+
+            let logo;
+            try {
+                logo = grunt.file.read('src/logo.svg');
+            } catch (error) {
+                logo = '';
+            }
+            formData.append('logo', logo);
+
+            grunt.file.recurse('dist', (absPath, rootDir, subDir, filename) => {
+                if (subDir) return;
+                const contentAsBlob = new Blob([grunt.file.read(absPath)], { type: 'text/plain' });
+                formData.append(filename, contentAsBlob, filename);
             });
-            console.log('RESPONSE', await response.text());
+            const fetch = (await import('node-fetch')).default;
+            const url = `https://europe-west1-${env.FIREBASE_PROJECT_ID}.cloudfunctions.net/api/connectors`;
+            const response = await fetch(url, { method: 'POST', headers: { Authorization: env.DATAPOS_CONNECTOR_UPLOAD_TOKEN }, body: formData });
+            if (!response.ok) throw new Error(await response.text());
+            done(true);
         } catch (error) {
             console.log('ERROR', error);
-        }
-
-        return;
-
-        try {
-            const settings = {
-                firebaseAPIKey: env.FIREBASE_API_KEY,
-                firebaseEmailAddress: env.FIREBASE_EMAIL_ADDRESS,
-                firebasePassword: env.FIREBASE_PASSWORD,
-                firebaseProjectId: env.FIREBASE_PROJECT_ID,
-                sanityAPIToken: env.SANITY_API_TOKEN,
-                sanityAPIVersion: env.SANITY_API_VERSION,
-                sanityDataSetName: env.SANITY_DATASET_NAME,
-                sanityProjectId: env.SANITY_PROJECT_ID
-            };
-            const status = await uploadConnector(grunt, config, await import('node-fetch'), settings);
-            done(status);
-        } catch (error) {
-            console.log(error);
             done(false);
         }
+
+        // try {
+        //     const settings = {
+        //         firebaseAPIKey: env.FIREBASE_API_KEY,
+        //         firebaseEmailAddress: env.FIREBASE_EMAIL_ADDRESS,
+        //         firebasePassword: env.FIREBASE_PASSWORD,
+        //         firebaseProjectId: env.FIREBASE_PROJECT_ID,
+        //         sanityAPIToken: env.SANITY_API_TOKEN,
+        //         sanityAPIVersion: env.SANITY_API_VERSION,
+        //         sanityDataSetName: env.SANITY_DATASET_NAME,
+        //         sanityProjectId: env.SANITY_PROJECT_ID
+        //     };
+        //     const status = await uploadConnector(grunt, config, await import('node-fetch'), settings);
+        //     done(status);
+        // } catch (error) {
+        //     console.log(error);
+        //     done(false);
+        // }
     });
 
     // Register standard repository management tasks.
