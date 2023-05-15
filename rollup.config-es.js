@@ -7,7 +7,8 @@
  */
 
 // TODO: Consider using 'rollup-plugin-esbuild' and 'rollup-plugin-dts' to build distribution. See https://blog.logrocket.com/using-rollup-package-library-typescript-javascript/.
-// TODO: Not possible until rollup is upgraded (version3 or later).
+// TODO: Not possible until rollup is upgraded (version3 or later). Updating to the latest version of Rollup (v3.0.0 or later) generates plugin dependency errors.
+// Appear to be in '@rollup/plugin-commonjs' and 'rollup-plugin-terser'. Staying with latest version 2 release (2.79.1) for time being. Maybe we should move to Vite?
 
 // TODO: Upgrade syntax for JSON file imports. See: https://rollupjs.org/guide/en/#importing-packagejson.
 // The latest syntax (line below) triggers a VSCode ESlint error, so temporarily using older 'require' syntax.

@@ -24,7 +24,3 @@ The following list details the common repository management commands implementat
 | Synchronise | alt+ctrl+shift+s | Synchronise the local repository with the main GitHub repository.                                                   |
 | Test        | alt+ctrl+shift+l | NOT implemented.                                                                                                    |
 | Update      | alt+ctrl+shift+l | Install the latest version of Data Positioning dependencies.                                                        |
-
-## Issues
-
-1. Updating to the latest version of Rollup (v3.0.0 or later) generates plugin dependency errors. Appear to be in '@rollup/plugin-commonjs' and 'rollup-plugin-terser'. Staying with latest version 2 release (2.79.1) for time being. Maybe we should move to Vite?
