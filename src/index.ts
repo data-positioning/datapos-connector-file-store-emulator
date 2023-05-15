@@ -1,8 +1,10 @@
 /**
+/**
+ * @file datapos-connector-data-file-store-emulator/src/index.ts
+ * @description The File Store Emulator data connector.
+ * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2023 Jonathan Terrell
- * @file datapos-connector-data-file-store-emulator/src/index.ts
- * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
  */
 
 // Asset dependencies.
@@ -32,25 +34,20 @@ import {
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-engine-support';
 
-// Vendor dependencies.
+// Framework/Vendor dependencies.
 import type { CastingContext } from 'csv-parse/.';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region Declarations
+// Declarations
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const defaultChunkSize = 4096;
 const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/datapos-v00-dev-alpha.appspot.com/o/fileStore';
 
-// #endregion
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region Data Connector
+// Data Connector
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-/**
- * Encapsulates the File Store Emulator data connector.
- */
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController;
     readonly connectionItem: ConnectionItem;
@@ -101,10 +98,8 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 }
 
-// #endregion
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region Retrieve Entries
+// Retrieve Entries
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -223,10 +218,8 @@ const buildFileEntry = (folderPath: string, name: string, size: number): Connect
     };
 };
 
-// #endregion
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region Preview File Entry
+// Preview File Entry
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -267,10 +260,8 @@ const previewFileEntry = async (
     return { data: uint8Array, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
 
-// #endregion
-
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// #region Read File Entry
+// Read File Entry
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -348,5 +339,3 @@ const readFileEntry = async (
     }
     parser.end();
 };
-
-// #endregion
