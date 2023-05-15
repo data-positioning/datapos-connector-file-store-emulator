@@ -19,42 +19,18 @@ const {
     migrateDependencies,
     lintCode,
     publishToNPM,
-    rollup
+    rollup,
+    updateDependency,
+    updateDevDependency
 } = require('@datapos/datapos-operations/commonHelpers');
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Initialisation
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-// module.exports = (grunt) => {
-//     grunt.initConfig({
-//         run: {
-//             // copyToFirebase: { args: ['cp', 'dist/datapos-*', 'gs://datapos-v00-dev-alpha.appspot.com/components/connectors/data/'], cmd: 'gsutil' },
-//             rollup_umd: { args: ['rollup', '-c', 'rollup.config-umd.js', '--environment', 'BUILD:production'], cmd: 'npx' },
-//             updateEngineSupport: { args: ['install', '@datapos/datapos-engine-support@latest'], cmd: 'npm' },
-//             updateOperations: { args: ['install', '--save-dev', '@datapos/datapos-operations@latest'], cmd: 'npm' }
-//         }
-//     });
-
-//     // Register upload connector task.
-//     grunt.registerTask('uploadConnector', 'Upload Connector', async function () {
-//         const done = this.async();
-//         try {
-//             // TODO: env.FIREBASE_PROJECT_ID is really an environment/version identifier.
-//             const status = await uploadConnector(grunt, config, (await import('node-fetch')).default, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
-//             done(true);
-//         } catch (error) {
-//             console.log(error);
-//             done(false);
-//         }
-//     });
-
 //     // Register standard repository management tasks.
 //     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_es', 'uploadConnector']); // cmd+shift+r.
 //     grunt.registerTask('updateApplicationDependencies', ['forceOn', 'run:outdated', 'run:updateEngineSupport', 'run:updateOperations']); // cmd+shift+u.
-
-//     grunt.registerTask('test', ['uploadConnector']); // cmd+shift+t.
-// };
 
 module.exports = (grunt) => {
     // Set configuration.
@@ -94,6 +70,12 @@ module.exports = (grunt) => {
     grunt.registerTask('uploadConnector', async function () {
         await uploadConnector(grunt, this, config, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
     });
+    grunt.registerTask('updateDependency', function (updateTypeId) {
+        updateDependency(grunt, this, updateTypeId);
+    });
+    grunt.registerTask('updateDevDependency', function (updateTypeId) {
+        updateDevDependency(grunt, this, updateTypeId);
+    });
 
     // Register common repository management tasks. These tasks are all invoked by VSCode keyboard shortcuts identified in the comments.
     grunt.registerTask('audit', ['auditDependencies']); // alt+ctrl+shift+a.
@@ -107,5 +89,5 @@ module.exports = (grunt) => {
     grunt.registerTask('release', ['gitadd', 'bump', 'rollup:es', 'uploadConnector']); // alt+ctrl+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // alt+ctrl+shift+s.
     grunt.registerTask('test', ['logNotImplementedMessage:Test']); // alt+ctrl+shift+t.
-    grunt.registerTask('update', ['logNotImplementedMessage:Update']); // alt+ctrl+shift+u.
+    grunt.registerTask('update', ['updateDependency:engine-support', 'updateDevDependency:operations']); // alt+ctrl+shift+u.
 };
