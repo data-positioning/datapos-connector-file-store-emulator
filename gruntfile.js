@@ -18,7 +18,8 @@ const {
     logNotImplementedMessage,
     migrateDependencies,
     lintCode,
-    publishToNPM
+    publishToNPM,
+    rollup
 } = require('@datapos/datapos-operations/commonHelpers');
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -26,30 +27,14 @@ const {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // module.exports = (grunt) => {
-//     // Initialise configuration.
 //     grunt.initConfig({
-//         bump: { options: { commitFiles: ['-a'], commitMessage: 'Release v%VERSION%', pushTo: 'origin', updateConfigs: ['pkg'] } },
-//         gitadd: { task: { options: { all: true } } },
-//         pkg,
 //         run: {
 //             // copyToFirebase: { args: ['cp', 'dist/datapos-*', 'gs://datapos-v00-dev-alpha.appspot.com/components/connectors/data/'], cmd: 'gsutil' },
-//             identifyLicensesUsingLicenseChecker: { args: ['license-checker', '--production', '--json', '--out', 'LICENSES.json'], cmd: 'npx' },
-//             identifyLicensesUsingNLF: { args: ['nlf', '-d'], cmd: 'npx' },
-//             lint: { args: ['eslint', 'src/index.ts'], cmd: 'npx' },
-//             outdated: { args: ['npm', 'outdated'], cmd: 'npx' },
-//             rollup_cjs: { args: ['rollup', '-c', 'rollup.config-cjs.js', '--environment', 'BUILD:production'], cmd: 'npx' },
-//             rollup_iife: { args: ['rollup', '-c', 'rollup.config-iife.js', '--environment', 'BUILD:production'], cmd: 'npx' },
-//             rollup_es: { args: ['rollup', '-c', 'rollup.config-es.js', '--environment', 'BUILD:production'], cmd: 'npx' },
 //             rollup_umd: { args: ['rollup', '-c', 'rollup.config-umd.js', '--environment', 'BUILD:production'], cmd: 'npx' },
 //             updateEngineSupport: { args: ['install', '@datapos/datapos-engine-support@latest'], cmd: 'npm' },
 //             updateOperations: { args: ['install', '--save-dev', '@datapos/datapos-operations@latest'], cmd: 'npm' }
 //         }
 //     });
-
-//     // Load external tasks.
-//     grunt.loadNpmTasks('grunt-bump');
-//     grunt.loadNpmTasks('grunt-git');
-//     grunt.loadNpmTasks('grunt-run');
 
 //     // Register upload connector task.
 //     grunt.registerTask('uploadConnector', 'Upload Connector', async function () {
@@ -64,17 +49,8 @@ const {
 //         }
 //     });
 
-//     // Register standard repository utility tasks.
-//     grunt.registerTask('forceOn', () => grunt.option('force', true));
-//     grunt.registerTask('forceOff', () => grunt.option('force', false));
-
 //     // Register standard repository management tasks.
-//     grunt.registerTask('build', ['run:rollup_es']); // cmd+shift+b.
-//     grunt.registerTask('identifyLicenses', ['run:identifyLicensesUsingLicenseChecker', 'run:identifyLicensesUsingNLF']); // cmd+shift+i.
-//     grunt.registerTask('lint', ['run:lint']); // cmd+shift+l.
-//     grunt.registerTask('outdated', ['run:outdated']); // cmd+shift+o.
 //     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_es', 'uploadConnector']); // cmd+shift+r.
-//     grunt.registerTask('synchronise', ['gitadd', 'bump']); // cmd+shift+s.
 //     grunt.registerTask('updateApplicationDependencies', ['forceOn', 'run:outdated', 'run:updateEngineSupport', 'run:updateOperations']); // cmd+shift+u.
 
 //     grunt.registerTask('test', ['uploadConnector']); // cmd+shift+t.
@@ -112,17 +88,34 @@ module.exports = (grunt) => {
     grunt.registerTask('publishToNPM', function () {
         publishToNPM(grunt, this);
     });
+    grunt.registerTask('rollup', function (configTypeId) {
+        rollup(grunt, this, configTypeId);
+    });
+    grunt.registerTask('uploadConnector', function () {
+        uploadConnector(grunt, this);
+    });
+    grunt.registerTask('uploadConnector', 'Upload Connector', async function () {
+        const done = this.async();
+        try {
+            // TODO: env.FIREBASE_PROJECT_ID is really an environment/version identifier.
+            const status = await uploadConnector(grunt, config, (await import('node-fetch')).default, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
+            done(true);
+        } catch (error) {
+            console.log(error);
+            done(false);
+        }
+    });
 
     // Register common repository management tasks. These tasks are all invoked by VSCode keyboard shortcuts identified in the comments.
     grunt.registerTask('audit', ['auditDependencies']); // alt+ctrl+shift+a.
-    grunt.registerTask('build', ['logNotImplementedMessage:Build']); // alt+ctrl+shift+b.
+    grunt.registerTask('build', ['rollup:es']); // alt+ctrl+shift+b.
     grunt.registerTask('check', ['checkDependencies']); // alt+ctrl+shift+c.
     grunt.registerTask('document', ['identifyLicenses']); // alt+ctrl+shift+d.
     grunt.registerTask('format', ['logNotImplementedMessage:Format']); // alt+ctrl+shift+f.
     grunt.registerTask('lint', ['lintCode']); // alt+ctrl+shift+l.
     grunt.registerTask('migrate', ['migrateDependencies']); // alt+ctrl+shift+m.
     grunt.registerTask('publish', ['logNotImplementedMessage:Publish']); // alt+ctrl+shift+p.
-    grunt.registerTask('release', ['gitadd', 'bump', 'publishToNPM']); // alt+ctrl+shift+r.
+    grunt.registerTask('release', ['gitadd', 'bump', 'rollup:es', 'uploadConnector']); // alt+ctrl+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // alt+ctrl+shift+s.
     grunt.registerTask('test', ['logNotImplementedMessage:Test']); // alt+ctrl+shift+t.
     grunt.registerTask('update', ['logNotImplementedMessage:Update']); // alt+ctrl+shift+u.
