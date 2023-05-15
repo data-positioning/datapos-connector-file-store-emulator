@@ -91,10 +91,7 @@ module.exports = (grunt) => {
     grunt.registerTask('rollup', function (configTypeId) {
         rollup(grunt, this, configTypeId);
     });
-    grunt.registerTask('uploadConnector', function () {
-        uploadConnector(grunt, this);
-    });
-    grunt.registerTask('uploadConnector', 'Upload Connector', async function () {
+    grunt.registerTask('uploadConnector', async function () {
         const done = this.async();
         try {
             // TODO: env.FIREBASE_PROJECT_ID is really an environment/version identifier.
