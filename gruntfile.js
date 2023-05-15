@@ -92,15 +92,7 @@ module.exports = (grunt) => {
         rollup(grunt, this, configTypeId);
     });
     grunt.registerTask('uploadConnector', async function () {
-        try {
-            console.log('aaaa');
-            // const fetch = (await import('node-fetch')).default;
-            console.log('bbbb');
-            uploadConnector(grunt, this, config, fetch, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
-            console.log('eeee');
-        } catch (error) {
-            console.log(error);
-        }
+        await uploadConnector(grunt, this, config, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
     });
 
     // Register common repository management tasks. These tasks are all invoked by VSCode keyboard shortcuts identified in the comments.
