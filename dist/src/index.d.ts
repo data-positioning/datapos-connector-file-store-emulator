@@ -1,0 +1,39 @@
+/**
+ * @author Jonathan Terrell <terrell.jm@gmail.com>
+ * @copyright 2023 Jonathan Terrell
+ * @file datapos-connector-data-file-store-emulator/src/index.ts
+ * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
+ */
+import type { ConnectionEntry, ConnectionEntriesPage, ConnectionItem, DataConnector, DataConnectorPreviewInterface, DataConnectorReadInterface } from '@datapos/datapos-engine-support';
+/**
+ * Encapsulates the File Store Emulator data connector.
+ */
+export default class FileStoreEmulatorDataConnector implements DataConnector {
+    abortController: AbortController;
+    readonly connectionItem: ConnectionItem;
+    readonly id: string;
+    readonly version: string;
+    constructor(connectionItem: ConnectionItem);
+    /**
+     * Abort current processing.
+     */
+    abort(): void;
+    /**
+     * Get the preview interface.
+     * @returns The preview interface.
+     */
+    getPreviewInterface(): DataConnectorPreviewInterface;
+    /**
+     * Get the read interface.
+     * @returns The read interface.
+     */
+    getReadInterface(): DataConnectorReadInterface;
+    /**
+     * Retrieve a page of entries for a given folder path.
+     * @param accountId The identifier of the account to which the source belongs.
+     * @param sessionAccessToken An active session access token.
+     * @param parentConnectionEntry
+     * @returns A page of entries.
+     */
+    retrieveEntries(accountId: string, sessionAccessToken: string, parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage>;
+}
