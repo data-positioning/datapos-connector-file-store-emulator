@@ -2,7 +2,7 @@
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2023 Jonathan Terrell
  * @file datapos-connector-data-file-store-emulator/rollup.config-cjs.js
- * @license ISC
+ * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
  */
 
 // TODO: Consider using 'rollup-plugin-esbuild' and 'rollup-plugin-dts' to build distribution. See https://blog.logrocket.com/using-rollup-package-library-typescript-javascript/.

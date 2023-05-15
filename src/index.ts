@@ -2,7 +2,7 @@
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2023 Jonathan Terrell
  * @file datapos-connector-data-file-store-emulator/src/index.ts
- * @license ISC
+ * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
  */
 
 // Asset dependencies.
