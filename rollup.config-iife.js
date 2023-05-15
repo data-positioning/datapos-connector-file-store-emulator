@@ -1,8 +1,9 @@
 /**
+ * @file datapos-connector-data-file-store-emulator/rollup.config-iife.js
+ * @description Rollup configuration file for generating IIFE module bundle of the data file store emulator connector.
+ * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2023 Jonathan Terrell
- * @file datapos-connector-data-file-store-emulator/rollup.config-iife.js
- * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
  */
 
 // TODO: Consider using 'rollup-plugin-esbuild' and 'rollup-plugin-dts' to build distribution. See https://blog.logrocket.com/using-rollup-package-library-typescript-javascript/.

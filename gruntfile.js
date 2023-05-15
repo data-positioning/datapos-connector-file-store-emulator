@@ -28,10 +28,6 @@ const {
 // Initialisation
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//     // Register standard repository management tasks.
-//     grunt.registerTask('release', ['gitadd', 'bump', 'run:rollup_es', 'uploadConnector']); // cmd+shift+r.
-//     grunt.registerTask('updateApplicationDependencies', ['forceOn', 'run:outdated', 'run:updateEngineSupport', 'run:updateOperations']); // cmd+shift+u.
-
 module.exports = (grunt) => {
     // Set configuration.
     grunt.initConfig({
