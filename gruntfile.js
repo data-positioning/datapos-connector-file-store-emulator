@@ -94,7 +94,7 @@ module.exports = (grunt) => {
     grunt.registerTask('uploadConnector', async function () {
         try {
             console.log('aaaa');
-            const fetch = (await import('node-fetch')).default;
+            // const fetch = (await import('node-fetch')).default;
             console.log('bbbb');
             uploadConnector(grunt, this, config, fetch, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
             console.log('eeee');
