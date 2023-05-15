@@ -92,16 +92,7 @@ module.exports = (grunt) => {
         rollup(grunt, this, configTypeId);
     });
     grunt.registerTask('uploadConnector', async function () {
-        // const done = this.async();
-        // try {
-        //     // TODO: env.FIREBASE_PROJECT_ID is really an environment/version identifier.
-        //     const status = await uploadConnector(grunt, config, (await import('node-fetch')).default, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
-        //     done(true);
-        // } catch (error) {
-        //     console.log(error);
-        //     done(false);
-        // }
-        uploadConnector(grunt, config, (await import('node-fetch')).default, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
+        uploadConnector(grunt, this, config, (await import('node-fetch')).default, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
     });
 
     // Register common repository management tasks. These tasks are all invoked by VSCode keyboard shortcuts identified in the comments.
