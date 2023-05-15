@@ -8,16 +8,22 @@ The Data Positioning Engine automatically downloads the connector associated wit
 
 ## Repository Management Commands
 
-The following commands are available for repository management. For implementation details, see the [Grunt](https://gruntjs.com/) configuration file (gruntfile.js).
+The following list details the common repository management commands implementation for this project. For more details, please refer to the [Grunt](https://gruntjs.com/) configuration file (gruntfile.js) in this project.
 
-| Name                            | Key Code    | Notes                                                                                                                                                                                                                      |
-| ------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Build                           | cmd+shift+b | Type-check, compile and minify for production. Output in '/dist' directory.                                                                                                                                                |
-| Identify Licenses               | cmd+shift+i | Identify licenses for all dependencies.                                                                                                                                                                                    |
-| Lint                            | cmd+shift+l | Run [ESLint](https://eslint.org/) against the local repository.                                                                                                                                                            |
-| Release                         | cmd+shift+r | Synchronise the local repository with the GitHub repository and upload to Firebase/Sanity hosting.                                                                                                                         |
-| Synchronise with GitHub         | cmd+shift+s | Synchronise the local repository with the GitHub repository.                                                                                                                                                               |
-| Update Application Dependencies | cmd+shift+u | Install the latest published release of the [Engine Support](https://github.com/DataPositioning/datapos-engine-support) repository and the [Operations](https://github.com/DataPositioning/datapos-operations) repository. |
+| Name        | Key Code         | Notes                                                                                                               |
+| ----------- | ---------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Audit       | alt+ctrl+shift+a | Audit the project's dependencies for known security vulnerabilities.                                                |
+| Build       | alt+ctrl+shift+b | Type-check, compile and minify for production. Output in '/dist' directory.                                         |
+| Check       | alt+ctrl+shift+c | List the dependencies in the project that are outdated.                                                             |
+| Document    | alt+ctrl+shift+d | Identify the licenses of the project's dependencies.                                                                |
+| Format      | alt+ctrl+shift+f | NOT implemented.                                                                                                    |
+| Lint        | alt+ctrl+shift+l | Check the code for potential errors and enforces coding styles.                                                     |
+| Migrate     | alt+ctrl+shift+l | Install latest version of dependencies.                                                                             |
+| Publish     | alt+ctrl+shift+n | NOT implemented.                                                                                                    |
+| Release     | alt+ctrl+shift+r | Synchronise the local repository with the main GitHub repository and upload connector to Data Positioning platform. |
+| Synchronise | alt+ctrl+shift+s | Synchronise the local repository with the main GitHub repository.                                                   |
+| Test        | alt+ctrl+shift+l | NOT implemented.                                                                                                    |
+| Update      | alt+ctrl+shift+l | Install the latest version of Data Positioning dependencies.                                                        |
 
 ## Issues
 
