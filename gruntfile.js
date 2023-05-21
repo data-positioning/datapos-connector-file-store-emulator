@@ -32,7 +32,7 @@ module.exports = (grunt) => {
     grunt.initConfig({
         bump: { options: { commitFiles: ['-a'], commitMessage: 'v%VERSION%', pushTo: 'origin', updateConfigs: ['pkg'] } },
         gitadd: { task: { options: { all: true } } },
-        pkg: grunt.file.readJSON('package.json')
+        pkg
     });
 
     // Load external tasks.
