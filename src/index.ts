@@ -1,5 +1,4 @@
 /**
-/**
  * @file datapos-connector-data-file-store-emulator/src/index.ts
  * @description The File Store Emulator data connector.
  * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
@@ -7,34 +6,35 @@
  * @copyright 2023 Jonathan Terrell
  */
 
-// Asset dependencies.
+// Dependencies - Asset
 import config from './config.json';
 import { version } from '../package.json';
 
-// Engine dependencies.
+// Dependencies - Engine
 import type {
     ConnectionEntry,
     ConnectionEntryPreview,
     ConnectionEntriesPage,
-    ConnectionItem,
+    ConnectionConfig,
+    ConnectorConfig,
     DataConnector,
     DataConnectorPreviewInterface,
     DataConnectorPreviewInterfaceSettings,
     DataConnectorReadInterface,
     DataConnectorReadInterfaceSettings,
     ErrorData,
-    FieldInfos
+    FieldInfos,
+    SourceViewProperties
 } from '@datapos/datapos-engine-support';
 import {
     ConnectionEntryTypeId,
-    SourceViewProperties,
     ConnectionEntryPreviewTypeId,
     extractExtensionFromEntryPath,
     extractLastFolderNameFromFolderPath,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-engine-support';
 
-// Framework/Vendor dependencies.
+// Dependencies - Framework/Vendor
 import type { CastingContext } from 'csv-parse/.';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -50,13 +50,15 @@ const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/datapos-v00-dev-a
 
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
-    readonly connectionItem: ConnectionItem;
+    readonly config: ConnectorConfig; // TODO: Rationalise this, connector config is also available via connection config.
+    readonly connectionConfig: ConnectionConfig;
     readonly id: string;
     readonly version: string;
 
-    constructor(connectionItem: ConnectionItem) {
+    constructor(connectionConfig: ConnectionConfig) {
         this.abortController = undefined;
-        this.connectionItem = connectionItem;
+        this.config = config as unknown as ConnectorConfig;
+        this.connectionConfig = connectionConfig;
         this.id = config.id;
         this.version = version;
     }
