@@ -60,7 +60,7 @@ module.exports = (grunt) => {
         rollup(grunt, this, configTypeId);
     });
     grunt.registerTask('uploadConnector', async function () {
-        await uploadConnector(grunt, this, config, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
+        await uploadConnector(grunt, this, config, pkg.version, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
     });
     grunt.registerTask('updateDependency', function (updateTypeId) {
         updateDependency(grunt, this, updateTypeId);
