@@ -16,7 +16,6 @@ const {
     checkDependencies,
     identifyLicenses,
     logNotImplementedMessage,
-    migrateDependencies,
     lintCode,
     publishToNPM,
     rollup,
@@ -53,9 +52,6 @@ module.exports = (grunt) => {
     grunt.registerTask('lintCode', function () {
         lintCode(grunt, this, ['*.js']);
     });
-    grunt.registerTask('migrateDependencies', function () {
-        migrateDependencies(grunt, this);
-    });
     grunt.registerTask('logNotImplementedMessage', (taskName) => logNotImplementedMessage(taskName));
     grunt.registerTask('publishToNPM', function () {
         publishToNPM(grunt, this);
@@ -80,7 +76,7 @@ module.exports = (grunt) => {
     grunt.registerTask('document', ['identifyLicenses']); // alt+ctrl+shift+d.
     grunt.registerTask('format', ['logNotImplementedMessage:Format']); // alt+ctrl+shift+f.
     grunt.registerTask('lint', ['lintCode']); // alt+ctrl+shift+l.
-    grunt.registerTask('migrate', ['migrateDependencies']); // alt+ctrl+shift+m.
+    grunt.registerTask('migrate', ['logNotImplementedMessage:Migrate']); // alt+ctrl+shift+m.
     grunt.registerTask('publish', ['logNotImplementedMessage:Publish']); // alt+ctrl+shift+p.
     grunt.registerTask('release', ['gitadd', 'bump', 'rollup:es', 'uploadConnector']); // alt+ctrl+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // alt+ctrl+shift+s.

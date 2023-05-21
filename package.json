@@ -2,13 +2,13 @@
     "name": "@datapos/datapos-connector-data-file-store-emulator",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "license": "ISC",
-    "version": "0.1.564",
+    "version": "0.1.565",
     "dependencies": {
-        "@datapos/datapos-engine-support": "^0.0.125",
+        "@datapos/datapos-engine-support": "^0.0.127",
         "csv-parse": "^5.3.10"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.75",
+        "@datapos/datapos-operations": "^0.1.79",
         "@rollup/plugin-commonjs": "^25.0.0",
         "@rollup/plugin-json": "^6.0.0",
         "@rollup/plugin-node-resolve": "^15.0.2",
