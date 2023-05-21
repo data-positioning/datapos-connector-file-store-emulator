@@ -9,7 +9,6 @@
 // Framework/Vendor Dependencies
 const config = require('./src/config.json');
 const env = require('./.env.json');
-// const pkg = require('./package.json');
 const { uploadConnector } = require('@datapos/datapos-operations/connectorHelpers');
 const {
     auditDependencies,
