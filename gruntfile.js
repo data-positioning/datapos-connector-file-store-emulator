@@ -59,9 +59,11 @@ module.exports = (grunt) => {
     grunt.registerTask('rollup', function (configTypeId) {
         rollup(grunt, this, configTypeId);
     });
-    grunt.registerTask('uploadConnector', async function (version) {
-        console.log('VERSION', pkg.version, version);
-        await uploadConnector(grunt, this, config, pkg.version, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
+    grunt.registerTask('uploadConnector', async function () {
+        var version = grunt.config.get('pkg.version');
+        console.log('VERSION', version, version);
+
+        await uploadConnector(grunt, this, config, version, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
     });
     grunt.registerTask('updateDependency', function (updateTypeId) {
         updateDependency(grunt, this, updateTypeId);
@@ -79,7 +81,7 @@ module.exports = (grunt) => {
     grunt.registerTask('lint', ['lintCode']); // alt+ctrl+shift+l.
     grunt.registerTask('migrate', ['logNotImplementedMessage:Migrate']); // alt+ctrl+shift+m.
     grunt.registerTask('publish', ['logNotImplementedMessage:Publish']); // alt+ctrl+shift+p.
-    grunt.registerTask('release', ['gitadd', 'bump', 'rollup:es', `uploadConnector:${pkg.version}`]); // alt+ctrl+shift+r.
+    grunt.registerTask('release', ['gitadd', 'bump', 'rollup:es', 'uploadConnector']); // alt+ctrl+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // alt+ctrl+shift+s.
     grunt.registerTask('test', ['logNotImplementedMessage:Test']); // alt+ctrl+shift+t.
     grunt.registerTask('update', ['updateDependency:engine-support', 'updateDevDependency:operations']); // alt+ctrl+shift+u.
