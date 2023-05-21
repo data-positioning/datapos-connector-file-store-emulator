@@ -9,7 +9,7 @@
 // Framework/Vendor Dependencies
 const config = require('./src/config.json');
 const env = require('./.env.json');
-const pkg = require('./package.json');
+// const pkg = require('./package.json');
 const { uploadConnector } = require('@datapos/datapos-operations/connectorHelpers');
 const {
     auditDependencies,
@@ -32,7 +32,7 @@ module.exports = (grunt) => {
     grunt.initConfig({
         bump: { options: { commitFiles: ['-a'], commitMessage: 'v%VERSION%', pushTo: 'origin', updateConfigs: ['pkg'] } },
         gitadd: { task: { options: { all: true } } },
-        pkg
+        pkg: grunt.file.readJSON('package.json')
     });
 
     // Load external tasks.
@@ -60,9 +60,7 @@ module.exports = (grunt) => {
         rollup(grunt, this, configTypeId);
     });
     grunt.registerTask('uploadConnector', async function () {
-        var version = grunt.config.get('pkg.version');
-        console.log('VERSION', version, version);
-
+        const version = grunt.config.get('pkg.version');
         await uploadConnector(grunt, this, config, version, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
     });
     grunt.registerTask('updateDependency', function (updateTypeId) {
