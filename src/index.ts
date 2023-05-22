@@ -12,10 +12,10 @@ import { version } from '../package.json';
 
 // Dependencies - Engine
 import type {
+    ConnectionConfig,
+    ConnectionEntriesPage,
     ConnectionEntry,
     ConnectionEntryPreview,
-    ConnectionEntriesPage,
-    ConnectionConfig,
     ConnectorConfig,
     DataConnector,
     DataConnectorPreviewInterface,
@@ -27,8 +27,8 @@ import type {
     SourceViewProperties
 } from '@datapos/datapos-engine-support';
 import {
-    ConnectionEntryTypeId,
     ConnectionEntryPreviewTypeId,
+    ConnectionEntryTypeId,
     extractExtensionFromEntryPath,
     extractLastFolderNameFromFolderPath,
     lookupMimeTypeForFileExtension
