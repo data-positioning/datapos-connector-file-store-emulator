@@ -16,10 +16,9 @@ const {
     identifyLicenses,
     logNotImplementedMessage,
     lintCode,
-    publishToNPM,
-    rollup,
-    updateDependency,
-    updateDevDependency
+    publishPackageToNPM,
+    rollupCode,
+    updateDataPosDependencies
 } = require('@datapos/datapos-operations/commonHelpers');
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,31 +54,27 @@ module.exports = (grunt) => {
     grunt.registerTask('publishToNPM', function () {
         publishToNPM(grunt, this);
     });
-    grunt.registerTask('rollup', function (configTypeId) {
-        rollup(grunt, this, configTypeId);
+    grunt.registerTask('rollupCode', function (configTypeId) {
+        rollupCode(grunt, this, configTypeId);
     });
     grunt.registerTask('uploadConnector', async function () {
-        const version = grunt.config.get('pkg.version');
-        await uploadConnector(grunt, this, config, version, env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
+        await uploadConnector(grunt, this, config, grunt.config.get('pkg.version'), env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
     });
-    grunt.registerTask('updateDependency', function (updateTypeId) {
-        updateDependency(grunt, this, updateTypeId);
-    });
-    grunt.registerTask('updateDevDependency', function (updateTypeId) {
-        updateDevDependency(grunt, this, updateTypeId);
+    grunt.registerTask('updateDataPosDependencies', function (updateTypeId) {
+        updateDataPosDependencies(grunt, this, updateTypeId);
     });
 
     // Register common repository management tasks. These tasks are all invoked by VSCode keyboard shortcuts identified in the comments.
     grunt.registerTask('audit', ['auditDependencies']); // alt+ctrl+shift+a.
-    grunt.registerTask('build', ['rollup:es']); // alt+ctrl+shift+b.
+    grunt.registerTask('build', ['rollupCode:es']); // alt+ctrl+shift+b.
     grunt.registerTask('check', ['checkDependencies']); // alt+ctrl+shift+c.
     grunt.registerTask('document', ['identifyLicenses']); // alt+ctrl+shift+d.
     grunt.registerTask('format', ['logNotImplementedMessage:Format']); // alt+ctrl+shift+f.
     grunt.registerTask('lint', ['lintCode']); // alt+ctrl+shift+l.
     grunt.registerTask('migrate', ['logNotImplementedMessage:Migrate']); // alt+ctrl+shift+m.
     grunt.registerTask('publish', ['logNotImplementedMessage:Publish']); // alt+ctrl+shift+p.
-    grunt.registerTask('release', ['gitadd', 'bump', 'rollup:es', 'uploadConnector']); // alt+ctrl+shift+r.
+    grunt.registerTask('release', ['gitadd', 'bump', 'rollupCode:es', 'uploadConnector']); // alt+ctrl+shift+r.
     grunt.registerTask('synchronise', ['gitadd', 'bump']); // alt+ctrl+shift+s.
     grunt.registerTask('test', ['logNotImplementedMessage:Test']); // alt+ctrl+shift+t.
-    grunt.registerTask('update', ['updateDependency:engine-support', 'updateDevDependency:operations']); // alt+ctrl+shift+u.
+    grunt.registerTask('update', ['updateDataPosDependencies:engine-support']); // alt+ctrl+shift+u.
 };
