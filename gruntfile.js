@@ -1,12 +1,12 @@
 /**
  * @file datapos-connector-data-file-store-emulator/gruntfile.js
- * @description Grunt configuration file for project management tasks.
+ * @description Grunt configuration file.
  * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
  * @author Jonathan Terrell <terrell.jm@gmail.com>
  * @copyright 2023 Jonathan Terrell
  */
 
-// Framework/Vendor Dependencies
+// Dependencies - Framework/Vendor
 const config = require('./src/config.json');
 const env = require('./.env.json');
 const { uploadConnector } = require('@datapos/datapos-operations/connectorHelpers');
@@ -16,17 +16,16 @@ const {
     identifyLicenses,
     logNotImplementedMessage,
     lintCode,
-    publishPackageToNPM,
     rollupCode,
     updateDataPosDependencies
 } = require('@datapos/datapos-operations/commonHelpers');
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Initialisation
+// Configuration
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 module.exports = (grunt) => {
-    // Set configuration.
+    // Set external task configuration.
     grunt.initConfig({
         bump: { options: { commitFiles: ['-a'], commitMessage: 'v%VERSION%', pushTo: 'origin', updateConfigs: ['pkg'] } },
         gitadd: { task: { options: { all: true } } },
@@ -48,12 +47,9 @@ module.exports = (grunt) => {
         identifyLicenses(grunt, this);
     });
     grunt.registerTask('lintCode', function () {
-        lintCode(grunt, this, ['*.js']);
+        lintCode(grunt, this, ['*.cjs', '*.js', '**/*.ts']);
     });
     grunt.registerTask('logNotImplementedMessage', (taskName) => logNotImplementedMessage(taskName));
-    grunt.registerTask('publishToNPM', function () {
-        publishToNPM(grunt, this);
-    });
     grunt.registerTask('rollupCode', function (configTypeId) {
         rollupCode(grunt, this, configTypeId);
     });

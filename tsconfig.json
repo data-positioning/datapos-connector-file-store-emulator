@@ -8,5 +8,6 @@
         "outDir": "./dist",
         "resolveJsonModule": true,
         "target": "esnext"
-    }
+    },
+    "include": [".eslintrc.cjs", "src/**/*"]
 }
