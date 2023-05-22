@@ -1,4 +1,5 @@
 dist
-**/.DS_Store
+dist
 node_modules
 .env.json
+**/.DS_Store
