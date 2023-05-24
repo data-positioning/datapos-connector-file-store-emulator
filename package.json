@@ -1,8 +1,8 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "author": "Jonathan Terrell <terrell.jm@gmail.com>",
+    "version": "0.1.598",
     "license": "ISC",
-    "version": "0.1.597",
+    "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "devDependencies": {
         "@datapos/datapos-engine-support": "^0.0.143",
         "@datapos/datapos-operations": "^0.1.96",
