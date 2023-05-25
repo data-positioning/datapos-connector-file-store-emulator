@@ -6,6 +6,10 @@
  * @copyright 2023 Jonathan Terrell
  */
 
+// Constants
+const defaultChunkSize = 4096;
+const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/datapos-v00-dev-alpha.appspot.com/o/fileStore';
+
 // Dependencies - Asset
 import config from './config.json';
 import { version } from '../package.json';
@@ -38,19 +42,12 @@ import {
 import type { CastingContext } from 'csv-parse/.';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Declarations
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-const defaultChunkSize = 4096;
-const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/datapos-v00-dev-alpha.appspot.com/o/fileStore';
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Data Connector
+// File Store Emulator Data Connector
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
-    readonly config: ConnectorConfig; // TODO: Rationalise this, connector config is also available via connection config.
+    readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
     readonly id: string;
     readonly version: string;
@@ -64,7 +61,9 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 
     /**
-     * Abort current processing.
+     * Aborts an operation if it is currently in progress.
+     * If an AbortController is associated with this instance, it calls its 'abort' method.
+     * If no AbortController is set, this function does nothing.
      */
     abort(): void {
         if (!this.abortController) return;
@@ -73,27 +72,27 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 
     /**
-     * Get the preview interface.
-     * @returns The preview interface.
+     * Retrieves the preview interface for the data connector.
+     * @returns The preview interface object.
      */
     getPreviewInterface(): DataConnectorPreviewInterface {
         return { connector: this, previewFileEntry };
     }
 
     /**
-     * Get the read interface.
-     * @returns The read interface.
+     * Retrieves the read interface for the data connector.
+     * @returns The read interface object.
      */
     getReadInterface(): DataConnectorReadInterface {
         return { connector: this, readFileEntry };
     }
 
     /**
-     * Retrieve a page of entries for a given folder path.
-     * @param accountId The identifier of the account to which the source belongs.
-     * @param sessionAccessToken An active session access token.
-     * @param parentConnectionEntry
-     * @returns A page of entries.
+     * Retrieves a page of entries for a given account, using the provided session access token and parent connection entry.
+     * @param accountId - The ID of the account.
+     * @param sessionAccessToken - The session access token.
+     * @param parentConnectionEntry - The parent connection entry.
+     * @returns A promise that resolves to a page of connection entries.
      */
     async retrieveEntries(accountId: string, sessionAccessToken: string, parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> {
         return await retrieveEntries(parentConnectionEntry);
@@ -101,13 +100,13 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Retrieve Entries
+// File Store Emulator Data Connector - Retrieve Entries
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Retrieve a page of entries for a given folder path.
- * @param parentConnectionEntry
- * @returns A page of entries.
+ * Retrieves entries based on the provided parent connection entry.
+ * @param parentConnectionEntry - The parent connection entry.
+ * @returns A promise that resolves to a page of connection entries.
  */
 const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
@@ -170,11 +169,12 @@ const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connec
 };
 
 /**
- * Build a folder entry.
- * @param folderPath The folder entry folder path.
- * @param childEntryCount The folder entry child entry count.
- * @returns A folder entry.
+ * Builds a folder entry object with the specified folder path and child entry count.
+ * @param folderPath - The path of the folder.
+ * @param childEntryCount - The number of child entries in the folder.
+ * @returns The constructed folder entry object.
  */
+
 const buildFolderEntry = (folderPath: string, childEntryCount: number): ConnectionEntry => {
     const lastFolderName = extractLastFolderNameFromFolderPath(folderPath);
     return {
@@ -195,11 +195,11 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
 };
 
 /**
- * Build a file entry.
- * @param folderPath The file entry folder path.
- * @param name The file entry name.
- * @param size The file entry size.
- * @returns A file entry.
+ * Builds a file entry object with the specified folder path, name, and size.
+ * @param folderPath - The path of the folder containing the file.
+ * @param name - The name of the file.
+ * @param size - The size of the file in bytes.
+ * @returns The constructed file entry object.
  */
 const buildFileEntry = (folderPath: string, name: string, size: number): ConnectionEntry => {
     const extension = extractExtensionFromEntryPath(name);
@@ -221,7 +221,7 @@ const buildFileEntry = (folderPath: string, name: string, size: number): Connect
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Preview File Entry
+// File Store Emulator Data Connector - Preview File Entry
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -263,7 +263,7 @@ const previewFileEntry = async (
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Read File Entry
+// File Store Emulator Data Connector - Read File Entry
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
