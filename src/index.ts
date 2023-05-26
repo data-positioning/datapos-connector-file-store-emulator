@@ -122,7 +122,7 @@ const retrieveEntries = (folderPath: string): Promise<ConnectionEntriesPage> => 
                 if (item.typeId === 'folder') {
                     entries.push(buildFolderEntry(item.path, 0));
                 } else {
-                    entries.push(buildFileEntry(item.path, 0));
+                    entries.push(buildFileEntry(folderPath, item.path, 0));
                 }
             }
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
@@ -159,12 +159,13 @@ const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEnt
 
 /**
  * Builds a ConnectionEntry object representing a file.
+ * @param folderPath - The folder path of the file.
  * @param filePath - The path of the file.
  * @param size - The size of the file.
  * @returns A ConnectionEntry object representing the file.
  */
-const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
-    const folderPath = extractFolderPathFromFilePath(filePath);
+const buildFileEntry = (folderPath: string, filePath: string, size: number): ConnectionEntry => {
+    // const folderPath = extractFolderPathFromFilePath(filePath);
     const fullFileName = extractLastSegmentFromPath(filePath);
     const fileName = extractFileNameFromFilePath(fullFileName);
     const fileExtension = extractFileExtensionFromFilePath(fullFileName);
