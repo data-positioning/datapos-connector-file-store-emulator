@@ -35,6 +35,7 @@ import type {
 import {
     ConnectionEntryPreviewTypeId,
     ConnectionEntryTypeId,
+    extractDirectoryPathFromEntryPath,
     extractExtensionFromEntryPath,
     extractLastFolderNameFromFolderPath,
     lookupMimeTypeForFileExtension
@@ -114,10 +115,15 @@ const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connec
     return new Promise((resolve, reject) => {
         try {
             const folderPath = parentConnectionEntry.folderPath;
-            const entries: ConnectionEntry[] = (fileStoreIndex as Record<string, unknown>)[folderPath] as ConnectionEntry[];
-            console.log(1111, folderPath);
-            console.log(2222, entries);
-            console.log(3333, fileStoreIndex);
+            const items = (fileStoreIndex as Record<string, { path: string; typeId: string }[]>)[folderPath];
+            const entries: ConnectionEntry[] = [];
+            for (const item of items) {
+                if (item.typeId === 'folder') {
+                    entries.push(buildFolderEntry(item.path, 0));
+                } else {
+                    entries.push(buildFileEntry(item.path, '', 0));
+                }
+            }
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
         } catch (error) {
             reject(error);
@@ -206,7 +212,7 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
         extension: undefined,
         handle: undefined,
         id: undefined,
-        label: lastFolderName,
+        label: undefined,
         lastModifiedAt: undefined,
         mimeType: undefined,
         name: lastFolderName,
@@ -223,19 +229,21 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
  * @param size - The size of the file in bytes.
  * @returns The constructed file entry object.
  */
-const buildFileEntry = (folderPath: string, name: string, size: number): ConnectionEntry => {
-    const extension = extractExtensionFromEntryPath(name);
+const buildFileEntry = (filePath: string, name: string, size: number): ConnectionEntry => {
+    const folderPath = extractDirectoryPathFromEntryPath(filePath);
+    const fileName = extractLastFolderNameFromFolderPath(filePath);
+    const extension = extractExtensionFromEntryPath(fileName);
     return {
         childEntryCount: undefined,
         folderPath,
         encodingId: undefined,
         extension,
         handle: undefined,
-        id: name,
-        label: name,
+        id: undefined,
+        label: undefined,
         lastModifiedAt: Date.parse('2022-01-03T23:33:00+00:00'),
         mimeType: lookupMimeTypeForFileExtension(extension),
-        name,
+        name: fileName,
         referenceId: undefined,
         size,
         typeId: ConnectionEntryTypeId.File
