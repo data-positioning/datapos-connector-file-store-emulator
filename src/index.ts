@@ -231,6 +231,7 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
  * @returns The constructed file entry object.
  */
 const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
+    console.log(1111, filePath);
     const folderPath = extractFolderPathFromFilePath(filePath);
     const fullFileName = extractLastSegmentFromPath(folderPath);
     const fileName = extractFileNameFromFilePath(folderPath);
