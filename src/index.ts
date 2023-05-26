@@ -8,7 +8,8 @@
 
 // Constants
 const defaultChunkSize = 4096;
-const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/datapos-v00-dev-alpha.appspot.com/o/fileStore';
+// const urlPrefix = 'https://firebasestorage.googleapis.com/v0/b/datapos-v00-dev-alpha.appspot.com/o/fileStore';
+const urlPrefix = 'https://datapos-resources.netlify.app/';
 
 // Dependencies - Asset
 import config from './config.json';
@@ -112,8 +113,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
         try {
-            const folderPath = parentConnectionEntry.folderPath || '';
-
+            const folderPath = parentConnectionEntry.folderPath;
             const entries: ConnectionEntry[] = (fileStoreIndex as Record<string, unknown>)[folderPath] as ConnectionEntry[];
             console.log(1111, folderPath);
             console.log(2222, entries);
