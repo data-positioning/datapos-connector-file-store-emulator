@@ -233,8 +233,8 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
 const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
     const folderPath = extractFolderPathFromFilePath(filePath);
     const fullFileName = extractLastSegmentFromPath(folderPath);
-    const fileName = extractFileNameFromFilePath(fullFileName);
-    const fileExtension = extractFileExtensionFromFilePath(fullFileName);
+    const fileName = extractFileNameFromFilePath(folderPath);
+    const fileExtension = extractFileExtensionFromFilePath(folderPath);
     return {
         childEntryCount: undefined,
         folderPath,
