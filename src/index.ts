@@ -35,9 +35,10 @@ import type {
 import {
     ConnectionEntryPreviewTypeId,
     ConnectionEntryTypeId,
-    extractDirectoryPathFromEntryPath,
-    extractExtensionFromEntryPath,
-    extractLastFolderNameFromFolderPath,
+    extractFileExtensionFromFilePath,
+    extractFileNameFromFilePath,
+    extractFolderPathFromFilePath,
+    extractLastSegmentFromFolderPath,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-engine-support';
 
@@ -121,7 +122,7 @@ const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connec
                 if (item.typeId === 'folder') {
                     entries.push(buildFolderEntry(item.path, 0));
                 } else {
-                    entries.push(buildFileEntry(item.path, '', 0));
+                    entries.push(buildFileEntry(item.path, 0));
                 }
             }
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
@@ -131,70 +132,70 @@ const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connec
     });
 };
 
-/**
- * Retrieves entries based on the provided parent connection entry.
- * @param parentConnectionEntry - The parent connection entry.
- * @returns A promise that resolves to a page of connection entries.
- */
-const retrieveEntries2 = (parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> => {
-    return new Promise((resolve, reject) => {
-        try {
-            const folderPath = parentConnectionEntry.folderPath || '';
-            const entries: ConnectionEntry[] = [];
-            if (folderPath.startsWith('/SAP Employee Central Extract')) {
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'COMP_CUR_CONV.csv', 2245));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMP_COMP_INFO.csv', 1665179));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMP_PAYCOMP_RECURRING.csv', 1551764));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMPLOYMENT_INFO.csv', 128575));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'EVENT_REASONS.csv', 7775));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'FREQUENCY.csv', 1704));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'GENERIC_OBJECTS.csv', 1662477));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'GENERIC_RELATIONSHIPS.csv', 98782));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'JOB_CLASS.csv', 338260));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'JOB_INFO.csv', 1546379));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'LABELS.csv', 126838));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'LOCATIONS.csv', 2995));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PAY_COMPONENT.csv', 1234));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSON_INFO_GLOBAL.csv', 82438));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSON.csv', 44896));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSONAL_DATA.csv', 105949));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'PICKLISTS.csv', 78044));
-                entries.push(buildFileEntry('/SAP Employee Central Extract', 'TERRITORY.csv', 8541));
-            } else if (folderPath.startsWith('/Test Files')) {
-                entries.push(buildFolderEntry('/Encoding', 21));
-            } else if (folderPath.startsWith('/Encoding')) {
-                entries.push(buildFileEntry('/Test Files/Encoding', 'big5', 614));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'euc-jp', 3919));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'euc-kr', 2480));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'gb18030', 1665));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-2022-jp', 2924));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-2', 1600));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-5', 1024));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-6', 2241));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-7', 1033));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'koi8-r', 1024));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'shift_jis', 2816));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'utf-16be', 1334));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'utf-16le', 1334));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'utf-8', 1125));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1250', 1617));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1251', 1024));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1252', 2976));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1253', 1052));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1254', 2445));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1255', 2405));
-                entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1256', 2241));
-            } else {
-                entries.push(buildFolderEntry('/SAP Employee Central Extract', 19));
-                entries.push(buildFolderEntry('/Test Files', 7));
-            }
-            resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
-        } catch (error) {
-            reject(error);
-        }
-    });
-};
+// /**
+//  * Retrieves entries based on the provided parent connection entry.
+//  * @param parentConnectionEntry - The parent connection entry.
+//  * @returns A promise that resolves to a page of connection entries.
+//  */
+// const retrieveEntries2 = (parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> => {
+//     return new Promise((resolve, reject) => {
+//         try {
+//             const folderPath = parentConnectionEntry.folderPath || '';
+//             const entries: ConnectionEntry[] = [];
+//             if (folderPath.startsWith('/SAP Employee Central Extract')) {
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'ADDRESS_INFO.csv', 208015));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'COMP_CUR_CONV.csv', 2245));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMP_COMP_INFO.csv', 1665179));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMP_PAYCOMP_RECURRING.csv', 1551764));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'EMPLOYMENT_INFO.csv', 128575));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'EVENT_REASONS.csv', 7775));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'FREQUENCY.csv', 1704));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'GENERIC_OBJECTS.csv', 1662477));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'GENERIC_RELATIONSHIPS.csv', 98782));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'JOB_CLASS.csv', 338260));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'JOB_INFO.csv', 1546379));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'LABELS.csv', 126838));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'LOCATIONS.csv', 2995));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'PAY_COMPONENT.csv', 1234));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSON_INFO_GLOBAL.csv', 82438));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSON.csv', 44896));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'PERSONAL_DATA.csv', 105949));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'PICKLISTS.csv', 78044));
+//                 entries.push(buildFileEntry('/SAP Employee Central Extract', 'TERRITORY.csv', 8541));
+//             } else if (folderPath.startsWith('/Test Files')) {
+//                 entries.push(buildFolderEntry('/Encoding', 21));
+//             } else if (folderPath.startsWith('/Encoding')) {
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'big5', 614));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'euc-jp', 3919));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'euc-kr', 2480));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'gb18030', 1665));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'iso-2022-jp', 2924));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-2', 1600));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-5', 1024));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-6', 2241));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'iso-8859-7', 1033));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'koi8-r', 1024));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'shift_jis', 2816));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'utf-16be', 1334));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'utf-16le', 1334));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'utf-8', 1125));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1250', 1617));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1251', 1024));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1252', 2976));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1253', 1052));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1254', 2445));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1255', 2405));
+//                 entries.push(buildFileEntry('/Test Files/Encoding', 'windows-1256', 2241));
+//             } else {
+//                 entries.push(buildFolderEntry('/SAP Employee Central Extract', 19));
+//                 entries.push(buildFolderEntry('/Test Files', 7));
+//             }
+//             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
+//         } catch (error) {
+//             reject(error);
+//         }
+//     });
+// };
 
 /**
  * Builds a folder entry object with the specified folder path and child entry count.
@@ -204,7 +205,7 @@ const retrieveEntries2 = (parentConnectionEntry: ConnectionEntry): Promise<Conne
  */
 
 const buildFolderEntry = (folderPath: string, childEntryCount: number): ConnectionEntry => {
-    const lastFolderName = extractLastFolderNameFromFolderPath(folderPath);
+    const lastFolderSegmentName = extractLastSegmentFromFolderPath(folderPath);
     return {
         childEntryCount,
         folderPath,
@@ -215,7 +216,7 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
         label: undefined,
         lastModifiedAt: undefined,
         mimeType: undefined,
-        name: lastFolderName,
+        name: lastFolderSegmentName,
         referenceId: undefined,
         size: undefined,
         typeId: ConnectionEntryTypeId.Folder
@@ -229,20 +230,20 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
  * @param size - The size of the file in bytes.
  * @returns The constructed file entry object.
  */
-const buildFileEntry = (filePath: string, name: string, size: number): ConnectionEntry => {
-    const folderPath = extractDirectoryPathFromEntryPath(filePath);
-    const fileName = extractLastFolderNameFromFolderPath(filePath);
-    const extension = extractExtensionFromEntryPath(fileName);
+const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
+    const folderPath = extractFolderPathFromFilePath(filePath);
+    const fileName = extractFileNameFromFilePath(filePath);
+    const fileExtension = extractFileExtensionFromFilePath(filePath);
     return {
         childEntryCount: undefined,
         folderPath,
         encodingId: undefined,
-        extension,
+        extension: fileExtension,
         handle: undefined,
         id: undefined,
         label: undefined,
         lastModifiedAt: Date.parse('2022-01-03T23:33:00+00:00'),
-        mimeType: lookupMimeTypeForFileExtension(extension),
+        mimeType: lookupMimeTypeForFileExtension(fileExtension),
         name: fileName,
         referenceId: undefined,
         size,
