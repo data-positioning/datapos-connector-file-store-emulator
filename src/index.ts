@@ -38,7 +38,7 @@ import {
     extractFileExtensionFromFilePath,
     extractFileNameFromFilePath,
     extractFolderPathFromFilePath,
-    extractLastSegmentFromFolderPath,
+    extractLastSegmentFromPath,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-engine-support';
 
@@ -205,7 +205,7 @@ const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connec
  */
 
 const buildFolderEntry = (folderPath: string, childEntryCount: number): ConnectionEntry => {
-    const lastFolderSegmentName = extractLastSegmentFromFolderPath(folderPath);
+    const lastFolderName = extractLastSegmentFromPath(folderPath);
     return {
         childEntryCount,
         folderPath,
@@ -213,7 +213,7 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
         extension: undefined,
         handle: undefined,
         id: undefined,
-        label: lastFolderSegmentName,
+        label: lastFolderName,
         lastModifiedAt: undefined,
         mimeType: undefined,
         name: undefined,
@@ -232,9 +232,9 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
  */
 const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
     const folderPath = extractFolderPathFromFilePath(filePath);
-    const lastFolderSegmentName = extractLastSegmentFromFolderPath(folderPath);
-    const fileName = extractFileNameFromFilePath(filePath);
-    const fileExtension = extractFileExtensionFromFilePath(filePath);
+    const fullFileName = extractLastSegmentFromPath(folderPath);
+    const fileName = extractFileNameFromFilePath(fullFileName);
+    const fileExtension = extractFileExtensionFromFilePath(fullFileName);
     return {
         childEntryCount: undefined,
         folderPath,
@@ -242,7 +242,7 @@ const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
         extension: fileExtension,
         handle: undefined,
         id: undefined,
-        label: lastFolderSegmentName,
+        label: fullFileName,
         lastModifiedAt: Date.parse('2022-01-03T23:33:00+00:00'),
         mimeType: lookupMimeTypeForFileExtension(fileExtension),
         name: fileName,
