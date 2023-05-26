@@ -213,10 +213,10 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
         extension: undefined,
         handle: undefined,
         id: undefined,
-        label: undefined,
+        label: lastFolderSegmentName,
         lastModifiedAt: undefined,
         mimeType: undefined,
-        name: lastFolderSegmentName,
+        name: undefined,
         referenceId: undefined,
         size: undefined,
         typeId: ConnectionEntryTypeId.Folder
@@ -232,6 +232,7 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
  */
 const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
     const folderPath = extractFolderPathFromFilePath(filePath);
+    const lastFolderSegmentName = extractLastSegmentFromFolderPath(folderPath);
     const fileName = extractFileNameFromFilePath(filePath);
     const fileExtension = extractFileExtensionFromFilePath(filePath);
     return {
@@ -241,7 +242,7 @@ const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
         extension: fileExtension,
         handle: undefined,
         id: undefined,
-        label: undefined,
+        label: lastFolderSegmentName,
         lastModifiedAt: Date.parse('2022-01-03T23:33:00+00:00'),
         mimeType: lookupMimeTypeForFileExtension(fileExtension),
         name: fileName,
