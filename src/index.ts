@@ -27,6 +27,7 @@ import type {
     DataConnectorPreviewInterfaceSettings,
     DataConnectorReadInterface,
     DataConnectorReadInterfaceSettings,
+    DataConnectorRetrieveEntriesSettings,
     ErrorData,
     FieldInfos,
     SourceViewProperties
@@ -97,9 +98,9 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @param parentConnectionEntry - The parent connection entry.
      * @returns A promise that resolves to a page of connection entries.
      */
-    async retrieveEntries(accountId: string, sessionAccessToken: string, parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> {
-        console.log('parentConnectionEntry', parentConnectionEntry);
-        return await retrieveEntries(parentConnectionEntry);
+    async retrieveEntries(accountId: string, sessionAccessToken: string, settings: DataConnectorRetrieveEntriesSettings): Promise<ConnectionEntriesPage> {
+        console.log('settings', settings);
+        return await retrieveEntries(settings.folderPath);
     }
 }
 
@@ -112,10 +113,9 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
  * @param parentConnectionEntry - The parent connection entry.
  * @returns A promise that resolves to a ConnectionEntriesPage object.
  */
-const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<ConnectionEntriesPage> => {
+const retrieveEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
         try {
-            const folderPath = parentConnectionEntry.folderPath;
             const items = (fileStoreIndex as Record<string, { path: string; typeId: string }[]>)[folderPath];
             const entries: ConnectionEntry[] = [];
             for (const item of items) {
@@ -135,13 +135,13 @@ const retrieveEntries = (parentConnectionEntry: ConnectionEntry): Promise<Connec
 /**
  * Builds a ConnectionEntry object representing a folder.
  * @param folderPath - The path of the folder.
- * @param childEntryCount - The number of child entries in the folder.
+ * @param childCount - The number of child entries in the folder.
  * @returns A ConnectionEntry object representing the folder.
  */
-const buildFolderEntry = (folderPath: string, childEntryCount: number): ConnectionEntry => {
+const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEntry => {
     const lastFolderName = extractLastSegmentFromPath(folderPath);
     return {
-        childEntryCount,
+        childCount,
         folderPath,
         encodingId: undefined,
         extension: undefined,
@@ -151,7 +151,7 @@ const buildFolderEntry = (folderPath: string, childEntryCount: number): Connecti
         lastModifiedAt: undefined,
         mimeType: undefined,
         name: undefined,
-        referenceId: undefined,
+        // referenceId: undefined,
         size: undefined,
         typeId: ConnectionEntryTypeId.Folder
     };
@@ -169,7 +169,7 @@ const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
     const fileName = extractFileNameFromFilePath(fullFileName);
     const fileExtension = extractFileExtensionFromFilePath(fullFileName);
     return {
-        childEntryCount: undefined,
+        childCount: undefined,
         folderPath,
         encodingId: undefined,
         extension: fileExtension,
@@ -179,7 +179,7 @@ const buildFileEntry = (filePath: string, size: number): ConnectionEntry => {
         lastModifiedAt: Date.parse('2022-01-03T23:33:00+00:00'),
         mimeType: lookupMimeTypeForFileExtension(fileExtension),
         name: fileName,
-        referenceId: undefined,
+        // referenceId: undefined,
         size,
         typeId: ConnectionEntryTypeId.File
     };
