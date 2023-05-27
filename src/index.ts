@@ -115,7 +115,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 const retrieveEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
         try {
-            console.log('-----');
             const items = (fileStoreIndex as Record<string, { path: string; typeId: string }[]>)[folderPath];
             const entries: ConnectionEntry[] = [];
             for (const item of items) {
@@ -140,7 +139,6 @@ const retrieveEntries = (folderPath: string): Promise<ConnectionEntriesPage> => 
  */
 const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEntry => {
     const lastFolderName = extractLastSegmentFromPath(folderPath);
-    console.log(1111, lastFolderName);
     return {
         childCount,
         folderPath,
@@ -170,7 +168,6 @@ const buildFileEntry = (folderPath: string, filePath: string, size: number): Con
     const fullFileName = extractLastSegmentFromPath(filePath);
     const fileName = extractFileNameFromFilePath(fullFileName);
     const fileExtension = extractFileExtensionFromFilePath(fullFileName);
-    console.log(2222, fullFileName);
     return {
         childCount: undefined,
         folderPath,
