@@ -99,7 +99,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @returns A promise that resolves to a page of connection entries.
      */
     async retrieveEntries(accountId: string, sessionAccessToken: string, settings: DataConnectorRetrieveEntriesSettings): Promise<ConnectionEntriesPage> {
-        console.log('settings', settings);
         return await retrieveEntries(settings.folderPath);
     }
 }
