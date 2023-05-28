@@ -12,7 +12,6 @@ const urlPrefix = 'https://datapos-resources.netlify.app/';
 
 // Dependencies - Asset
 import config from './config.json';
-import env from '../.env.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
@@ -59,6 +58,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     constructor(connectionConfig: ConnectionConfig) {
         this.abortController = undefined;
         this.config = config as unknown as ConnectorConfig;
+        console.log('config', config);
         this.connectionConfig = connectionConfig;
         this.id = config.id;
         this.version = version;
