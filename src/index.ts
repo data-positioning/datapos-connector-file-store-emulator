@@ -37,7 +37,6 @@ import {
     ConnectionEntryTypeId,
     extractFileExtensionFromFilePath,
     extractFileNameFromFilePath,
-    extractFolderPathFromFilePath,
     extractLastSegmentFromPath,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-engine-support';
@@ -205,6 +204,7 @@ const previewFileEntry = async (
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
+    console.log(1111, connector, sourceViewProperties, accountId, sessionAccessToken, previewInterfaceSettings);
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
     // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
