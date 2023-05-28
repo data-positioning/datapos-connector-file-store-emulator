@@ -209,8 +209,7 @@ const previewFileEntry = (
         try {
             console.log(1111, connector, sourceViewProperties, accountId, sessionAccessToken, previewInterfaceSettings);
 
-            const url = `https://datapos-resources.netlify.app/fileStore${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}.${sourceViewProperties.fileExtension}`;
-            console.log('URL', url);
+            const url = `https://datapos-resources.netlify.app/fileStore/${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}.${sourceViewProperties.fileExtension}`;
             const headers: HeadersInit = {
                 Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
             };
@@ -231,14 +230,12 @@ const previewFileEntry = (
 
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
-                    if (response.ok) return response.text();
+                    if (response.ok) return response.arrayBuffer();
                     throw await response.text(); // TODO: Change this to a custom error.
                 })
                 .then((result) => {
-                    console.log('TEXT', result);
                     connector.abortController = undefined;
-                    //resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
-                    resolve({ data: undefined, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                    resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
                 })
                 .catch((error) => reject(error));
         } catch (error) {
