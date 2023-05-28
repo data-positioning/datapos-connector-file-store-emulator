@@ -240,7 +240,7 @@ const previewFileEntry = async (
         // .then((response) => response.text())
         // .then((result) => console.log(result))
         // .catch((error) => console.log('error', error));
-        console.log(8888, response.text());
+        console.log(8888, response.ok, response.text());
     } catch (error) {
         console.log('aaaa', error);
     }
