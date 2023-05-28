@@ -234,8 +234,10 @@ const previewFileEntry = (
                     throw await response.text(); // TODO: Change this to a custom error.
                 })
                 .then((result) => {
+                    console.log('TEXT', result);
                     connector.abortController = undefined;
-                    resolve({ data: result, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                    //resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                    resolve({ data: undefined, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
                 })
                 .catch((error) => reject(error));
         } catch (error) {
