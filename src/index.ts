@@ -115,13 +115,13 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 const retrieveEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
         try {
-            const items = (fileStoreIndex as Record<string, { path: string; typeId: string }[]>)[folderPath];
+            const items = (fileStoreIndex as Record<string, { lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>)[folderPath];
             const entries: ConnectionEntry[] = [];
             for (const item of items) {
                 if (item.typeId === 'folder') {
                     entries.push(buildFolderEntry(item.path, 0));
                 } else {
-                    entries.push(buildFileEntry(folderPath, item.path, 0));
+                    entries.push(buildFileEntry(folderPath, item.path, item.lastModifiedAt, item.size));
                 }
             }
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
@@ -160,10 +160,11 @@ const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEnt
  * Builds a ConnectionEntry object representing a file.
  * @param folderPath - The folder path of the file.
  * @param filePath - The path of the file.
+ * @param lastModifiedAt - The moment the file was last modified.
  * @param size - The size of the file.
  * @returns A ConnectionEntry object representing the file.
  */
-const buildFileEntry = (folderPath: string, filePath: string, size: number): ConnectionEntry => {
+const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: number, size: number): ConnectionEntry => {
     // const folderPath = extractFolderPathFromFilePath(filePath);
     const fullFileName = extractLastSegmentFromPath(filePath);
     const fileName = extractFileNameFromFilePath(fullFileName);
@@ -176,7 +177,7 @@ const buildFileEntry = (folderPath: string, filePath: string, size: number): Con
         handle: undefined,
         id: undefined,
         label: fullFileName,
-        lastModifiedAt: Date.parse('2022-01-03T23:33:00+00:00'),
+        lastModifiedAt,
         mimeType: lookupMimeTypeForFileExtension(fileExtension),
         name: fileName,
         // referenceId: undefined,
@@ -207,9 +208,8 @@ const previewFileEntry = (
 ): Promise<ConnectionEntryPreview> => {
     return new Promise((resolve, reject) => {
         try {
-            console.log(1111, connector, sourceViewProperties, accountId, sessionAccessToken, previewInterfaceSettings);
-
             const url = `https://datapos-resources.netlify.app/fileStore/${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}.${sourceViewProperties.fileExtension}`;
+            console.log('URL', url);
             const headers: HeadersInit = {
                 Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
             };
