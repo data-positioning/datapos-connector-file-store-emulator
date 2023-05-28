@@ -208,13 +208,14 @@ const previewFileEntry = (
     return new Promise((resolve, reject) => {
         try {
             console.log(1111, connector, sourceViewProperties, accountId, sessionAccessToken, previewInterfaceSettings);
-            connector.abortController = new AbortController();
-            const signal = connector.abortController.signal;
-            // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
 
+            const url = `https://datapos-resources.netlify.app/fileStore/${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}.${sourceViewProperties.fileExtension}`;
             const headers: HeadersInit = {
                 Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
             };
+            connector.abortController = new AbortController();
+            const signal = connector.abortController.signal;
+            // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
 
             // // const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
             // // connector.abortController = undefined;
@@ -226,16 +227,15 @@ const previewFileEntry = (
             // //     };
             // //     throw new Error('Unable to preview entry.|' + JSON.stringify(data));
             // // }
-            // // const uint8Array = new Uint8Array(await response.arrayBuffer());
 
-            fetch('https://datapos-resources.netlify.app/fileStore/formula%201/circuits.csv', { headers, signal })
-                .then((response) => {
-                    console.log(response.ok, response);
-                    return response.arrayBuffer();
+            fetch(encodeURIComponent(url), { headers, signal })
+                .then(async (response) => {
+                    if (response.ok) return response.text();
+                    throw await response.text(); // TODO: Change this to a custom error.
                 })
                 .then((result) => {
                     connector.abortController = undefined;
-                    resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                    resolve({ data: result, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
                 })
                 .catch((error) => reject(error));
         } catch (error) {
