@@ -12,6 +12,7 @@ const urlPrefix = 'https://datapos-resources.netlify.app/';
 
 // Dependencies - Asset
 import config from './config.json';
+import env from '../.env.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
@@ -209,22 +210,37 @@ const previewFileEntry = async (
     const signal = connector.abortController.signal;
     // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
 
-    const headers: HeadersInit = {
-        Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
-    };
-    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
-    connector.abortController = undefined;
-    if (!response.ok) {
-        const data: ErrorData = {
-            body: { context: 'previewFileEntry', message: await response.text() },
-            statusCode: response.status,
-            statusText: response.statusText
-        };
-        throw new Error('Unable to preview entry.|' + JSON.stringify(data));
-    }
-    const uint8Array = new Uint8Array(await response.arrayBuffer());
+    // const headers: HeadersInit = {
+    //     Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
+    // };
+    // const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
+    // connector.abortController = undefined;
+    // if (!response.ok) {
+    //     const data: ErrorData = {
+    //         body: { context: 'previewFileEntry', message: await response.text() },
+    //         statusCode: response.status,
+    //         statusText: response.statusText
+    //     };
+    //     throw new Error('Unable to preview entry.|' + JSON.stringify(data));
+    // }
+    // const uint8Array = new Uint8Array(await response.arrayBuffer());
 
-    return { data: uint8Array, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
+    const myHeaders = new Headers();
+    myHeaders.append('Authorization', `Bearer ${env.DATAPOS_CONNECTOR_UPLOAD_TOKEN}`);
+
+    const requestOptions: RequestInit = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+    console.log(2222, requestOptions);
+
+    fetch('https://datapos-resources.netlify.app/fileStore/formula%201/circuits.csv', requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log('error', error));
+
+    return { data: undefined, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
