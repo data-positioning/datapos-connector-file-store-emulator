@@ -16,7 +16,7 @@ import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
 // Dependencies - Engine
-import type {
+import {
     ConnectionConfig,
     ConnectionEntriesPage,
     ConnectionEntry,
@@ -28,7 +28,7 @@ import type {
     DataConnectorReadInterface,
     DataConnectorReadInterfaceSettings,
     DataConnectorRetrieveEntriesSettings,
-    ErrorData,
+    FetchResponseError,
     FieldInfos,
     SourceViewProperties
 } from '@datapos/datapos-engine-support';
@@ -216,22 +216,10 @@ const previewFileEntry = (
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
-
-            // // const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
-            // // connector.abortController = undefined;
-            // // if (!response.ok) {
-            // //     const data: ErrorData = {
-            // //         body: { context: 'previewFileEntry', message: await response.text() },
-            // //         statusCode: response.status,
-            // //         statusText: response.statusText
-            // //     };
-            // //     throw new Error('Unable to preview entry.|' + JSON.stringify(data));
-            // // }
-
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
                     if (response.ok) return response.arrayBuffer();
-                    throw await response.text(); // TODO: Change this to a custom error.
+                    throw new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text());
                 })
                 .then((result) => {
                     connector.abortController = undefined;
