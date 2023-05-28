@@ -198,44 +198,43 @@ const buildFileEntry = (folderPath: string, filePath: string, size: number): Con
  * @param previewInterfaceSettings The preview interface settings.
  * @returns A source file entry preview.
  */
-const previewFileEntry = async (
+const previewFileEntry = (
     connector: DataConnector,
     sourceViewProperties: SourceViewProperties,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
-    console.log(1111, connector, sourceViewProperties, accountId, sessionAccessToken, previewInterfaceSettings);
-    connector.abortController = new AbortController();
-    const signal = connector.abortController.signal;
-    // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
+    return new Promise((resolve, reject) => {
+        try {
+            console.log(1111, connector, sourceViewProperties, accountId, sessionAccessToken, previewInterfaceSettings);
+            connector.abortController = new AbortController();
+            const signal = connector.abortController.signal;
+            // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
 
-    // const headers: HeadersInit = {
-    //     Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
-    // };
-    // const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
-    // connector.abortController = undefined;
-    // if (!response.ok) {
-    //     const data: ErrorData = {
-    //         body: { context: 'previewFileEntry', message: await response.text() },
-    //         statusCode: response.status,
-    //         statusText: response.statusText
-    //     };
-    //     throw new Error('Unable to preview entry.|' + JSON.stringify(data));
-    // }
-    // const uint8Array = new Uint8Array(await response.arrayBuffer());
+            // // const headers: HeadersInit = {
+            // //     Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
+            // // };
+            // // const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
+            // // connector.abortController = undefined;
+            // // if (!response.ok) {
+            // //     const data: ErrorData = {
+            // //         body: { context: 'previewFileEntry', message: await response.text() },
+            // //         statusCode: response.status,
+            // //         statusText: response.statusText
+            // //     };
+            // //     throw new Error('Unable to preview entry.|' + JSON.stringify(data));
+            // // }
+            // // const uint8Array = new Uint8Array(await response.arrayBuffer());
 
-    try {
-        const response = await fetch('https://datapos-resources.netlify.app/fileStore/formula%201/circuits.csv');
-        // .then((response) => response.text())
-        // .then((result) => console.log(result))
-        // .catch((error) => console.log('error', error));
-        console.log(8888, response.ok, await response.text());
-    } catch (error) {
-        console.log('aaaa', error);
-    }
-
-    return { data: undefined, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
+            fetch('https://datapos-resources.netlify.app/fileStore/formula%201/circuits.csv')
+                .then((response) => response.arrayBuffer())
+                .then((result) => resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array }))
+                .catch((error) => reject(error));
+        } catch (error) {
+            reject(error);
+        }
+    });
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
