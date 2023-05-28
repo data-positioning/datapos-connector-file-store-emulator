@@ -212,9 +212,10 @@ const previewFileEntry = (
             const signal = connector.abortController.signal;
             // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
 
-            // // const headers: HeadersInit = {
-            // //     Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
-            // // };
+            const headers: HeadersInit = {
+                Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
+            };
+
             // // const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { headers, signal });
             // // connector.abortController = undefined;
             // // if (!response.ok) {
@@ -227,9 +228,15 @@ const previewFileEntry = (
             // // }
             // // const uint8Array = new Uint8Array(await response.arrayBuffer());
 
-            fetch('https://datapos-resources.netlify.app/fileStore/formula%201/circuits.csv')
-                .then((response) => response.arrayBuffer())
-                .then((result) => resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array }))
+            fetch('https://datapos-resources.netlify.app/fileStore/formula%201/circuits.csv', { headers, signal })
+                .then((response) => {
+                    console.log(response.ok, response);
+                    return response.arrayBuffer();
+                })
+                .then((result) => {
+                    connector.abortController = undefined;
+                    resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                })
                 .catch((error) => reject(error));
         } catch (error) {
             reject(error);
