@@ -226,19 +226,24 @@ const previewFileEntry = async (
     // const uint8Array = new Uint8Array(await response.arrayBuffer());
 
     const myHeaders = new Headers();
-    myHeaders.append('Authorization', `Bearer ${env.DATAPOS_CONNECTOR_UPLOAD_TOKEN}`);
+    myHeaders.append('Authorization', `Bearer ${env.NETLIFY_API_KEY}`);
 
     const requestOptions: RequestInit = {
         method: 'GET',
         headers: myHeaders,
         redirect: 'follow'
     };
-    console.log(2222, requestOptions);
+    console.log(2222, env, env.NETLIFY_API_KEY, requestOptions);
 
-    fetch('https://datapos-resources.netlify.app/fileStore/formula%201/circuits.csv', requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log('error', error));
+    try {
+        const response = await fetch('https://datapos-resources.netlify.app/fileStore/formula%201/circuits.csv', requestOptions);
+        // .then((response) => response.text())
+        // .then((result) => console.log(result))
+        // .catch((error) => console.log('error', error));
+        console.log(8888, response.text());
+    } catch (error) {
+        console.log(9999, error);
+    }
 
     return { data: undefined, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
