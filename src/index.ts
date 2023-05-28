@@ -229,7 +229,7 @@ const previewFileEntry = (
             // //     throw new Error('Unable to preview entry.|' + JSON.stringify(data));
             // // }
 
-            fetch(encodeURIComponent(url), { headers, signal })
+            fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
                     if (response.ok) return response.text();
                     throw await response.text(); // TODO: Change this to a custom error.
