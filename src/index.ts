@@ -242,7 +242,7 @@ const previewFileEntry = async (
         // .catch((error) => console.log('error', error));
         console.log(8888, response.text());
     } catch (error) {
-        console.log(9999, error);
+        console.log('aaaa', error);
     }
 
     return { data: undefined, fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
