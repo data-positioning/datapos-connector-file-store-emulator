@@ -208,7 +208,8 @@ const previewFileEntry = (
 ): Promise<ConnectionEntryPreview> => {
     return new Promise((resolve, reject) => {
         try {
-            const url = `https://datapos-resources.netlify.app/fileStore${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}.${sourceViewProperties.fileExtension}`;
+            const fullFileName = `${sourceViewProperties.fileName}${sourceViewProperties.fileExtension ? `.${sourceViewProperties.fileExtension}` : ''}`;
+            const url = `https://datapos-resources.netlify.app/fileStore${sourceViewProperties.folderPath}/${fullFileName}`;
             console.log('URL', url);
             const headers: HeadersInit = {
                 Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
