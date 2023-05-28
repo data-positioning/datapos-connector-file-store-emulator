@@ -209,7 +209,8 @@ const previewFileEntry = (
         try {
             console.log(1111, connector, sourceViewProperties, accountId, sessionAccessToken, previewInterfaceSettings);
 
-            const url = `https://datapos-resources.netlify.app/fileStore/${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}.${sourceViewProperties.fileExtension}`;
+            const url = `https://datapos-resources.netlify.app/fileStore${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}.${sourceViewProperties.fileExtension}`;
+            console.log('URL', url);
             const headers: HeadersInit = {
                 Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
             };
