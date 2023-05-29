@@ -52,15 +52,12 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
-    readonly id: string;
     readonly version: string;
 
     constructor(connectionConfig: ConnectionConfig) {
         this.abortController = undefined;
         this.config = config as unknown as ConnectorConfig;
-        console.log('config', config);
         this.connectionConfig = connectionConfig;
-        this.id = config.id;
         this.version = version;
     }
 
@@ -108,9 +105,9 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Retrieves child connection entries based on a parent connection entry.
- * @param parentConnectionEntry - The parent connection entry.
- * @returns A promise that resolves to a ConnectionEntriesPage object.
+ * Retrieves connection entries for a given folder path.
+ * @param {string} folderPath - The folder path.
+ * @returns {Promise<ConnectionEntriesPage>} A promise that resolves to the connection entries page.
  */
 const retrieveEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
     return new Promise((resolve, reject) => {
@@ -150,7 +147,7 @@ const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEnt
         lastModifiedAt: undefined,
         mimeType: undefined,
         name: undefined,
-        // referenceId: undefined,
+        referenceId: undefined,
         size: undefined,
         typeId: ConnectionEntryTypeId.Folder
     };
@@ -165,7 +162,6 @@ const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEnt
  * @returns A ConnectionEntry object representing the file.
  */
 const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: number, size: number): ConnectionEntry => {
-    // const folderPath = extractFolderPathFromFilePath(filePath);
     const fullFileName = extractLastSegmentFromPath(filePath);
     const fileName = extractFileNameFromFilePath(fullFileName);
     const fileExtension = extractFileExtensionFromFilePath(fullFileName);
@@ -180,7 +176,7 @@ const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: nu
         lastModifiedAt,
         mimeType: lookupMimeTypeForFileExtension(fileExtension),
         name: fileName,
-        // referenceId: undefined,
+        referenceId: undefined,
         size,
         typeId: ConnectionEntryTypeId.File
     };
@@ -191,46 +187,36 @@ const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: nu
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Preview a file entry.
- * @param connector This data connector.
- * @param sourceViewProperties The source view properties.
- * @param accountId The identifier of the account to which the source belongs.
- * @param sessionAccessToken An active session token.
- * @param previewInterfaceSettings The preview interface settings.
- * @returns A source file entry preview.
+ * Retrieves a preview of a file entry from a data connector.
+ * @param {DataConnector} connector - The data connector.
+ * @param {SourceViewProperties} sourceViewProperties - The properties of the source view.
+ * @param {string|undefined} accountId - The account ID.
+ * @param {string|undefined} sessionAccessToken - The session access token.
+ * @param {DataConnectorPreviewInterfaceSettings} previewInterfaceSettings - The preview interface settings.
+ * @returns {Promise<ConnectionEntryPreview>} A promise that resolves to the connection entry preview.
+ * @throws {FetchResponseError} If there is an error in the fetch response.
  */
-const previewFileEntry = (
+const previewFileEntry = async (
     connector: DataConnector,
     sourceViewProperties: SourceViewProperties,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
-    return new Promise((resolve, reject) => {
-        try {
-            const fullFileName = `${sourceViewProperties.fileName}${sourceViewProperties.fileExtension ? `.${sourceViewProperties.fileExtension}` : ''}`;
-            const url = `https://datapos-resources.netlify.app/fileStore${sourceViewProperties.folderPath}/${fullFileName}`;
-            console.log('URL', url);
-            const headers: HeadersInit = {
-                Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}`
-            };
-            connector.abortController = new AbortController();
-            const signal = connector.abortController.signal;
-            // TODO: signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
-            fetch(encodeURI(url), { headers, signal })
-                .then(async (response) => {
-                    if (response.ok) return response.arrayBuffer();
-                    throw new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text());
-                })
-                .then((result) => {
-                    connector.abortController = undefined;
-                    resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
-                })
-                .catch((error) => reject(error));
-        } catch (error) {
-            reject(error);
-        }
-    });
+    connector.abortController = new AbortController();
+    const signal = connector.abortController.signal;
+    signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // TODO: Don't need once and signal?
+
+    const fullFileName = `${sourceViewProperties.fileName}${sourceViewProperties.fileExtension ? `.${sourceViewProperties.fileExtension}` : ''}`;
+    const url = `https://datapos-resources.netlify.app/fileStore${sourceViewProperties.folderPath}/${fullFileName}`;
+    const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}` };
+    const response = await fetch(encodeURI(url), { headers, signal });
+    if (!response.ok) throw new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text());
+    const result = await response.arrayBuffer();
+
+    connector.abortController = undefined;
+
+    return { data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
