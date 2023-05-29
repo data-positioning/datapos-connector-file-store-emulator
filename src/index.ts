@@ -7,8 +7,9 @@
  */
 
 // Constants
-const defaultChunkSize = 4096;
-const urlPrefix = 'https://datapos-resources.netlify.app/';
+const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
+const DEFAULT_READ_CHUNK_SIZE = 1000;
+const URL_PREFIX = 'https://datapos-resources.netlify.app/fileStore';
 
 // Dependencies - Asset
 import config from './config.json';
@@ -30,7 +31,7 @@ import {
     DataConnectorRetrieveEntriesSettings,
     FetchResponseError,
     FieldInfos,
-    SourceViewProperties
+    SourceViewConfig
 } from '@datapos/datapos-engine-support';
 import {
     ConnectionEntryPreviewTypeId,
@@ -188,28 +189,28 @@ const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: nu
 
 /**
  * Retrieves a preview of a file entry from a data connector.
- * @param {DataConnector} connector - The data connector.
- * @param {SourceViewProperties} sourceViewProperties - The properties of the source view.
- * @param {string|undefined} accountId - The account ID.
- * @param {string|undefined} sessionAccessToken - The session access token.
- * @param {DataConnectorPreviewInterfaceSettings} previewInterfaceSettings - The preview interface settings.
- * @returns {Promise<ConnectionEntryPreview>} A promise that resolves to the connection entry preview.
+ * @param connector - The data connector.
+ * @param accountId - The account ID.
+ * @param sessionAccessToken - The session access token.
+ * @param sourceViewConfig - The source view configuration.
+ * @param previewInterfaceSettings - The preview interface settings.
+ * @returns A promise that resolves to the connection entry preview.
  * @throws {FetchResponseError} If there is an error in the fetch response.
  */
 const previewFileEntry = async (
     connector: DataConnector,
-    sourceViewProperties: SourceViewProperties,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
+    sourceViewConfig: SourceViewConfig,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
     signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // TODO: Don't need once and signal?
 
-    const fullFileName = `${sourceViewProperties.fileName}${sourceViewProperties.fileExtension ? `.${sourceViewProperties.fileExtension}` : ''}`;
-    const url = `https://datapos-resources.netlify.app/fileStore${sourceViewProperties.folderPath}/${fullFileName}`;
-    const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || defaultChunkSize}` };
+    const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
+    const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
+    const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
     const response = await fetch(encodeURI(url), { headers, signal });
     if (!response.ok) throw new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text());
     const result = await response.arrayBuffer();
@@ -224,38 +225,36 @@ const previewFileEntry = async (
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
- * Read a file entry.
- * @param connector This data connector.
- * @param sourceViewProperties The source view properties.
- * @param accountId The identifier of the account to which the source belongs.
- * @param sessionAccessToken An active session token.
- * @param readInterfaceSettings The read interface settings.
- * @param csvParse
+ * Reads a file entry from a data connector.
+ * @param connector - The data connector.
+ * @param accountId - The account ID.
+ * @param sessionAccessToken - The session access token.
+ * @param sourceViewConfig - The source view configuration.
+ * @param readInterfaceSettings - The read interface settings.
+ * @param csvParse - The CSV parsing library.
+ * @returns A promise that resolves when the file entry has been read.
  */
 const readFileEntry = async (
     connector: DataConnector,
-    sourceViewProperties: SourceViewProperties,
     accountId: string,
     sessionAccessToken: string,
+    sourceViewConfig: SourceViewConfig,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     csvParse: typeof import('csv-parse/browser/esm')
 ): Promise<void> => {
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
-    // TODO: signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true, signal }); // Don't need once and signal?
-
-    const response = await fetch(`${urlPrefix}${encodeURIComponent(`${sourceViewProperties.folderPath}/${sourceViewProperties.fileName}`)}?alt=media`, { signal });
+    signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true, signal }); // TODO: Don't need once and signal?
 
     let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
     const fieldInfos: FieldInfos[] = [];
-    const maxChunkSize = 1000;
     signal.throwIfAborted();
     const parser = csvParse.parse({
         cast: (value, context) => {
             fieldInfos[context.index] = { isQuoted: context.quoting };
             return value;
         },
-        delimiter: sourceViewProperties.preview.valueDelimiterId,
+        delimiter: sourceViewConfig.preview.valueDelimiterId,
         info: true,
         relax_column_count: true,
         relax_quotes: true
@@ -265,7 +264,7 @@ const readFileEntry = async (
         while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
             signal.throwIfAborted();
             chunk.push({ fieldInfos, fieldValues: data.record });
-            if (chunk.length < maxChunkSize) continue;
+            if (chunk.length < DEFAULT_READ_CHUNK_SIZE) continue;
             readInterfaceSettings.chunk(chunk);
             chunk = [];
         }
@@ -286,8 +285,11 @@ const readFileEntry = async (
         });
     });
 
+    const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
+    const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
+    const response = await fetch(encodeURI(url), { signal });
     // TODO: csvParse seems to have some support for encoding. Need to test if this can be used to replace TextDecoderStream?.
-    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewProperties.preview.encodingId));
+    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
     const decodedStreamReader = stream.getReader();
     let result;
     while (!(result = await decodedStreamReader.read()).done) {
