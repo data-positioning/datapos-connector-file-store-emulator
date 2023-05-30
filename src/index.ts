@@ -274,6 +274,7 @@ const readFileEntry = async (
             signal.throwIfAborted(); // Check if the abort signal has been triggered.
             pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
             if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
+            console.log(1111, pendingRows); 
             readInterfaceSettings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
         }
@@ -306,7 +307,7 @@ const readFileEntry = async (
     const response = await fetch(encodeURI(url), { signal });
     // const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
     // const decodedStreamReader = stream.getReader();
-     const decodedStreamReader = response.body.getReader();
+    const decodedStreamReader = response.body.getReader();
     let result;
     while (!(result = await decodedStreamReader.read()).done) {
         signal.throwIfAborted(); // Check if the abort signal has been triggered.
