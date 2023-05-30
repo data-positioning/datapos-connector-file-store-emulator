@@ -262,6 +262,7 @@ const readFileEntry = async (
             return value;
         },
         delimiter: sourceViewConfig.preview.valueDelimiter, // TODO: Do we have to endure this is the correct coding?
+        encoding: null,
         info: true,
         relax_column_count: true,
         relax_quotes: true
@@ -274,7 +275,7 @@ const readFileEntry = async (
             signal.throwIfAborted(); // Check if the abort signal has been triggered.
             pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
             if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
-            console.log(1111, pendingRows); 
+            console.log(1111, pendingRows);
             readInterfaceSettings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
         }
