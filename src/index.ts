@@ -284,6 +284,7 @@ const readFileEntry = async (
 
     // Parser - Event listener for the 'error' event.
     parser.on('error', (error) => {
+        console.log('yyyy');
         readInterfaceSettings.error(error);
         connector.abortController = undefined; // Clear the abort controller.
     });
