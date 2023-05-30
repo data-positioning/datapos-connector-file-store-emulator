@@ -315,7 +315,11 @@ const readFileEntry = async (
         signal.throwIfAborted(); // Check if the abort signal has been triggered.
         console.log('result.value', result.value);
         parser.write(result.value, (error) => {
-            if (error) readInterfaceSettings.error(error);
+            console.log(1111);
+            if (error) {
+                console.log(2222);
+                readInterfaceSettings.error(error);
+            }
         });
     }
 
