@@ -44,9 +44,8 @@ import {
 } from '@datapos/datapos-engine-support';
 
 // Dependencies - Framework/Vendor
-import { Buffer } from 'buffer';
-import type { CastingContext } from 'csv-parse/.';
-import { type Callback, type Options, type Parser } from 'csv-parse';
+// import type { CastingContext } from 'csv-parse/.';
+import { type Callback, type CastingContext,type Options, type Parser } from 'csv-parse';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // File Store Emulator Data Connector
@@ -262,7 +261,7 @@ const readFileEntry = async (
             fieldInfos[context.index] = { isQuoted: context.quoting };
             return value;
         },
-        delimiter: Buffer.from(sourceViewConfig.preview.valueDelimiterId), // TODO: Do we have to endure this is the correct coding?
+        delimiter: sourceViewConfig.preview.valueDelimiterId, // TODO: Do we have to endure this is the correct coding?
         encoding: null,
         info: true,
         relax_column_count: true,
