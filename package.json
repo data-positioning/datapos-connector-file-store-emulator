@@ -1,6 +1,6 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "version": "0.1.656",
+    "version": "0.1.657",
     "license": "ISC",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "devDependencies": {
@@ -23,5 +23,8 @@
         "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-typescript2": "^0.34.1",
         "typescript": "^5.0.4"
+    },
+    "dependencies": {
+        "buffer": "^6.0.3"
     }
 }
