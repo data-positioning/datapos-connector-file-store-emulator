@@ -272,6 +272,7 @@ const readFileEntry = async (
     parser.on('readable', () => {
         let data;
         while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
+            console.log('data', data);
             signal.throwIfAborted(); // Check if the abort signal has been triggered.
             pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
             if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
