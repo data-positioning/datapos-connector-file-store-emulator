@@ -45,7 +45,7 @@ import {
 
 // Dependencies - Framework/Vendor
 // import type { CastingContext } from 'csv-parse/.';
-import { type Callback, type CastingContext,type Options, type Parser } from 'csv-parse';
+import { type Callback, type CastingContext, type Options, type Parser } from 'csv-parse';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // File Store Emulator Data Connector
@@ -261,8 +261,7 @@ const readFileEntry = async (
             fieldInfos[context.index] = { isQuoted: context.quoting };
             return value;
         },
-        delimiter: sourceViewConfig.preview.valueDelimiterId, // TODO: Do we have to endure this is the correct coding?
-        encoding: null,
+        delimiter: sourceViewConfig.preview.valueDelimiter, // TODO: Do we have to endure this is the correct coding?
         info: true,
         relax_column_count: true,
         relax_quotes: true
@@ -305,8 +304,9 @@ const readFileEntry = async (
     const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
     const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
     const response = await fetch(encodeURI(url), { signal });
-    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
-    const decodedStreamReader = stream.getReader();
+    // const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
+    // const decodedStreamReader = stream.getReader();
+     const decodedStreamReader = response.body.getReader();
     let result;
     while (!(result = await decodedStreamReader.read()).done) {
         signal.throwIfAborted(); // Check if the abort signal has been triggered.
