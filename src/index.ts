@@ -312,6 +312,7 @@ const readFileEntry = async (
     let result;
     while (!(result = await decodedStreamReader.read()).done) {
         signal.throwIfAborted(); // Check if the abort signal has been triggered.
+        console.log('result.value', result.value);
         parser.write(result.value, (error) => {
             if (error) readInterfaceSettings.error(error);
         });
