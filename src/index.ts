@@ -44,6 +44,7 @@ import {
 
 // Dependencies - Framework/Vendor
 import type { CastingContext } from 'csv-parse/.';
+import { type Callback, type Options, type Parser } from 'csv-parse';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // File Store Emulator Data Connector
@@ -240,7 +241,7 @@ const readFileEntry = async (
     sessionAccessToken: string,
     sourceViewConfig: SourceViewConfig,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    csvParse: typeof import('csv-parse/browser/esm')
+    csvParse: (options?: Options, callback?: Callback) => Parser // typeof import('csv-parse/browser/esm')
 ): Promise<void> => {
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
@@ -249,7 +250,7 @@ const readFileEntry = async (
     let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
     const fieldInfos: FieldInfos[] = [];
     signal.throwIfAborted();
-    const parser = csvParse.parse({
+    const parser = csvParse({
         cast: (value, context) => {
             fieldInfos[context.index] = { isQuoted: context.quoting };
             return value;
