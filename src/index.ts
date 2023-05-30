@@ -205,6 +205,7 @@ const previewFileEntry = async (
     sourceViewConfig: SourceViewConfig,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
+    // Create an abort controller. Get the signal for the abort controller and add an abort listener.
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
     signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // TODO: Don't need once and signal?
@@ -228,11 +229,11 @@ const previewFileEntry = async (
 /**
  * Reads a file entry from a data connector.
  * @param connector - The data connector.
- * @param accountId - The account ID.
+ * @param accountId - The account identifier.
  * @param sessionAccessToken - The session access token.
  * @param sourceViewConfig - The source view configuration.
  * @param readInterfaceSettings - The read interface settings.
- * @param csvParse - The CSV parsing library.
+ * @param csvParse - The CSV parse function from the 'csvparse' library.
  * @returns A promise that resolves when the file entry has been read.
  */
 const readFileEntry = async (
@@ -243,13 +244,17 @@ const readFileEntry = async (
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     csvParse: (options?: Options, callback?: Callback) => Parser // typeof import('csv-parse/browser/esm')
 ): Promise<void> => {
+    // Create an abort controller and get the signal. Add an abort listener to the signal.
     connector.abortController = new AbortController();
     const signal = connector.abortController.signal;
     signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true, signal }); // TODO: Don't need once and signal?
 
+    signal.throwIfAborted(); // Check if the abort signal has been triggered.
+
     let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
     const fieldInfos: FieldInfos[] = [];
-    signal.throwIfAborted();
+
+    // Create a parser object for CSV parsing.
     const parser = csvParse({
         cast: (value, context) => {
             fieldInfos[context.index] = { isQuoted: context.quoting };
@@ -260,6 +265,8 @@ const readFileEntry = async (
         relax_column_count: true,
         relax_quotes: true
     });
+
+    // Event listener for the 'readable' (data available) event.
     parser.on('readable', () => {
         let data;
         while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
@@ -270,7 +277,11 @@ const readFileEntry = async (
             chunk = [];
         }
     });
+
+    // Event listener for the 'error' event.
     parser.on('error', (error) => readInterfaceSettings.error(error));
+
+    // Event listener for the 'end' (end of data) event.
     parser.on('end', () => {
         signal.throwIfAborted();
         connector.abortController = undefined;
@@ -299,5 +310,6 @@ const readFileEntry = async (
             if (error) readInterfaceSettings.error(error);
         });
     }
+
     parser.end();
 };
