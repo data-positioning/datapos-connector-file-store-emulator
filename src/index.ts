@@ -30,7 +30,8 @@ import {
     DataConnectorReadInterfaceSettings,
     DataConnectorRetrieveEntriesSettings,
     FetchResponseError,
-    FieldInfos,
+    FieldData,
+    FieldInfo,
     SourceViewConfig
 } from '@datapos/datapos-engine-support';
 import {
@@ -251,43 +252,47 @@ const readFileEntry = async (
 
     signal.throwIfAborted(); // Check if the abort signal has been triggered.
 
-    let chunk: { fieldInfos: FieldInfos[]; fieldValues: string[] }[] = [];
-    const fieldInfos: FieldInfos[] = [];
+    let pendingRows: FieldData[] = []; // Array to store rows of parsed field values and associated information.
+    const fieldInfos: FieldInfo[] = []; // Array to store field information for a single row.
 
-    // Create a parser object for CSV parsing.
+    // Parser - Create a parser object for CSV parsing.
     const parser = csvParse({
         cast: (value, context) => {
             fieldInfos[context.index] = { isQuoted: context.quoting };
             return value;
         },
-        delimiter: sourceViewConfig.preview.valueDelimiterId,
+        delimiter: Buffer.from(sourceViewConfig.preview.valueDelimiterId), // TODO: Do we have to endure this is the correct coding?
+        encoding: null,
         info: true,
         relax_column_count: true,
         relax_quotes: true
     });
 
-    // Event listener for the 'readable' (data available) event.
+    // Parser - Event listener for the 'readable' (data available) event.
     parser.on('readable', () => {
         let data;
         while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
-            signal.throwIfAborted();
-            chunk.push({ fieldInfos, fieldValues: data.record });
-            if (chunk.length < DEFAULT_READ_CHUNK_SIZE) continue;
-            readInterfaceSettings.chunk(chunk);
-            chunk = [];
+            signal.throwIfAborted(); // Check if the abort signal has been triggered.
+            pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
+            if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
+            readInterfaceSettings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
+            pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
         }
     });
 
-    // Event listener for the 'error' event.
-    parser.on('error', (error) => readInterfaceSettings.error(error));
+    // Parser - Event listener for the 'error' event.
+    parser.on('error', (error) => {
+        readInterfaceSettings.error(error);
+        connector.abortController = undefined; // Clear the abort controller.
+    });
 
-    // Event listener for the 'end' (end of data) event.
+    // Parser - Event listener for the 'end' (end of data) event.
     parser.on('end', () => {
-        signal.throwIfAborted();
-        connector.abortController = undefined;
-        if (chunk.length > 0) {
-            readInterfaceSettings.chunk(chunk);
-            chunk = [];
+        signal.throwIfAborted(); // Check if the abort signal has been triggered.
+        connector.abortController = undefined; // Clear the abort controller.
+        if (pendingRows.length > 0) {
+            readInterfaceSettings.chunk(pendingRows);
+            pendingRows = [];
         }
         readInterfaceSettings.complete({
             commentLineCount: parser.info.comment_lines,
@@ -300,12 +305,11 @@ const readFileEntry = async (
     const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
     const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
     const response = await fetch(encodeURI(url), { signal });
-    // TODO: csvParse seems to have some support for encoding. Need to test if this can be used to replace TextDecoderStream?.
     const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
     const decodedStreamReader = stream.getReader();
     let result;
     while (!(result = await decodedStreamReader.read()).done) {
-        signal.throwIfAborted();
+        signal.throwIfAborted(); // Check if the abort signal has been triggered.
         parser.write(result.value, (error) => {
             if (error) readInterfaceSettings.error(error);
         });
