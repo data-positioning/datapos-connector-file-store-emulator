@@ -44,6 +44,7 @@ import {
 } from '@datapos/datapos-engine-support';
 
 // Dependencies - Framework/Vendor
+import { Buffer } from 'buffer';
 import type { CastingContext } from 'csv-parse/.';
 import { type Callback, type Options, type Parser } from 'csv-parse';
 
