@@ -261,8 +261,7 @@ const readFileEntry = async (
             fieldInfos[context.index] = { isQuoted: context.quoting };
             return value;
         },
-        delimiter: sourceViewConfig.preview.valueDelimiter, // TODO: Do we have to endure this is the correct coding?
-        encoding: null,
+        delimiter: sourceViewConfig.preview.valueDelimiterId,
         info: true,
         relax_column_count: true,
         relax_quotes: true
@@ -272,11 +271,9 @@ const readFileEntry = async (
     parser.on('readable', () => {
         let data;
         while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
-            console.log('data', data);
             signal.throwIfAborted(); // Check if the abort signal has been triggered.
             pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
             if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
-            console.log(1111, pendingRows);
             readInterfaceSettings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
         }
@@ -284,7 +281,6 @@ const readFileEntry = async (
 
     // Parser - Event listener for the 'error' event.
     parser.on('error', (error) => {
-        console.log('yyyy');
         readInterfaceSettings.error(error);
         connector.abortController = undefined; // Clear the abort controller.
     });
@@ -308,19 +304,13 @@ const readFileEntry = async (
     const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
     const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
     const response = await fetch(encodeURI(url), { signal });
-    // const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
-    // const decodedStreamReader = stream.getReader();
-    const decodedStreamReader = response.body.getReader();
+    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
+    const decodedStreamReader = stream.getReader();
     let result;
     while (!(result = await decodedStreamReader.read()).done) {
         signal.throwIfAborted(); // Check if the abort signal has been triggered.
-        console.log('result.value', result.value);
         parser.write(result.value, (error) => {
-            console.log(1111);
-            if (error) {
-                console.log(2222);
-                readInterfaceSettings.error(error);
-            }
+            if (error) readInterfaceSettings.error(error);
         });
     }
 
