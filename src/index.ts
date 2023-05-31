@@ -250,8 +250,7 @@ const readFileEntry = async (
     const signal = connector.abortController.signal;
     signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true, signal }); // TODO: Don't need once and signal?
 
-    signal.throwIfAborted(); // Check if the abort signal has been triggered.
-
+    // Parser - Declare variables.
     let pendingRows: FieldData[] = []; // Array to store rows of parsed field values and associated information.
     const fieldInfos: FieldInfo[] = []; // Array to store field information for a single row.
 
@@ -294,13 +293,16 @@ const readFileEntry = async (
             pendingRows = [];
         }
         readInterfaceSettings.complete({
+            byteCount: parser.info.bytes,
             commentLineCount: parser.info.comment_lines,
             emptyLineCount: parser.info.empty_lines,
+            invalidFieldLengthCount: parser.info.invalid_field_length,
             lineCount: parser.info.lines,
             recordCount: parser.info.records
         });
     });
 
+    // Fetch, decode and forward the contents of the file to the parser.
     const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
     const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
     const response = await fetch(encodeURI(url), { signal });
@@ -309,10 +311,10 @@ const readFileEntry = async (
     let result;
     while (!(result = await decodedStreamReader.read()).done) {
         signal.throwIfAborted(); // Check if the abort signal has been triggered.
+        // Write the decoded data to the parser and terminate if there is an error.
         parser.write(result.value, (error) => {
-            if (error) readInterfaceSettings.error(error);
+            if (error) throw error;
         });
     }
-
-    parser.end();
+    parser.end(); // Signal no more data will be written.
 };
