@@ -19,8 +19,8 @@ import { version } from '../package.json';
 // Dependencies - Engine
 import {
     ConnectionConfig,
-    ConnectionEntriesPage,
     ConnectionEntry,
+    ConnectionEntryDrilldownResult,
     ConnectionEntryPreview,
     ConnectorConfig,
     DataConnector,
@@ -98,7 +98,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @param parentConnectionEntry - The parent connection entry.
      * @returns A promise that resolves to a page of connection entries.
      */
-    async retrieveEntries(accountId: string, sessionAccessToken: string, settings: DataConnectorRetrieveEntriesSettings): Promise<ConnectionEntriesPage> {
+    async retrieveEntries(accountId: string, sessionAccessToken: string, settings: DataConnectorRetrieveEntriesSettings): Promise<ConnectionEntryDrilldownResult> {
         return await retrieveEntries(settings.folderPath);
     }
 }
@@ -112,7 +112,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
  * @param {string} folderPath - The folder path.
  * @returns {Promise<ConnectionEntriesPage>} A promise that resolves to the connection entries page.
  */
-const retrieveEntries = (folderPath: string): Promise<ConnectionEntriesPage> => {
+const retrieveEntries = (folderPath: string): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
         try {
             const items = (fileStoreIndex as Record<string, { lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>)[folderPath];
