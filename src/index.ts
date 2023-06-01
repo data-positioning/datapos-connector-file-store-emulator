@@ -44,7 +44,6 @@ import {
 } from '@datapos/datapos-engine-support';
 
 // Dependencies - Framework/Vendor
-// import type { CastingContext } from 'csv-parse/.';
 import { type Callback, type CastingContext, type Options, type Parser } from 'csv-parse';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -109,8 +108,8 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 
 /**
  * Retrieves connection entries for a given folder path.
- * @param {string} folderPath - The folder path.
- * @returns {Promise<ConnectionEntriesPage>} A promise that resolves to the connection entries page.
+ * @param folderPath - The folder path.
+ * @returns A promise that resolves to the connection entries page.
  */
 const retrieveEntries = (folderPath: string): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
