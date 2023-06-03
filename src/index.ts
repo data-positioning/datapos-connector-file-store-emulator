@@ -210,13 +210,7 @@ const previewFileEntry = (
         // Create an abort controller. Get the signal for the abort controller and add an abort listener.
         connector.abortController = new AbortController();
         const signal = connector.abortController.signal;
-        signal.addEventListener(
-            'abort',
-            () => {
-                reject(new Error('Preview aborted.'));
-            }
-            // { once: true, signal } // TODO: Don't need once and signal?
-        );
+        signal.addEventListener('abort', () => reject(tidyUp(connector, new Error('Preview aborted.'))) /*, { once: true, signal } TODO: Don't need once and signal? */);
 
         const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
         const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
@@ -224,21 +218,23 @@ const previewFileEntry = (
         console.log('bbbb1');
         fetch(encodeURI(url), { headers, signal })
             .then(async (response) => {
-                if (response.ok) {
-                    console.log('cccc1');
-                    const result = await response.arrayBuffer();
+                try {
+                    if (response.ok) {
+                        console.log('cccc1');
+                        const result = await response.arrayBuffer();
 
-                    connector.abortController = undefined;
+                        connector.abortController = undefined;
 
-                    console.log('dddd1');
-                    resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
-                } else {
-                    throw new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text());
+                        console.log('dddd1');
+                        resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                    } else {
+                        reject(tidyUp(connector, new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text())));
+                    }
+                } catch (error) {
+                    reject(tidyUp(connector, error));
                 }
             })
-            .catch((error) => {
-                reject(error);
-            });
+            .catch((error) => reject(tidyUp(connector, error)));
     });
 };
 
@@ -338,4 +334,13 @@ const readFileEntry = async (
     }
     console.log(2222);
     parser.end(); // Signal no more data will be written.
+};
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// File Store Emulator Data Connector - Utilities
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const tidyUp = (connector: DataConnector, error: unknown): unknown => {
+    connector.abortController = undefined;
+    return error;
 };
