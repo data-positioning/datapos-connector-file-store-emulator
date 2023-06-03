@@ -1,6 +1,6 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "version": "0.1.681",
+    "version": "0.1.682",
     "license": "ISC",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "devDependencies": {
