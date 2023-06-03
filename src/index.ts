@@ -198,32 +198,48 @@ const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: nu
  * @returns A promise that resolves to the connection entry preview.
  * @throws {FetchResponseError} If there is an error in the fetch response.
  */
-const previewFileEntry = async (
+const previewFileEntry = (
     connector: DataConnector,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     sourceViewConfig: SourceViewConfig,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
-    console.log('aaaa')
-    // Create an abort controller. Get the signal for the abort controller and add an abort listener.
-    connector.abortController = new AbortController();
-    const signal = connector.abortController.signal;
-    signal.addEventListener('abort', () => console.log('TRACE: Preview File Entry ABORTED!'), { once: true, signal }); // TODO: Don't need once and signal?
+    return new Promise((resolve, reject) => {
+        console.log('aaaa');
+        // Create an abort controller. Get the signal for the abort controller and add an abort listener.
+        connector.abortController = new AbortController();
+        const signal = connector.abortController.signal;
+        signal.addEventListener(
+            'abort',
+            () => {
+                reject(new Error('Preview aborted.'));
+            }
+            // { once: true, signal } // TODO: Don't need once and signal?
+        );
 
-    const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
-    const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
-    const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
-    console.log('bbbb')
-    const response = await fetch(encodeURI(url), { headers, signal });
-    if (!response.ok) throw new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text());
-    console.log('cccc')
-    const result = await response.arrayBuffer();
+        const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
+        const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
+        const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
+        console.log('bbbb');
+        fetch(encodeURI(url), { headers, signal })
+            .then(async (response) => {
+                if (response.ok) {
+                    console.log('cccc');
+                    const result = await response.arrayBuffer();
 
-    connector.abortController = undefined;
+                    connector.abortController = undefined;
 
-    console.log('dddd')
-    return { data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array };
+                    console.log('dddd');
+                    resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                } else {
+                    throw new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text());
+                }
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
