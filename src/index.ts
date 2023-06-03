@@ -206,36 +206,33 @@ const previewEntry = (
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
     return new Promise((resolve, reject) => {
-        console.log('aaaa2');
-        // Create an abort controller. Get the signal for the abort controller and add an abort listener.
-        connector.abortController = new AbortController();
-        const signal = connector.abortController.signal;
-        signal.addEventListener('abort', () => reject(tidyUp(connector, new Error('Preview aborted.'))) /*, { once: true, signal } TODO: Don't need once and signal? */);
+        try {
+            // Create an abort controller. Get the signal for the abort controller and add an abort listener.
+            connector.abortController = new AbortController();
+            const signal = connector.abortController.signal;
+            signal.addEventListener('abort', () => reject(tidyUp(connector, new Error('Preview aborted.'))) /*, { once: true, signal } TODO: Don't need once and signal? */);
 
-        const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
-        const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
-        const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
-        console.log('bbbb2');
-        fetch(encodeURI(url), { headers, signal })
-            .then(async (response) => {
-                try {
-                    if (response.ok) {
-                        console.log('cccc2');
-                        const result = await response.arrayBuffer();
-
-                        connector.abortController = undefined;
-
-                        console.log('dddd2');
-                        resolve({ data: new Uint8Array(result), typeId: ConnectionEntryPreviewTypeId.Uint8Array });
-                        console.log('eeee2');
-                    } else {
-                        reject(tidyUp(connector, new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text())));
+            const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
+            const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
+            const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
+            fetch(encodeURI(url), { headers, signal })
+                .then(async (response) => {
+                    try {
+                        if (response.ok) {
+                            const result = await response.arrayBuffer();
+                            connector.abortController = undefined;
+                            resolve({ data: new Uint8Array(result), typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                        } else {
+                            reject(tidyUp(connector, new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text())));
+                        }
+                    } catch (error) {
+                        reject(tidyUp(connector, error));
                     }
-                } catch (error) {
-                    reject(tidyUp(connector, error));
-                }
-            })
-            .catch((error) => reject(tidyUp(connector, error)));
+                })
+                .catch((error) => reject(tidyUp(connector, error)));
+        } catch (error) {
+            reject(tidyUp(connector, error));
+        }
     });
 };
 
@@ -253,7 +250,7 @@ const previewEntry = (
  * @param csvParse - The CSV parse function from the 'csvparse' library.
  * @returns A promise that resolves when the file entry has been read.
  */
-const readEntry = async (
+const readEntry = (
     connector: DataConnector,
     accountId: string,
     sessionAccessToken: string,
@@ -261,80 +258,96 @@ const readEntry = async (
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     csvParse: (options?: Options, callback?: Callback) => Parser // typeof import('csv-parse/browser/esm')
 ): Promise<void> => {
-    // Create an abort controller and get the signal. Add an abort listener to the signal.
-    connector.abortController = new AbortController();
-    const signal = connector.abortController.signal;
-    signal.addEventListener('abort', () => console.log('TRACE: Read File Entry ABORTED!'), { once: true, signal }); // TODO: Don't need once and signal?
+    return new Promise((resolve, reject) => {
+        try {
+            // Create an abort controller and get the signal. Add an abort listener to the signal.
+            connector.abortController = new AbortController();
+            const signal = connector.abortController.signal;
+            signal.addEventListener('abort', () => reject(tidyUp(connector, new Error('Read aborted.'))) /*, { once: true, signal } TODO: Don't need once and signal? */);
 
-    // Parser - Declare variables.
-    let pendingRows: FieldData[] = []; // Array to store rows of parsed field values and associated information.
-    const fieldInfos: FieldInfo[] = []; // Array to store field information for a single row.
+            // Parser - Declare variables.
+            let pendingRows: FieldData[] = []; // Array to store rows of parsed field values and associated information.
+            const fieldInfos: FieldInfo[] = []; // Array to store field information for a single row.
 
-    // Parser - Create a parser object for CSV parsing.
-    const parser = csvParse({
-        cast: (value, context) => {
-            fieldInfos[context.index] = { isQuoted: context.quoting };
-            return value;
-        },
-        delimiter: sourceViewConfig.preview.valueDelimiterId,
-        info: true,
-        relax_column_count: true,
-        relax_quotes: true
-    });
+            // Parser - Create a parser object for CSV parsing.
+            const parser = csvParse({
+                cast: (value, context) => {
+                    fieldInfos[context.index] = { isQuoted: context.quoting };
+                    return value;
+                },
+                delimiter: sourceViewConfig.preview.valueDelimiterId,
+                info: true,
+                relax_column_count: true,
+                relax_quotes: true
+            });
 
-    // Parser - Event listener for the 'readable' (data available) event.
-    parser.on('readable', () => {
-        let data;
-        while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
-            signal.throwIfAborted(); // Check if the abort signal has been triggered.
-            pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
-            if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
-            readInterfaceSettings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
-            pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
+            // Parser - Event listener for the 'readable' (data available) event.
+            parser.on('readable', () => {
+                let data;
+                try {
+                    while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
+                        signal.throwIfAborted(); // Check if the abort signal has been triggered.
+                        pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
+                        if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
+                        readInterfaceSettings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
+                        pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
+                    }
+                } catch (error) {
+                    reject(tidyUp(connector, error));
+                }
+            });
+
+            // Parser - Event listener for the 'error' event.
+            parser.on('error', (error) => reject(tidyUp(connector, error)));
+
+            // Parser - Event listener for the 'end' (end of data) event.
+            parser.on('end', () => {
+                try {
+                    signal.throwIfAborted(); // Check if the abort signal has been triggered.
+                    connector.abortController = undefined; // Clear the abort controller.
+                    if (pendingRows.length > 0) {
+                        readInterfaceSettings.chunk(pendingRows);
+                        pendingRows = [];
+                    }
+                    readInterfaceSettings.complete({
+                        byteCount: parser.info.bytes,
+                        commentLineCount: parser.info.comment_lines,
+                        emptyLineCount: parser.info.empty_lines,
+                        invalidFieldLengthCount: parser.info.invalid_field_length,
+                        lineCount: parser.info.lines,
+                        recordCount: parser.info.records
+                    });
+                    console.log(3333);
+                    resolve();
+                } catch (error) {
+                    reject(tidyUp(connector, error));
+                }
+            });
+
+            // Fetch, decode and forward the contents of the file to the parser.
+            const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
+            const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
+            fetch(encodeURI(url), { signal })
+                .then(async (response) => {
+                    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
+                    const decodedStreamReader = stream.getReader();
+                    let result;
+                    while (!(result = await decodedStreamReader.read()).done) {
+                        console.log(1111);
+                        signal.throwIfAborted(); // Check if the abort signal has been triggered.
+                        // Write the decoded data to the parser and terminate if there is an error.
+                        parser.write(result.value, (error) => {
+                            if (error) throw error;
+                        });
+                    }
+                    console.log(2222);
+                    parser.end(); // Signal no more data will be written.
+                })
+                .catch((error) => reject(tidyUp(connector, error)));
+        } catch (error) {
+            reject(tidyUp(connector, error));
         }
     });
-
-    // Parser - Event listener for the 'error' event.
-    parser.on('error', (error) => {
-        readInterfaceSettings.error(error);
-        connector.abortController = undefined; // Clear the abort controller.
-    });
-
-    // Parser - Event listener for the 'end' (end of data) event.
-    parser.on('end', () => {
-        signal.throwIfAborted(); // Check if the abort signal has been triggered.
-        connector.abortController = undefined; // Clear the abort controller.
-        if (pendingRows.length > 0) {
-            readInterfaceSettings.chunk(pendingRows);
-            pendingRows = [];
-        }
-        readInterfaceSettings.complete({
-            byteCount: parser.info.bytes,
-            commentLineCount: parser.info.comment_lines,
-            emptyLineCount: parser.info.empty_lines,
-            invalidFieldLengthCount: parser.info.invalid_field_length,
-            lineCount: parser.info.lines,
-            recordCount: parser.info.records
-        });
-    });
-
-    // Fetch, decode and forward the contents of the file to the parser.
-    const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
-    const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
-    const response = await fetch(encodeURI(url), { signal });
-    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
-    const decodedStreamReader = stream.getReader();
-    let result;
-    while (!(result = await decodedStreamReader.read()).done) {
-        console.log(1111);
-        signal.throwIfAborted(); // Check if the abort signal has been triggered.
-        // Write the decoded data to the parser and terminate if there is an error.
-        parser.write(result.value, (error) => {
-            if (error) throw error;
-        });
-    }
-    console.log(2222);
-    parser.end(); // Signal no more data will be written.
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
