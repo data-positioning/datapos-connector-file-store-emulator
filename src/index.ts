@@ -317,7 +317,6 @@ const readEntry = (
                         lineCount: parser.info.lines,
                         recordCount: parser.info.records
                     });
-                    console.log(3333);
                     resolve();
                 } catch (error) {
                     reject(tidyUp(connector, error));
@@ -329,19 +328,21 @@ const readEntry = (
             const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
             fetch(encodeURI(url), { signal })
                 .then(async (response) => {
-                    const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
-                    const decodedStreamReader = stream.getReader();
-                    let result;
-                    while (!(result = await decodedStreamReader.read()).done) {
-                        console.log(1111);
-                        signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                        // Write the decoded data to the parser and terminate if there is an error.
-                        parser.write(result.value, (error) => {
-                            if (error) throw error;
-                        });
+                    try {
+                        const stream = response.body.pipeThrough(new TextDecoderStream(sourceViewConfig.preview.encodingId));
+                        const decodedStreamReader = stream.getReader();
+                        let result;
+                        while (!(result = await decodedStreamReader.read()).done) {
+                            signal.throwIfAborted(); // Check if the abort signal has been triggered.
+                            // Write the decoded data to the parser and terminate if there is an error.
+                            parser.write(result.value, (error) => {
+                                if (error) reject(tidyUp(connector, error));
+                            });
+                        }
+                        parser.end(); // Signal no more data will be written.
+                    } catch (error) {
+                        reject(tidyUp(connector, error));
                     }
-                    console.log(2222);
-                    parser.end(); // Signal no more data will be written.
                 })
                 .catch((error) => reject(tidyUp(connector, error)));
         } catch (error) {
