@@ -206,7 +206,7 @@ const previewFileEntry = (
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
 ): Promise<ConnectionEntryPreview> => {
     return new Promise((resolve, reject) => {
-        console.log('aaaa');
+        console.log('aaaa1');
         // Create an abort controller. Get the signal for the abort controller and add an abort listener.
         connector.abortController = new AbortController();
         const signal = connector.abortController.signal;
@@ -221,16 +221,16 @@ const previewFileEntry = (
         const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
         const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
         const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
-        console.log('bbbb');
+        console.log('bbbb1');
         fetch(encodeURI(url), { headers, signal })
             .then(async (response) => {
                 if (response.ok) {
-                    console.log('cccc');
+                    console.log('cccc1');
                     const result = await response.arrayBuffer();
 
                     connector.abortController = undefined;
 
-                    console.log('dddd');
+                    console.log('dddd1');
                     resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
                 } else {
                     throw new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text());
