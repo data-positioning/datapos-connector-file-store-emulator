@@ -79,7 +79,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @returns The preview interface object.
      */
     getPreviewInterface(): DataConnectorPreviewInterface {
-        return { connector: this, previewFileEntry };
+        return { connector: this, previewEntry };
     }
 
     /**
@@ -87,7 +87,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @returns The read interface object.
      */
     getReadInterface(): DataConnectorReadInterface {
-        return { connector: this, readFileEntry };
+        return { connector: this, readEntry };
     }
 
     /**
@@ -198,7 +198,7 @@ const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: nu
  * @returns A promise that resolves to the connection entry preview.
  * @throws {FetchResponseError} If there is an error in the fetch response.
  */
-const previewFileEntry = (
+const previewEntry = (
     connector: DataConnector,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
@@ -253,7 +253,7 @@ const previewFileEntry = (
  * @param csvParse - The CSV parse function from the 'csvparse' library.
  * @returns A promise that resolves when the file entry has been read.
  */
-const readFileEntry = async (
+const readEntry = async (
     connector: DataConnector,
     accountId: string,
     sessionAccessToken: string,
