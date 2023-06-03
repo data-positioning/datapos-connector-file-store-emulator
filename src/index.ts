@@ -309,11 +309,13 @@ const readFileEntry = async (
     const decodedStreamReader = stream.getReader();
     let result;
     while (!(result = await decodedStreamReader.read()).done) {
+        console.log(1111);
         signal.throwIfAborted(); // Check if the abort signal has been triggered.
         // Write the decoded data to the parser and terminate if there is an error.
         parser.write(result.value, (error) => {
             if (error) throw error;
         });
     }
+    console.log(2222);
     parser.end(); // Signal no more data will be written.
 };
