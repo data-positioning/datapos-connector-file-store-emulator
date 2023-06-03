@@ -226,7 +226,7 @@ const previewEntry = (
                         connector.abortController = undefined;
 
                         console.log('dddd2');
-                        resolve({ data: new Uint8Array(result), fields: undefined, typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                        resolve({ data: new Uint8Array(result), typeId: ConnectionEntryPreviewTypeId.Uint8Array });
                         console.log('eeee2');
                     } else {
                         reject(tidyUp(connector, new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text())));
