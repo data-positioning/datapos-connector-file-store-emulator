@@ -17,7 +17,7 @@ import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
 // Dependencies - Engine
-import {
+import type {
     ConnectionConfig,
     ConnectionEntry,
     ConnectionEntryDrilldownResult,
