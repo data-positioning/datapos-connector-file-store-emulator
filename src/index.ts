@@ -24,14 +24,14 @@ import {
     ConnectionEntryPreview,
     ConnectorConfig,
     DataConnector,
+    DataConnectorFieldInfo,
     DataConnectorPreviewInterface,
     DataConnectorPreviewInterfaceSettings,
     DataConnectorReadInterface,
     DataConnectorReadInterfaceSettings,
+    DataConnectorRecord,
     DataConnectorRetrieveEntriesSettings,
     FetchResponseError,
-    FieldData,
-    FieldInfo,
     SourceViewConfig
 } from '@datapos/datapos-engine-support';
 import {
@@ -266,8 +266,8 @@ const readEntry = (
             signal.addEventListener('abort', () => reject(tidyUp(connector, new Error('Read aborted.'))) /*, { once: true, signal } TODO: Don't need once and signal? */);
 
             // Parser - Declare variables.
-            let pendingRows: FieldData[] = []; // Array to store rows of parsed field values and associated information.
-            const fieldInfos: FieldInfo[] = []; // Array to store field information for a single row.
+            let pendingRows: DataConnectorRecord[] = []; // Array to store rows of parsed field values and associated information.
+            const fieldInfos: DataConnectorFieldInfo[] = []; // Array to store field information for a single row.
 
             // Parser - Create a parser object for CSV parsing.
             const parser = csvParse({
