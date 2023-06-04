@@ -31,7 +31,6 @@ import type {
     DataConnectorReadInterfaceSettings,
     DataConnectorRecord,
     DataConnectorRetrieveEntriesSettings,
-    FetchResponseError,
     SourceViewConfig
 } from '@datapos/datapos-engine-support';
 import {
@@ -40,11 +39,12 @@ import {
     extractFileExtensionFromFilePath,
     extractFileNameFromFilePath,
     extractLastSegmentFromPath,
+    FetchResponseError,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-engine-support';
 
 // Dependencies - Framework/Vendor
-import { type Callback, type CastingContext, type Options, type Parser } from 'csv-parse';
+import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // File Store Emulator Data Connector
