@@ -212,6 +212,7 @@ const previewEntry = (
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () => reject(tidyUp(connector, new Error('Preview aborted.'))) /*, { once: true, signal } TODO: Don't need once and signal? */);
 
+            // ...
             const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
             const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
             const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
