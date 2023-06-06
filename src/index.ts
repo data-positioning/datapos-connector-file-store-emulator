@@ -224,14 +224,21 @@ const previewEntry = (
                             connector.abortController = undefined;
                             resolve({ data: new Uint8Array(result), typeId: ConnectionEntryPreviewTypeId.Uint8Array });
                         } else {
-                            reject(tidyUp(connector, new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text())));
+                            const text = await response.text();
+                            console.log(1111, text);
+                            reject(tidyUp(connector, new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, text)));
                         }
                     } catch (error) {
+                        console.log(2222, error);
                         reject(tidyUp(connector, error));
                     }
                 })
-                .catch((error) => reject(tidyUp(connector, error)));
+                .catch((error) => {
+                    console.log(3333, error);
+                    reject(tidyUp(connector, error));
+                });
         } catch (error) {
+            console.log(4444, error);
             reject(tidyUp(connector, error));
         }
     });
