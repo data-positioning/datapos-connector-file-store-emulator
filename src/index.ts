@@ -358,5 +358,5 @@ const readConnectionEntry = (
 
 const tidyUp = (connector: DataConnector, error: unknown): unknown => {
     connector.abortController = undefined;
-    return new Error((error as Error).message);
+    return error;
 };
