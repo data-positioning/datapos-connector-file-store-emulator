@@ -233,7 +233,9 @@ const previewConnectionEntry = (
                     }
                 })
                 .catch((error) => {
-                    console.log(8888, error);
+                    console.log(7777, (error as Error).name);
+                    console.log(8888, (error as Error).message);
+                    console.log(9999, (error as Error).stack);
                     reject(tidyUp(connector, error));
                 });
         } catch (error) {
