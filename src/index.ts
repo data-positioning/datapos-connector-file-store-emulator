@@ -232,8 +232,12 @@ const previewConnectionEntry = (
                         reject(tidyUp(connector, error));
                     }
                 })
-                .catch((error) => reject(tidyUp(connector, error)));
+                .catch((error) => {
+                    console.log(8888, error);
+                    reject(tidyUp(connector, error));
+                });
         } catch (error) {
+            console.log(9999, error);
             reject(tidyUp(connector, error));
         }
     });
