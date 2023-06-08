@@ -224,22 +224,14 @@ const previewConnectionEntry = (
                             connector.abortController = undefined;
                             resolve({ data: new Uint8Array(result), typeId: ConnectionEntryPreviewTypeId.Uint8Array });
                         } else {
-                            const text = await response.text();
-                            console.log(7777, text);
-                            reject(tidyUp(connector, new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, text)));
+                            reject(tidyUp(connector, new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text())));
                         }
                     } catch (error) {
                         reject(tidyUp(connector, error));
                     }
                 })
-                .catch((error) => {
-                    console.log(7777, (error as Error).name);
-                    console.log(8888, (error as Error).message);
-                    console.log(9999, (error as Error).stack);
-                    reject(tidyUp(connector, error));
-                });
+                .catch((error) => reject(tidyUp(connector, error)));
         } catch (error) {
-            console.log(9999, error);
             reject(tidyUp(connector, error));
         }
     });
@@ -366,5 +358,5 @@ const readConnectionEntry = (
 
 const tidyUp = (connector: DataConnector, error: unknown): unknown => {
     connector.abortController = undefined;
-    return error;
+    return new Error((error as Error).message);
 };
