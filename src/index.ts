@@ -7,8 +7,13 @@
  */
 
 // Constants
+const ABORTED_PREVIEW_MESSAGE = 'Aborted preview connection entry.';
+const ABORTED_READ_MESSAGE = 'Aborted read connection entry.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_READ_CHUNK_SIZE = 1000;
+const FAILED_TO_READ_MESSAGE = 'Failed to read connection entry.';
+const FAILED_TO_PREVIEW_MESSAGE = 'Failed to preview connection entry.';
+const FAILED_TO_RETRIEVE_MESSAGE = 'Failed to retrieve connection entries.';
 const URL_PREFIX = 'https://datapos-resources.netlify.app/fileStore';
 
 // Dependencies - Asset
@@ -17,6 +22,17 @@ import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
 // Dependencies - Engine
+import {
+    AbortError,
+    ConnectionEntryPreviewTypeId,
+    ConnectionEntryTypeId,
+    ContextualError,
+    extractFileExtensionFromFilePath,
+    extractFileNameFromFilePath,
+    extractLastSegmentFromPath,
+    FetchResponseError,
+    lookupMimeTypeForFileExtension
+} from '@datapos/datapos-engine-support';
 import type {
     ConnectionConfig,
     ConnectionEntry,
@@ -32,15 +48,6 @@ import type {
     DataConnectorRecord,
     DataConnectorRetrieveEntriesSettings,
     SourceViewConfig
-} from '@datapos/datapos-engine-support';
-import {
-    ConnectionEntryPreviewTypeId,
-    ConnectionEntryTypeId,
-    extractFileExtensionFromFilePath,
-    extractFileNameFromFilePath,
-    extractLastSegmentFromPath,
-    FetchResponseError,
-    lookupMimeTypeForFileExtension
 } from '@datapos/datapos-engine-support';
 
 // Dependencies - Framework/Vendor
@@ -125,7 +132,7 @@ const retrieveConnectionEntries = (folderPath: string): Promise<ConnectionEntryD
             }
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
         } catch (error) {
-            reject(error);
+            reject(new ContextualError(FAILED_TO_RETRIEVE_MESSAGE, `${config.id}.retrieveConnectionEntries.1`, error));
         }
     });
 };
@@ -210,7 +217,11 @@ const previewConnectionEntry = (
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
-            signal.addEventListener('abort', () => reject(tidyUp(connector, new Error('Preview aborted.'))) /*, { once: true, signal } TODO: Don't need once and signal? */);
+            signal.addEventListener(
+                'abort',
+                () => reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.5', new AbortError(ABORTED_PREVIEW_MESSAGE)))
+                /*, { once: true, signal } TODO: Don't need once and signal? */
+            );
 
             // ...
             const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
@@ -224,15 +235,16 @@ const previewConnectionEntry = (
                             connector.abortController = undefined;
                             resolve({ data: new Uint8Array(result), typeId: ConnectionEntryPreviewTypeId.Uint8Array });
                         } else {
-                            reject(tidyUp(connector, new FetchResponseError(`${config.id}.previewFileEntry.1`, response.status, response.statusText, await response.text())));
+                            const error = new FetchResponseError(response.status, response.statusText, await response.text());
+                            reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.4', error));
                         }
                     } catch (error) {
-                        reject(tidyUp(connector, error));
+                        reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.3', error));
                     }
                 })
-                .catch((error) => reject(tidyUp(connector, error)));
+                .catch((error) => reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.2', error)));
         } catch (error) {
-            reject(tidyUp(connector, error));
+            reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, `${config.id}.previewConnectionEntry.1`, error));
         }
     });
 };
@@ -264,7 +276,11 @@ const readConnectionEntry = (
             // Create an abort controller and get the signal. Add an abort listener to the signal.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
-            signal.addEventListener('abort', () => reject(tidyUp(connector, new Error('Read aborted.'))) /*, { once: true, signal } TODO: Don't need once and signal? */);
+            signal.addEventListener(
+                'abort',
+                () => reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.8', new AbortError(ABORTED_PREVIEW_MESSAGE)))
+                /*, { once: true, signal } TODO: Don't need once and signal? */
+            );
 
             // Parser - Declare variables.
             let pendingRows: DataConnectorRecord[] = []; // Array to store rows of parsed field values and associated information.
@@ -284,8 +300,8 @@ const readConnectionEntry = (
 
             // Parser - Event listener for the 'readable' (data available) event.
             parser.on('readable', () => {
-                let data;
                 try {
+                    let data;
                     while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
                         pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
@@ -294,12 +310,12 @@ const readConnectionEntry = (
                         pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                     }
                 } catch (error) {
-                    reject(tidyUp(connector, error));
+                    reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.7', error));
                 }
             });
 
             // Parser - Event listener for the 'error' event.
-            parser.on('error', (error) => reject(tidyUp(connector, error)));
+            parser.on('error', (error) => reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.6', error)));
 
             // Parser - Event listener for the 'end' (end of data) event.
             parser.on('end', () => {
@@ -320,7 +336,7 @@ const readConnectionEntry = (
                     });
                     resolve();
                 } catch (error) {
-                    reject(tidyUp(connector, error));
+                    reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.5', error));
                 }
             });
 
@@ -337,17 +353,17 @@ const readConnectionEntry = (
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
                             // Write the decoded data to the parser and terminate if there is an error.
                             parser.write(result.value, (error) => {
-                                if (error) reject(tidyUp(connector, error));
+                                if (error) reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.4', error));
                             });
                         }
                         parser.end(); // Signal no more data will be written.
                     } catch (error) {
-                        reject(tidyUp(connector, error));
+                        reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.3', error));
                     }
                 })
-                .catch((error) => reject(tidyUp(connector, error)));
+                .catch((error) => reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.2', error)));
         } catch (error) {
-            reject(tidyUp(connector, error));
+            reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.1', error));
         }
     });
 };
@@ -356,7 +372,7 @@ const readConnectionEntry = (
 // File Store Emulator Data Connector - Utilities
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-const tidyUp = (connector: DataConnector, error: unknown): unknown => {
+const tidyUp = (connector: DataConnector, message: string, context: string, error: unknown): unknown => {
     connector.abortController = undefined;
-    return error;
+    return new ContextualError(message, `${config.id}.${context}`, error);
 };
