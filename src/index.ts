@@ -79,7 +79,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @returns The preview interface object.
      */
     getPreviewInterface(): DataConnectorPreviewInterface {
-        return { connector: this, previewEntry };
+        return { connector: this, previewConnectionEntry };
     }
 
     /**
@@ -87,7 +87,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @returns The read interface object.
      */
     getReadInterface(): DataConnectorReadInterface {
-        return { connector: this, readEntry };
+        return { connector: this, readConnectionEntry };
     }
 
     /**
@@ -98,12 +98,12 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * @returns A promise that resolves to a page of connection entries.
      */
     async retrieveEntries(accountId: string, sessionAccessToken: string, settings: DataConnectorRetrieveEntriesSettings): Promise<ConnectionEntryDrilldownResult> {
-        return await retrieveEntries(settings.folderPath);
+        return await retrieveConnectionEntries(settings.folderPath);
     }
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// File Store Emulator Data Connector - Retrieve Entries
+// File Store Emulator Data Connector - Retrieve Connection Entries
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -111,7 +111,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
  * @param folderPath - The folder path.
  * @returns A promise that resolves to the connection entries page.
  */
-const retrieveEntries = (folderPath: string): Promise<ConnectionEntryDrilldownResult> => {
+const retrieveConnectionEntries = (folderPath: string): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
         try {
             const items = (fileStoreIndex as Record<string, { lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>)[folderPath];
@@ -131,10 +131,10 @@ const retrieveEntries = (folderPath: string): Promise<ConnectionEntryDrilldownRe
 };
 
 /**
- * Builds a ConnectionEntry object representing a folder.
+ * Builds a 'ConnectionEntry' object representing a folder.
  * @param folderPath - The path of the folder.
  * @param childCount - The number of child entries in the folder.
- * @returns A ConnectionEntry object representing the folder.
+ * @returns A 'ConnectionEntry' object representing the folder.
  */
 const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEntry => {
     const lastFolderName = extractLastSegmentFromPath(folderPath);
@@ -156,12 +156,12 @@ const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEnt
 };
 
 /**
- * Builds a ConnectionEntry object representing a file.
+ * Builds a 'ConnectionEntry' object representing a file.
  * @param folderPath - The folder path of the file.
  * @param filePath - The path of the file.
  * @param lastModifiedAt - The moment the file was last modified.
  * @param size - The size of the file.
- * @returns A ConnectionEntry object representing the file.
+ * @returns A 'ConnectionEntry' object representing the file.
  */
 const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: number, size: number): ConnectionEntry => {
     const fullFileName = extractLastSegmentFromPath(filePath);
@@ -185,7 +185,7 @@ const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: nu
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// File Store Emulator Data Connector - Preview File Entry
+// File Store Emulator Data Connector - Preview Connection Entry
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -198,7 +198,7 @@ const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: nu
  * @returns A promise that resolves to the connection entry preview.
  * @throws {FetchResponseError} If there is an error in the fetch response.
  */
-const previewEntry = (
+const previewConnectionEntry = (
     connector: DataConnector,
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
@@ -238,7 +238,7 @@ const previewEntry = (
 };
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// File Store Emulator Data Connector - Read File Entry
+// File Store Emulator Data Connector - Read Connection Entry
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /**
@@ -251,7 +251,7 @@ const previewEntry = (
  * @param csvParse - The CSV parse function from the 'csvparse' library.
  * @returns A promise that resolves when the file entry has been read.
  */
-const readEntry = (
+const readConnectionEntry = (
     connector: DataConnector,
     accountId: string,
     sessionAccessToken: string,
