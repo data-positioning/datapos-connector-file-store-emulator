@@ -132,7 +132,7 @@ const retrieveConnectionEntries = (folderPath: string): Promise<ConnectionEntryD
             }
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
         } catch (error) {
-            reject(tidyUp(this, FAILED_TO_RETRIEVE_MESSAGE, 'retrieveConnectionEntries.1', error));
+            reject(tidyUp(undefined, FAILED_TO_RETRIEVE_MESSAGE, 'retrieveConnectionEntries.1', error));
         }
     });
 };
@@ -372,8 +372,8 @@ const readConnectionEntry = (
 // File Store Emulator Data Connector - Utilities
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-const tidyUp = (connector: DataConnector, message: string, context: string, error: unknown): unknown => {
-    connector.abortController = undefined;
+const tidyUp = (connector: DataConnector | undefined, message: string, context: string, error: unknown): unknown => {
+    if (connector) connector.abortController = undefined;
     if (error instanceof Error) error.stack = undefined;
     const connectorError = new ConnectorError(message, `${config.id}.${context}`, error);
     connectorError.stack = undefined;
