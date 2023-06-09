@@ -26,7 +26,7 @@ import {
     AbortError,
     ConnectionEntryPreviewTypeId,
     ConnectionEntryTypeId,
-    ContextualError,
+    ConnectorError,
     extractFileExtensionFromFilePath,
     extractFileNameFromFilePath,
     extractLastSegmentFromPath,
@@ -132,7 +132,7 @@ const retrieveConnectionEntries = (folderPath: string): Promise<ConnectionEntryD
             }
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
         } catch (error) {
-            reject(new ContextualError(FAILED_TO_RETRIEVE_MESSAGE, `${config.id}.retrieveConnectionEntries.1`, error));
+            reject(new ConnectorError(FAILED_TO_RETRIEVE_MESSAGE, `${config.id}.retrieveConnectionEntries.1`, error));
         }
     });
 };
@@ -374,5 +374,5 @@ const readConnectionEntry = (
 
 const tidyUp = (connector: DataConnector, message: string, context: string, error: unknown): unknown => {
     connector.abortController = undefined;
-    return new ContextualError(message, `${config.id}.${context}`, error);
+    return new ConnectorError(message, `${config.id}.${context}`, error);
 };
