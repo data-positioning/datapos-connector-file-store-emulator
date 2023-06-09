@@ -244,7 +244,7 @@ const previewConnectionEntry = (
                 })
                 .catch((error) => reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.2', error)));
         } catch (error) {
-            reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, `${config.id}.previewConnectionEntry.1`, error));
+            reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.1', error));
         }
     });
 };
@@ -375,5 +375,6 @@ const readConnectionEntry = (
 const tidyUp = (connector: DataConnector, message: string, context: string, error: unknown): unknown => {
     connector.abortController = undefined;
     if (error instanceof Error) error.stack = undefined;
+    console.log(987, `${config.id}.${context}`);
     return new ConnectorError(message, `${config.id}.${context}`, error);
 };
