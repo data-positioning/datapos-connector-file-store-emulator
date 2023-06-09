@@ -21,7 +21,7 @@ import config from './config.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
-// Dependencies - Engine
+// Dependencies - Engine - Support
 import {
     AbortError,
     ConnectionEntryPreviewTypeId,
