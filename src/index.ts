@@ -132,7 +132,7 @@ const retrieveConnectionEntries = (folderPath: string): Promise<ConnectionEntryD
             }
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
         } catch (error) {
-            reject(new ConnectorError(FAILED_TO_RETRIEVE_MESSAGE, `${config.id}.retrieveConnectionEntries.1`, error));
+            reject(tidyUp(this, FAILED_TO_RETRIEVE_MESSAGE, 'retrieveConnectionEntries.1', error));
         }
     });
 };
@@ -375,6 +375,7 @@ const readConnectionEntry = (
 const tidyUp = (connector: DataConnector, message: string, context: string, error: unknown): unknown => {
     connector.abortController = undefined;
     if (error instanceof Error) error.stack = undefined;
-    console.log(987, `${config.id}.${context}`);
-    return new ConnectorError(message, `${config.id}.${context}`, error);
+    const connectorError = new ConnectorError(message, `${config.id}.${context}`, error);
+    connectorError.stack = undefined;
+    return connectorError;
 };
