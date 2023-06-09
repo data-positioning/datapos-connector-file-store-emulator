@@ -26,7 +26,7 @@ import {
     AbortError,
     ConnectionEntryPreviewTypeId,
     ConnectionEntryTypeId,
-    ConnectorError,
+    ConnectorContextError,
     extractFileExtensionFromFilePath,
     extractFileNameFromFilePath,
     extractLastSegmentFromPath,
@@ -375,7 +375,7 @@ const readConnectionEntry = (
 const tidyUp = (connector: DataConnector | undefined, message: string, context: string, error: unknown): unknown => {
     if (connector) connector.abortController = undefined;
     if (error instanceof Error) error.stack = undefined;
-    const connectorError = new ConnectorError(message, `${config.id}.${context}`, error);
-    connectorError.stack = undefined;
-    return connectorError;
+    const connectorContextError = new ConnectorContextError(message, `${config.id}.${context}`, error);
+    connectorContextError.stack = undefined;
+    return connectorContextError;
 };
