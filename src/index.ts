@@ -278,7 +278,7 @@ const readConnectionEntry = (
             const signal = connector.abortController.signal;
             signal.addEventListener(
                 'abort',
-                () => reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.8', new AbortError(ABORTED_PREVIEW_MESSAGE)))
+                () => reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.8', new AbortError(ABORTED_READ_MESSAGE)))
                 /*, { once: true, signal } TODO: Don't need once and signal? */
             );
 
