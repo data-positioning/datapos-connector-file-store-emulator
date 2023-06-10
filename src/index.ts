@@ -324,7 +324,7 @@ const readConnectionEntry = (
                         pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                     }
                 } catch (error) {
-                    console.log('aaaa', error);
+                    // console.log('aaaa', error);
                     reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.7', error));
                 }
             });
