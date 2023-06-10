@@ -324,6 +324,7 @@ const readConnectionEntry = (
                         pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                     }
                 } catch (error) {
+                    console.log('aaaa', error);
                     reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.7', error));
                 }
             });
@@ -334,6 +335,7 @@ const readConnectionEntry = (
             // Parser - Event listener for the 'end' (end of data) event.
             parser.on('end', () => {
                 try {
+                    console.log('bbbb');
                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
                     connector.abortController = undefined; // Clear the abort controller.
                     if (pendingRows.length > 0) {
@@ -350,6 +352,7 @@ const readConnectionEntry = (
                     });
                     resolve();
                 } catch (error) {
+                    console.log('cccc', error);
                     reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.5', error));
                 }
             });
