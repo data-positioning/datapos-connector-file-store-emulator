@@ -34,6 +34,7 @@ import {
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-engine-support';
 import type {
+    CallbackData,
     ConnectionConfig,
     ConnectionEntry,
     ConnectionEntryDrilldownResult,
@@ -101,11 +102,17 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
      * Retrieves a page of entries for a given account, using the provided session access token and parent connection entry.
      * @param accountId - The ID of the account.
      * @param sessionAccessToken - The session access token.
-     * @param parentConnectionEntry - The parent connection entry.
+     * @param settings -
+     * @param callback -
      * @returns A promise that resolves to a page of connection entries.
      */
-    async retrieveConnectionEntries(accountId: string, sessionAccessToken: string, settings: DataConnectorRetrieveEntriesSettings): Promise<ConnectionEntryDrilldownResult> {
-        return await retrieveConnectionEntries(settings.folderPath);
+    async retrieveConnectionEntries(
+        accountId: string,
+        sessionAccessToken: string,
+        settings: DataConnectorRetrieveEntriesSettings,
+        callback: (data: CallbackData) => void
+    ): Promise<ConnectionEntryDrilldownResult> {
+        return await retrieveConnectionEntries(settings.folderPath, callback);
     }
 }
 
@@ -116,11 +123,13 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 /**
  * Retrieves connection entries for a given folder path.
  * @param folderPath - The folder path.
+ * @param callback -
  * @returns A promise that resolves to the connection entries page.
  */
-const retrieveConnectionEntries = (folderPath: string): Promise<ConnectionEntryDrilldownResult> => {
+const retrieveConnectionEntries = (folderPath: string, callback: (data: CallbackData) => void): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
         try {
+            callback({ typeId: 'test', properties: { aProp: 'value 1' } });
             const items = (fileStoreIndex as Record<string, { lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>)[folderPath];
             const entries: ConnectionEntry[] = [];
             for (const item of items) {
@@ -130,6 +139,7 @@ const retrieveConnectionEntries = (folderPath: string): Promise<ConnectionEntryD
                     entries.push(buildFileEntry(folderPath, item.path, item.lastModifiedAt, item.size));
                 }
             }
+            callback({ typeId: 'test', properties: { aProp: 'value 2' } });
             resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
         } catch (error) {
             reject(tidyUp(undefined, FAILED_TO_RETRIEVE_MESSAGE, 'retrieveConnectionEntries.1', error));
@@ -202,6 +212,7 @@ const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: nu
  * @param sessionAccessToken - The session access token.
  * @param sourceViewConfig - The source view configuration.
  * @param previewInterfaceSettings - The preview interface settings.
+ * @param callback -
  * @returns A promise that resolves to the connection entry preview.
  * @throws {FetchResponseError} If there is an error in the fetch response.
  */
@@ -210,7 +221,8 @@ const previewConnectionEntry = (
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     sourceViewConfig: SourceViewConfig,
-    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
+    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
+    callback: (data: CallbackData) => void
 ): Promise<ConnectionEntryPreview> => {
     return new Promise((resolve, reject) => {
         try {
@@ -261,6 +273,7 @@ const previewConnectionEntry = (
  * @param sourceViewConfig - The source view configuration.
  * @param readInterfaceSettings - The read interface settings.
  * @param csvParse - The CSV parse function from the 'csvparse' library.
+ * @param callback -
  * @returns A promise that resolves when the file entry has been read.
  */
 const readConnectionEntry = (
@@ -269,7 +282,8 @@ const readConnectionEntry = (
     sessionAccessToken: string,
     sourceViewConfig: SourceViewConfig,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    csvParse: (options?: Options, callback?: Callback) => Parser // typeof import('csv-parse/browser/esm')
+    csvParse: (options?: Options, callback?: Callback) => Parser, // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
+    callback: (data: CallbackData) => void
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
