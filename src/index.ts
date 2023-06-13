@@ -239,23 +239,32 @@ const previewConnectionEntry = (
             const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
             const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
             const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
+            console.log('aaaa');
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
                     try {
+                        console.log('bbbb');
                         if (response.ok) {
+                            console.log('cccc');
                             const result = await response.arrayBuffer();
                             connector.abortController = undefined;
                             resolve({ data: new Uint8Array(result), typeId: ConnectionEntryPreviewTypeId.Uint8Array });
                         } else {
+                            console.log('dddd');
                             const error = new FetchResponseError(response.status, response.statusText, await response.text());
                             reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.4', error));
                         }
                     } catch (error) {
+                        console.log('eeee');
                         reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.3', error));
                     }
                 })
-                .catch((error) => reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.2', error)));
+                .catch((error) => {
+                    console.log('ffff');
+                    reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.2', error));
+                });
         } catch (error) {
+            console.log('gggg');
             reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.1', error));
         }
     });
