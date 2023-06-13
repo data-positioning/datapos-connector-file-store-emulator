@@ -245,10 +245,13 @@ const previewConnectionEntry = (
                     try {
                         console.log('bbbb');
                         if (response.ok) {
-                            console.log('cccc');
+                            console.log('cccc1');
                             const result = await response.arrayBuffer();
+                            console.log('cccc2');
                             connector.abortController = undefined;
+                            console.log('cccc3', result);
                             resolve({ data: new Uint8Array(result), typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                            console.log('cccc4');
                         } else {
                             console.log('dddd');
                             const error = new FetchResponseError(response.status, response.statusText, await response.text());
