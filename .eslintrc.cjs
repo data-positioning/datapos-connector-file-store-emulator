@@ -23,6 +23,11 @@ module.exports = {
     plugins: ['@typescript-eslint', 'import'],
     root: true,
     rules: {
-        'sort-imports': ['warn', { allowSeparatedGroups: true, ignoreCase: true, memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'] }]
+        'no-unused-vars': 'warn',
+        'sort-imports': ['warn', { allowSeparatedGroups: true, ignoreCase: true, memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'] }],
+        '@typescript-eslint/consistent-type-imports': 'error',
+        '@typescript-eslint/no-import-type-side-effects': 'error',
+        'import/consistent-type-specifier-style': 'error',
+        'import/no-duplicates': ['error', { 'prefer-inline': true }]
     }
 };
