@@ -1,11 +1,3 @@
-/**
- * @file datapos-connector-data-file-store-emulator/src/index.ts
- * @description The File Store Emulator data connector.
- * @license ISC Licensed under the ISC license, Version 2.0. See the LICENSE.md file for details.
- * @author Jonathan Terrell <terrell.jm@gmail.com>
- * @copyright 2023 Jonathan Terrell
- */
-
 // Constants
 const ABORTED_PREVIEW_MESSAGE = 'Aborted preview connection entry.';
 const ABORTED_READ_MESSAGE = 'Aborted read connection entry.';
@@ -54,10 +46,7 @@ import type {
 // Dependencies - Framework/Vendor
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// File Store Emulator Data Connector
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+// Declaration - File Store Emulator Data Connector
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
@@ -71,41 +60,20 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         this.version = version;
     }
 
-    /**
-     * Aborts an operation if it is currently in progress.
-     * If an AbortController is associated with this instance, it calls its 'abort' method.
-     * If no AbortController is set, this function does nothing.
-     */
     abort(): void {
         if (!this.abortController) return;
         this.abortController.abort();
         this.abortController = undefined;
     }
 
-    /**
-     * Retrieves the preview interface for the data connector.
-     * @returns The preview interface object.
-     */
     getPreviewInterface(): DataConnectorPreviewInterface {
         return { connector: this, previewConnectionEntry };
     }
 
-    /**
-     * Retrieves the read interface for the data connector.
-     * @returns The read interface object.
-     */
     getReadInterface(): DataConnectorReadInterface {
         return { connector: this, readConnectionEntry };
     }
 
-    /**
-     * Retrieves a page of entries for a given account, using the provided session access token and parent connection entry.
-     * @param accountId - The ID of the account.
-     * @param sessionAccessToken - The session access token.
-     * @param settings -
-     * @param callback -
-     * @returns A promise that resolves to a page of connection entries.
-     */
     async retrieveConnectionEntries(
         accountId: string,
         sessionAccessToken: string,
@@ -116,25 +84,16 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 }
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// File Store Emulator Data Connector - Retrieve Connection Entries
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * Retrieves connection entries for a given folder path.
- * @param folderPath - The folder path.
- * @param callback -
- * @returns A promise that resolves to the connection entries page.
- */
+// Helper
 const retrieveConnectionEntries = (folderPath: string, callback: (data: CallbackData) => void): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
         try {
             callback({ typeId: 'test', properties: { aProp: 'value 1' } });
-            const items = (fileStoreIndex as Record<string, { lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>)[folderPath];
+            const items = (fileStoreIndex as Record<string, { childCount?: number; lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>)[folderPath];
             const entries: ConnectionEntry[] = [];
             for (const item of items) {
                 if (item.typeId === 'folder') {
-                    entries.push(buildFolderEntry(item.path, 0));
+                    entries.push(buildFolderEntry(item.path, item.childCount));
                 } else {
                     entries.push(buildFileEntry(folderPath, item.path, item.lastModifiedAt, item.size));
                 }
@@ -147,12 +106,6 @@ const retrieveConnectionEntries = (folderPath: string, callback: (data: Callback
     });
 };
 
-/**
- * Builds a 'ConnectionEntry' object representing a folder.
- * @param folderPath - The path of the folder.
- * @param childCount - The number of child entries in the folder.
- * @returns A 'ConnectionEntry' object representing the folder.
- */
 const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEntry => {
     const lastFolderName = extractLastSegmentFromPath(folderPath);
     return {
@@ -172,14 +125,6 @@ const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEnt
     };
 };
 
-/**
- * Builds a 'ConnectionEntry' object representing a file.
- * @param folderPath - The folder path of the file.
- * @param filePath - The path of the file.
- * @param lastModifiedAt - The moment the file was last modified.
- * @param size - The size of the file.
- * @returns A 'ConnectionEntry' object representing the file.
- */
 const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: number, size: number): ConnectionEntry => {
     const fullFileName = extractLastSegmentFromPath(filePath);
     const fileName = extractFileNameFromFilePath(fullFileName);
@@ -201,21 +146,7 @@ const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: nu
     };
 };
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// File Store Emulator Data Connector - Preview Connection Entry
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * Retrieves a preview of a file entry from a data connector.
- * @param connector - The data connector.
- * @param accountId - The account ID.
- * @param sessionAccessToken - The session access token.
- * @param sourceViewConfig - The source view configuration.
- * @param previewInterfaceSettings - The preview interface settings.
- * @param callback -
- * @returns A promise that resolves to the connection entry preview.
- * @throws {FetchResponseError} If there is an error in the fetch response.
- */
+// Helper
 const previewConnectionEntry = (
     connector: DataConnector,
     accountId: string | undefined,
@@ -261,21 +192,7 @@ const previewConnectionEntry = (
     });
 };
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// File Store Emulator Data Connector - Read Connection Entry
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-/**
- * Reads a file entry from a data connector.
- * @param connector - The data connector.
- * @param accountId - The account identifier.
- * @param sessionAccessToken - The session access token.
- * @param sourceViewConfig - The source view configuration.
- * @param readInterfaceSettings - The read interface settings.
- * @param csvParse - The CSV parse function from the 'csvparse' library.
- * @param callback -
- * @returns A promise that resolves when the file entry has been read.
- */
+// Helper
 const readConnectionEntry = (
     connector: DataConnector,
     accountId: string,
@@ -382,10 +299,7 @@ const readConnectionEntry = (
     });
 };
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// File Store Emulator Data Connector - Utilities
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+// Utility
 const tidyUp = (connector: DataConnector | undefined, message: string, context: string, error: unknown): unknown => {
     if (connector) connector.abortController = undefined;
     if (error instanceof Error) error.stack = undefined;

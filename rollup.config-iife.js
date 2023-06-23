@@ -13,6 +13,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const config = require('./src/config.json');
 
+// Dependencies - Framework/Vendor
 import camelcase from 'lodash.camelcase';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
@@ -20,17 +21,11 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 
+// Configuration: Generate IIFE module bundle.
 export default [
     {
         input: 'src/index.ts',
-        output: [
-            {
-                exports: 'auto',
-                file: `./dist/${config.id}-iife.js`,
-                format: 'iife',
-                name: camelcase(config.id)
-            }
-        ],
+        output: [{ exports: 'auto', file: `./dist/${config.id}-iife.js`, format: 'iife', name: camelcase(config.id) }],
         plugins: [nodeResolve({ browser: true }), commonjs(), json(), typescript(), terser({ output: { comments: false } })]
     }
 ];
