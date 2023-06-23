@@ -1,6 +1,6 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "version": "0.1.749",
+    "version": "0.1.750",
     "devDependencies": {
         "@datapos/datapos-engine-support": "^0.0.324",
         "@datapos/datapos-operations": "^0.1.131",
@@ -20,6 +20,11 @@
         "rollup": "^2.79.1",
         "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-typescript2": "^0.34.1",
-        "typescript": "^5.0.4"
+        "typescript": "^5.0.4",
+        "vite": "^4.3.9",
+        "vite-plugin-dts": "^2.3.0"
+    },
+    "dependencies": {
+        "grunt-shell": "^4.0.0"
     }
 }

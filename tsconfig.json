@@ -9,5 +9,5 @@
         "resolveJsonModule": true,
         "target": "esnext"
     },
-    "include": [".eslintrc.cjs", "src/**/*"]
+    "include": [".eslintrc.cjs", "vite.config.*", "src/**/*"]
 }
