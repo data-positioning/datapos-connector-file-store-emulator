@@ -1,13 +1,17 @@
-// Dependencies - Framework/Vendor
+// Dependencies - Assets
 const config = require('./src/config.json');
 const env = require('./.env.json');
+
+// Dependencies - Operations
 const { uploadConnector } = require('@datapos/datapos-operations/connectorHelpers');
 const {
     auditDependencies,
+    buildWithVite,
     checkDependencies,
     identifyLicenses,
     logNotImplementedMessage,
     lintCode,
+    syncRepoWithGithub,
     updateDataPosDependencies
 } = require('@datapos/datapos-operations/commonHelpers');
 
@@ -15,20 +19,15 @@ const {
 module.exports = (grunt) => {
     // Set external task configuration.
     grunt.initConfig({
-        bump: { options: { commitFiles: ['-a'], commitMessage: 'v%VERSION%', pushTo: 'origin', updateConfigs: ['pkg'] } },
-        gitadd: { task: { options: { all: true } } },
-        pkg: grunt.file.readJSON('package.json'),
-        shell: { build: { command: 'vite build' } }
+        pkg: grunt.file.readJSON('package.json')
     });
-
-    // Load external tasks.
-    grunt.loadNpmTasks('grunt-bump');
-    grunt.loadNpmTasks('grunt-git');
-    grunt.loadNpmTasks('grunt-shell');
 
     // Register local tasks.
     grunt.registerTask('auditDependencies', function () {
         auditDependencies(grunt, this);
+    });
+    grunt.registerTask('buildWithVite', function () {
+        buildWithVite(grunt, this);
     });
     grunt.registerTask('checkDependencies', function () {
         checkDependencies(grunt, this);
@@ -46,18 +45,21 @@ module.exports = (grunt) => {
     grunt.registerTask('updateDataPosDependencies', function (updateTypeId) {
         updateDataPosDependencies(grunt, this, updateTypeId);
     });
+    grunt.registerTask('syncRepoWithGithub', function () {
+        syncRepoWithGithub(grunt, this, 'package.json');
+    });
 
     // Register common repository management tasks. These tasks are all invoked by VSCode keyboard shortcuts identified in the comments.
     grunt.registerTask('audit', ['auditDependencies']); // alt+ctrl+shift+a.
-    grunt.registerTask('build', ['shell:build']); // alt+ctrl+shift+b.
+    grunt.registerTask('build', ['buildWithVite']); // alt+ctrl+shift+b.
     grunt.registerTask('check', ['checkDependencies']); // alt+ctrl+shift+c.
     grunt.registerTask('document', ['identifyLicenses']); // alt+ctrl+shift+d.
     grunt.registerTask('format', ['logNotImplementedMessage:Format']); // alt+ctrl+shift+f.
     grunt.registerTask('lint', ['lintCode']); // alt+ctrl+shift+l.
     grunt.registerTask('migrate', ['logNotImplementedMessage:Migrate']); // alt+ctrl+shift+m.
     grunt.registerTask('publish', ['logNotImplementedMessage:Publish']); // alt+ctrl+shift+p.
-    grunt.registerTask('release', ['gitadd', 'bump', 'shell:build', 'uploadConnector']); // alt+ctrl+shift+r.
-    grunt.registerTask('synchronise', ['gitadd', 'bump']); // alt+ctrl+shift+s.
+    grunt.registerTask('release', ['syncRepoWithGithub', 'buildWithVite', 'uploadConnector']); // alt+ctrl+shift+r.
+    grunt.registerTask('synchronise', ['syncRepoWithGithub']); // alt+ctrl+shift+s.
     grunt.registerTask('test', ['logNotImplementedMessage:Test']); // alt+ctrl+shift+t.
     grunt.registerTask('update', ['updateDataPosDependencies:engine-support']); // alt+ctrl+shift+u.
 };
