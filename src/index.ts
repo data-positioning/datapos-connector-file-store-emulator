@@ -54,7 +54,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     readonly version: string;
 
     constructor(connectionConfig: ConnectionConfig) {
-        console.log('constructor');
         this.abortController = undefined;
         this.config = config as unknown as ConnectorConfig;
         this.connectionConfig = connectionConfig;
@@ -81,7 +80,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         settings: DataConnectorRetrieveEntriesSettings,
         callback: (data: CallbackData) => void
     ): Promise<ConnectionEntryDrilldownResult> {
-        console.log(4444);
         return await retrieveConnectionEntries(settings.folderPath, callback);
     }
 }
@@ -90,7 +88,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 const retrieveConnectionEntries = (folderPath: string, callback: (data: CallbackData) => void): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
         try {
-            console.log(5555);
             callback({ typeId: 'test', properties: { aProp: 'value 1' } });
             const items = (fileStoreIndex as Record<string, { childCount?: number; lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>)[folderPath];
             const entries: ConnectionEntry[] = [];

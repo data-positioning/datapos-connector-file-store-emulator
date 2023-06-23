@@ -12,10 +12,7 @@ export default defineConfig({
             entry: resolve('src/index.ts'),
             name: 'DataPosEngine',
             formats: ['es'],
-            fileName: (format) => {
-                console.log(`${config.id}-${format}.js`, config, format);
-                return `${config.id}-${format}.js`;
-            } // ./dist/${config.id}-es.js
+            fileName: (format) => `${config.id}-${format}.js`
         }
     },
     plugins: [dts({ outputDir: 'dist/types' })]
