@@ -13,7 +13,7 @@ export default defineConfig({
             name: 'DataPosEngine',
             formats: ['es'],
             fileName: (format) => {
-                console.log(`${config.id}.${format}.js`, config, format);
+                console.log(`${config.id}-${format}.js`, config, format);
                 return `${config.id}.${format}.js`;
             } // ./dist/${config.id}-es.js
         }

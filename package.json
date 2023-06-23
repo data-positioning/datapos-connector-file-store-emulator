@@ -1,6 +1,6 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "version": "0.1.756",
+    "version": "0.1.757",
     "dependencies": {
         "grunt-shell": "^4.0.0"
     },
