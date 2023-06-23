@@ -14,7 +14,7 @@ export default defineConfig({
             formats: ['es'],
             fileName: (format) => {
                 console.log(`${config.id}-${format}.js`, config, format);
-                return `${config.id}.${format}.js`;
+                return `${config.id}-${format}.js`;
             } // ./dist/${config.id}-es.js
         }
     },
