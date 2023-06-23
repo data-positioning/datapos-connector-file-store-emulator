@@ -54,6 +54,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     readonly version: string;
 
     constructor(connectionConfig: ConnectionConfig) {
+        console.log('constructor');
         this.abortController = undefined;
         this.config = config as unknown as ConnectorConfig;
         this.connectionConfig = connectionConfig;
