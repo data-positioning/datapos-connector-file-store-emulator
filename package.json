@@ -1,12 +1,9 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "version": "0.1.758",
-    "dependencies": {
-        "grunt-shell": "^4.0.0"
-    },
+    "version": "0.1.759",
     "devDependencies": {
-        "@datapos/datapos-engine-support": "^0.0.326",
-        "@datapos/datapos-operations": "^0.1.131",
+        "@datapos/datapos-engine-support": "^0.0.327",
+        "@datapos/datapos-operations": "^0.1.136",
         "@types/node": "^20.3.1",
         "@typescript-eslint/eslint-plugin": "^5.60.0",
         "@typescript-eslint/parser": "^5.60.0",
@@ -16,6 +13,7 @@
         "grunt": "^1.6.1",
         "grunt-bump": "^0.8.0",
         "grunt-git": "^1.1.1",
+        "grunt-shell": "^4.0.0",
         "lodash.camelcase": "^4.3.0",
         "prettier": "^2.8.8",
         "typescript": "^5.1.3",

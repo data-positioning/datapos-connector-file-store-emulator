@@ -8,7 +8,6 @@ const {
     identifyLicenses,
     logNotImplementedMessage,
     lintCode,
-    rollupCode,
     updateDataPosDependencies
 } = require('@datapos/datapos-operations/commonHelpers');
 
@@ -41,9 +40,6 @@ module.exports = (grunt) => {
         lintCode(grunt, this, ['*.cjs', '*.js', '**/*.ts']);
     });
     grunt.registerTask('logNotImplementedMessage', (taskName) => logNotImplementedMessage(taskName));
-    grunt.registerTask('rollupCode', function (configTypeId) {
-        rollupCode(grunt, this, configTypeId);
-    });
     grunt.registerTask('uploadConnector', async function () {
         await uploadConnector(grunt, this, config, grunt.config.get('pkg.version'), env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
     });

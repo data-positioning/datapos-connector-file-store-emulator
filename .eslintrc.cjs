@@ -18,6 +18,7 @@ module.exports = {
 
         'no-empty': 'warn',
         'no-unused-vars': 'warn',
+        'prefer-const': 'warn',
 
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/no-import-type-side-effects': 'error'
