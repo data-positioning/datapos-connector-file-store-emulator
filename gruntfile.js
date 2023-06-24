@@ -39,14 +39,14 @@ module.exports = (grunt) => {
         lintCode(grunt, this, ['*.cjs', '*.js', '**/*.ts']);
     });
     grunt.registerTask('logNotImplementedMessage', (taskName) => logNotImplementedMessage(taskName));
+    grunt.registerTask('syncRepoWithGithub', function () {
+        syncRepoWithGithub(grunt, this, ['package.json']);
+    });
     grunt.registerTask('uploadConnector', async function () {
         await uploadConnector(grunt, this, config, grunt.config.get('pkg.version'), env.DATAPOS_CONNECTOR_UPLOAD_TOKEN, env.DATAPOS_PROJECT_ID);
     });
     grunt.registerTask('updateDataPosDependencies', function (updateTypeId) {
         updateDataPosDependencies(grunt, this, updateTypeId);
-    });
-    grunt.registerTask('syncRepoWithGithub', function () {
-        syncRepoWithGithub(grunt, this, ['package.json']);
     });
 
     // Register common repository management tasks. These tasks are all invoked by VSCode keyboard shortcuts identified in the comments.
