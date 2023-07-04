@@ -1,6 +1,6 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "version": "0.1.767",
+    "version": "0.1.768",
     "devDependencies": {
         "@datapos/datapos-engine-support": "^0.1.352",
         "@datapos/datapos-operations": "^0.1.200",
