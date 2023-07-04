@@ -1,9 +1,9 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "version": "0.1.768",
+    "version": "0.1.769",
     "devDependencies": {
         "@datapos/datapos-engine-support": "^0.1.352",
-        "@datapos/datapos-operations": "^0.1.200",
+        "@datapos/datapos-operations": "^0.1.201",
         "@types/node": "^20.3.3",
         "@typescript-eslint/eslint-plugin": "^5.61.0",
         "@typescript-eslint/parser": "^5.61.0",
