@@ -24,13 +24,13 @@ import {
     extractLastSegmentFromPath,
     FetchResponseError,
     lookupMimeTypeForFileExtension
-} from '@datapos/datapos-engine-support';
+} from '@datapos/datapos-support';
 import type {
-    CallbackData,
     ConnectionConfig,
     ConnectionEntry,
     ConnectionEntryDrilldownResult,
     ConnectionEntryPreview,
+    ConnectorCallbackData,
     ConnectorConfig,
     DataConnector,
     DataConnectorFieldInfo,
@@ -41,7 +41,7 @@ import type {
     DataConnectorRecord,
     DataConnectorRetrieveEntriesSettings,
     SourceViewConfig
-} from '@datapos/datapos-engine-support';
+} from '@datapos/datapos-support';
 
 // Dependencies - Framework/Vendor
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
@@ -78,14 +78,14 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         accountId: string,
         sessionAccessToken: string,
         settings: DataConnectorRetrieveEntriesSettings,
-        callback: (data: CallbackData) => void
+        callback: (data: ConnectorCallbackData) => void
     ): Promise<ConnectionEntryDrilldownResult> {
         return await retrieveConnectionEntries(settings.folderPath, callback);
     }
 }
 
 // Helper
-const retrieveConnectionEntries = (folderPath: string, callback: (data: CallbackData) => void): Promise<ConnectionEntryDrilldownResult> => {
+const retrieveConnectionEntries = (folderPath: string, callback: (data: ConnectorCallbackData) => void): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
         try {
             callback({ typeId: 'test', properties: { aProp: 'value 1' } });
@@ -153,7 +153,7 @@ const previewConnectionEntry = (
     sessionAccessToken: string | undefined,
     sourceViewConfig: SourceViewConfig,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    callback: (data: CallbackData) => void
+    callback: (data: ConnectorCallbackData) => void
 ): Promise<ConnectionEntryPreview> => {
     return new Promise((resolve, reject) => {
         try {
@@ -200,7 +200,7 @@ const readConnectionEntry = (
     sourceViewConfig: SourceViewConfig,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     csvParse: (options?: Options, callback?: Callback) => Parser, // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
-    callback: (data: CallbackData) => void
+    callback: (data: ConnectorCallbackData) => void
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
