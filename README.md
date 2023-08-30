@@ -4,7 +4,8 @@ A TypeScript library that implements the File Store Emulator data connector by D
 
 ## Installation
 
-The Data Positioning Engine automatically downloads the connector associated with a given connection at runtime.
+The Datapos Operations library contains helper functions to upload connectors to the Datapos hosting platform. A developer account is required to access this functionality. Once uploaded, the Datapos engine will automatically retrieve
+the connector associated with a given connection at runtime.
 
 ## Repository Management Commands
 
