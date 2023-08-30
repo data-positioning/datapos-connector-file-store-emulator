@@ -1,4 +1,4 @@
-# Data Positioning File Store Emulator Data Connector
+# Datapos - Data Connector - File Store Emulator
 
 This repository contains the File Store Emulator data connector.
 
