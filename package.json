@@ -1,21 +1,36 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "version": "0.1.771",
+    "private": true,
+    "version": "0.1.772",
     "dependencies": {
-        "@datapos/datapos-support": "^0.1.377"
+        "@datapos/datapos-share-core": "^0.1.393",
+        "csv-parse": "^5.5.0"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.201",
+        "@datapos/datapos-operations": "^0.1.232",
         "@types/node": "^20.3.3",
-        "@typescript-eslint/eslint-plugin": "^5.61.0",
-        "@typescript-eslint/parser": "^5.61.0",
-        "csv-parse": "^5.4.0",
+        "@typescript-eslint/eslint-plugin": "^6.5.0",
+        "@typescript-eslint/parser": "^6.5.0",
         "eslint": "^8.44.0",
         "eslint-plugin-import": "^2.27.5",
-        "grunt": "^1.6.1",
-        "prettier": "^2.8.8",
+        "prettier": "^3.0.3",
         "typescript": "^5.1.6",
         "vite": "^4.3.9",
         "vite-plugin-dts": "^3.0.3"
+    },
+    "scripts": {
+        "audit": "npm audit",
+        "build": "npx vite build",
+        "check": "npm outdated",
+        "document": "npx license-checker --production --json --out LICENSES.json",
+        "format": "echo \"***** FORMAT SCRIPT NOT IMPLEMENTED. *****\"",
+        "lint": "npx eslint **/*.ts",
+        "publishToNPM": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
+        "release": "npm run build && npm run syncWithGitHub && npm run publishToNPM",
+        "syncWithGitHub": "node -e \"require('@datapos/datapos-operations/scriptHelpers').syncWithGitHub(['package.json'])\"",
+        "test": "echo \"***** TEST SCRIPT NOT IMPLEMENTED. *****\"",
+        "updateDependencies": "npm run updateOperations && npm run updateShareCore",
+        "updateOperations": "npm install --save-dev @datapos/datapos-operations@latest",
+        "updateShareCore": "npm install @datapos/datapos-share-core@latest"
     }
 }

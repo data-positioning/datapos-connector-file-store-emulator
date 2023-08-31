@@ -1,25 +1,13 @@
 {
-  "@datapos/datapos-connector-data-file-store-emulator@0.1.515": {
-    "licenses": "ISC",
-    "publisher": "Jonathan Terrell",
-    "email": "terrell.jm@gmail.com",
-    "path": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator",
-    "licenseFile": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator/LICENSE.md"
+  "@datapos/datapos-connector-data-file-store-emulator@0.1.771": {
+    "licenses": "UNLICENSED",
+    "private": true,
+    "path": "/Users/jonathanterrell/Data Positioning/GitHub/data-positioning/connectors/data/datapos-connector-data-file-store-emulator",
+    "licenseFile": "/Users/jonathanterrell/Data Positioning/GitHub/data-positioning/connectors/data/datapos-connector-data-file-store-emulator/LICENSE.md"
   },
-  "@datapos/datapos-engine-support@0.0.31": {
-    "licenses": "ISC",
-    "publisher": "Jonathan Terrell",
-    "email": "terrell.jm@gmail.com",
-    "path": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator/node_modules/@datapos/datapos-engine-support",
-    "licenseFile": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator/node_modules/@datapos/datapos-engine-support/LICENSE"
-  },
-  "csv-parse@5.3.3": {
-    "licenses": "MIT",
-    "repository": "https://github.com/adaltas/node-csv",
-    "publisher": "David Worms",
-    "email": "david@adaltas.com",
-    "url": "https://www.adaltas.com",
-    "path": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator/node_modules/csv-parse",
-    "licenseFile": "/Users/jonathanterrell/Data Positioning/GitHub/connectors/data/datapos-connector-data-file-store-emulator/node_modules/csv-parse/LICENSE"
+  "@datapos/datapos-share-core@0.1.393": {
+    "licenses": "ISC*",
+    "path": "/Users/jonathanterrell/Data Positioning/GitHub/data-positioning/connectors/data/datapos-connector-data-file-store-emulator/node_modules/@datapos/datapos-share-core",
+    "licenseFile": "/Users/jonathanterrell/Data Positioning/GitHub/data-positioning/connectors/data/datapos-connector-data-file-store-emulator/node_modules/@datapos/datapos-share-core/LICENSE.md"
   }
 }

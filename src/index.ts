@@ -24,7 +24,7 @@ import {
     extractLastSegmentFromPath,
     FetchResponseError,
     lookupMimeTypeForFileExtension
-} from '@datapos/datapos-support';
+} from '@datapos/datapos-share-core';
 import type {
     ConnectionConfig,
     ConnectionEntry,
@@ -41,7 +41,7 @@ import type {
     DataConnectorRecord,
     DataConnectorRetrieveEntriesSettings,
     SourceViewConfig
-} from '@datapos/datapos-support';
+} from '@datapos/datapos-share-core';
 
 // Dependencies - Framework/Vendor
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
