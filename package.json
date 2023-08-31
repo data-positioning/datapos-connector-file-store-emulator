@@ -1,7 +1,7 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
     "private": true,
-    "version": "0.1.772",
+    "version": "0.1.773",
     "dependencies": {
         "@datapos/datapos-share-core": "^0.1.393",
         "csv-parse": "^5.5.0"
