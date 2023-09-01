@@ -1,13 +1,13 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
     "private": true,
-    "version": "0.1.792",
+    "version": "0.1.793",
     "dependencies": {
-        "@datapos/datapos-share-core": "^0.1.397",
+        "@datapos/datapos-share-core": "^0.1.399",
         "csv-parse": "^5.5.0"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.249",
+        "@datapos/datapos-operations": "^0.1.255",
         "@types/node": "^20.3.3",
         "@typescript-eslint/eslint-plugin": "^6.5.0",
         "@typescript-eslint/parser": "^6.5.0",
@@ -21,13 +21,14 @@
     "scripts": {
         "audit": "npm audit",
         "build": "npx vite build",
+        "bumpVersion": "node -e \"require('@datapos/datapos-operations/scriptHelpers').bumpVersion()\"",
         "check": "npm outdated",
         "document": "npx license-checker --production --json --out LICENSES.json",
         "format": "echo \"***** FORMAT SCRIPT NOT IMPLEMENTED. *****\"",
         "lint": "npx eslint **/*.ts",
         "publishToNPM": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
-        "release": "npm run build && npm run syncWithGitHub && npm run uploadConnector",
-        "syncWithGitHub": "node -e \"require('@datapos/datapos-operations/scriptHelpers').syncWithGitHub()\"",
+        "release": "npm run syncWithGitHub && npm run build && npm run uploadConnector",
+        "syncWithGitHub": "npm run bumpVersion && node -e \"require('@datapos/datapos-operations/scriptHelpers').syncWithGitHub()\"",
         "test": "echo \"***** TEST SCRIPT NOT IMPLEMENTED. *****\"",
         "updateDependencies": "npm run updateOperations && npm run updateShareCore",
         "updateOperations": "npm install --save-dev @datapos/datapos-operations@latest",
