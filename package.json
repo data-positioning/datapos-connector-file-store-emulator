@@ -1,7 +1,7 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
     "private": true,
-    "version": "0.1.773",
+    "version": "0.1.774",
     "dependencies": {
         "@datapos/datapos-share-core": "^0.1.393",
         "csv-parse": "^5.5.0"
@@ -26,8 +26,8 @@
         "format": "echo \"***** FORMAT SCRIPT NOT IMPLEMENTED. *****\"",
         "lint": "npx eslint **/*.ts",
         "publishToNPM": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
-        "release": "npm run build && npm run syncWithGitHub && npm run publishToNPM",
-        "syncWithGitHub": "node -e \"require('@datapos/datapos-operations/scriptHelpers').syncWithGitHub(['package.json'])\"",
+        "release": "npm run build && npm run syncWithGitHub",
+        "syncWithGitHub": "node -e \"require('@datapos/datapos-operations/scriptHelpers').syncWithGitHub(['package.json', 'src/config.json'])\"",
         "test": "echo \"***** TEST SCRIPT NOT IMPLEMENTED. *****\"",
         "updateDependencies": "npm run updateOperations && npm run updateShareCore",
         "updateOperations": "npm install --save-dev @datapos/datapos-operations@latest",
