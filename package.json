@@ -1,13 +1,13 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
     "private": true,
-    "version": "0.1.774",
+    "version": "0.1.775",
     "dependencies": {
-        "@datapos/datapos-share-core": "^0.1.393",
+        "@datapos/datapos-share-core": "^0.1.395",
         "csv-parse": "^5.5.0"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.232",
+        "@datapos/datapos-operations": "^0.1.234",
         "@types/node": "^20.3.3",
         "@typescript-eslint/eslint-plugin": "^6.5.0",
         "@typescript-eslint/parser": "^6.5.0",
@@ -26,11 +26,12 @@
         "format": "echo \"***** FORMAT SCRIPT NOT IMPLEMENTED. *****\"",
         "lint": "npx eslint **/*.ts",
         "publishToNPM": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
-        "release": "npm run build && npm run syncWithGitHub",
+        "release": "npm run build && npm run syncWithGitHub && npm run uploadConnector",
         "syncWithGitHub": "node -e \"require('@datapos/datapos-operations/scriptHelpers').syncWithGitHub(['package.json'])\"",
         "test": "echo \"***** TEST SCRIPT NOT IMPLEMENTED. *****\"",
         "updateDependencies": "npm run updateOperations && npm run updateShareCore",
         "updateOperations": "npm install --save-dev @datapos/datapos-operations@latest",
-        "updateShareCore": "npm install @datapos/datapos-share-core@latest"
+        "updateShareCore": "npm install @datapos/datapos-share-core@latest",
+        "uploadConnector": "node -e \"require('@datapos/datapos-operations/scriptHelpers').uploadConnector()\""
     }
 }
