@@ -1,13 +1,13 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
     "private": true,
-    "version": "0.1.775",
+    "version": "0.1.776",
     "dependencies": {
-        "@datapos/datapos-share-core": "^0.1.395",
+        "@datapos/datapos-share-core": "^0.1.397",
         "csv-parse": "^5.5.0"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.234",
+        "@datapos/datapos-operations": "^0.1.235",
         "@types/node": "^20.3.3",
         "@typescript-eslint/eslint-plugin": "^6.5.0",
         "@typescript-eslint/parser": "^6.5.0",
@@ -27,7 +27,7 @@
         "lint": "npx eslint **/*.ts",
         "publishToNPM": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
         "release": "npm run build && npm run syncWithGitHub && npm run uploadConnector",
-        "syncWithGitHub": "node -e \"require('@datapos/datapos-operations/scriptHelpers').syncWithGitHub(['package.json'])\"",
+        "syncWithGitHub": "node -e \"require('@datapos/datapos-operations/scriptHelpers').syncWithGitHub()\"",
         "test": "echo \"***** TEST SCRIPT NOT IMPLEMENTED. *****\"",
         "updateDependencies": "npm run updateOperations && npm run updateShareCore",
         "updateOperations": "npm install --save-dev @datapos/datapos-operations@latest",
