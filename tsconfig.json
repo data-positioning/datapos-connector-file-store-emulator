@@ -2,12 +2,12 @@
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
         "declaration": true,
-        "module": "esnext",
-        "moduleResolution": "node",
+        "module": "ESNext",
+        "moduleResolution": "Node",
         "noImplicitAny": true,
         "outDir": "./dist",
         "resolveJsonModule": true,
-        "target": "esnext"
+        "target": "ESNext"
     },
-    "include": [".eslintrc.cjs", "vite.config.*", "src/**/*"]
+    "include": ["vite.config.ts", "src/*.ts"]
 }
