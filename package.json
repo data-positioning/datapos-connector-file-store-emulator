@@ -1,13 +1,13 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
     "private": true,
-    "version": "0.1.797",
+    "version": "0.1.798",
     "dependencies": {
-        "@datapos/datapos-share-core": "^0.1.401",
+        "@datapos/datapos-share-core": "^0.1.402",
         "csv-parse": "^5.5.0"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.256",
+        "@datapos/datapos-operations": "^0.1.258",
         "@types/node": "^20.5.8",
         "@typescript-eslint/eslint-plugin": "^6.5.0",
         "@typescript-eslint/parser": "^6.5.0",
