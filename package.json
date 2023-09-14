@@ -1,14 +1,13 @@
 {
     "name": "@datapos/datapos-connector-data-file-store-emulator",
-    "private": true,
-    "version": "0.1.800",
+    "license": "ISC",
+    "version": "0.1.801",
     "dependencies": {
         "@datapos/datapos-share-core": "^0.1.402",
         "csv-parse": "^5.5.0"
     },
     "devDependencies": {
         "@datapos/datapos-operations": "^0.1.259",
-        "@types/node": "^20.5.8",
         "@typescript-eslint/eslint-plugin": "^6.5.0",
         "@typescript-eslint/parser": "^6.5.0",
         "eslint": "^8.44.0",
@@ -23,7 +22,7 @@
         "build": "npx vite build",
         "bumpVersion": "node -e \"require('@datapos/datapos-operations/scriptHelpers').bumpVersion()\"",
         "check": "npm outdated",
-        "document": "npx license-checker --production --json --out LICENSES.json",
+        "document": "npx npm-license-crawler --onlyDirectDependencies --production --relativeLicensePath --json LICENSES.json",
         "format": "echo \"***** FORMAT SCRIPT NOT IMPLEMENTED. *****\"",
         "lint": "npx eslint **/*.ts",
         "publishToNPM": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
