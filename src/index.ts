@@ -6,7 +6,7 @@ const DEFAULT_READ_CHUNK_SIZE = 1000;
 const FAILED_TO_READ_MESSAGE = 'Failed to read connection entry.';
 const FAILED_TO_PREVIEW_MESSAGE = 'Failed to preview connection entry.';
 const FAILED_TO_RETRIEVE_MESSAGE = 'Failed to retrieve connection entries.';
-const URL_PREFIX = 'https://datapos-resources.netlify.app/fileStore';
+const URL_PREFIX = 'https://datapos-resources.netlify.app/';
 
 // Dependencies - Asset
 import config from './config.json';
@@ -77,7 +77,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 
     async initialise(): Promise<void> {
-        this.fileStoreIndex = JSON.parse(await (await fetch('https://datapos-resources.netlify.app/fileStoreIndex.json')).text()) as FileStoreIndex;
+        this.fileStoreIndex = JSON.parse(await (await fetch(`${URL_PREFIX}fileStoreIndex.json`)).text()) as FileStoreIndex;
     }
 
     async retrieveConnectionEntries(
@@ -178,7 +178,7 @@ const previewConnectionEntry = (
 
             // ...
             const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
-            const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
+            const url = `${URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${fullFileName}`;
             const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
@@ -283,7 +283,7 @@ const readConnectionEntry = (
 
             // Fetch, decode and forward the contents of the file to the parser.
             const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
-            const url = `${URL_PREFIX}${sourceViewConfig.folderPath}/${fullFileName}`;
+            const url = `${URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${fullFileName}`;
             fetch(encodeURI(url), { signal })
                 .then(async (response) => {
                     try {
