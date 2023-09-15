@@ -2,13 +2,6 @@
     "@datapos/datapos-share-core@0.1.402": {
         "licenses": "UNKNOWN",
         "licenseFile": "node_modules/@datapos/datapos-share-core/LICENSE.md",
-        "parents": "@datapos/datapos-connector-data-file-store-emulator"
-    },
-    "csv-parse@5.5.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/adaltas/node-csv",
-        "licenseFile": "node_modules/csv-parse/LICENSE",
-        "licenseUrl": "https://github.com/adaltas/node-csv/raw/master/LICENSE",
-        "parents": "@datapos/datapos-connector-data-file-store-emulator"
+        "parents": "datapos-connector-data-file-store-emulator"
     }
 }
