@@ -10,7 +10,6 @@ const URL_PREFIX = 'https://datapos-resources.netlify.app/fileStore';
 
 // Dependencies - Asset
 import config from './config.json';
-import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
 // Dependencies - Engine - Support
@@ -46,11 +45,14 @@ import type {
 // Dependencies - Framework/Vendor
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
+type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>;
+
 // Declaration - File Store Emulator Data Connector
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
+    fileStoreIndex: FileStoreIndex;
     readonly version: string;
 
     constructor(connectionConfig: ConnectionConfig) {
@@ -74,22 +76,30 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         return { connector: this, readConnectionEntry };
     }
 
+    async initialise(): Promise<void> {
+        this.fileStoreIndex = JSON.parse(await (await fetch('https://datapos-resources.netlify.app/fileStoreIndex.json')).text()) as FileStoreIndex;
+    }
+
     async retrieveConnectionEntries(
         accountId: string,
         sessionAccessToken: string,
         settings: DataConnectorRetrieveEntriesSettings,
         callback: (data: ConnectorCallbackData) => void
     ): Promise<ConnectionEntryDrilldownResult> {
-        return await retrieveConnectionEntries(settings.folderPath, callback);
+        return await retrieveConnectionEntries(this.fileStoreIndex, settings.folderPath, callback);
     }
 }
 
 // Helper
-const retrieveConnectionEntries = (folderPath: string, callback: (data: ConnectorCallbackData) => void): Promise<ConnectionEntryDrilldownResult> => {
+const retrieveConnectionEntries = (
+    fileStoreIndex: FileStoreIndex,
+    folderPath: string,
+    callback: (data: ConnectorCallbackData) => void
+): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
         try {
             callback({ typeId: 'test', properties: { aProp: 'value 1' } });
-            const items = (fileStoreIndex as Record<string, { childCount?: number; lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>)[folderPath];
+            const items = fileStoreIndex[folderPath];
             const entries: ConnectionEntry[] = [];
             for (const item of items) {
                 if (item.typeId === 'folder') {
