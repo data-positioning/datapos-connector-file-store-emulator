@@ -1,4 +1,3 @@
-// Constants
 const ABORTED_PREVIEW_MESSAGE = 'Aborted preview connection entry.';
 const ABORTED_READ_MESSAGE = 'Aborted read connection entry.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
@@ -8,12 +7,9 @@ const FAILED_TO_PREVIEW_MESSAGE = 'Failed to preview connection entry.';
 const FAILED_TO_RETRIEVE_MESSAGE = 'Failed to retrieve connection entries.';
 const URL_PREFIX = 'https://datapos-resources.netlify.app/';
 
-// Dependencies - Asset
 import config from './config.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
-
-// Dependencies - Engine - Support
 import {
     AbortError,
     ConnectionEntryPreviewTypeId,
@@ -25,6 +21,7 @@ import {
     FetchResponseError,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-share-core';
+import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 import type {
     ConnectionConfig,
     ConnectionEntry,
@@ -43,12 +40,8 @@ import type {
     SourceViewConfig
 } from '@datapos/datapos-share-core';
 
-// Dependencies - Framework/Vendor
-import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
-
 type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>;
 
-// Declaration - File Store Emulator Data Connector
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
@@ -87,7 +80,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 }
 
-// Helper
+// Helpers
 const retrieveConnectionEntries = (folderPath: string, callback: (data: ConnectorCallbackData) => void): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
         try {
