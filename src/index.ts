@@ -83,7 +83,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         settings: DataConnectorRetrieveEntriesSettings,
         callback: (data: ConnectorCallbackData) => void
     ): Promise<ConnectionEntryDrilldownResult> {
-        console.log('AAAA', accountId, sessionAccessToken, settings);
         return await retrieveConnectionEntries(settings.folderPath, callback);
     }
 }
