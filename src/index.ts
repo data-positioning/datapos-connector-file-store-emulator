@@ -10,6 +10,7 @@ const URL_PREFIX = 'https://datapos-resources.netlify.app/';
 
 // Dependencies - Asset
 import config from './config.json';
+import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
 // Dependencies - Engine - Support
@@ -76,10 +77,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         return { connector: this, readConnectionEntry };
     }
 
-    async initialise(): Promise<void> {
-        this.fileStoreIndex = JSON.parse(await (await fetch(`${URL_PREFIX}fileStoreIndex.json`)).text()) as FileStoreIndex;
-    }
-
     async retrieveConnectionEntries(
         accountId: string,
         sessionAccessToken: string,
@@ -87,26 +84,22 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         callback: (data: ConnectorCallbackData) => void
     ): Promise<ConnectionEntryDrilldownResult> {
         console.log('AAAA', accountId, sessionAccessToken, settings);
-        return await retrieveConnectionEntries(this.fileStoreIndex, settings.folderPath, callback);
+        return await retrieveConnectionEntries(settings.folderPath, callback);
     }
 }
 
 // Helper
-const retrieveConnectionEntries = (
-    fileStoreIndex: FileStoreIndex,
-    folderPath: string,
-    callback: (data: ConnectorCallbackData) => void
-): Promise<ConnectionEntryDrilldownResult> => {
+const retrieveConnectionEntries = (folderPath: string, callback: (data: ConnectorCallbackData) => void): Promise<ConnectionEntryDrilldownResult> => {
     return new Promise((resolve, reject) => {
         try {
             callback({ typeId: 'test', properties: { aProp: 'value 1' } });
-            const items = fileStoreIndex[folderPath];
+            const items = (fileStoreIndex as Record<string, { childCount?: number; itemName: string; lastModifiedAt?: number; size?: number; typeId: string }[]>)[folderPath];
             const entries: ConnectionEntry[] = [];
             for (const item of items) {
                 if (item.typeId === 'folder') {
-                    entries.push(buildFolderEntry(item.path, item.childCount));
+                    entries.push(buildFolderEntry(item.itemName, item.childCount));
                 } else {
-                    entries.push(buildFileEntry(folderPath, item.path, item.lastModifiedAt, item.size));
+                    entries.push(buildFileEntry(folderPath, item.itemName, item.lastModifiedAt, item.size));
                 }
             }
             callback({ typeId: 'test', properties: { aProp: 'value 2' } });
