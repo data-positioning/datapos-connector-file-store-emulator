@@ -2,121 +2,121 @@
     "/": [
         {
             "childCount": 3,
-            "itemName": "AUDATACY Interchange Format",
+            "name": "AUDATACY Interchange Format",
             "typeId": "folder"
         },
         {
             "childCount": 12,
-            "itemName": "Formula 1",
+            "name": "Formula 1",
             "typeId": "folder"
         },
         {
             "childCount": 20,
-            "itemName": "SAP Employee Central Extract",
+            "name": "SAP Employee Central Extract",
             "typeId": "folder"
         },
         {
             "childCount": 6,
-            "itemName": "SAP SuccessFactors API",
+            "name": "SAP SuccessFactors API",
             "typeId": "folder"
         },
         {
             "childCount": 6,
-            "itemName": "Salesforce API",
+            "name": "Salesforce API",
             "typeId": "folder"
         },
         {
             "childCount": 156,
-            "itemName": "Salesforce Extract",
+            "name": "Salesforce Extract",
             "typeId": "folder"
         },
         {
             "childCount": 14,
-            "itemName": "Test Files",
+            "name": "Test Files",
             "typeId": "folder"
         }
     ],
     "/AUDATACY Interchange Format": [
         {
             "childCount": 11,
-            "itemName": "Coded Data",
+            "name": "Coded Data",
             "typeId": "folder"
         },
         {
             "childCount": 1,
-            "itemName": "Human Resources",
+            "name": "Human Resources",
             "typeId": "folder"
         },
         {
             "childCount": 1,
-            "itemName": "Party",
+            "name": "Party",
             "typeId": "folder"
         }
     ],
     "/AUDATACY Interchange Format/Coded Data": [
         {
             "lastModifiedAt": 1693496548765.7979,
-            "itemName": "01. Coded Data - All.csv",
+            "name": "01. Coded Data - All.csv",
             "size": 13002,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548766.0242,
-            "itemName": "02. Coded Types - All.csv",
+            "name": "02. Coded Types - All.csv",
             "size": 93,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548766.253,
-            "itemName": "03. Coded Types - Ids.csv",
+            "name": "03. Coded Types - Ids.csv",
             "size": 48,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548766.4556,
-            "itemName": "04. Coded Types - Labels - Linked by Id.csv",
+            "name": "04. Coded Types - Labels - Linked by Id.csv",
             "size": 101,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548766.6665,
-            "itemName": "05. Coded Types - Labels - Linked by Alternate Id.csv",
+            "name": "05. Coded Types - Labels - Linked by Alternate Id.csv",
             "size": 96,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548767.101,
-            "itemName": "06. Coded Values - All - Linked by Id.csv",
+            "name": "06. Coded Values - All - Linked by Id.csv",
             "size": 9502,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548767.4556,
-            "itemName": "07. Coded Values - All - Linked by Alternate Id.csv",
+            "name": "07. Coded Values - All - Linked by Alternate Id.csv",
             "size": 7269,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548767.7139,
-            "itemName": "08. Coded Values - Ids - Linked by Id.csv",
+            "name": "08. Coded Values - Ids - Linked by Id.csv",
             "size": 5524,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548768.0042,
-            "itemName": "09. Coded Values - Ids - Linked by Alternate Id.csv",
+            "name": "09. Coded Values - Ids - Linked by Alternate Id.csv",
             "size": 3291,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548768.2915,
-            "itemName": "10. Coded Values - Labels - Linked by Id.csv",
+            "name": "10. Coded Values - Labels - Linked by Id.csv",
             "size": 9752,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548768.6292,
-            "itemName": "11. Coded Values - Labels - Linked by Alternate Id.csv",
+            "name": "11. Coded Values - Labels - Linked by Alternate Id.csv",
             "size": 7512,
             "typeId": "object"
         }
@@ -124,20 +124,20 @@
     "/AUDATACY Interchange Format/Human Resources": [
         {
             "childCount": 2,
-            "itemName": "Workforce",
+            "name": "Workforce",
             "typeId": "folder"
         }
     ],
     "/AUDATACY Interchange Format/Human Resources/Workforce": [
         {
             "lastModifiedAt": 1693496548769.1804,
-            "itemName": "Jobs.csv",
+            "name": "Jobs.csv",
             "size": 13913,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548769.4524,
-            "itemName": "Work Contracts.csv",
+            "name": "Work Contracts.csv",
             "size": 13931,
             "typeId": "object"
         }
@@ -145,7 +145,7 @@
     "/AUDATACY Interchange Format/Party": [
         {
             "lastModifiedAt": 1693496548770.8513,
-            "itemName": "People.csv",
+            "name": "People.csv",
             "size": 139407,
             "typeId": "object"
         }
@@ -153,73 +153,73 @@
     "/Formula 1": [
         {
             "lastModifiedAt": 1693496548771.3877,
-            "itemName": "circuits.csv",
+            "name": "circuits.csv",
             "size": 9406,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548773.3362,
-            "itemName": "constructor_results.csv",
+            "name": "constructor_results.csv",
             "size": 191446,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548775.953,
-            "itemName": "constructor_standings.csv",
+            "name": "constructor_standings.csv",
             "size": 280013,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548776.4397,
-            "itemName": "constructors.csv",
+            "name": "constructors.csv",
             "size": 17021,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548777.2554,
-            "itemName": "driver.csv",
+            "name": "driver.csv",
             "size": 92286,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548782.8357,
-            "itemName": "driver_standings.csv",
+            "name": "driver_standings.csv",
             "size": 801809,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548785.3823,
-            "itemName": "pit_stops.csv",
+            "name": "pit_stops.csv",
             "size": 244191,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548788.132,
-            "itemName": "qualifying.csv",
+            "name": "qualifying.csv",
             "size": 323654,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548789.1885,
-            "itemName": "races.csv",
+            "name": "races.csv",
             "size": 109577,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548805.7644,
-            "itemName": "results.csv",
+            "name": "results.csv",
             "size": 1492404,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548807.2417,
-            "itemName": "seasons.csv",
+            "name": "seasons.csv",
             "size": 4158,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548807.6704,
-            "itemName": "status.csv",
+            "name": "status.csv",
             "size": 2043,
             "typeId": "object"
         }
@@ -227,121 +227,121 @@
     "/SAP Employee Central Extract": [
         {
             "lastModifiedAt": 1693496548809.6824,
-            "itemName": "ADDRESS_INFO.csv",
+            "name": "ADDRESS_INFO.csv",
             "size": 208015,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548810.1533,
-            "itemName": "COMP_CUR_CONV.csv",
+            "name": "COMP_CUR_CONV.csv",
             "size": 2245,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548811.41,
-            "itemName": "EMPLOYMENT_INFO.csv",
+            "name": "EMPLOYMENT_INFO.csv",
             "size": 128533,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548813.1548,
-            "itemName": "EMPLOYMENT_INFO_original.csv",
+            "name": "EMPLOYMENT_INFO_original.csv",
             "size": 128575,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548823.1113,
-            "itemName": "EMP_COMP_INFO.csv",
+            "name": "EMP_COMP_INFO.csv",
             "size": 1665179,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548840.0525,
-            "itemName": "EMP_PAYCOMP_RECURRING.csv",
+            "name": "EMP_PAYCOMP_RECURRING.csv",
             "size": 1551764,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548840.9338,
-            "itemName": "EVENT_REASONS.csv",
+            "name": "EVENT_REASONS.csv",
             "size": 7775,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548841.272,
-            "itemName": "FREQUENCY.csv",
+            "name": "FREQUENCY.csv",
             "size": 1704,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548849.4663,
-            "itemName": "GENERIC_OBJECTS.csv",
+            "name": "GENERIC_OBJECTS.csv",
             "size": 1662477,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548857.393,
-            "itemName": "GENERIC_RELATIONSHIPS.csv",
+            "name": "GENERIC_RELATIONSHIPS.csv",
             "size": 98782,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548859.8499,
-            "itemName": "JOB_CLASS.csv",
+            "name": "JOB_CLASS.csv",
             "size": 338260,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548868.527,
-            "itemName": "JOB_INFO.csv",
+            "name": "JOB_INFO.csv",
             "size": 1546379,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548869.9285,
-            "itemName": "LABELS.csv",
+            "name": "LABELS.csv",
             "size": 126838,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548870.2664,
-            "itemName": "LOCATIONS.csv",
+            "name": "LOCATIONS.csv",
             "size": 2995,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548870.5647,
-            "itemName": "PAY_COMPONENT.csv",
+            "name": "PAY_COMPONENT.csv",
             "size": 1234,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548871.1191,
-            "itemName": "PERSON.csv",
+            "name": "PERSON.csv",
             "size": 44896,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548872.0652,
-            "itemName": "PERSONAL_DATA.csv",
+            "name": "PERSONAL_DATA.csv",
             "size": 105949,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548872.7852,
-            "itemName": "PERSON_INFO_GLOBAL.csv",
+            "name": "PERSON_INFO_GLOBAL.csv",
             "size": 82438,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548873.4688,
-            "itemName": "PICKLISTS.csv",
+            "name": "PICKLISTS.csv",
             "size": 78044,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548873.8552,
-            "itemName": "TERRITORY.csv",
+            "name": "TERRITORY.csv",
             "size": 8541,
             "typeId": "object"
         }
@@ -349,37 +349,37 @@
     "/SAP SuccessFactors API": [
         {
             "lastModifiedAt": 1693496548874.7778,
-            "itemName": "PerPerson.csv",
+            "name": "PerPerson.csv",
             "size": 77318,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548875.9534,
-            "itemName": "empEmployment.csv",
+            "name": "empEmployment.csv",
             "size": 151656,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548881.8508,
-            "itemName": "empJob.csv",
+            "name": "empJob.csv",
             "size": 1193715,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548882.6377,
-            "itemName": "perGlobalInfoGBR.csv",
+            "name": "perGlobalInfoGBR.csv",
             "size": 76314,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548883.1147,
-            "itemName": "perGlobalInfoUSA.csv",
+            "name": "perGlobalInfoUSA.csv",
             "size": 4942,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548883.974,
-            "itemName": "perPersonal.csv",
+            "name": "perPersonal.csv",
             "size": 119305,
             "typeId": "object"
         }
@@ -387,37 +387,37 @@
     "/Salesforce API": [
         {
             "lastModifiedAt": 1693496548884.5752,
-            "itemName": "Account.csv",
+            "name": "Account.csv",
             "size": 7383,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548884.8765,
-            "itemName": "Campaign.csv",
+            "name": "Campaign.csv",
             "size": 1655,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548885.249,
-            "itemName": "Contact.csv",
+            "name": "Contact.csv",
             "size": 8936,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548885.6394,
-            "itemName": "Lead.csv",
+            "name": "Lead.csv",
             "size": 9606,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548885.9954,
-            "itemName": "Opportunity.csv",
+            "name": "Opportunity.csv",
             "size": 11811,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548886.3794,
-            "itemName": "Product2.csv",
+            "name": "Product2.csv",
             "size": 2926,
             "typeId": "object"
         }
@@ -425,937 +425,937 @@
     "/Salesforce Extract": [
         {
             "lastModifiedAt": 1693496548886.8132,
-            "itemName": "Account.csv",
+            "name": "Account.csv",
             "size": 8778,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548887.1252,
-            "itemName": "AccountContactRole.csv",
+            "name": "AccountContactRole.csv",
             "size": 143,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548887.414,
-            "itemName": "ActionLinkTemplateBinding.csv",
+            "name": "ActionLinkTemplateBinding.csv",
             "size": 141,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548887.6777,
-            "itemName": "Announcement.csv",
+            "name": "Announcement.csv",
             "size": 163,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548887.9363,
-            "itemName": "Asset.csv",
+            "name": "Asset.csv",
             "size": 373,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548888.184,
-            "itemName": "AssetRelationship.csv",
+            "name": "AssetRelationship.csv",
             "size": 192,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548888.4702,
-            "itemName": "AssistantInteraction.csv",
+            "name": "AssistantInteraction.csv",
             "size": 167,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548888.7427,
-            "itemName": "AssistantProgress.csv",
+            "name": "AssistantProgress.csv",
             "size": 136,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548889.044,
-            "itemName": "AssistantRecommendation.csv",
+            "name": "AssistantRecommendation.csv",
             "size": 228,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548889.3914,
-            "itemName": "BusinessProcess.csv",
+            "name": "BusinessProcess.csv",
             "size": 136,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548889.7886,
-            "itemName": "Campaign.csv",
+            "name": "Campaign.csv",
             "size": 2510,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548890.1108,
-            "itemName": "CampaignMember.csv",
+            "name": "CampaignMember.csv",
             "size": 191,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548890.9705,
-            "itemName": "CanvasFeedItem.csv",
+            "name": "CanvasFeedItem.csv",
             "size": 226,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548891.2974,
-            "itemName": "Case.csv",
+            "name": "Case.csv",
             "size": 11952,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548891.5813,
-            "itemName": "CaseComment.csv",
+            "name": "CaseComment.csv",
             "size": 153,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548891.8862,
-            "itemName": "CaseContactRole.csv",
+            "name": "CaseContactRole.csv",
             "size": 129,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548892.184,
-            "itemName": "CaseHistory2.csv",
+            "name": "CaseHistory2.csv",
             "size": 3263,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548892.467,
-            "itemName": "CaseSolution.csv",
+            "name": "CaseSolution.csv",
             "size": 84,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548892.7136,
-            "itemName": "CleanFactFieldClaim.csv",
+            "name": "CleanFactFieldClaim.csv",
             "size": 174,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548893.0298,
-            "itemName": "CollaborationGroupRank.csv",
+            "name": "CollaborationGroupRank.csv",
             "size": 200,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548893.2812,
-            "itemName": "CollaborationGroupRecord.csv",
+            "name": "CollaborationGroupRecord.csv",
             "size": 174,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548893.5278,
-            "itemName": "ComponentResponseCache.csv",
+            "name": "ComponentResponseCache.csv",
             "size": 170,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548893.7415,
-            "itemName": "Contact.csv",
+            "name": "Contact.csv",
             "size": 11188,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548893.9814,
-            "itemName": "ContentDocumentLink.csv",
+            "name": "ContentDocumentLink.csv",
             "size": 304,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548894.9868,
-            "itemName": "ContentFolder.csv",
+            "name": "ContentFolder.csv",
             "size": 158,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548895.3289,
-            "itemName": "ContentVersion.csv",
+            "name": "ContentVersion.csv",
             "size": 1042,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548895.591,
-            "itemName": "Contract.csv",
+            "name": "Contract.csv",
             "size": 729,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548895.8376,
-            "itemName": "ContractContactRole.csv",
+            "name": "ContractContactRole.csv",
             "size": 144,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548896.0952,
-            "itemName": "CustomSettingNameIndex.csv",
+            "name": "CustomSettingNameIndex.csv",
             "size": 191,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548896.4238,
-            "itemName": "Data__c.csv",
+            "name": "Data__c.csv",
             "size": 136,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548896.7087,
-            "itemName": "DatacloudOwnedEntity.csv",
+            "name": "DatacloudOwnedEntity.csv",
             "size": 187,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548896.9802,
-            "itemName": "DatacloudPurchaseUsage.csv",
+            "name": "DatacloudPurchaseUsage.csv",
             "size": 186,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548897.235,
-            "itemName": "EmailDisclaimer.csv",
+            "name": "EmailDisclaimer.csv",
             "size": 174,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548898.5688,
-            "itemName": "EmailMessage.csv",
+            "name": "EmailMessage.csv",
             "size": 426,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548898.8506,
-            "itemName": "EmailRoutingAddress.csv",
+            "name": "EmailRoutingAddress.csv",
             "size": 237,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548899.095,
-            "itemName": "Endorsement.csv",
+            "name": "Endorsement.csv",
             "size": 189,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548899.6802,
-            "itemName": "EngagementHistoryRollup.csv",
+            "name": "EngagementHistoryRollup.csv",
             "size": 219,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548899.9622,
-            "itemName": "EntityHistory.csv",
+            "name": "EntityHistory.csv",
             "size": 562,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548900.1982,
-            "itemName": "EntitySubscription.csv",
+            "name": "EntitySubscription.csv",
             "size": 71,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548900.443,
-            "itemName": "Event.csv",
+            "name": "Event.csv",
             "size": 634,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548900.7078,
-            "itemName": "EventDeliveryData.csv",
+            "name": "EventDeliveryData.csv",
             "size": 152,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548900.9585,
-            "itemName": "EventParameterData.csv",
+            "name": "EventParameterData.csv",
             "size": 161,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548901.2063,
-            "itemName": "EventRelation.csv",
+            "name": "EventRelation.csv",
             "size": 203,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548901.4631,
-            "itemName": "EventSubscriptionData.csv",
+            "name": "EventSubscriptionData.csv",
             "size": 128,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548901.7007,
-            "itemName": "EventSubscriptionHandleData.csv",
+            "name": "EventSubscriptionHandleData.csv",
             "size": 145,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548901.9656,
-            "itemName": "ExchangeUserMapping.csv",
+            "name": "ExchangeUserMapping.csv",
             "size": 177,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548902.211,
-            "itemName": "FeedComment.csv",
+            "name": "FeedComment.csv",
             "size": 294,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548902.4773,
-            "itemName": "FeedFieldHistory.csv",
+            "name": "FeedFieldHistory.csv",
             "size": 5835,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548903.324,
-            "itemName": "FeedMute.csv",
+            "name": "FeedMute.csv",
             "size": 138,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548903.5728,
-            "itemName": "FeedPost.csv",
+            "name": "FeedPost.csv",
             "size": 176,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548903.8164,
-            "itemName": "FeedTrackedChange.csv",
+            "name": "FeedTrackedChange.csv",
             "size": 308,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548904.1086,
-            "itemName": "FieldHistory.csv",
+            "name": "FieldHistory.csv",
             "size": 8658,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548907.871,
-            "itemName": "FileInspectionResult.csv",
+            "name": "FileInspectionResult.csv",
             "size": 265,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548908.186,
-            "itemName": "FileSearchActivity.csv",
+            "name": "FileSearchActivity.csv",
             "size": 1865,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548908.4368,
-            "itemName": "FiscalYearSettings.csv",
+            "name": "FiscalYearSettings.csv",
             "size": 187,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548908.6917,
-            "itemName": "FlowInterview.csv",
+            "name": "FlowInterview.csv",
             "size": 233,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548908.9587,
-            "itemName": "FlowRecordRelation.csv",
+            "name": "FlowRecordRelation.csv",
             "size": 136,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548909.2583,
-            "itemName": "FlowStageRelation.csv",
+            "name": "FlowStageRelation.csv",
             "size": 153,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548909.5115,
-            "itemName": "Goal.csv",
+            "name": "Goal.csv",
             "size": 236,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548909.761,
-            "itemName": "GoalLink.csv",
+            "name": "GoalLink.csv",
             "size": 134,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548909.993,
-            "itemName": "GroupSubscription.csv",
+            "name": "GroupSubscription.csv",
             "size": 71,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548910.2246,
-            "itemName": "Idea.csv",
+            "name": "Idea.csv",
             "size": 233,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548910.4548,
-            "itemName": "IdeaComment.csv",
+            "name": "IdeaComment.csv",
             "size": 122,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548910.705,
-            "itemName": "InboundSocialPost.csv",
+            "name": "InboundSocialPost.csv",
             "size": 204,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548910.9546,
-            "itemName": "InstalledMobileApp.csv",
+            "name": "InstalledMobileApp.csv",
             "size": 160,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548911.2295,
-            "itemName": "InteractionCountReport.csv",
+            "name": "InteractionCountReport.csv",
             "size": 194,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548911.4626,
-            "itemName": "JigsawSavedSearch.csv",
+            "name": "JigsawSavedSearch.csv",
             "size": 171,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548911.6912,
-            "itemName": "JobTracker.csv",
+            "name": "JobTracker.csv",
             "size": 232,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548911.97,
-            "itemName": "Lead.csv",
+            "name": "Lead.csv",
             "size": 12692,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548912.2144,
-            "itemName": "LinkReference.csv",
+            "name": "LinkReference.csv",
             "size": 118,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548912.4846,
-            "itemName": "LinkedInLeadGen.csv",
+            "name": "LinkedInLeadGen.csv",
             "size": 545,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548912.7207,
-            "itemName": "ListEmail.csv",
+            "name": "ListEmail.csv",
             "size": 307,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548912.97,
-            "itemName": "ListEmailRecipientSource.csv",
+            "name": "ListEmailRecipientSource.csv",
             "size": 149,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548913.215,
-            "itemName": "ListEmailSentResult.csv",
+            "name": "ListEmailSentResult.csv",
             "size": 172,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548913.5222,
-            "itemName": "Macro.csv",
+            "name": "Macro.csv",
             "size": 168,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548913.7717,
-            "itemName": "MacroAction.csv",
+            "name": "MacroAction.csv",
             "size": 197,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548914.813,
-            "itemName": "MacroInstruction.csv",
+            "name": "MacroInstruction.csv",
             "size": 172,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548915.078,
-            "itemName": "ManagedContentBlock.csv",
+            "name": "ManagedContentBlock.csv",
             "size": 114,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548915.3062,
-            "itemName": "ManagedContentBlockVersion.csv",
+            "name": "ManagedContentBlockVersion.csv",
             "size": 276,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548915.5227,
-            "itemName": "MatchingInformation.csv",
+            "name": "MatchingInformation.csv",
             "size": 194,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548915.7473,
-            "itemName": "Metric.csv",
+            "name": "Metric.csv",
             "size": 301,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548915.9827,
-            "itemName": "MetricDataLink.csv",
+            "name": "MetricDataLink.csv",
             "size": 181,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548916.2234,
-            "itemName": "MetricsTransmissionHistory.csv",
+            "name": "MetricsTransmissionHistory.csv",
             "size": 197,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548916.4568,
-            "itemName": "NewsFeed.csv",
+            "name": "NewsFeed.csv",
             "size": 316,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548916.738,
-            "itemName": "Note.csv",
+            "name": "Note.csv",
             "size": 160,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548916.9932,
-            "itemName": "NotifDeliveryUserPref.csv",
+            "name": "NotifDeliveryUserPref.csv",
             "size": 165,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548917.2314,
-            "itemName": "NotificationMember.csv",
+            "name": "NotificationMember.csv",
             "size": 138,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548917.5203,
-            "itemName": "Opportunity.csv",
+            "name": "Opportunity.csv",
             "size": 14323,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548917.7817,
-            "itemName": "OpportunityCompetitor.csv",
+            "name": "OpportunityCompetitor.csv",
             "size": 158,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548918.0647,
-            "itemName": "OpportunityContactRole.csv",
+            "name": "OpportunityContactRole.csv",
             "size": 135,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548918.3357,
-            "itemName": "OpportunityHistory.csv",
+            "name": "OpportunityHistory.csv",
             "size": 7076,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548918.6191,
-            "itemName": "OpportunityLineItem.csv",
+            "name": "OpportunityLineItem.csv",
             "size": 222,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548918.9055,
-            "itemName": "Order.csv",
+            "name": "Order.csv",
             "size": 812,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548919.165,
-            "itemName": "OrderItem.csv",
+            "name": "OrderItem.csv",
             "size": 262,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548919.4182,
-            "itemName": "OrgDeleteRequest.csv",
+            "name": "OrgDeleteRequest.csv",
             "size": 131,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548919.6597,
-            "itemName": "OrgWideEmailAddress.csv",
+            "name": "OrgWideEmailAddress.csv",
             "size": 167,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548919.9138,
-            "itemName": "Partner.csv",
+            "name": "Partner.csv",
             "size": 184,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548920.137,
-            "itemName": "Period.csv",
+            "name": "Period.csv",
             "size": 131,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548920.3665,
-            "itemName": "PersonalizationResource.csv",
+            "name": "PersonalizationResource.csv",
             "size": 157,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548920.596,
-            "itemName": "PersonalizedUnswdQuestion.csv",
+            "name": "PersonalizedUnswdQuestion.csv",
             "size": 213,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548920.832,
-            "itemName": "Pricebook2.csv",
+            "name": "Pricebook2.csv",
             "size": 487,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548921.2131,
-            "itemName": "PricebookEntry.csv",
+            "name": "PricebookEntry.csv",
             "size": 6815,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548921.503,
-            "itemName": "ProcessInstance.csv",
+            "name": "ProcessInstance.csv",
             "size": 210,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548921.8086,
-            "itemName": "ProcessInstanceNode.csv",
+            "name": "ProcessInstanceNode.csv",
             "size": 186,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548922.1013,
-            "itemName": "ProcessInstanceStep.csv",
+            "name": "ProcessInstanceStep.csv",
             "size": 223,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548922.3867,
-            "itemName": "ProcessInstanceWorkitem.csv",
+            "name": "ProcessInstanceWorkitem.csv",
             "size": 256,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548922.648,
-            "itemName": "Product2.csv",
+            "name": "Product2.csv",
             "size": 3569,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548922.9277,
-            "itemName": "PushIntent.csv",
+            "name": "PushIntent.csv",
             "size": 170,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548923.1802,
-            "itemName": "PushProfileMapping.csv",
+            "name": "PushProfileMapping.csv",
             "size": 180,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548923.4668,
-            "itemName": "QuickText.csv",
+            "name": "QuickText.csv",
             "size": 148,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548923.717,
-            "itemName": "RecommendationAudience.csv",
+            "name": "RecommendationAudience.csv",
             "size": 183,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548923.9634,
-            "itemName": "RecommendationDefinition.csv",
+            "name": "RecommendationDefinition.csv",
             "size": 213,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548924.2021,
-            "itemName": "RecommendationMetric.csv",
+            "name": "RecommendationMetric.csv",
             "size": 238,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548924.4277,
-            "itemName": "RecordAction.csv",
+            "name": "RecordAction.csv",
             "size": 179,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548924.65,
-            "itemName": "RecordOrigin.csv",
+            "name": "RecordOrigin.csv",
             "size": 168,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548930.1016,
-            "itemName": "RecordType.csv",
+            "name": "RecordType.csv",
             "size": 1730,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548930.4597,
-            "itemName": "Scorecard.csv",
+            "name": "Scorecard.csv",
             "size": 146,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548930.7544,
-            "itemName": "ScorecardAssociation.csv",
+            "name": "ScorecardAssociation.csv",
             "size": 138,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548931.0156,
-            "itemName": "ScorecardMetric.csv",
+            "name": "ScorecardMetric.csv",
             "size": 157,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548931.282,
-            "itemName": "SearchActivity.csv",
+            "name": "SearchActivity.csv",
             "size": 245,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548931.5234,
-            "itemName": "SearchPromotionRule.csv",
+            "name": "SearchPromotionRule.csv",
             "size": 115,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548931.8071,
-            "itemName": "SetupAssistantAnswer.csv",
+            "name": "SetupAssistantAnswer.csv",
             "size": 130,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548932.0789,
-            "itemName": "SetupAssistantProgress.csv",
+            "name": "SetupAssistantProgress.csv",
             "size": 143,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548932.3313,
-            "itemName": "SetupFlowProgress.csv",
+            "name": "SetupFlowProgress.csv",
             "size": 265,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548932.579,
-            "itemName": "SocialPersona.csv",
+            "name": "SocialPersona.csv",
             "size": 200,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548932.8882,
-            "itemName": "Solution.csv",
+            "name": "Solution.csv",
             "size": 5877,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548933.1887,
-            "itemName": "StreamingChannel.csv",
+            "name": "StreamingChannel.csv",
             "size": 143,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548933.4734,
-            "itemName": "SystemStreamingChannel.csv",
+            "name": "SystemStreamingChannel.csv",
             "size": 133,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548933.7415,
-            "itemName": "Task.csv",
+            "name": "Task.csv",
             "size": 643,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548934.0002,
-            "itemName": "TaskRelation.csv",
+            "name": "TaskRelation.csv",
             "size": 143,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548934.2727,
-            "itemName": "TodayGoal.csv",
+            "name": "TodayGoal.csv",
             "size": 134,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548934.5286,
-            "itemName": "Tombstone.csv",
+            "name": "Tombstone.csv",
             "size": 116,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548934.8232,
-            "itemName": "TopicDataCategoryRule.csv",
+            "name": "TopicDataCategoryRule.csv",
             "size": 156,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548935.0837,
-            "itemName": "TopicGroupActivity.csv",
+            "name": "TopicGroupActivity.csv",
             "size": 156,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548935.351,
-            "itemName": "TopicUserActivity.csv",
+            "name": "TopicUserActivity.csv",
             "size": 142,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548935.6191,
-            "itemName": "TransitionMessage.csv",
+            "name": "TransitionMessage.csv",
             "size": 134,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548935.8992,
-            "itemName": "TrendingTopic.csv",
+            "name": "TrendingTopic.csv",
             "size": 169,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548936.189,
-            "itemName": "User.csv",
+            "name": "User.csv",
             "size": 4166,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548936.4915,
-            "itemName": "UserAppInfo.csv",
+            "name": "UserAppInfo.csv",
             "size": 147,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548936.7617,
-            "itemName": "UserAppMenuCustomization.csv",
+            "name": "UserAppMenuCustomization.csv",
             "size": 145,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548937.0664,
-            "itemName": "UserMetrics.csv",
+            "name": "UserMetrics.csv",
             "size": 243,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548937.3357,
-            "itemName": "UserNavItem.csv",
+            "name": "UserNavItem.csv",
             "size": 229,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548937.6245,
-            "itemName": "UserProvAccount.csv",
+            "name": "UserProvAccount.csv",
             "size": 283,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548937.946,
-            "itemName": "UserProvAccountStaging.csv",
+            "name": "UserProvAccountStaging.csv",
             "size": 255,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548938.362,
-            "itemName": "UserProvMockTarget.csv",
+            "name": "UserProvMockTarget.csv",
             "size": 198,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548938.693,
-            "itemName": "UserProvisioningLog.csv",
+            "name": "UserProvisioningLog.csv",
             "size": 199,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548938.9937,
-            "itemName": "UserProvisioningRequest.csv",
+            "name": "UserProvisioningRequest.csv",
             "size": 324,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548939.3325,
-            "itemName": "UserRole.csv",
+            "name": "UserRole.csv",
             "size": 3826,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548939.6377,
-            "itemName": "UserSetupAppInfo.csv",
+            "name": "UserSetupAppInfo.csv",
             "size": 129,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548939.9238,
-            "itemName": "WorkCoaching.csv",
+            "name": "WorkCoaching.csv",
             "size": 152,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548940.232,
-            "itemName": "WorkFeedback.csv",
+            "name": "WorkFeedback.csv",
             "size": 153,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548940.514,
-            "itemName": "WorkFeedbackQuestion.csv",
+            "name": "WorkFeedbackQuestion.csv",
             "size": 233,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548941.2988,
-            "itemName": "WorkFeedbackQuestionSet.csv",
+            "name": "WorkFeedbackQuestionSet.csv",
             "size": 163,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548941.7188,
-            "itemName": "WorkFeedbackRequest.csv",
+            "name": "WorkFeedbackRequest.csv",
             "size": 417,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548942.0798,
-            "itemName": "WorkFeedbackTemplate.csv",
+            "name": "WorkFeedbackTemplate.csv",
             "size": 133,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548942.3828,
-            "itemName": "WorkPerformanceCycle.csv",
+            "name": "WorkPerformanceCycle.csv",
             "size": 199,
             "typeId": "object"
         }
@@ -1363,83 +1363,83 @@
     "/Test Files": [
         {
             "lastModifiedAt": 1693514614451.2168,
-            "itemName": ".DS_Store",
+            "name": ".DS_Store",
             "size": 6148,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548943.1294,
-            "itemName": "Categories.csv",
+            "name": "Categories.csv",
             "size": 441,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548943.4463,
-            "itemName": "Conversion Data.csv",
+            "name": "Conversion Data.csv",
             "size": 5338,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548943.8535,
-            "itemName": "Customers.csv",
+            "name": "Customers.csv",
             "size": 13295,
             "typeId": "object"
         },
         {
             "childCount": 22,
-            "itemName": "Encoding",
+            "name": "Encoding",
             "typeId": "folder"
         },
         {
             "childCount": 31,
-            "itemName": "Encoding Test Files",
+            "name": "Encoding Test Files",
             "typeId": "folder"
         },
         {
             "lastModifiedAt": 1693496548979.5928,
-            "itemName": "Receipts.xls",
+            "name": "Receipts.xls",
             "size": 180736,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496549656.176,
-            "itemName": "WDI_Data Part 1.csv",
+            "name": "WDI_Data Part 1.csv",
             "size": 98362709,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496549680.5889,
-            "itemName": "test.csv",
+            "name": "test.csv",
             "size": 2995,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496549680.8403,
-            "itemName": "test.json",
+            "name": "test.json",
             "size": 7906,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496549681.0217,
-            "itemName": "test.spss",
+            "name": "test.spss",
             "size": 17,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496549681.2114,
-            "itemName": "test.xls",
+            "name": "test.xls",
             "size": 16,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496549681.3933,
-            "itemName": "test.xlsx",
+            "name": "test.xlsx",
             "size": 17,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496549681.5903,
-            "itemName": "test.xml",
+            "name": "test.xml",
             "size": 4429,
             "typeId": "object"
         }
@@ -1447,133 +1447,133 @@
     "/Test Files/Encoding": [
         {
             "lastModifiedAt": 1693496548971.085,
-            "itemName": ".DS_Store",
+            "name": ".DS_Store",
             "size": 6148,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548971.3987,
-            "itemName": "big5",
+            "name": "big5",
             "size": 614,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548971.7205,
-            "itemName": "euc-jp",
+            "name": "euc-jp",
             "size": 3919,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548972.0256,
-            "itemName": "euc-kr",
+            "name": "euc-kr",
             "size": 2480,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548972.3247,
-            "itemName": "gb18030",
+            "name": "gb18030",
             "size": 1665,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548972.6301,
-            "itemName": "iso-2022-jp",
+            "name": "iso-2022-jp",
             "size": 2924,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548972.923,
-            "itemName": "iso-8859-2",
+            "name": "iso-8859-2",
             "size": 1600,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548973.2087,
-            "itemName": "iso-8859-5",
+            "name": "iso-8859-5",
             "size": 1024,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548973.5156,
-            "itemName": "iso-8859-6",
+            "name": "iso-8859-6",
             "size": 2241,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548973.808,
-            "itemName": "iso-8859-7",
+            "name": "iso-8859-7",
             "size": 1033,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548974.117,
-            "itemName": "koi8-r",
+            "name": "koi8-r",
             "size": 1024,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548974.4368,
-            "itemName": "shift_jis",
+            "name": "shift_jis",
             "size": 2816,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548974.7432,
-            "itemName": "utf-16be",
+            "name": "utf-16be",
             "size": 1334,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548975.0378,
-            "itemName": "utf-16le",
+            "name": "utf-16le",
             "size": 1334,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548975.353,
-            "itemName": "utf-8",
+            "name": "utf-8",
             "size": 1125,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548975.6477,
-            "itemName": "windows-1250",
+            "name": "windows-1250",
             "size": 1617,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548976.063,
-            "itemName": "windows-1251",
+            "name": "windows-1251",
             "size": 1024,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548976.4612,
-            "itemName": "windows-1252",
+            "name": "windows-1252",
             "size": 2976,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548976.842,
-            "itemName": "windows-1253",
+            "name": "windows-1253",
             "size": 1052,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548977.1694,
-            "itemName": "windows-1254",
+            "name": "windows-1254",
             "size": 2445,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548977.5845,
-            "itemName": "windows-1255",
+            "name": "windows-1255",
             "size": 2405,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548977.9197,
-            "itemName": "windows-1256",
+            "name": "windows-1256",
             "size": 2241,
             "typeId": "object"
         }
@@ -1581,186 +1581,186 @@
     "/Test Files/Encoding Test Files": [
         {
             "lastModifiedAt": 1693496548944.2913,
-            "itemName": "ascii.txt",
+            "name": "ascii.txt",
             "size": 44,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548944.5723,
-            "itemName": "big5.txt",
+            "name": "big5.txt",
             "size": 37,
             "typeId": "object"
         },
         {
             "childCount": 38,
-            "itemName": "encodings",
+            "name": "encodings",
             "typeId": "folder"
         },
         {
             "lastModifiedAt": 1693496548960.8037,
-            "itemName": "euc-jp.txt",
+            "name": "euc-jp.txt",
             "size": 218,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548961.1482,
-            "itemName": "euc-kr.txt",
+            "name": "euc-kr.txt",
             "size": 153,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548961.4668,
-            "itemName": "gb2312.txt",
+            "name": "gb2312.txt",
             "size": 105,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548962.2007,
-            "itemName": "hz-gb-2312.txt",
+            "name": "hz-gb-2312.txt",
             "size": 117,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548962.8079,
-            "itemName": "ibm855.txt",
+            "name": "ibm855.txt",
             "size": 290,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548963.1594,
-            "itemName": "ibm866.txt",
+            "name": "ibm866.txt",
             "size": 290,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548963.535,
-            "itemName": "iso-2022-jp.txt",
+            "name": "iso-2022-jp.txt",
             "size": 224,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548963.8435,
-            "itemName": "iso-2022-kr.txt",
+            "name": "iso-2022-kr.txt",
             "size": 198,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548964.1516,
-            "itemName": "iso-8859-2.txt",
+            "name": "iso-8859-2.txt",
             "size": 273,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548964.4885,
-            "itemName": "iso-8859-5-bulgarian.txt",
+            "name": "iso-8859-5-bulgarian.txt",
             "size": 304,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548964.7957,
-            "itemName": "iso-8859-5-russian.txt",
+            "name": "iso-8859-5-russian.txt",
             "size": 290,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548965.1277,
-            "itemName": "iso-8859-7.txt",
+            "name": "iso-8859-7.txt",
             "size": 319,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548965.516,
-            "itemName": "iso-8859-8.txt",
+            "name": "iso-8859-8.txt",
             "size": 307,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548966.125,
-            "itemName": "koi8-r.txt",
+            "name": "koi8-r.txt",
             "size": 290,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548966.477,
-            "itemName": "shift_jis.txt",
+            "name": "shift_jis.txt",
             "size": 216,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548966.814,
-            "itemName": "tis-620.txt",
+            "name": "tis-620.txt",
             "size": 68,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548967.11,
-            "itemName": "utf-16be.txt",
+            "name": "utf-16be.txt",
             "size": 2,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548967.3923,
-            "itemName": "utf-16le.txt",
+            "name": "utf-16le.txt",
             "size": 84,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548967.7126,
-            "itemName": "utf-32be.txt",
+            "name": "utf-32be.txt",
             "size": 4,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548968.0146,
-            "itemName": "utf-32le.txt",
+            "name": "utf-32le.txt",
             "size": 18,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548968.3838,
-            "itemName": "utf-8-with-bom.txt",
+            "name": "utf-8-with-bom.txt",
             "size": 58,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548968.695,
-            "itemName": "utf-8-without-bom.txt",
+            "name": "utf-8-without-bom.txt",
             "size": 58,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548968.9941,
-            "itemName": "windows-1251.txt",
+            "name": "windows-1251.txt",
             "size": 290,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548969.3103,
-            "itemName": "windows-1252.txt",
+            "name": "windows-1252.txt",
             "size": 433,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548969.597,
-            "itemName": "windows-1255.txt",
+            "name": "windows-1255.txt",
             "size": 36,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548969.907,
-            "itemName": "x-iso-10646-ucs-4-2143.txt",
+            "name": "x-iso-10646-ucs-4-2143.txt",
             "size": 20,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548970.2273,
-            "itemName": "x-iso-10646-ucs-4-3412.txt",
+            "name": "x-iso-10646-ucs-4-3412.txt",
             "size": 20,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548970.5442,
-            "itemName": "x-mac-cyrillic.txt",
+            "name": "x-mac-cyrillic.txt",
             "size": 290,
             "typeId": "object"
         }
@@ -1768,229 +1768,229 @@
     "/Test Files/Encoding Test Files/encodings": [
         {
             "lastModifiedAt": 1693496548944.9883,
-            "itemName": "big5",
+            "name": "big5",
             "size": 614,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548945.328,
-            "itemName": "euc_jp",
+            "name": "euc_jp",
             "size": 3919,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548945.665,
-            "itemName": "euc_kr",
+            "name": "euc_kr",
             "size": 2480,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548945.9692,
-            "itemName": "gb18030",
+            "name": "gb18030",
             "size": 1665,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548946.4001,
-            "itemName": "iso2022cn",
+            "name": "iso2022cn",
             "size": 1749,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548946.7563,
-            "itemName": "iso2022jp",
+            "name": "iso2022jp",
             "size": 2924,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548947.1028,
-            "itemName": "iso2022kr",
+            "name": "iso2022kr",
             "size": 3172,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548947.5432,
-            "itemName": "iso88591_en",
+            "name": "iso88591_en",
             "size": 2955,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548947.8547,
-            "itemName": "iso88592_cs",
+            "name": "iso88592_cs",
             "size": 1600,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548948.1494,
-            "itemName": "iso88595_ru",
+            "name": "iso88595_ru",
             "size": 1024,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548948.4915,
-            "itemName": "iso88596_ar",
+            "name": "iso88596_ar",
             "size": 2241,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548948.8186,
-            "itemName": "iso88597_el",
+            "name": "iso88597_el",
             "size": 1033,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548949.1514,
-            "itemName": "iso88598",
+            "name": "iso88598",
             "size": 2352,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548949.4717,
-            "itemName": "iso88598_he",
+            "name": "iso88598_he",
             "size": 2353,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548949.7935,
-            "itemName": "iso88599_tr",
+            "name": "iso88599_tr",
             "size": 2424,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548950.0933,
-            "itemName": "koi8r",
+            "name": "koi8r",
             "size": 1024,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548950.4285,
-            "itemName": "lang_arabic",
+            "name": "lang_arabic",
             "size": 4059,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548950.7395,
-            "itemName": "lang_chinese",
+            "name": "lang_chinese",
             "size": 916,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548951.052,
-            "itemName": "lang_czech",
+            "name": "lang_czech",
             "size": 1795,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548951.3948,
-            "itemName": "lang_greek",
+            "name": "lang_greek",
             "size": 1895,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548951.7375,
-            "itemName": "lang_hebrew",
+            "name": "lang_hebrew",
             "size": 4124,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548952.0645,
-            "itemName": "lang_japanese",
+            "name": "lang_japanese",
             "size": 3978,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548952.3867,
-            "itemName": "lang_korean",
+            "name": "lang_korean",
             "size": 3466,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548952.6934,
-            "itemName": "lang_russian",
+            "name": "lang_russian",
             "size": 1873,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548953.026,
-            "itemName": "lang_turkish",
+            "name": "lang_turkish",
             "size": 2678,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548953.3665,
-            "itemName": "shiftjis",
+            "name": "shiftjis",
             "size": 2816,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548953.6746,
-            "itemName": "utf16be",
+            "name": "utf16be",
             "size": 1334,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548953.9407,
-            "itemName": "utf16le",
+            "name": "utf16le",
             "size": 1334,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548954.251,
-            "itemName": "utf32be",
+            "name": "utf32be",
             "size": 2664,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548954.572,
-            "itemName": "utf32le",
+            "name": "utf32le",
             "size": 2664,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548954.873,
-            "itemName": "utf8",
+            "name": "utf8",
             "size": 1125,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548955.194,
-            "itemName": "windows_1250",
+            "name": "windows_1250",
             "size": 1617,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548955.5002,
-            "itemName": "windows_1251",
+            "name": "windows_1251",
             "size": 1024,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548955.8293,
-            "itemName": "windows_1252",
+            "name": "windows_1252",
             "size": 2976,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548956.1287,
-            "itemName": "windows_1253",
+            "name": "windows_1253",
             "size": 1052,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548956.4668,
-            "itemName": "windows_1254",
+            "name": "windows_1254",
             "size": 2445,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548956.883,
-            "itemName": "windows_1255",
+            "name": "windows_1255",
             "size": 2405,
             "typeId": "object"
         },
         {
             "lastModifiedAt": 1693496548957.2607,
-            "itemName": "windows_1256",
+            "name": "windows_1256",
             "size": 2241,
             "typeId": "object"
         }

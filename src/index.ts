@@ -16,8 +16,8 @@ import {
     ConnectionEntryTypeId,
     ConnectorContextError,
     extractFileExtensionFromFilePath,
-    extractFileNameFromFilePath,
-    extractLastSegmentFromPath,
+    // extractFileNameFromFilePath,
+    // extractLastSegmentFromPath,
     FetchResponseError,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-share-core';
@@ -51,7 +51,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 
     constructor(connectionConfig: ConnectionConfig) {
         this.abortController = undefined;
-        this.config = config as unknown as ConnectorConfig;
+        this.config = config as ConnectorConfig;
         this.connectionConfig = connectionConfig;
         this.version = version;
     }
@@ -85,13 +85,13 @@ const retrieveConnectionEntries = (folderPath: string, callback: (data: Connecto
     return new Promise((resolve, reject) => {
         try {
             callback({ typeId: 'test', properties: { aProp: 'value 1' } });
-            const items = (fileStoreIndex as Record<string, { childCount?: number; itemName: string; lastModifiedAt?: number; size?: number; typeId: string }[]>)[folderPath];
+            const items = (fileStoreIndex as Record<string, { childCount?: number; name: string; lastModifiedAt?: number; size?: number; typeId: string }[]>)[folderPath];
             const entries: ConnectionEntry[] = [];
             for (const item of items) {
                 if (item.typeId === 'folder') {
-                    entries.push(buildFolderEntry(item.itemName, item.childCount));
+                    entries.push(buildFolderEntry(folderPath, item.name, item.childCount));
                 } else {
-                    entries.push(buildFileEntry(folderPath, item.itemName, item.lastModifiedAt, item.size));
+                    entries.push(buildFileEntry(folderPath, item.name, item.lastModifiedAt, item.size));
                 }
             }
             callback({ typeId: 'test', properties: { aProp: 'value 2' } });
@@ -102,8 +102,8 @@ const retrieveConnectionEntries = (folderPath: string, callback: (data: Connecto
     });
 };
 
-const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEntry => {
-    const lastFolderName = extractLastSegmentFromPath(folderPath);
+const buildFolderEntry = (folderPath: string, name: string, childCount: number): ConnectionEntry => {
+    // const lastFolderName = extractLastSegmentFromPath(folderPath);
     return {
         childCount,
         folderPath,
@@ -111,38 +111,38 @@ const buildFolderEntry = (folderPath: string, childCount: number): ConnectionEnt
         extension: undefined,
         handle: undefined,
         id: undefined,
-        label: lastFolderName,
+        label: name,
         lastModifiedAt: undefined,
         mimeType: undefined,
-        name: undefined,
+        name,
         referenceId: undefined,
         size: undefined,
         typeId: ConnectionEntryTypeId.Folder
     };
 };
 
-const buildFileEntry = (folderPath: string, filePath: string, lastModifiedAt: number, size: number): ConnectionEntry => {
-    const fullFileName = extractLastSegmentFromPath(filePath);
-    const fileName = extractFileNameFromFilePath(fullFileName);
-    const fileExtension = extractFileExtensionFromFilePath(fullFileName);
+const buildFileEntry = (folderPath: string, name: string, lastModifiedAt: number, size: number): ConnectionEntry => {
+    // const fullFileName = extractLastSegmentFromPath(filePath);
+    // const name = extractFileNameFromFilePath(nameWithExtension);
+    const extension = extractFileExtensionFromFilePath(name);
     return {
         childCount: undefined,
         folderPath,
         encodingId: undefined,
-        extension: fileExtension,
+        extension,
         handle: undefined,
         id: undefined,
-        label: fullFileName,
+        label: name,
         lastModifiedAt,
-        mimeType: lookupMimeTypeForFileExtension(fileExtension),
-        name: fileName,
+        mimeType: lookupMimeTypeForFileExtension(extension),
+        name,
         referenceId: undefined,
         size,
         typeId: ConnectionEntryTypeId.File
     };
 };
 
-// Helper
+// Helpers
 const previewConnectionEntry = (
     connector: DataConnector,
     accountId: string | undefined,
@@ -295,7 +295,7 @@ const readConnectionEntry = (
     });
 };
 
-// Utility
+// Utilities
 const tidyUp = (connector: DataConnector | undefined, message: string, context: string, error: unknown): unknown => {
     if (connector) connector.abortController = undefined;
     if (error instanceof Error) error.stack = undefined;
