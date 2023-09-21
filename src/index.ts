@@ -148,8 +148,8 @@ const previewConnectionEntry = (
     accountId: string | undefined,
     sessionAccessToken: string | undefined,
     sourceViewConfig: SourceViewConfig,
-    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    callback: (data: ConnectorCallbackData) => void
+    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
+    // callback: (data: ConnectorCallbackData) => void
 ): Promise<ConnectionEntryPreview> => {
     return new Promise((resolve, reject) => {
         try {
@@ -195,8 +195,8 @@ const readConnectionEntry = (
     sessionAccessToken: string,
     sourceViewConfig: SourceViewConfig,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    csvParse: (options?: Options, callback?: Callback) => Parser, // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
-    callback: (data: ConnectorCallbackData) => void
+    csvParse: (options?: Options, callback?: Callback) => Parser // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
+    // callback: (data: ConnectorCallbackData) => void
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
