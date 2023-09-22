@@ -16,8 +16,6 @@ import {
     ConnectionEntryTypeId,
     ConnectorContextError,
     extractFileExtensionFromFilePath,
-    // extractFileNameFromFilePath,
-    // extractLastSegmentFromPath,
     FetchResponseError,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-share-core';
@@ -40,13 +38,12 @@ import type {
     SourceViewConfig
 } from '@datapos/datapos-share-core';
 
-type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; path: string; size?: number; typeId: string }[]>;
+type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
-    fileStoreIndex: FileStoreIndex;
     readonly version: string;
 
     constructor(connectionConfig: ConnectionConfig) {
@@ -76,73 +73,28 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         settings: DataConnectorRetrieveEntriesSettings,
         callback: (data: ConnectorCallbackData) => void
     ): Promise<ConnectionEntryDrilldownResult> {
-        return await retrieveConnectionEntries(settings.folderPath, callback);
+        return new Promise((resolve, reject) => {
+            try {
+                callback({ typeId: 'test', properties: { aProp: 'value 1' } });
+                const items = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
+                const entries: ConnectionEntry[] = [];
+                for (const item of items) {
+                    if (item.typeId === 'folder') {
+                        entries.push(buildFolderEntry(settings.folderPath, item.name, item.childCount));
+                    } else {
+                        entries.push(buildFileEntry(settings.folderPath, item.name, item.lastModifiedAt, item.size));
+                    }
+                }
+                callback({ typeId: 'test', properties: { aProp: 'value 2' } });
+                resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
+            } catch (error) {
+                reject(tidyUp(undefined, FAILED_TO_RETRIEVE_MESSAGE, 'retrieveConnectionEntries.1', error));
+            }
+        });
     }
 }
 
-// Helpers
-const retrieveConnectionEntries = (folderPath: string, callback: (data: ConnectorCallbackData) => void): Promise<ConnectionEntryDrilldownResult> => {
-    return new Promise((resolve, reject) => {
-        try {
-            callback({ typeId: 'test', properties: { aProp: 'value 1' } });
-            const items = (fileStoreIndex as Record<string, { childCount?: number; name: string; lastModifiedAt?: number; size?: number; typeId: string }[]>)[folderPath];
-            const entries: ConnectionEntry[] = [];
-            for (const item of items) {
-                if (item.typeId === 'folder') {
-                    entries.push(buildFolderEntry(folderPath, item.name, item.childCount));
-                } else {
-                    entries.push(buildFileEntry(folderPath, item.name, item.lastModifiedAt, item.size));
-                }
-            }
-            callback({ typeId: 'test', properties: { aProp: 'value 2' } });
-            resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
-        } catch (error) {
-            reject(tidyUp(undefined, FAILED_TO_RETRIEVE_MESSAGE, 'retrieveConnectionEntries.1', error));
-        }
-    });
-};
-
-const buildFolderEntry = (folderPath: string, name: string, childCount: number): ConnectionEntry => {
-    // const lastFolderName = extractLastSegmentFromPath(folderPath);
-    return {
-        childCount,
-        folderPath,
-        encodingId: undefined,
-        extension: undefined,
-        handle: undefined,
-        id: undefined,
-        label: name,
-        lastModifiedAt: undefined,
-        mimeType: undefined,
-        name,
-        referenceId: undefined,
-        size: undefined,
-        typeId: ConnectionEntryTypeId.Folder
-    };
-};
-
-const buildFileEntry = (folderPath: string, name: string, lastModifiedAt: number, size: number): ConnectionEntry => {
-    // const fullFileName = extractLastSegmentFromPath(filePath);
-    // const name = extractFileNameFromFilePath(nameWithExtension);
-    const extension = extractFileExtensionFromFilePath(name);
-    return {
-        childCount: undefined,
-        folderPath,
-        encodingId: undefined,
-        extension,
-        handle: undefined,
-        id: undefined,
-        label: name,
-        lastModifiedAt,
-        mimeType: lookupMimeTypeForFileExtension(extension),
-        name,
-        referenceId: undefined,
-        size,
-        typeId: ConnectionEntryTypeId.File
-    };
-};
-
-// Helpers
+// Interfaces
 const previewConnectionEntry = (
     connector: DataConnector,
     accountId: string | undefined,
@@ -188,7 +140,7 @@ const previewConnectionEntry = (
     });
 };
 
-// Helper
+// Interfaces
 const readConnectionEntry = (
     connector: DataConnector,
     accountId: string,
@@ -293,6 +245,45 @@ const readConnectionEntry = (
             reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.1', error));
         }
     });
+};
+
+// Utilities
+const buildFolderEntry = (folderPath: string, name: string, childCount: number): ConnectionEntry => {
+    return {
+        childCount,
+        folderPath,
+        encodingId: undefined,
+        extension: undefined,
+        handle: undefined,
+        id: undefined,
+        label: name,
+        lastModifiedAt: undefined,
+        mimeType: undefined,
+        name,
+        referenceId: undefined,
+        size: undefined,
+        typeId: ConnectionEntryTypeId.Folder
+    };
+};
+
+// Utilities
+const buildFileEntry = (folderPath: string, name: string, lastModifiedAt: number, size: number): ConnectionEntry => {
+    const extension = extractFileExtensionFromFilePath(name);
+    return {
+        childCount: undefined,
+        folderPath,
+        encodingId: undefined,
+        extension,
+        handle: undefined,
+        id: undefined,
+        label: name,
+        lastModifiedAt,
+        mimeType: lookupMimeTypeForFileExtension(extension),
+        name,
+        referenceId: undefined,
+        size,
+        typeId: ConnectionEntryTypeId.File
+    };
 };
 
 // Utilities
