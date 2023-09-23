@@ -103,6 +103,7 @@ const previewConnectionEntry = (
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
     // callback: (data: ConnectorCallbackData) => void
 ): Promise<ConnectionEntryPreview> => {
+    console.log('X1', connector, sourceViewConfig, previewInterfaceSettings);
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
