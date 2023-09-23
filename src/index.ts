@@ -116,7 +116,7 @@ const previewConnectionEntry = (
             );
 
             // ...
-            const fullFileName = `${sourceViewConfig.fileName}${sourceViewConfig.fileExtension ? `.${sourceViewConfig.fileExtension}` : ''}`;
+            const fullFileName = sourceViewConfig.fileName;
             const url = `${URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${fullFileName}`;
             const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             console.log('X2', url, headers, signal);
