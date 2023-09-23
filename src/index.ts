@@ -152,6 +152,7 @@ const readConnectionEntry = (
     csvParse: (options?: Options, callback?: Callback) => Parser // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
     // callback: (data: ConnectorCallbackData) => void
 ): Promise<void> => {
+    console.log('Y1', connector, sourceViewConfig, readInterfaceSettings, csvParse);
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller and get the signal. Add an abort listener to the signal.
