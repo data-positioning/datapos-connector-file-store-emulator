@@ -9,6 +9,9 @@ import { extractFileExtensionFromFilePath, lookupMimeTypeForFileExtension } from
 import type { ListEntriesSettings, ListEntry, ListEntryDrilldownResult, ListEntryPreview } from '@datapos/datapos-share-core';
 import type { PreviewInterface, PreviewInterfaceSettings, ReadInterface, ReadInterfaceSettings, SourceViewConfig } from '@datapos/datapos-share-core';
 
+// Declarations
+type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
+
 // Constants
 const CALLBACK_PREVIEW_ABORTED = 'Aborted entry preview.';
 const CALLBACK_READ_ABORTED = 'Aborted entry read.';
@@ -18,9 +21,6 @@ const ERROR_LIST_ENTRIES_FAILED = 'Failed to list entries.';
 const ERROR_READ_ENTRY_FAILED = 'Failed to read entry.';
 const ERROR_PREVIEW_ENTRY_FAILED = 'Failed to preview entry.';
 const URL_PREFIX = 'https://datapos-resources.netlify.app/';
-
-// Declarations
-type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Classes
 export default class FileStoreEmulatorDataConnector implements DataConnector {
