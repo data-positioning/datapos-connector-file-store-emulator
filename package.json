@@ -2,23 +2,23 @@
     "name": "datapos-connector-data-file-store-emulator",
     "license": "ISC",
     "private": true,
-    "version": "0.1.826",
+    "version": "0.1.827",
     "peerDependencies": {
-        "@datapos/datapos-share-core": "^0.1.432",
+        "@datapos/datapos-share-core": "^0.1.440",
         "csv-parse": "^5.5.0"
     },
     "devDependencies": {
         "@datapos/datapos-operations": "^0.1.338",
-        "@types/node": "^20.6.1",
-        "@typescript-eslint/eslint-plugin": "^6.7.0",
-        "@typescript-eslint/parser": "^6.7.0",
-        "eslint": "^8.49.0",
+        "@types/node": "^20.6.5",
+        "@typescript-eslint/eslint-plugin": "^6.7.2",
+        "@typescript-eslint/parser": "^6.7.2",
+        "eslint": "^8.50.0",
         "eslint-plugin-import": "^2.28.1",
         "eslint-plugin-prettier": "^5.0.0",
         "prettier": "^3.0.3",
         "typescript": "^5.2.2",
         "vite": "^4.4.9",
-        "vite-plugin-dts": "^3.5.3"
+        "vite-plugin-dts": "^3.5.4"
     },
     "scripts": {
         "audit": "npm audit",

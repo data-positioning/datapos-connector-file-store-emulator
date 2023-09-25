@@ -1,41 +1,22 @@
 import config from './config.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
-import {
-    AbortError,
-    ConnectionEntryPreviewTypeId,
-    ConnectionEntryTypeId,
-    ConnectorContextError,
-    extractFileExtensionFromFilePath,
-    FetchResponseError,
-    lookupMimeTypeForFileExtension
-} from '@datapos/datapos-share-core';
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
-import type {
-    ConnectionConfig,
-    ConnectionEntry,
-    ConnectionEntryDrilldownResult,
-    ConnectionEntryPreview,
-    ConnectorCallbackData,
-    ConnectorConfig,
-    DataConnector,
-    DataConnectorFieldInfo,
-    DataConnectorPreviewInterface,
-    DataConnectorPreviewInterfaceSettings,
-    DataConnectorReadInterface,
-    DataConnectorReadInterfaceSettings,
-    DataConnectorRecord,
-    DataConnectorRetrieveEntriesSettings,
-    SourceViewConfig
-} from '@datapos/datapos-share-core';
+
+import { AbortError, ConnectorContextError, FetchResponseError, ListEntryPreviewTypeId, ListEntryTypeId } from '@datapos/datapos-share-core';
+import type { ConnectionConfig, ConnectorCallbackData, ConnectorConfig, DataConnector, DataConnectorFieldInfo, DataConnectorRecord } from '@datapos/datapos-share-core';
+import { extractFileExtensionFromFilePath, lookupMimeTypeForFileExtension } from '@datapos/datapos-share-core';
+import type { ListEntriesSettings, ListEntry, ListEntryDrilldownResult, ListEntryPreview } from '@datapos/datapos-share-core';
+import type { PreviewInterface, PreviewInterfaceSettings, ReadInterface, ReadInterfaceSettings, SourceViewConfig } from '@datapos/datapos-share-core';
 
 // Constants
-const ABORTED_PREVIEW_MESSAGE = 'Aborted preview connection entry.';
-const ABORTED_READ_MESSAGE = 'Aborted read connection entry.';
+const CALLBACK_PREVIEW_ABORTED = 'Aborted entry preview.';
+const CALLBACK_READ_ABORTED = 'Aborted entry read.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_READ_CHUNK_SIZE = 1000;
-const FAILED_TO_READ_MESSAGE = 'Failed to read connection entry.';
-const FAILED_TO_PREVIEW_MESSAGE = 'Failed to preview connection entry.';
+const ERROR_LIST_ENTRIES_FAILED = 'Failed to list entries.';
+const ERROR_READ_ENTRY_FAILED = 'Failed to read entry.';
+const ERROR_PREVIEW_ENTRY_FAILED = 'Failed to preview entry.';
 const URL_PREFIX = 'https://datapos-resources.netlify.app/';
 
 // Declarations
@@ -48,7 +29,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     readonly connectionConfig: ConnectionConfig;
 
     constructor(connectionConfig: ConnectionConfig) {
-        this.abortController = undefined;
+        this.abortController = null;
         this.config = config as ConnectorConfig;
         this.config.version = version;
         this.connectionConfig = connectionConfig;
@@ -57,101 +38,90 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     abort(): void {
         if (!this.abortController) return;
         this.abortController.abort();
-        this.abortController = undefined;
+        this.abortController = null;
     }
 
-    getPreviewInterface(): DataConnectorPreviewInterface {
-        return { connector: this, previewConnectionEntry };
+    getPreviewInterface(): PreviewInterface {
+        return { connector: this, previewEntry };
     }
 
-    getReadInterface(): DataConnectorReadInterface {
-        return { connector: this, readConnectionEntry };
+    getReadInterface(): ReadInterface {
+        return { connector: this, readEntry };
     }
 
-    async listEntries(settings: DataConnectorRetrieveEntriesSettings): Promise<ConnectionEntryDrilldownResult> {
-        console.log('listEntries');
+    async listEntries(settings: ListEntriesSettings): Promise<ListEntryDrilldownResult> {
         return new Promise((resolve, reject) => {
             try {
                 const indexEntries = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
-                const entries: ConnectionEntry[] = [];
+                const listEntries: ListEntry[] = [];
                 for (const indexEntry of indexEntries) {
                     if (indexEntry.typeId === 'folder') {
-                        entries.push(buildFolderEntry(settings.folderPath, indexEntry.name, indexEntry.childCount));
+                        listEntries.push(buildFolderEntry(settings.folderPath, indexEntry.name, indexEntry.childCount));
                     } else {
-                        entries.push(buildFileEntry(settings.folderPath, indexEntry.name, indexEntry.lastModifiedAt, indexEntry.size));
+                        listEntries.push(buildFileEntry(settings.folderPath, indexEntry.name, indexEntry.lastModifiedAt, indexEntry.size));
                     }
                 }
-                resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
+                resolve({ cursor: undefined, isMore: false, entries: listEntries, totalCount: listEntries.length });
             } catch (error) {
-                reject(tidyUp(undefined, 'Failed to retrieve connection entries.', 'listEntries.1', error));
+                reject(tidyUp(undefined, ERROR_LIST_ENTRIES_FAILED, 'listEntries.1', error));
             }
         });
     }
 }
 
-// Interfaces - Preview Connection Entry
-const previewConnectionEntry = (
-    connector: DataConnector,
-    sourceViewConfig: SourceViewConfig,
-    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
-    callback: (data: ConnectorCallbackData) => void
-): Promise<ConnectionEntryPreview> => {
-    console.log('X1', connector, sourceViewConfig, previewInterfaceSettings);
+// Interfaces - Preview Entry
+const previewEntry = (connector: DataConnector, sourceViewConfig: SourceViewConfig, settings: PreviewInterfaceSettings): Promise<ListEntryPreview> => {
+    console.log('X1', connector, sourceViewConfig, settings);
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
-            signal.addEventListener(
-                'abort',
-                () => reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.5', new AbortError(ABORTED_PREVIEW_MESSAGE)))
-                /*, { once: true, signal } TODO: Don't need once and signal? */
-            );
+            signal.addEventListener('abort', () => reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.5', new AbortError(CALLBACK_PREVIEW_ABORTED))));
 
-            // ...
-            const fullFileName = sourceViewConfig.fileName;
-            const url = `${URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${fullFileName}`;
-            const headers: HeadersInit = { Range: `bytes=0-${previewInterfaceSettings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
-            console.log('X2', url, headers, signal);
+            // Fetch chunk from start of file.
+            const url = `${URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${sourceViewConfig.fileName}`;
+            const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
+            console.log('X2', url, headers);
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
                     try {
+                        connector.abortController = null;
                         if (response.ok) {
-                            const result = await response.arrayBuffer();
-                            connector.abortController = undefined;
-                            resolve({ data: new Uint8Array(result), typeId: ConnectionEntryPreviewTypeId.Uint8Array });
+                            resolve({ data: new Uint8Array(await response.arrayBuffer()), typeId: ListEntryPreviewTypeId.Uint8Array });
                         } else {
                             const error = new FetchResponseError(response.status, response.statusText, await response.text());
-                            reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.4', error));
+                            reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.4', error));
                         }
                     } catch (error) {
-                        reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.3', error));
+                        reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.3', error));
                     }
                 })
-                .catch((error) => reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.2', error)));
+                .catch((error) => reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.2', error)));
         } catch (error) {
-            reject(tidyUp(connector, FAILED_TO_PREVIEW_MESSAGE, 'previewConnectionEntry.1', error));
+            reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.1', error));
         }
     });
 };
 
-// Interfaces - Read Connection Entry
-const readConnectionEntry = (
+// Interfaces - Read Entry
+const readEntry = (
     connector: DataConnector,
     sourceViewConfig: SourceViewConfig,
-    readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    csvParse: (options?: Options, callback?: Callback) => Parser, // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
+    settings: ReadInterfaceSettings,
+    csvParse: (options?: Options, callback?: Callback) => Parser,
     callback: (data: ConnectorCallbackData) => void
 ): Promise<void> => {
-    console.log('Y1', connector, sourceViewConfig, readInterfaceSettings);
+    console.log('Y1', connector, sourceViewConfig, settings);
     return new Promise((resolve, reject) => {
         try {
+            callback({ typeId: 'start', properties: { sourceViewConfig, settings } });
             // Create an abort controller and get the signal. Add an abort listener to the signal.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener(
                 'abort',
-                () => reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.8', new AbortError(ABORTED_READ_MESSAGE)))
+                () => reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.8', new AbortError(CALLBACK_READ_ABORTED)))
                 /*, { once: true, signal } TODO: Don't need once and signal? */
             );
 
@@ -179,27 +149,27 @@ const readConnectionEntry = (
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
                         pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
                         if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
-                        readInterfaceSettings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
+                        settings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                         pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                     }
                 } catch (error) {
-                    reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.7', error));
+                    reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.7', error));
                 }
             });
 
             // Parser - Event listener for the 'error' event.
-            parser.on('error', (error) => reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.6', error)));
+            parser.on('error', (error) => reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.6', error)));
 
             // Parser - Event listener for the 'end' (end of data) event.
             parser.on('end', () => {
                 try {
                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                    connector.abortController = undefined; // Clear the abort controller.
+                    connector.abortController = null; // Clear the abort controller.
                     if (pendingRows.length > 0) {
-                        readInterfaceSettings.chunk(pendingRows);
+                        settings.chunk(pendingRows);
                         pendingRows = [];
                     }
-                    readInterfaceSettings.complete({
+                    settings.complete({
                         byteCount: parser.info.bytes,
                         commentLineCount: parser.info.comment_lines,
                         emptyLineCount: parser.info.empty_lines,
@@ -209,7 +179,7 @@ const readConnectionEntry = (
                     });
                     resolve();
                 } catch (error) {
-                    reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.5', error));
+                    reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.5', error));
                 }
             });
 
@@ -226,42 +196,41 @@ const readConnectionEntry = (
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
                             // Write the decoded data to the parser and terminate if there is an error.
                             parser.write(result.value, (error) => {
-                                if (error) reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.4', error));
+                                if (error) reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.4', error));
                             });
                         }
                         parser.end(); // Signal no more data will be written.
                     } catch (error) {
-                        reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.3', error));
+                        reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.3', error));
                     }
                 })
-                .catch((error) => reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.2', error)));
+                .catch((error) => reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.2', error)));
+            callback({ typeId: 'end', properties: { url } });
         } catch (error) {
-            reject(tidyUp(connector, FAILED_TO_READ_MESSAGE, 'readConnectionEntry.1', error));
+            reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.1', error));
         }
     });
 };
 
-// Utilities
-const buildFolderEntry = (folderPath: string, name: string, childCount: number): ConnectionEntry => {
+// Utilities - Build Folder Entry
+const buildFolderEntry = (folderPath: string, name: string, childCount: number): ListEntry => {
     return {
         childCount,
         folderPath,
         encodingId: undefined,
         extension: undefined,
         handle: undefined,
-        id: undefined,
         label: name,
         lastModifiedAt: undefined,
         mimeType: undefined,
         name,
-        referenceId: undefined,
         size: undefined,
-        typeId: ConnectionEntryTypeId.Folder
+        typeId: ListEntryTypeId.Folder
     };
 };
 
-// Utilities
-const buildFileEntry = (folderPath: string, name: string, lastModifiedAt: number, size: number): ConnectionEntry => {
+// Utilities - Build File Entry
+const buildFileEntry = (folderPath: string, name: string, lastModifiedAt: number, size: number): ListEntry => {
     const extension = extractFileExtensionFromFilePath(name);
     return {
         childCount: undefined,
@@ -269,20 +238,18 @@ const buildFileEntry = (folderPath: string, name: string, lastModifiedAt: number
         encodingId: undefined,
         extension,
         handle: undefined,
-        id: undefined,
         label: name,
         lastModifiedAt,
         mimeType: lookupMimeTypeForFileExtension(extension),
         name,
-        referenceId: undefined,
         size,
-        typeId: ConnectionEntryTypeId.File
+        typeId: ListEntryTypeId.File
     };
 };
 
-// Utilities
+// Utilities - Tidy Up
 const tidyUp = (connector: DataConnector | undefined, message: string, context: string, error: unknown): unknown => {
-    if (connector) connector.abortController = undefined;
+    if (connector) connector.abortController = null;
     if (error instanceof Error) error.stack = undefined;
     const connectorContextError = new ConnectorContextError(message, `${config.id}.${context}`, error);
     connectorContextError.stack = undefined;
