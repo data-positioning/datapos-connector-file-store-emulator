@@ -11,6 +11,14 @@ export default defineConfig({
             formats: ['es'],
             fileName: (format) => `${config.id}-${format}.js`
         },
+        rollupOptions: {
+            external: ['csv-parse']
+            // output: {
+            //     globals: {
+            //         'csv-parse': 'csv-parse'
+            //     }
+            // }
+        },
         target: 'ESNext'
     },
     plugins: [dts({ outDir: 'dist/types' })]

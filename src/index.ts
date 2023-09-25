@@ -69,6 +69,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 
     async listEntries(settings: DataConnectorRetrieveEntriesSettings): Promise<ConnectionEntryDrilldownResult> {
+        console.log('listEntries');
         return new Promise((resolve, reject) => {
             try {
                 const indexEntries = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
