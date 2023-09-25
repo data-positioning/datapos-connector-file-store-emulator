@@ -1,8 +1,15 @@
 {
-    "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:import/errors", "plugin:import/warnings", "plugin:import/typescript"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
+    ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "project": "./tsconfig.json"
     },
     "plugins": ["@typescript-eslint", "import"],
     "rules": {
@@ -10,7 +17,6 @@
         "@typescript-eslint/no-import-type-side-effects": "warn",
         "@typescript-eslint/no-unused-vars": "warn",
 
-        "import/consistent-type-specifier-style": "warn",
         "sort-imports": ["warn", { "allowSeparatedGroups": true, "ignoreCase": true, "memberSyntaxSortOrder": ["none", "all", "single", "multiple"] }],
 
         "no-empty": "warn",
