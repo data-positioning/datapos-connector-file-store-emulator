@@ -1,12 +1,3 @@
-const ABORTED_PREVIEW_MESSAGE = 'Aborted preview connection entry.';
-const ABORTED_READ_MESSAGE = 'Aborted read connection entry.';
-const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
-const DEFAULT_READ_CHUNK_SIZE = 1000;
-const FAILED_TO_READ_MESSAGE = 'Failed to read connection entry.';
-const FAILED_TO_PREVIEW_MESSAGE = 'Failed to preview connection entry.';
-const FAILED_TO_RETRIEVE_MESSAGE = 'Failed to retrieve connection entries.';
-const URL_PREFIX = 'https://datapos-resources.netlify.app/';
-
 import config from './config.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
@@ -25,7 +16,6 @@ import type {
     ConnectionEntry,
     ConnectionEntryDrilldownResult,
     ConnectionEntryPreview,
-    ConnectorCallbackData,
     ConnectorConfig,
     DataConnector,
     DataConnectorFieldInfo,
@@ -38,8 +28,19 @@ import type {
     SourceViewConfig
 } from '@datapos/datapos-share-core';
 
+// Constants
+const ABORTED_PREVIEW_MESSAGE = 'Aborted preview connection entry.';
+const ABORTED_READ_MESSAGE = 'Aborted read connection entry.';
+const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
+const DEFAULT_READ_CHUNK_SIZE = 1000;
+const FAILED_TO_READ_MESSAGE = 'Failed to read connection entry.';
+const FAILED_TO_PREVIEW_MESSAGE = 'Failed to preview connection entry.';
+const URL_PREFIX = 'https://datapos-resources.netlify.app/';
+
+// Declarations
 type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
+// Classes
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
@@ -49,8 +50,8 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     constructor(connectionConfig: ConnectionConfig) {
         this.abortController = undefined;
         this.config = config as ConnectorConfig;
+        this.config.version = version;
         this.connectionConfig = connectionConfig;
-        this.version = version;
     }
 
     abort(): void {
@@ -67,28 +68,21 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         return { connector: this, readConnectionEntry };
     }
 
-    async retrieveConnectionEntries(
-        accountId: string,
-        sessionAccessToken: string,
-        settings: DataConnectorRetrieveEntriesSettings,
-        callback: (data: ConnectorCallbackData) => void
-    ): Promise<ConnectionEntryDrilldownResult> {
+    async listEntries(settings: DataConnectorRetrieveEntriesSettings): Promise<ConnectionEntryDrilldownResult> {
         return new Promise((resolve, reject) => {
             try {
-                callback({ typeId: 'test', properties: { aProp: 'value 1' } });
-                const items = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
+                const indexEntries = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
                 const entries: ConnectionEntry[] = [];
-                for (const item of items) {
-                    if (item.typeId === 'folder') {
-                        entries.push(buildFolderEntry(settings.folderPath, item.name, item.childCount));
+                for (const indexEntry of indexEntries) {
+                    if (indexEntry.typeId === 'folder') {
+                        entries.push(buildFolderEntry(settings.folderPath, indexEntry.name, indexEntry.childCount));
                     } else {
-                        entries.push(buildFileEntry(settings.folderPath, item.name, item.lastModifiedAt, item.size));
+                        entries.push(buildFileEntry(settings.folderPath, indexEntry.name, indexEntry.lastModifiedAt, indexEntry.size));
                     }
                 }
-                callback({ typeId: 'test', properties: { aProp: 'value 2' } });
                 resolve({ cursor: undefined, isMore: false, entries, totalCount: entries.length });
             } catch (error) {
-                reject(tidyUp(undefined, FAILED_TO_RETRIEVE_MESSAGE, 'retrieveConnectionEntries.1', error));
+                reject(tidyUp(undefined, 'Failed to retrieve connection entries.', 'listEntries.1', error));
             }
         });
     }
@@ -97,8 +91,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 // Interfaces
 const previewConnectionEntry = (
     connector: DataConnector,
-    accountId: string | undefined,
-    sessionAccessToken: string | undefined,
     sourceViewConfig: SourceViewConfig,
     previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
     // callback: (data: ConnectorCallbackData) => void
@@ -145,8 +137,6 @@ const previewConnectionEntry = (
 // Interfaces
 const readConnectionEntry = (
     connector: DataConnector,
-    accountId: string,
-    sessionAccessToken: string,
     sourceViewConfig: SourceViewConfig,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
     csvParse: (options?: Options, callback?: Callback) => Parser // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.

@@ -2,10 +2,10 @@
     "name": "datapos-connector-data-file-store-emulator",
     "license": "ISC",
     "private": true,
-    "version": "0.1.821",
+    "version": "0.1.822",
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.335",
-        "@datapos/datapos-share-core": "^0.1.415",
+        "@datapos/datapos-operations": "^0.1.338",
+        "@datapos/datapos-share-core": "^0.1.428",
         "@types/node": "^20.6.1",
         "@typescript-eslint/eslint-plugin": "^6.7.0",
         "@typescript-eslint/parser": "^6.7.0",
