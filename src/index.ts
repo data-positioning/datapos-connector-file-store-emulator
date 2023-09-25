@@ -10,12 +10,13 @@ import {
     FetchResponseError,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-share-core';
-import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
+import { type CastingContext, parse } from 'csv-parse';
 import type {
     ConnectionConfig,
     ConnectionEntry,
     ConnectionEntryDrilldownResult,
     ConnectionEntryPreview,
+    ConnectorCallbackData,
     ConnectorConfig,
     DataConnector,
     DataConnectorFieldInfo,
@@ -45,7 +46,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
-    readonly version: string;
 
     constructor(connectionConfig: ConnectionConfig) {
         this.abortController = undefined;
@@ -88,12 +88,12 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 }
 
-// Interfaces
+// Interfaces - Preview Connection Entry
 const previewConnectionEntry = (
     connector: DataConnector,
     sourceViewConfig: SourceViewConfig,
-    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings
-    // callback: (data: ConnectorCallbackData) => void
+    previewInterfaceSettings: DataConnectorPreviewInterfaceSettings,
+    callback: (data: ConnectorCallbackData) => void
 ): Promise<ConnectionEntryPreview> => {
     console.log('X1', connector, sourceViewConfig, previewInterfaceSettings);
     return new Promise((resolve, reject) => {
@@ -134,15 +134,15 @@ const previewConnectionEntry = (
     });
 };
 
-// Interfaces
+// Interfaces - Read Connection Entry
 const readConnectionEntry = (
     connector: DataConnector,
     sourceViewConfig: SourceViewConfig,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    csvParse: (options?: Options, callback?: Callback) => Parser // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
-    // callback: (data: ConnectorCallbackData) => void
+    // csvParse: (options?: Options, callback?: Callback) => Parser, // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
+    callback: (data: ConnectorCallbackData) => void
 ): Promise<void> => {
-    console.log('Y1', connector, sourceViewConfig, readInterfaceSettings, csvParse);
+    console.log('Y1', connector, sourceViewConfig, readInterfaceSettings);
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller and get the signal. Add an abort listener to the signal.
@@ -159,7 +159,7 @@ const readConnectionEntry = (
             const fieldInfos: DataConnectorFieldInfo[] = []; // Array to store field information for a single row.
 
             // Parser - Create a parser object for CSV parsing.
-            const parser = csvParse({
+            const parser = parse({
                 cast: (value, context) => {
                     fieldInfos[context.index] = { isQuoted: context.quoting };
                     return value;
