@@ -10,7 +10,7 @@ import {
     FetchResponseError,
     lookupMimeTypeForFileExtension
 } from '@datapos/datapos-share-core';
-import { type CastingContext, parse } from 'csv-parse';
+import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 import type {
     ConnectionConfig,
     ConnectionEntry,
@@ -140,7 +140,7 @@ const readConnectionEntry = (
     connector: DataConnector,
     sourceViewConfig: SourceViewConfig,
     readInterfaceSettings: DataConnectorReadInterfaceSettings,
-    // csvParse: (options?: Options, callback?: Callback) => Parser, // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
+    csvParse: (options?: Options, callback?: Callback) => Parser, // TODO: typeof import('csv-parse/browser/esm'). Keep just in case.
     callback: (data: ConnectorCallbackData) => void
 ): Promise<void> => {
     console.log('Y1', connector, sourceViewConfig, readInterfaceSettings);
@@ -160,7 +160,7 @@ const readConnectionEntry = (
             const fieldInfos: DataConnectorFieldInfo[] = []; // Array to store field information for a single row.
 
             // Parser - Create a parser object for CSV parsing.
-            const parser = parse({
+            const parser = csvParse({
                 cast: (value, context) => {
                     fieldInfos[context.index] = { isQuoted: context.quoting };
                     return value;
