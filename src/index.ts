@@ -1,15 +1,19 @@
-import config from './config.json';
-import fileStoreIndex from './fileStoreIndex.json';
-import { version } from '../package.json';
+// Dependencies - Vendor
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
+// Dependencies - Shared Core Library
 import { AbortError, ConnectorContextError, FetchResponseError, ListEntryPreviewTypeId, ListEntryTypeId } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectorCallbackData, ConnectorConfig, DataConnector, DataConnectorFieldInfo, DataConnectorRecord } from '@datapos/datapos-share-core';
 import { extractFileExtensionFromFilePath, lookupMimeTypeForFileExtension } from '@datapos/datapos-share-core';
-import type { ListEntriesSettings, ListEntry, ListEntryDrilldownResult, ListEntryPreview } from '@datapos/datapos-share-core';
+import type { ListEntriesSettings, ListEntryConfig, ListEntryDrilldownResult, ListEntryPreview } from '@datapos/datapos-share-core';
 import type { PreviewInterface, PreviewInterfaceSettings, ReadInterface, ReadInterfaceSettings, SourceViewConfig } from '@datapos/datapos-share-core';
 
-// Declarations
+// Dependencies - Framework - Local
+import config from './config.json';
+import fileStoreIndex from './fileStoreIndex.json';
+import { version } from '../package.json';
+
+// Declarations - File Store Index
 type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Constants
@@ -53,15 +57,15 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         return new Promise((resolve, reject) => {
             try {
                 const indexEntries = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
-                const listEntries: ListEntry[] = [];
+                const listEntryConfigs: ListEntryConfig[] = [];
                 for (const indexEntry of indexEntries) {
                     if (indexEntry.typeId === 'folder') {
-                        listEntries.push(buildFolderEntry(settings.folderPath, indexEntry.name, indexEntry.childCount));
+                        listEntryConfigs.push(buildFolderEntryConfig(settings.folderPath, indexEntry.name, indexEntry.childCount));
                     } else {
-                        listEntries.push(buildFileEntry(settings.folderPath, indexEntry.name, indexEntry.lastModifiedAt, indexEntry.size));
+                        listEntryConfigs.push(buildFileEntryConfig(settings.folderPath, indexEntry.name, indexEntry.lastModifiedAt, indexEntry.size));
                     }
                 }
-                resolve({ cursor: undefined, isMore: false, entries: listEntries, totalCount: listEntries.length });
+                resolve({ cursor: undefined, isMore: false, listEntryConfigs, totalCount: listEntryConfigs.length });
             } catch (error) {
                 reject(tidyUp(undefined, ERROR_LIST_ENTRIES_FAILED, 'listEntries.1', error));
             }
@@ -212,8 +216,8 @@ const readEntry = (
     });
 };
 
-// Utilities - Build Folder Entry
-const buildFolderEntry = (folderPath: string, name: string, childCount: number): ListEntry => {
+// Utilities - Build Folder Entry Configuration
+const buildFolderEntryConfig = (folderPath: string, name: string, childCount: number): ListEntryConfig => {
     return {
         childCount,
         folderPath,
@@ -229,8 +233,8 @@ const buildFolderEntry = (folderPath: string, name: string, childCount: number):
     };
 };
 
-// Utilities - Build File Entry
-const buildFileEntry = (folderPath: string, name: string, lastModifiedAt: number, size: number): ListEntry => {
+// Utilities - Build File Entry Configuration
+const buildFileEntryConfig = (folderPath: string, name: string, lastModifiedAt: number, size: number): ListEntryConfig => {
     const extension = extractFileExtensionFromFilePath(name);
     return {
         childCount: undefined,
