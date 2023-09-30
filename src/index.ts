@@ -2,11 +2,11 @@
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
 // Dependencies - Shared Core Library
-import { AbortError, ConnectorContextError, FetchResponseError, ListEntryPreviewTypeId, ListEntryTypeId } from '@datapos/datapos-share-core';
+import { AbortError, ConnectorError, FetchResponseError, ListEntryPreviewTypeId, ListEntryTypeId } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectorCallbackData, ConnectorConfig, DataConnector, DataConnectorFieldInfo, DataConnectorRecord } from '@datapos/datapos-share-core';
 import { extractFileExtensionFromFilePath, lookupMimeTypeForFileExtension } from '@datapos/datapos-share-core';
 import type { ListEntriesSettings, ListEntryConfig, ListEntryDrilldownResult, ListEntryPreview } from '@datapos/datapos-share-core';
-import type { PreviewInterface, PreviewInterfaceSettings, ReadInterface, ReadInterfaceSettings, SourceViewConfig } from '@datapos/datapos-share-core';
+import type { PreviewListEntryInterface, PreviewListEntryInterfaceSettings, ReadInterface, ReadInterfaceSettings, SourceViewConfig } from '@datapos/datapos-share-core';
 
 // Dependencies - Local Infrastructure
 import config from './config.json';
@@ -45,8 +45,8 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         this.abortController = null;
     }
 
-    getPreviewInterface(): PreviewInterface {
-        return { connector: this, previewEntry };
+    getPreviewListEntryInterface(): PreviewListEntryInterface {
+        return { connector: this, previewListEntry };
     }
 
     getReadInterface(): ReadInterface {
@@ -73,8 +73,8 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 }
 
-// Interfaces - Preview Entry
-const previewEntry = (connector: DataConnector, sourceViewConfig: SourceViewConfig, settings: PreviewInterfaceSettings): Promise<ListEntryPreview> => {
+// Interfaces - Preview ListEntry
+const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceViewConfig, settings: PreviewListEntryInterfaceSettings): Promise<ListEntryPreview> => {
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
@@ -252,7 +252,7 @@ const buildFileEntryConfig = (folderPath: string, name: string, lastModifiedAt: 
 const tidyUp = (connector: DataConnector | undefined, message: string, context: string, error: unknown): unknown => {
     if (connector) connector.abortController = null;
     if (error instanceof Error) error.stack = undefined;
-    const connectorContextError = new ConnectorContextError(message, `${config.id}.${context}`, error);
-    connectorContextError.stack = undefined;
-    return connectorContextError;
+    const connectorError = new ConnectorError(message, `${config.id}.${context}`, error);
+    connectorError.stack = undefined;
+    return connectorError;
 };
