@@ -8,7 +8,7 @@ import { extractFileExtensionFromFilePath, lookupMimeTypeForFileExtension } from
 import type { ListEntriesSettings, ListEntryConfig, ListEntryDrilldownResult, ListEntryPreview } from '@datapos/datapos-share-core';
 import type { PreviewInterface, PreviewInterfaceSettings, ReadInterface, ReadInterfaceSettings, SourceViewConfig } from '@datapos/datapos-share-core';
 
-// Dependencies - Framework - Local
+// Dependencies - Local Infrastructure
 import config from './config.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
@@ -26,7 +26,7 @@ const ERROR_READ_ENTRY_FAILED = 'Failed to read entry.';
 const ERROR_PREVIEW_ENTRY_FAILED = 'Failed to preview entry.';
 const URL_PREFIX = 'https://datapos-resources.netlify.app/';
 
-// Classes
+// Classes - File Store Emulator Data Connector
 export default class FileStoreEmulatorDataConnector implements DataConnector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
@@ -75,7 +75,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 
 // Interfaces - Preview Entry
 const previewEntry = (connector: DataConnector, sourceViewConfig: SourceViewConfig, settings: PreviewInterfaceSettings): Promise<ListEntryPreview> => {
-    console.log('X1', connector, sourceViewConfig, settings);
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
@@ -86,7 +85,6 @@ const previewEntry = (connector: DataConnector, sourceViewConfig: SourceViewConf
             // Fetch chunk from start of file.
             const url = `${URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${sourceViewConfig.fileName}`;
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
-            console.log('X2', url, headers);
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
                     try {
@@ -116,7 +114,6 @@ const readEntry = (
     csvParse: (options?: Options, callback?: Callback) => Parser,
     callback: (data: ConnectorCallbackData) => void
 ): Promise<void> => {
-    console.log('Y1', connector, sourceViewConfig, settings);
     return new Promise((resolve, reject) => {
         try {
             callback({ typeId: 'start', properties: { sourceViewConfig, settings } });
