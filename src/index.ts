@@ -65,7 +65,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
                         listEntryConfigs.push(buildFileEntryConfig(settings.folderPath, indexEntry.name, indexEntry.lastModifiedAt, indexEntry.size));
                     }
                 }
-                throw new Error('Testing connector error handling.');
                 resolve({ cursor: undefined, isMore: false, listEntryConfigs, totalCount: listEntryConfigs.length });
             } catch (error) {
                 reject(constructErrorAndTidyUp(this, ERROR_LIST_ENTRIES_FAILED, 'listEntries.1', error));
