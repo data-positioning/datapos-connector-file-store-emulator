@@ -231,18 +231,18 @@ const buildFolderEntryConfig = (folderPath: string, name: string, childCount: nu
 };
 
 // Utilities - Build File Entry Configuration
-const buildFileEntryConfig = (folderPath: string, name: string, lastModifiedAt: number, size: number): ListEntryConfig => {
-    const extension = extractFileExtensionFromFilePath(name);
+const buildFileEntryConfig = (folderPath: string, fullName: string, lastModifiedAt: number, size: number): ListEntryConfig => {
+    const extension = extractFileExtensionFromFilePath(fullName);
     return {
         childCount: undefined,
         folderPath,
         encodingId: undefined,
         extension,
         handle: undefined,
-        label: name,
+        label: fullName,
         lastModifiedAt,
         mimeType: lookupMimeTypeForFileExtension(extension),
-        name,
+        name: fullName,
         size,
         typeId: ListEntryTypeId.File
     };
@@ -251,8 +251,8 @@ const buildFileEntryConfig = (folderPath: string, name: string, lastModifiedAt: 
 // Utilities - Tidy Up
 const tidyUp = (connector: DataConnector | undefined, message: string, context: string, error: unknown): unknown => {
     if (connector) connector.abortController = null;
-    if (error instanceof Error) error.stack = undefined;
+    // if (error instanceof Error) error.stack = undefined;
     const connectorError = new ConnectorError(message, `${config.id}.${context}`, error);
-    connectorError.stack = undefined;
+    // connectorError.stack = undefined;
     return connectorError;
 };
