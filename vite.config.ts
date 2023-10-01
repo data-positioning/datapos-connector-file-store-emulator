@@ -13,11 +13,6 @@ export default defineConfig({
         },
         rollupOptions: {
             external: ['csv-parse']
-            // output: {
-            //     globals: {
-            //         'csv-parse': 'csv-parse'
-            //     }
-            // }
         },
         target: 'ESNext'
     },
