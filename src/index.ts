@@ -254,7 +254,7 @@ const buildFileEntryConfig = (folderPath: string, fullName: string, lastModified
 const constructErrorAndTidyUp = (connector: DataConnector, message: string, context: string, error: unknown): unknown => {
     connector.abortController = null;
     // if (error instanceof Error) error.stack = undefined;
-    const connectorError = new ConnectorError(`${message} at '${config.id}.${context}'.`, '', error);
+    const connectorError = new ConnectorError(`${message} at '${config.id}.${context}'.`, error);
     // connectorError.stack = undefined;
     return connectorError;
 };
