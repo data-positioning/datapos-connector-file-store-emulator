@@ -17,13 +17,13 @@ import { version } from '../package.json';
 type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Constants
-const CALLBACK_PREVIEW_ABORTED = 'Aborted entry preview.';
-const CALLBACK_READ_ABORTED = 'Aborted entry read.';
-const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
-const DEFAULT_READ_CHUNK_SIZE = 1000;
-const ERROR_LIST_ENTRIES_FAILED = 'Failed to list entries.';
-const ERROR_READ_ENTRY_FAILED = 'Failed to read entry.';
-const ERROR_PREVIEW_ENTRY_FAILED = 'Failed to preview entry.';
+const CALLBACK_LIST_ENTRY_PREVIEW_ABORTED = 'List entry preview aborted.';
+const CALLBACK_LIST_ENTRY_READ_ABORTED = 'List entry read aborted.';
+const DEFAULT_LIST_ENTRY_PREVIEW_CHUNK_SIZE = 4096;
+const DEFAULT_LIST_ENTRY_READ_CHUNK_SIZE = 1000;
+const ERROR_LIST_ENTRIES_FAILED = 'List entries failed';
+const ERROR_LIST_ENTRY_PREVIEW_FAILED = 'Preview list entry failed';
+const ERROR_LIST_ENTRY_READ_FAILED = 'Read list entry failed';
 const URL_PREFIX = 'https://datapos-resources.netlify.app/';
 
 // Classes - File Store Emulator Data Connector
@@ -81,12 +81,12 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () =>
-                reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.5', new AbortError(CALLBACK_PREVIEW_ABORTED)))
+                reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.5', new AbortError(CALLBACK_LIST_ENTRY_PREVIEW_ABORTED)))
             );
 
             // Fetch chunk from start of file.
             const url = `${URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${sourceViewConfig.fileName}`;
-            const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
+            const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_LIST_ENTRY_PREVIEW_CHUNK_SIZE}` };
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
                     try {
@@ -95,15 +95,15 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
                             resolve({ data: new Uint8Array(await response.arrayBuffer()), typeId: ListEntryPreviewTypeId.Uint8Array });
                         } else {
                             const error = new FetchResponseError(response.status, response.statusText, await response.text());
-                            reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.4', error));
+                            reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.4', error));
                         }
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.3', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.3', error));
                     }
                 })
-                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.2', error)));
+                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.2', error)));
         } catch (error) {
-            reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.1', error));
+            reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.1', error));
         }
     });
 };
@@ -124,7 +124,7 @@ const readEntry = (
             const signal = connector.abortController.signal;
             signal.addEventListener(
                 'abort',
-                () => reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.8', new AbortError(CALLBACK_READ_ABORTED)))
+                () => reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_READ_FAILED, 'readEntry.8', new AbortError(CALLBACK_LIST_ENTRY_READ_ABORTED)))
                 /*, { once: true, signal } TODO: Don't need once and signal? */
             );
 
@@ -151,17 +151,17 @@ const readEntry = (
                     while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
                         pendingRows.push({ fieldInfos, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
-                        if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
+                        if (pendingRows.length < DEFAULT_LIST_ENTRY_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
                         settings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                         pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                     }
                 } catch (error) {
-                    reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.7', error));
+                    reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_READ_FAILED, 'readEntry.7', error));
                 }
             });
 
             // Parser - Event listener for the 'error' event.
-            parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.6', error)));
+            parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_READ_FAILED, 'readEntry.6', error)));
 
             // Parser - Event listener for the 'end' (end of data) event.
             parser.on('end', () => {
@@ -182,7 +182,7 @@ const readEntry = (
                     });
                     resolve();
                 } catch (error) {
-                    reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.5', error));
+                    reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_READ_FAILED, 'readEntry.5', error));
                 }
             });
 
@@ -199,18 +199,18 @@ const readEntry = (
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
                             // Write the decoded data to the parser and terminate if there is an error.
                             parser.write(result.value, (error) => {
-                                if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.4', error));
+                                if (error) reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_READ_FAILED, 'readEntry.4', error));
                             });
                         }
                         parser.end(); // Signal no more data will be written.
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.3', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_READ_FAILED, 'readEntry.3', error));
                     }
                 })
-                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.2', error)));
+                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_READ_FAILED, 'readEntry.2', error)));
             callback({ typeId: 'end', properties: { url } });
         } catch (error) {
-            reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.1', error));
+            reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_READ_FAILED, 'readEntry.1', error));
         }
     });
 };
@@ -254,7 +254,7 @@ const buildFileEntryConfig = (folderPath: string, fullName: string, lastModified
 const constructErrorAndTidyUp = (connector: DataConnector, message: string, context: string, error: unknown): unknown => {
     connector.abortController = null;
     // if (error instanceof Error) error.stack = undefined;
-    const connectorError = new ConnectorError(message, `${config.id}.${context}`, error);
+    const connectorError = new ConnectorError(`${message} at '${config.id}.${context}'.`, '', error);
     // connectorError.stack = undefined;
     return connectorError;
 };
