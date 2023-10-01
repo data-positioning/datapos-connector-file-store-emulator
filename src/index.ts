@@ -67,7 +67,7 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
                 }
                 resolve({ cursor: undefined, isMore: false, listEntryConfigs, totalCount: listEntryConfigs.length });
             } catch (error) {
-                reject(tidyUp(undefined, ERROR_LIST_ENTRIES_FAILED, 'listEntries.1', error));
+                reject(constructErrorAndTidyUp(this, ERROR_LIST_ENTRIES_FAILED, 'listEntries.1', error));
             }
         });
     }
@@ -80,7 +80,9 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
-            signal.addEventListener('abort', () => reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.5', new AbortError(CALLBACK_PREVIEW_ABORTED))));
+            signal.addEventListener('abort', () =>
+                reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.5', new AbortError(CALLBACK_PREVIEW_ABORTED)))
+            );
 
             // Fetch chunk from start of file.
             const url = `${URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${sourceViewConfig.fileName}`;
@@ -88,20 +90,20 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
                     try {
-                        connector.abortController = null;
                         if (response.ok) {
+                            connector.abortController = null;
                             resolve({ data: new Uint8Array(await response.arrayBuffer()), typeId: ListEntryPreviewTypeId.Uint8Array });
                         } else {
                             const error = new FetchResponseError(response.status, response.statusText, await response.text());
-                            reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.4', error));
+                            reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.4', error));
                         }
                     } catch (error) {
-                        reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.3', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.3', error));
                     }
                 })
-                .catch((error) => reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.2', error)));
+                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.2', error)));
         } catch (error) {
-            reject(tidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.1', error));
+            reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_ENTRY_FAILED, 'previewEntry.1', error));
         }
     });
 };
@@ -122,7 +124,7 @@ const readEntry = (
             const signal = connector.abortController.signal;
             signal.addEventListener(
                 'abort',
-                () => reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.8', new AbortError(CALLBACK_READ_ABORTED)))
+                () => reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.8', new AbortError(CALLBACK_READ_ABORTED)))
                 /*, { once: true, signal } TODO: Don't need once and signal? */
             );
 
@@ -154,12 +156,12 @@ const readEntry = (
                         pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                     }
                 } catch (error) {
-                    reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.7', error));
+                    reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.7', error));
                 }
             });
 
             // Parser - Event listener for the 'error' event.
-            parser.on('error', (error) => reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.6', error)));
+            parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.6', error)));
 
             // Parser - Event listener for the 'end' (end of data) event.
             parser.on('end', () => {
@@ -180,7 +182,7 @@ const readEntry = (
                     });
                     resolve();
                 } catch (error) {
-                    reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.5', error));
+                    reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.5', error));
                 }
             });
 
@@ -197,18 +199,18 @@ const readEntry = (
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
                             // Write the decoded data to the parser and terminate if there is an error.
                             parser.write(result.value, (error) => {
-                                if (error) reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.4', error));
+                                if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.4', error));
                             });
                         }
                         parser.end(); // Signal no more data will be written.
                     } catch (error) {
-                        reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.3', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.3', error));
                     }
                 })
-                .catch((error) => reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.2', error)));
+                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.2', error)));
             callback({ typeId: 'end', properties: { url } });
         } catch (error) {
-            reject(tidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.1', error));
+            reject(constructErrorAndTidyUp(connector, ERROR_READ_ENTRY_FAILED, 'readEntry.1', error));
         }
     });
 };
@@ -248,9 +250,9 @@ const buildFileEntryConfig = (folderPath: string, fullName: string, lastModified
     };
 };
 
-// Utilities - Tidy Up
-const tidyUp = (connector: DataConnector | undefined, message: string, context: string, error: unknown): unknown => {
-    if (connector) connector.abortController = null;
+// Utilities - Construct Error and Tidy Up
+const constructErrorAndTidyUp = (connector: DataConnector, message: string, context: string, error: unknown): unknown => {
+    connector.abortController = null;
     // if (error instanceof Error) error.stack = undefined;
     const connectorError = new ConnectorError(message, `${config.id}.${context}`, error);
     // connectorError.stack = undefined;
