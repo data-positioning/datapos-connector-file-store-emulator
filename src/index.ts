@@ -98,16 +98,17 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
                         } else {
                             console.log(3333);
                             const xxxx = await response.text();
+                            console.log(5555, xxxx);
                             const error = new FetchResponseError(response.status, response.statusText, xxxx);
                             reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.4', error));
                         }
                     } catch (error) {
-                        console.log(4444, error);
+                        console.log(6666, error);
                         reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.3', error));
                     }
                 })
                 .catch((error) => {
-                    console.log(5555, error);
+                    console.log(7777, error);
                     reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.2', error));
                 });
         } catch (error) {
