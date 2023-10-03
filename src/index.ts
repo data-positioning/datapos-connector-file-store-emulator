@@ -87,21 +87,29 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
             // Fetch chunk from start of file.
             const url = `${LIST_ENTRY_URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${sourceViewConfig.fileName}`;
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_LIST_ENTRY_PREVIEW_CHUNK_SIZE}` };
+            console.log(1111);
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
                     try {
                         if (response.ok) {
+                            console.log(2222);
                             connector.abortController = null;
                             resolve({ data: new Uint8Array(await response.arrayBuffer()), typeId: ListEntryPreviewTypeId.Uint8Array });
                         } else {
-                            const error = new FetchResponseError(response.status, response.statusText, await response.text());
+                            console.log(3333);
+                            const xxxx = await response.text();
+                            const error = new FetchResponseError(response.status, response.statusText, xxxx);
                             reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.4', error));
                         }
                     } catch (error) {
+                        console.log(4444, error);
                         reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.3', error));
                     }
                 })
-                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.2', error)));
+                .catch((error) => {
+                    console.log(5555, error);
+                    reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.2', error));
+                });
         } catch (error) {
             reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.1', error));
         }
