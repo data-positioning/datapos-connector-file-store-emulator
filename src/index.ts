@@ -2,7 +2,7 @@
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
 // Dependencies - Shared Core Library
-import { AbortError, ConnectorError, FetchResponseError, ListEntryPreviewTypeId, ListEntryTypeId } from '@datapos/datapos-share-core';
+import { AbortError, ConnectorError, FetchError, ListEntryPreviewTypeId, ListEntryTypeId } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectorCallbackData, ConnectorConfig, DataConnector, DataConnectorFieldInfo, DataConnectorRecord } from '@datapos/datapos-share-core';
 import { extractFileExtensionFromFilePath, lookupMimeTypeForFileExtension } from '@datapos/datapos-share-core';
 import type { ListEntriesSettings, ListEntryConfig, ListEntryDrilldownResult, ListEntryPreview } from '@datapos/datapos-share-core';
@@ -94,7 +94,7 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
                             connector.abortController = null;
                             resolve({ data: new Uint8Array(await response.arrayBuffer()), typeId: ListEntryPreviewTypeId.Uint8Array });
                         } else {
-                            const error = new FetchResponseError(`${response.status}:${response.statusText}:${await response.text()}`);
+                            const error = new FetchError(`${response.status}|${response.statusText}|${await response.text()}`);
                             reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.4', error));
                         }
                     } catch (error) {

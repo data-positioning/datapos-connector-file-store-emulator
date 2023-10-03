@@ -2,7 +2,7 @@
     "name": "datapos-connector-data-file-store-emulator",
     "license": "ISC",
     "private": true,
-    "version": "0.1.851",
+    "version": "0.1.852",
     "peerDependencies": {
         "@datapos/datapos-share-core": "^0.1.456",
         "csv-parse": "^5.5.0"
