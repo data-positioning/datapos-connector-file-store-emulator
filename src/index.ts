@@ -87,31 +87,21 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
             // Fetch chunk from start of file.
             const url = `${LIST_ENTRY_URL_PREFIX}fileStore${sourceViewConfig.folderPath}/${sourceViewConfig.fileName}`;
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_LIST_ENTRY_PREVIEW_CHUNK_SIZE}` };
-            console.log(1111);
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
                     try {
                         if (response.ok) {
-                            console.log(2222);
                             connector.abortController = null;
                             resolve({ data: new Uint8Array(await response.arrayBuffer()), typeId: ListEntryPreviewTypeId.Uint8Array });
                         } else {
-                            console.log(3333);
-                            const xxxx = await response.text();
-                            const parser = new DOMParser();
-                            console.log(5555, xxxx);
-                            const yyyy = parser.parseFromString(xxxx, 'text/html');
-                            console.log(7777, yyyy);
-                            const error = new FetchResponseError(response.status, response.statusText, xxxx);
+                            const error = new FetchResponseError(`${response.status}:${response.statusText}:${await response.text()}`);
                             reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.4', error));
                         }
                     } catch (error) {
-                        console.log(8888, error);
                         reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.3', error));
                     }
                 })
                 .catch((error) => {
-                    console.log(9999, error);
                     reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.2', error));
                 });
         } catch (error) {
