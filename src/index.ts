@@ -1,4 +1,5 @@
 // Dependencies - Vendor
+import { nanoid } from 'nanoid';
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
 // Dependencies - Shared Core Library
@@ -225,6 +226,7 @@ const buildFolderEntryConfig = (folderPath: string, name: string, childCount: nu
         encodingId: undefined,
         extension: undefined,
         handle: undefined,
+        id: nanoid(),
         label: name,
         lastModifiedAt: undefined,
         mimeType: undefined,
@@ -243,6 +245,7 @@ const buildFileEntryConfig = (folderPath: string, fullName: string, lastModified
         encodingId: undefined,
         extension,
         handle: undefined,
+        id: nanoid(),
         label: fullName,
         lastModifiedAt,
         mimeType: lookupMimeTypeForFileExtension(extension),
