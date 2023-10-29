@@ -3,11 +3,11 @@ import { nanoid } from 'nanoid';
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
 // Dependencies - Shared Core Library
-import { AbortError, ConnectorError, FetchError, ListEntryPreviewTypeId, ListEntryTypeId } from '@datapos/datapos-share-core';
+import { AbortError, ConnectorError, FetchError, ListEntryTypeId, PreviewTypeId } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectorCallbackData, ConnectorConfig, DataConnector, DataConnectorFieldInfo, DataConnectorRecord } from '@datapos/datapos-share-core';
 import { extractFileExtensionFromFilePath, lookupMimeTypeForFileExtension } from '@datapos/datapos-share-core';
-import type { ListEntriesSettings, ListEntryConfig, ListEntryDrilldownResult, ListEntryPreview } from '@datapos/datapos-share-core';
-import type { PreviewListEntryInterface, PreviewListEntryInterfaceSettings, ReadInterface, ReadInterfaceSettings, SourceViewConfig } from '@datapos/datapos-share-core';
+import type { ListEntriesResult, ListEntriesSettings, ListEntryConfig, Preview } from '@datapos/datapos-share-core';
+import type { PreviewInterface, PreviewInterfaceSettings, ReadInterface, ReadInterfaceSettings, SourceViewConfig } from '@datapos/datapos-share-core';
 
 // Dependencies - Local Infrastructure
 import config from './config.json';
@@ -46,15 +46,15 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
         this.abortController = null;
     }
 
-    getPreviewListEntryInterface(): PreviewListEntryInterface {
-        return { connector: this, previewListEntry };
+    getPreviewInterface(): PreviewInterface {
+        return { connector: this, preview };
     }
 
     getReadInterface(): ReadInterface {
-        return { connector: this, readEntry };
+        return { connector: this, read };
     }
 
-    async listEntries(settings: ListEntriesSettings): Promise<ListEntryDrilldownResult> {
+    async listEntries(settings: ListEntriesSettings): Promise<ListEntriesResult> {
         return new Promise((resolve, reject) => {
             try {
                 const indexEntries = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
@@ -74,8 +74,8 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
     }
 }
 
-// Interfaces - Preview ListEntry
-const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceViewConfig, settings: PreviewListEntryInterfaceSettings): Promise<ListEntryPreview> => {
+// Interfaces - Preview
+const preview = (connector: DataConnector, sourceViewConfig: SourceViewConfig, settings: PreviewInterfaceSettings): Promise<Preview> => {
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
@@ -93,7 +93,7 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
                     try {
                         if (response.ok) {
                             connector.abortController = null;
-                            resolve({ data: new Uint8Array(await response.arrayBuffer()), typeId: ListEntryPreviewTypeId.Uint8Array });
+                            resolve({ data: new Uint8Array(await response.arrayBuffer()), typeId: PreviewTypeId.Uint8Array });
                         } else {
                             const error = new FetchError(`${response.status}|${response.statusText}|${await response.text()}`);
                             reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.4', error));
@@ -111,8 +111,8 @@ const previewListEntry = (connector: DataConnector, sourceViewConfig: SourceView
     });
 };
 
-// Interfaces - Read Entry
-const readEntry = (
+// Interfaces - Read
+const read = (
     connector: DataConnector,
     sourceViewConfig: SourceViewConfig,
     settings: ReadInterfaceSettings,
@@ -256,7 +256,7 @@ const buildFileEntryConfig = (folderPath: string, fullName: string, lastModified
 };
 
 // Utilities - Construct Error and Tidy Up
-const constructErrorAndTidyUp = (connector: DataConnector, message: string, context: string, error: unknown): unknown => {
+const constructErrorAndTidyUp = (connector: DataConnector, message: string, context: string, error: unknown): ConnectorError => {
     connector.abortController = null;
     const connectorError = new ConnectorError(`${message} at '${config.id}.${context}'.`, error);
     return connectorError;
