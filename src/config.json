@@ -1,7 +1,12 @@
 {
     "categoryId": "fileStore",
     "id": "datapos-connector-data-file-store-emulator",
-    "implementations": { "default": { "authMethodId": "none", "maxConnectionCount": 1 } },
+    "implementations": {
+        "default": {
+            "authMethodId": "none",
+            "maxConnectionCount": 1
+        }
+    },
     "label": { "en": "File Store Emulator" },
     "statusId": "alpha",
     "typeId": "dataConnector",
