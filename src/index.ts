@@ -78,7 +78,6 @@ export default class FileStoreEmulatorDataConnector implements DataConnector {
 const preview = (connector: DataConnector, dataViewConfig: DataViewConfig, chunkSize?: number): Promise<{ error?: unknown; result?: Preview }> => {
     return new Promise((resolve, reject) => {
         try {
-            console.log(9999, connector, dataViewConfig, chunkSize);
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
