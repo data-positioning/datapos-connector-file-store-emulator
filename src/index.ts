@@ -2,7 +2,7 @@
 import { nanoid } from 'nanoid';
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
-// Dependencies - Shared Core Library
+// Dependencies - Framework
 import { AbortError, ConnectorError, FetchError, ListEntryTypeId, PreviewTypeId } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectorCallbackData, ConnectorConfig, DataConnector, DataConnectorFieldInfo, DataConnectorRecord } from '@datapos/datapos-share-core';
 import type { DataViewConfig, PreviewInterface, ReadInterface, ReadInterfaceSettings } from '@datapos/datapos-share-core';
@@ -14,7 +14,7 @@ import config from './config.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
-// Declarations - File Store Index
+// Interfaces/Schemas/Types - Step
 type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Constants
