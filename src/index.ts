@@ -9,12 +9,12 @@ import type { DataViewConfig, PreviewInterface, ReadInterface, ReadInterfaceSett
 import { extractFileExtensionFromFilePath, lookupMimeTypeForFileExtension } from '@datapos/datapos-share-core';
 import type { ListEntriesResult, ListEntriesSettings, ListEntryConfig, Preview } from '@datapos/datapos-share-core';
 
-// Dependencies - Local Infrastructure
+// Dependencies - Data
 import config from './config.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
-// Interfaces/Schemas/Types - Step
+// Interfaces/Schemas/Types - File Store Index
 type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Constants
@@ -82,7 +82,7 @@ const preview = (connector: DataConnector, dataViewConfig: DataViewConfig, chunk
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () =>
-                reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.5', new AbortError(CALLBACK_LIST_ENTRY_PREVIEW_ABORTED)))
+                reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'preview.5', new AbortError(CALLBACK_LIST_ENTRY_PREVIEW_ABORTED)))
             );
 
             // Fetch chunk from start of file.
@@ -95,18 +95,16 @@ const preview = (connector: DataConnector, dataViewConfig: DataViewConfig, chunk
                             connector.abortController = null;
                             resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: PreviewTypeId.Uint8Array } });
                         } else {
-                            const error = new FetchError(`${response.status}|${response.statusText}|${await response.text()}`);
-                            reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.4', error));
+                            const error = new FetchError(`${response.status}${response.statusText ? ` - ${response.statusText}` : ''}`);
+                            reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'preview.4', error));
                         }
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.3', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'preview.3', error));
                     }
                 })
-                .catch((error) => {
-                    reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.2', error));
-                });
+                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'preview.2', error)));
         } catch (error) {
-            reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'previewEntry.1', error));
+            reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'preview.1', error));
         }
     });
 };
