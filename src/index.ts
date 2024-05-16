@@ -95,7 +95,7 @@ const preview = (connector: DataConnector, dataViewConfig: DataViewConfig, chunk
                             connector.abortController = null;
                             resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: PreviewTypeId.Uint8Array } });
                         } else {
-                            const error = new FetchError(`${response.status}${response.statusText ? ` - ${response.statusText}` : ''}`);
+                            const error = new FetchError(`Failed to retrieve '${url}'. ${response.status}${response.statusText ? ` - ${response.statusText}.` : '.'}`);
                             reject(constructErrorAndTidyUp(connector, ERROR_LIST_ENTRY_PREVIEW_FAILED, 'preview.4', error));
                         }
                     } catch (error) {
