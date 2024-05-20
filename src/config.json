@@ -1,6 +1,6 @@
 {
     "categoryId": "fileStore",
-    "id": "datapos-connector-data-file-store-emulator",
+    "id": "datapos-connector-file-store-emulator",
     "implementations": {
         "default": {
             "authMethodId": "none",
