@@ -1,10 +1,10 @@
-# Datapos - File Store Emulator Data Connector
+# DataPos - File Store Emulator Data Connector
 
-A TypeScript library that implements the File Store Emulator data connector by Datapos. It provides easy access to a curated set of files for demonstration and evaluation purposes.
+A TypeScript library that implements the File Store Emulator connector. It provides easy access to a curated set of files for demonstration and evaluation purposes.
 
 ## Installation
 
-The Datapos Operations library contains helper functions to upload connectors to the Datapos hosting platform. A developer account is required to access this functionality. Once uploaded, the Datapos engine will automatically retrieve the connector associated with a given connection at runtime.
+The DataPos Operations library contains helper functions to upload connectors to the DataPos hosting platform. A developer account is required to access this functionality. Once uploaded, the DataPos engine will automatically retrieve the connector associated with a given connection at runtime.
 
 ## Repository Management Commands
 

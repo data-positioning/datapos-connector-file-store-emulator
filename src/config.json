@@ -9,7 +9,7 @@
     },
     "label": { "en": "File Store Emulator" },
     "statusId": "alpha",
-    "typeId": "dataConnector",
+    "typeId": "connector",
     "usageId": "source",
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
