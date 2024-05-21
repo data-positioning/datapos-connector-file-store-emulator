@@ -1,6 +1,6 @@
 // Dependencies - Vendor
 import { nanoid } from 'nanoid';
-import { type Callback, type CastingContext, type Options, Parser } from 'csv-parse';
+import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
 // Dependencies - Framework
 import { AbortError, ConnectorError, FetchError, ItemTypeId, PreviewTypeId } from '@datapos/datapos-share-core';
@@ -138,7 +138,7 @@ const read = (
             const fieldInfos: ConnectorFieldInfo[] = []; // Array to store field information for a single row.
 
             // Parser - Create a parser object for CSV parsing.
-            const parser = new Parser({
+            const parser = csvParse({
                 cast: (value, context) => {
                     fieldInfos[context.index] = { isQuoted: context.quoting };
                     return value;
