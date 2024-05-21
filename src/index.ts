@@ -118,8 +118,8 @@ const read = (
     connector: Connector,
     dataViewConfig: DataViewConfig,
     settings: ReadInterfaceSettings,
-    csvParse: (options?: Options, callback?: Callback) => Parser,
-    callback: (data: ConnectorCallbackData) => void
+    callback: (data: ConnectorCallbackData) => void,
+    csvParse: (options?: Options, callback?: Callback) => Parser
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
