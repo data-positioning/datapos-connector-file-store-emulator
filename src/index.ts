@@ -2,7 +2,7 @@
 import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
 // Dependencies - Framework
-import { AbortError, ConnectorError, FetchError, ItemTypeId, PreviewTypeId } from '@datapos/datapos-share-core';
+import { AbortError, ConnectorError, FetchError, PreviewTypeId } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, Connector, ConnectorCallbackData, ConnectorConfig, ConnectorFieldInfo, ConnectorRecord, ItemConfig } from '@datapos/datapos-share-core';
 import type { DataViewConfig, Preview, PreviewInterface, ReadInterface, ReadInterfaceSettings } from '@datapos/datapos-share-core';
 import { extractExtensionFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
@@ -223,7 +223,6 @@ const read = (
 const buildFolderItemConfig = (folderPath: string, name: string, childCount: number): ItemConfig => {
     return {
         childCount,
-        encodingId: undefined,
         extension: undefined,
         folderPath,
         handle: undefined,
@@ -233,7 +232,7 @@ const buildFolderItemConfig = (folderPath: string, name: string, childCount: num
         mimeType: undefined,
         name,
         size: undefined,
-        typeId: ItemTypeId.Folder
+        typeId: 'folder'
     };
 };
 
@@ -242,7 +241,6 @@ const buildObjectItemConfig = (folderPath: string, name: string, lastModifiedAt:
     const extension = extractExtensionFromPath(name);
     return {
         childCount: undefined,
-        encodingId: undefined,
         extension,
         folderPath,
         handle: undefined,
@@ -252,7 +250,7 @@ const buildObjectItemConfig = (folderPath: string, name: string, lastModifiedAt:
         mimeType: lookupMimeTypeForExtension(extension),
         name,
         size,
-        typeId: ItemTypeId.Object
+        typeId: 'object'
     };
 };
 
