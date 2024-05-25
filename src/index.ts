@@ -4,7 +4,7 @@ import type { CastingContext } from 'csv-parse';
 // Dependencies - Framework
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, Connector, ConnectorConfig, ConnectorFieldInfo, ConnectorRecord, DataViewPreviewConfig, ItemConfig } from '@datapos/datapos-share-core';
-import { extractExtensionFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
+import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { ListItemsResult, ListItemsSettings } from '@datapos/datapos-share-core';
 import type { PreviewInterface, PreviewInterfaceSettings, PreviewResult } from '@datapos/datapos-share-core';
 import type { ReadInterface, ReadInterfaceSettings } from '@datapos/datapos-share-core';
@@ -84,7 +84,8 @@ const preview = (connector: Connector, itemConfig: ItemConfig, settings: Preview
             signal.addEventListener('abort', () => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.5', new AbortError(CALLBACK_PREVIEW_ABORTED))));
 
             // Fetch chunk from start of file.
-            const url = `${URL_PREFIX}fileStore${itemConfig.folderPath}${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
+            const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
+            const url = `${URL_PREFIX}fileStore${itemConfig.folderPath}${fullFileName}`;
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
@@ -221,9 +222,10 @@ const buildFolderItemConfig = (folderPath: string, name: string, childCount: num
 };
 
 // Utilities - Build Object (File) Item Configuration
-const buildObjectItemConfig = (folderPath: string, name: string, lastModifiedAt: number, size: number): ItemConfig => {
-    const extension = extractExtensionFromPath(name);
-    return { extension, folderPath, label: name, lastModifiedAt, mimeType: lookupMimeTypeForExtension(extension), name, size, typeId: 'object' };
+const buildObjectItemConfig = (folderPath: string, fullName: string, lastModifiedAt: number, size: number): ItemConfig => {
+    const name = extractNameFromPath(fullName);
+    const extension = extractExtensionFromPath(fullName);
+    return { extension, folderPath, label: fullName, lastModifiedAt, mimeType: lookupMimeTypeForExtension(extension), name, size, typeId: 'object' };
 };
 
 // Utilities - Construct Error and Tidy Up
