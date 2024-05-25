@@ -94,7 +94,7 @@ const preview = (connector: Connector, itemConfig: ItemConfig, settings: Preview
                             resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' } });
                         } else {
                             const message = `Connector preview failed to fetch '${url}'. Response status ${response.status}${response.statusText ? ` - ${response.statusText}.` : '.'}`;
-                            const error = new FetchError(message, undefined, undefined, undefined, await response.text());
+                            const error = new FetchError(message, undefined, undefined, { body: await response.text() });
                             reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.4', error));
                         }
                     } catch (error) {
@@ -200,7 +200,7 @@ const read = (connector: Connector, itemConfig: ItemConfig, previewConfig: DataV
                             parser.end(); // Signal no more data will be written.
                         } else {
                             const message = `Connector read failed to fetch '${url}'. Response status ${response.status}${response.statusText ? ` - ${response.statusText}.` : '.'}`;
-                            const error = new FetchError(message, undefined, undefined, undefined, await response.text());
+                            const error = new FetchError(message, undefined, undefined, { body: await response.text() });
                             reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.4', error));
                         }
                     } catch (error) {
@@ -229,5 +229,5 @@ const buildObjectItemConfig = (folderPath: string, name: string, lastModifiedAt:
 // Utilities - Construct Error and Tidy Up
 const constructErrorAndTidyUp = (connector: Connector, message: string, context: string, error: unknown): ConnectorError => {
     connector.abortController = null;
-    return new ConnectorError(message, `${config.id}.${context}`, undefined, undefined, undefined, error);
+    return new ConnectorError(message, `${config.id}.${context}`, undefined, undefined, error);
 };
