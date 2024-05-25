@@ -93,13 +93,8 @@ const preview = (connector: Connector, itemConfig: ItemConfig, settings: Preview
                             connector.abortController = null;
                             resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' } });
                         } else {
-                            const error = new FetchError(
-                                `Preview failed to fetch '${url}'. Response status ${response.status}${response.statusText ? ` - ${response.statusText}.` : '.'}`,
-                                undefined,
-                                undefined,
-                                undefined,
-                                await response.text()
-                            );
+                            const message = `Preview failed to fetch '${url}'. Response status ${response.status}${response.statusText ? ` - ${response.statusText}.` : '.'}`;
+                            const error = new FetchError(message, undefined, undefined, undefined, await response.text());
                             reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.4', error));
                         }
                     } catch (error) {
@@ -216,37 +211,13 @@ const read = (connector: Connector, itemConfig: ItemConfig, previewConfig: DataV
 
 // Utilities - Build Folder Item Configuration
 const buildFolderItemConfig = (folderPath: string, name: string, childCount: number): ItemConfig => {
-    return {
-        childCount,
-        extension: undefined,
-        folderPath,
-        handle: undefined,
-        id: undefined,
-        label: name,
-        lastModifiedAt: undefined,
-        mimeType: undefined,
-        name,
-        size: undefined,
-        typeId: 'folder'
-    };
+    return { childCount, folderPath, label: name, name, typeId: 'folder' };
 };
 
 // Utilities - Build Object (File) Item Configuration
 const buildObjectItemConfig = (folderPath: string, name: string, lastModifiedAt: number, size: number): ItemConfig => {
     const extension = extractExtensionFromPath(name);
-    return {
-        childCount: undefined,
-        extension,
-        folderPath,
-        handle: undefined,
-        id: undefined,
-        label: name,
-        lastModifiedAt,
-        mimeType: lookupMimeTypeForExtension(extension),
-        name,
-        size,
-        typeId: 'object'
-    };
+    return { extension, folderPath, label: name, lastModifiedAt, mimeType: lookupMimeTypeForExtension(extension), name, size, typeId: 'object' };
 };
 
 // Utilities - Construct Error and Tidy Up
