@@ -84,7 +84,7 @@ const preview = (connector: Connector, itemConfig: ItemConfig, settings: Preview
             signal.addEventListener('abort', () => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.5', new AbortError(CALLBACK_PREVIEW_ABORTED))));
 
             // Fetch chunk from start of file.
-            const url = `${URL_PREFIX}fileStore${itemConfig.folderPath}${itemConfig.name}`;
+            const url = `${URL_PREFIX}fileStore${itemConfig.folderPath}${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
@@ -93,7 +93,7 @@ const preview = (connector: Connector, itemConfig: ItemConfig, settings: Preview
                             connector.abortController = null;
                             resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' } });
                         } else {
-                            const message = `Connector preview failed to fetch file '${itemConfig.folderPath}${itemConfig.name}'. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
+                            const message = `Connector preview failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                             const error = new FetchError(message, undefined, undefined, { body: await response.text() });
                             reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.4', error));
                         }
@@ -199,7 +199,7 @@ const read = (connector: Connector, itemConfig: ItemConfig, previewConfig: DataV
                             }
                             parser.end(); // Signal no more data will be written.
                         } else {
-                            const message = `Connector read failed to fetch file '${itemConfig.folderPath}${itemConfig.name}'. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
+                            const message = `Connector read failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                             const error = new FetchError(message, undefined, undefined, { body: await response.text() });
                             reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.4', error));
                         }
