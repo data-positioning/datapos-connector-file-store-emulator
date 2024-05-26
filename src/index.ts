@@ -177,6 +177,7 @@ const read = (connector: Connector, itemConfig: ItemConfig, previewConfig: DataV
                         recordCount: parser.info.records
                     });
                     resolve();
+                    settings.callback({ typeId: 'end', properties: {} });
                 } catch (error) {
                     reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.6', error));
                 }
@@ -210,7 +211,6 @@ const read = (connector: Connector, itemConfig: ItemConfig, previewConfig: DataV
                     }
                 })
                 .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.2', error)));
-            settings.callback({ typeId: 'end', properties: {} });
         } catch (error) {
             reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.1', error));
         }
