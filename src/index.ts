@@ -133,7 +133,7 @@ const read = (
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
-            callback({ typeId: 'start', properties: { itemConfig, previewConfig, settings } });
+            callback({ typeId: 'start', properties: {} });
             // Create an abort controller and get the signal. Add an abort listener to the signal.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
