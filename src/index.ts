@@ -5,18 +5,18 @@ import type { CastingContext } from 'csv-parse';
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
 import type {
     ConnectionConfig,
+    ConnectionItemConfig,
     Connector,
     ConnectorCallbackData,
     ConnectorConfig,
     ConnectorFieldInfo,
     ConnectorRecord,
-    DataViewPreviewConfig,
-    ItemConfig
+    DataViewPreviewConfig
 } from '@datapos/datapos-share-core';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
-import type { ListItemsResult, ListItemsSettings } from '@datapos/datapos-share-core';
-import type { PreviewInterface, PreviewInterfaceSettings, PreviewResult } from '@datapos/datapos-share-core';
-import type { ReadInterface, ReadInterfaceSettings } from '@datapos/datapos-share-core';
+import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
+import type { PreviewInterface, PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
+import type { ReadInterface, ReadSettings } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
 import config from './config.json';
@@ -63,19 +63,19 @@ export default class FileStoreEmulatorConnector implements Connector {
         return { connector: this, read };
     }
 
-    async listItems(callback: (data: ConnectorCallbackData) => void, settings: ListItemsSettings): Promise<ListItemsResult> {
+    async listItems(callback: (data: ConnectorCallbackData) => void, settings: ListSettings): Promise<ListResult> {
         return new Promise((resolve, reject) => {
             try {
                 const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
-                const itemConfigs: ItemConfig[] = [];
+                const connectionItemConfigs: ConnectionItemConfig[] = [];
                 for (const indexItem of indexItems) {
                     if (indexItem.typeId === 'folder') {
-                        itemConfigs.push(buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
+                        connectionItemConfigs.push(buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
                     } else {
-                        itemConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
+                        connectionItemConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
                     }
                 }
-                resolve({ cursor: undefined, isMore: false, itemConfigs, totalCount: itemConfigs.length });
+                resolve({ cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length });
             } catch (error) {
                 reject(constructErrorAndTidyUp(this, ERROR_LIST_ITEMS_FAILED, 'listItems.1', error));
             }
@@ -87,8 +87,8 @@ export default class FileStoreEmulatorConnector implements Connector {
 const preview = (
     connector: Connector,
     callback: (data: ConnectorCallbackData) => void,
-    itemConfig: ItemConfig,
-    settings: PreviewInterfaceSettings
+    itemConfig: ConnectionItemConfig,
+    settings: PreviewSettings
 ): Promise<{ error?: unknown; result?: PreviewResult }> => {
     return new Promise((resolve, reject) => {
         try {
@@ -127,9 +127,9 @@ const preview = (
 const read = (
     connector: Connector,
     callback: (data: ConnectorCallbackData) => void,
-    itemConfig: ItemConfig,
+    itemConfig: ConnectionItemConfig,
     previewConfig: DataViewPreviewConfig,
-    settings: ReadInterfaceSettings
+    settings: ReadSettings
 ): Promise<void> => {
     return new Promise((resolve, reject) => {
         try {
@@ -238,12 +238,12 @@ const read = (
 };
 
 // Utilities - Build Folder Item Configuration
-const buildFolderItemConfig = (folderPath: string, name: string, childCount: number): ItemConfig => {
+const buildFolderItemConfig = (folderPath: string, name: string, childCount: number): ConnectionItemConfig => {
     return { childCount, folderPath, label: name, name, typeId: 'folder' };
 };
 
 // Utilities - Build Object (File) Item Configuration
-const buildObjectItemConfig = (folderPath: string, fullName: string, lastModifiedAt: number, size: number): ItemConfig => {
+const buildObjectItemConfig = (folderPath: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig => {
     const name = extractNameFromPath(fullName);
     const extension = extractExtensionFromPath(fullName);
     return { extension, folderPath, label: fullName, lastModifiedAt, mimeType: lookupMimeTypeForExtension(extension), name, size, typeId: 'object' };
