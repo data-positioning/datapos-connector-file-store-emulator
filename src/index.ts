@@ -136,12 +136,12 @@ const read = (
 
             // Parser - Declare variables.
             let pendingRows: ReadRecord[] = []; // Array to store rows of parsed field values and associated information.
-            const fieldInfos: boolean[] = []; // Array to store field information for a single row.
+            const fieldQuotings: boolean[] = []; // Array to store field information for a single row.
 
             // Parser - Create a parser object for CSV parsing.
             const parser = settings.csvParse({
                 cast: (value, context) => {
-                    fieldInfos[context.index] = context.quoting;
+                    fieldQuotings[context.index] = context.quoting;
                     return value;
                 },
                 delimiter: previewConfig.valueDelimiterId,
@@ -157,7 +157,7 @@ const read = (
                     while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
                         // TODO: Do we need to clear 'fieldInfos' array for each record? Different number of values in a row?
-                        pendingRows.push({ fieldQuotings: { ...fieldInfos }, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
+                        pendingRows.push({ fieldQuotings, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
                         if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
                         settings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                         pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
