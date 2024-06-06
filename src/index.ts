@@ -86,7 +86,7 @@ const preview = (
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
-            signal.addEventListener('abort', () => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.5', new AbortError(CALLBACK_PREVIEW_ABORTED))));
+            signal.addEventListener('abort', () => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.6', new AbortError(CALLBACK_PREVIEW_ABORTED))));
 
             // Fetch chunk from start of file.
             const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
@@ -100,7 +100,7 @@ const preview = (
                             resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' } });
                         } else {
                             const message = `Connector preview failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
-                            const error = new FetchError(message, undefined, undefined, { body: await response.text() });
+                            const error = new FetchError(message, 'preview.5', undefined, { body: await response.text() });
                             reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.4', error));
                         }
                     } catch (error) {
@@ -130,7 +130,7 @@ const read = (
             const signal = connector.abortController.signal;
             signal.addEventListener(
                 'abort',
-                () => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.9', new AbortError(CALLBACK_READ_ABORTED)))
+                () => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.10', new AbortError(CALLBACK_READ_ABORTED)))
                 /*, { once: true, signal } TODO: Don't need once and signal? */
             );
 
@@ -163,12 +163,12 @@ const read = (
                         pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                     }
                 } catch (error) {
-                    reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.8', error));
+                    reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.9', error));
                 }
             });
 
             // Parser - Event listener for the 'error' event.
-            parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.7', error)));
+            parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.8', error)));
 
             // Parser - Event listener for the 'end' (end of data) event.
             parser.on('end', () => {
@@ -190,7 +190,7 @@ const read = (
                     resolve();
                     callback({ typeId: 'end', properties: {} });
                 } catch (error) {
-                    reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.6', error));
+                    reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.7', error));
                 }
             });
 
@@ -208,13 +208,13 @@ const read = (
                                 signal.throwIfAborted(); // Check if the abort signal has been triggered.
                                 // Write the decoded data to the parser and terminate if there is an error.
                                 parser.write(result.value, (error) => {
-                                    if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.5', error));
+                                    if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.6', error));
                                 });
                             }
                             parser.end(); // Signal no more data will be written.
                         } else {
                             const message = `Connector read failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
-                            const error = new FetchError(message, undefined, undefined, { body: await response.text() });
+                            const error = new FetchError(message, 'read.5', undefined, { body: await response.text() });
                             reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.4', error));
                         }
                     } catch (error) {
