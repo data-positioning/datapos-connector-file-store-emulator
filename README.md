@@ -1,4 +1,4 @@
-# DataPos - File Store Emulator Data Connector
+# DataPos - File Store Emulator Connector
 
 A TypeScript library that implements the File Store Emulator connector. It provides easy access to a curated set of files for demonstration and evaluation purposes.
 
