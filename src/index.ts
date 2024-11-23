@@ -86,7 +86,7 @@ const preview = (
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
-            signal.addEventListener('abort', () => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.6', new AbortError(CALLBACK_PREVIEW_ABORTED))));
+            signal.addEventListener('abort', () => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED))));
 
             // Fetch chunk from start of file.
             const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
@@ -100,14 +100,14 @@ const preview = (
                             resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' } });
                         } else {
                             const message = `Connector preview failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
-                            const error = new FetchError(message, 'preview.5', undefined, { body: await response.text() });
+                            const error = new FetchError(message, { locator: 'preview.3', body: await response.text() });
                             reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.4', error));
                         }
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.3', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.5', error));
                     }
                 })
-                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.2', error)));
+                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.6', error)));
         } catch (error) {
             reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.1', error));
         }
@@ -208,20 +208,20 @@ const read = (
                                 signal.throwIfAborted(); // Check if the abort signal has been triggered.
                                 // Write the decoded data to the parser and terminate if there is an error.
                                 parser.write(result.value, (error) => {
-                                    if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.6', error));
+                                    if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.2', error));
                                 });
                             }
                             parser.end(); // Signal no more data will be written.
                         } else {
                             const message = `Connector read failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
-                            const error = new FetchError(message, 'read.5', undefined, { body: await response.text() });
+                            const error = new FetchError(message, { locator: 'read.3', body: await response.text() });
                             reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.4', error));
                         }
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.3', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.5', error));
                     }
                 })
-                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.2', error)));
+                .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.6', error)));
         } catch (error) {
             reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.1', error));
         }
@@ -252,5 +252,5 @@ const buildObjectItemConfig = (folderPath: string, fullName: string, lastModifie
 // Utilities - Construct Error and Tidy Up
 const constructErrorAndTidyUp = (connector: Connector, message: string, context: string, error: unknown): ConnectorError => {
     connector.abortController = null;
-    return new ConnectorError(message, `${config.id}.${context}`, undefined, undefined, error);
+    return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
 };
