@@ -3,7 +3,7 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.1.918",
+    "version": "0.1.919",
     "peerDependencies": {
         "@datapos/datapos-share-core": "^0.1.640",
         "csv-parse": "^5.6.0",
@@ -11,14 +11,13 @@
     },
     "devDependencies": {
         "@datapos/datapos-dev-operations": "^0.1.596",
+        "@eslint/js": "^9.15.0",
         "@types/node": "^22.9.3",
-        "@typescript-eslint/eslint-plugin": "^8.15.0",
-        "@typescript-eslint/parser": "^8.15.0",
         "eslint": "^9.15.0",
-        "eslint-plugin-import": "^2.31.0",
-        "eslint-plugin-prettier": "^5.2.1",
+        "globals": "^15.12.0",
         "prettier": "^3.3.3",
         "typescript": "^5.7.2",
+        "typescript-eslint": "^8.15.0",
         "vite": "^5.4.11",
         "vite-plugin-dts": "^4.3.0"
     },
@@ -37,6 +36,7 @@
         "updateDependencies": "npm run updateOperations && npm run updateShareCore",
         "updateOperations": "npm install --save-dev @datapos/datapos-dev-operations@latest",
         "updateShareCore": "npm install @datapos/datapos-share-core@latest",
-        "uploadPlugin": "node -e \"require('@datapos/datapos-dev-operations/scriptHelpers').uploadPlugin()\""
+        "uploadPlugin": "node -e \"require('@datapos/datapos-dev-operations/scriptHelpers').uploadPlugin()\"",
+        "NEWuploadPlugin": "npx wrangler r2 object put plugins-eu/connectors/datapos-connector-file-store-emulator-es.js --file=dist/datapos-connector-file-store-emulator-es.js --jurisdiction=eu"
     }
 }
