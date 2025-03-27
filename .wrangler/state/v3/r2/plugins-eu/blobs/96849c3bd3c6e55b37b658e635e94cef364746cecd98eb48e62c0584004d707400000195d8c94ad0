@@ -1,0 +1,2294 @@
+const g = (e) => e;
+class z extends Error {
+  context;
+  originalStack;
+  constructor(i, t, a, c) {
+    super(i), this.name = "DataPosError", this.context = t, this.originalStack = a, this.cause = c;
+  }
+}
+class u extends z {
+  constructor(i, t, a, c) {
+    super(i, t, a, c), this.name = "AbortError";
+  }
+}
+class R extends z {
+  constructor(i, t, a, c) {
+    super(i, t, a, c), this.name = "ConnectorError";
+  }
+}
+class C extends z {
+  constructor(i, t) {
+    super(i, t), this.name = "FetchError";
+  }
+}
+const S = (e) => {
+  if (e) {
+    const i = e.lastIndexOf("/"), t = e.lastIndexOf(".", i > -1 ? i : e.length);
+    return t > -1 ? e.substring(0, t) : e;
+  }
+}, P = (e) => {
+  if (e) {
+    const i = e.lastIndexOf(".");
+    if (i > -1) return e.substring(i + 1);
+  }
+}, _ = (e) => {
+  switch (e) {
+    case "csv":
+      return "text/csv";
+    case "tab":
+    case "tsv":
+      return "text/tab-separated-values";
+    case "xls":
+      return "application/vnd.ms-excel";
+    case "xlsx":
+      return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    default:
+      return "application/octet-stream";
+  }
+}, w = "fileStore", x = "datapos-connector-file-store-emulator", T = {
+  default: {
+    authMethodId: "none",
+    maxConnectionCount: 1
+  }
+}, F = {
+  en: "File Store Emulator"
+}, k = "alpha", L = "connector", O = "source", D = null, U = null, N = null, h = {
+  categoryId: w,
+  id: x,
+  implementations: T,
+  label: F,
+  statusId: k,
+  typeId: L,
+  usageId: O,
+  vendorAccountURL: D,
+  vendorDocumentationURL: U,
+  vendorHomeURL: N
+}, $ = {
+  "/": [
+    {
+      lastModifiedAt: 17156018907910996e-4,
+      name: ".DS_Store",
+      size: 6148,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 17155331081366492e-4,
+      name: "ENGAGEMENT_START_EVENTS_202405121858.csv",
+      size: 122800,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 17155330361462505e-4,
+      name: "PEOPLE_BIRTH_EVENTS_202405121857.csv",
+      size: 114287,
+      typeId: "object"
+    },
+    {
+      childCount: 3,
+      name: "AUDATACY Interchange Format/",
+      typeId: "folder"
+    },
+    {
+      childCount: 12,
+      name: "Formula 1/",
+      typeId: "folder"
+    },
+    {
+      childCount: 7,
+      name: "Salesforce API/",
+      typeId: "folder"
+    },
+    {
+      childCount: 156,
+      name: "Salesforce Extract/",
+      typeId: "folder"
+    },
+    {
+      childCount: 20,
+      name: "SAP Employee Central Extract/",
+      typeId: "folder"
+    },
+    {
+      childCount: 7,
+      name: "SAP SuccessFactors API/",
+      typeId: "folder"
+    },
+    {
+      childCount: 14,
+      name: "Test Files/",
+      typeId: "folder"
+    }
+  ],
+  "/AUDATACY Interchange Format/": [
+    {
+      childCount: 11,
+      name: "Coded Data/",
+      typeId: "folder"
+    },
+    {
+      childCount: 1,
+      name: "Human Resources/",
+      typeId: "folder"
+    },
+    {
+      childCount: 1,
+      name: "Party/",
+      typeId: "folder"
+    }
+  ],
+  "/AUDATACY Interchange Format/Coded Data/": [
+    {
+      lastModifiedAt: 16934965487657979e-4,
+      name: "01. Coded Data - All.csv",
+      size: 13002,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487660242e-4,
+      name: "02. Coded Types - All.csv",
+      size: 93,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548766253e-3,
+      name: "03. Coded Types - Ids.csv",
+      size: 48,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487664556e-4,
+      name: "04. Coded Types - Labels - Linked by Id.csv",
+      size: 101,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487666665e-4,
+      name: "05. Coded Types - Labels - Linked by Alternate Id.csv",
+      size: 96,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548767101e-3,
+      name: "06. Coded Values - All - Linked by Id.csv",
+      size: 9502,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487674556e-4,
+      name: "07. Coded Values - All - Linked by Alternate Id.csv",
+      size: 7269,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487677139e-4,
+      name: "08. Coded Values - Ids - Linked by Id.csv",
+      size: 5524,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487680042e-4,
+      name: "09. Coded Values - Ids - Linked by Alternate Id.csv",
+      size: 3291,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487682915e-4,
+      name: "10. Coded Values - Labels - Linked by Id.csv",
+      size: 9752,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487686292e-4,
+      name: "11. Coded Values - Labels - Linked by Alternate Id.csv",
+      size: 7512,
+      typeId: "object"
+    }
+  ],
+  "/AUDATACY Interchange Format/Human Resources/": [
+    {
+      childCount: 2,
+      name: "Workforce/",
+      typeId: "folder"
+    }
+  ],
+  "/AUDATACY Interchange Format/Human Resources/Workforce/": [
+    {
+      lastModifiedAt: 16934965487691804e-4,
+      name: "Jobs.csv",
+      size: 13913,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487694524e-4,
+      name: "Work Contracts.csv",
+      size: 13931,
+      typeId: "object"
+    }
+  ],
+  "/AUDATACY Interchange Format/Party/": [
+    {
+      lastModifiedAt: 16934965487708513e-4,
+      name: "People.csv",
+      size: 139407,
+      typeId: "object"
+    }
+  ],
+  "/Formula 1/": [
+    {
+      lastModifiedAt: 16934965487713877e-4,
+      name: "circuits.csv",
+      size: 9406,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487733362e-4,
+      name: "constructor_results.csv",
+      size: 191446,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548775953e-3,
+      name: "constructor_standings.csv",
+      size: 280013,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487764397e-4,
+      name: "constructors.csv",
+      size: 17021,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487828357e-4,
+      name: "driver_standings.csv",
+      size: 801809,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487772554e-4,
+      name: "driver.csv",
+      size: 92286,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487853823e-4,
+      name: "pit_stops.csv",
+      size: 244191,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548788132e-3,
+      name: "qualifying.csv",
+      size: 323654,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965487891885e-4,
+      name: "races.csv",
+      size: 109577,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488057644e-4,
+      name: "results.csv",
+      size: 1492404,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488072417e-4,
+      name: "seasons.csv",
+      size: 4158,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488076704e-4,
+      name: "status.csv",
+      size: 2043,
+      typeId: "object"
+    }
+  ],
+  "/SAP Employee Central Extract/": [
+    {
+      lastModifiedAt: 17155162403961042e-4,
+      name: "ADDRESS_INFO.csv",
+      size: 224543,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488101533e-4,
+      name: "COMP_CUR_CONV.csv",
+      size: 2245,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488231113e-4,
+      name: "EMP_COMP_INFO.csv",
+      size: 1665179,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488400525e-4,
+      name: "EMP_PAYCOMP_RECURRING.csv",
+      size: 1551764,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488131548e-4,
+      name: "EMPLOYMENT_INFO_original.csv",
+      size: 128575,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 17154322402102363e-4,
+      name: "EMPLOYMENT_INFO.csv",
+      size: 138931,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488409338e-4,
+      name: "EVENT_REASONS.csv",
+      size: 7775,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548841272e-3,
+      name: "FREQUENCY.csv",
+      size: 1704,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1715512373458301e-3,
+      name: "GENERIC_OBJECTS.csv",
+      size: 1736573,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548857393e-3,
+      name: "GENERIC_RELATIONSHIPS.csv",
+      size: 98782,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488598499e-4,
+      name: "JOB_CLASS.csv",
+      size: 338260,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 17154472282067979e-4,
+      name: "JOB_INFO.csv",
+      size: 1569311,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488699285e-4,
+      name: "LABELS.csv",
+      size: 126838,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 17155137676551216e-4,
+      name: "LOCATIONS.csv",
+      size: 3167,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488705647e-4,
+      name: "PAY_COMPONENT.csv",
+      size: 1234,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1715514083979291e-3,
+      name: "PERSON_INFO_GLOBAL.csv",
+      size: 89782,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 17154239631631196e-4,
+      name: "PERSON.csv",
+      size: 49146,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 17154307161497407e-4,
+      name: "PERSONAL_DATA.csv",
+      size: 114645,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488734688e-4,
+      name: "PICKLISTS.csv",
+      size: 78044,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488738552e-4,
+      name: "TERRITORY.csv",
+      size: 8541,
+      typeId: "object"
+    }
+  ],
+  "/SAP SuccessFactors API/": [
+    {
+      lastModifiedAt: 16934965488759534e-4,
+      name: "empEmployment.csv",
+      size: 151656,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488818508e-4,
+      name: "empJob.csv",
+      size: 1193715,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488826377e-4,
+      name: "perGlobalInfoGBR.csv",
+      size: 76314,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488831147e-4,
+      name: "perGlobalInfoUSA.csv",
+      size: 4942,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488747778e-4,
+      name: "PerPerson.csv",
+      size: 77318,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548883974e-3,
+      name: "perPersonal.csv",
+      size: 119305,
+      typeId: "object"
+    },
+    {
+      childCount: 6,
+      name: "sapSuccessFactors/",
+      typeId: "folder"
+    }
+  ],
+  "/SAP SuccessFactors API/sapSuccessFactors/": [
+    {
+      lastModifiedAt: 16934965496856042e-4,
+      name: "empEmployment.csv",
+      size: 151656,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496908174e-4,
+      name: "empJob.csv",
+      size: 1193715,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496914482e-4,
+      name: "perGlobalInfoGBR.csv",
+      size: 76314,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496917283e-4,
+      name: "perGlobalInfoUSA.csv",
+      size: 4942,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496922495e-4,
+      name: "perPerson.csv",
+      size: 77318,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496549692851e-3,
+      name: "perPersonal.csv",
+      size: 119305,
+      typeId: "object"
+    }
+  ],
+  "/Salesforce API/": [
+    {
+      lastModifiedAt: 16934965488845752e-4,
+      name: "Account.csv",
+      size: 7383,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488848765e-4,
+      name: "Campaign.csv",
+      size: 1655,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548885249e-3,
+      name: "Contact.csv",
+      size: 8936,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488856394e-4,
+      name: "Lead.csv",
+      size: 9606,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488859954e-4,
+      name: "Opportunity.csv",
+      size: 11811,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488863794e-4,
+      name: "Product2.csv",
+      size: 2926,
+      typeId: "object"
+    },
+    {
+      childCount: 6,
+      name: "salesforce/",
+      typeId: "folder"
+    }
+  ],
+  "/Salesforce API/salesforce/": [
+    {
+      lastModifiedAt: 16934965496833157e-4,
+      name: "Account.csv",
+      size: 7383,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496835425e-4,
+      name: "Campaign.csv",
+      size: 1655,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496549683826e-3,
+      name: "Contact.csv",
+      size: 8936,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496549684025e-3,
+      name: "Lead.csv",
+      size: 9606,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496842688e-4,
+      name: "Opportunity.csv",
+      size: 11811,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496846619e-4,
+      name: "Product2.csv",
+      size: 2926,
+      typeId: "object"
+    }
+  ],
+  "/Salesforce Extract/": [
+    {
+      lastModifiedAt: 16934965488868132e-4,
+      name: "Account.csv",
+      size: 8778,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488871252e-4,
+      name: "AccountContactRole.csv",
+      size: 143,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548887414e-3,
+      name: "ActionLinkTemplateBinding.csv",
+      size: 141,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488876777e-4,
+      name: "Announcement.csv",
+      size: 163,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488879363e-4,
+      name: "Asset.csv",
+      size: 373,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548888184e-3,
+      name: "AssetRelationship.csv",
+      size: 192,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488884702e-4,
+      name: "AssistantInteraction.csv",
+      size: 167,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488887427e-4,
+      name: "AssistantProgress.csv",
+      size: 136,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548889044e-3,
+      name: "AssistantRecommendation.csv",
+      size: 228,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488893914e-4,
+      name: "BusinessProcess.csv",
+      size: 136,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488897886e-4,
+      name: "Campaign.csv",
+      size: 2510,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488901108e-4,
+      name: "CampaignMember.csv",
+      size: 191,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488909705e-4,
+      name: "CanvasFeedItem.csv",
+      size: 226,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488912974e-4,
+      name: "Case.csv",
+      size: 11952,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488915813e-4,
+      name: "CaseComment.csv",
+      size: 153,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488918862e-4,
+      name: "CaseContactRole.csv",
+      size: 129,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548892184e-3,
+      name: "CaseHistory2.csv",
+      size: 3263,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548892467e-3,
+      name: "CaseSolution.csv",
+      size: 84,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488927136e-4,
+      name: "CleanFactFieldClaim.csv",
+      size: 174,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488930298e-4,
+      name: "CollaborationGroupRank.csv",
+      size: 200,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488932812e-4,
+      name: "CollaborationGroupRecord.csv",
+      size: 174,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488935278e-4,
+      name: "ComponentResponseCache.csv",
+      size: 170,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488937415e-4,
+      name: "Contact.csv",
+      size: 11188,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488939814e-4,
+      name: "ContentDocumentLink.csv",
+      size: 304,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488949868e-4,
+      name: "ContentFolder.csv",
+      size: 158,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488953289e-4,
+      name: "ContentVersion.csv",
+      size: 1042,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548895591e-3,
+      name: "Contract.csv",
+      size: 729,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488958376e-4,
+      name: "ContractContactRole.csv",
+      size: 144,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488960952e-4,
+      name: "CustomSettingNameIndex.csv",
+      size: 191,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488964238e-4,
+      name: "Data__c.csv",
+      size: 136,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488967087e-4,
+      name: "DatacloudOwnedEntity.csv",
+      size: 187,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488969802e-4,
+      name: "DatacloudPurchaseUsage.csv",
+      size: 186,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548897235e-3,
+      name: "EmailDisclaimer.csv",
+      size: 174,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488985688e-4,
+      name: "EmailMessage.csv",
+      size: 426,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488988506e-4,
+      name: "EmailRoutingAddress.csv",
+      size: 237,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548899095e-3,
+      name: "Endorsement.csv",
+      size: 189,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488996802e-4,
+      name: "EngagementHistoryRollup.csv",
+      size: 219,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965488999622e-4,
+      name: "EntityHistory.csv",
+      size: 562,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489001982e-4,
+      name: "EntitySubscription.csv",
+      size: 71,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548900443e-3,
+      name: "Event.csv",
+      size: 634,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489007078e-4,
+      name: "EventDeliveryData.csv",
+      size: 152,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489009585e-4,
+      name: "EventParameterData.csv",
+      size: 161,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489012063e-4,
+      name: "EventRelation.csv",
+      size: 203,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489014631e-4,
+      name: "EventSubscriptionData.csv",
+      size: 128,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489017007e-4,
+      name: "EventSubscriptionHandleData.csv",
+      size: 145,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489019656e-4,
+      name: "ExchangeUserMapping.csv",
+      size: 177,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548902211e-3,
+      name: "FeedComment.csv",
+      size: 294,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489024773e-4,
+      name: "FeedFieldHistory.csv",
+      size: 5835,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548903324e-3,
+      name: "FeedMute.csv",
+      size: 138,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489035728e-4,
+      name: "FeedPost.csv",
+      size: 176,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489038164e-4,
+      name: "FeedTrackedChange.csv",
+      size: 308,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489041086e-4,
+      name: "FieldHistory.csv",
+      size: 8658,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548907871e-3,
+      name: "FileInspectionResult.csv",
+      size: 265,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548908186e-3,
+      name: "FileSearchActivity.csv",
+      size: 1865,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489084368e-4,
+      name: "FiscalYearSettings.csv",
+      size: 187,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489086917e-4,
+      name: "FlowInterview.csv",
+      size: 233,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489089587e-4,
+      name: "FlowRecordRelation.csv",
+      size: 136,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489092583e-4,
+      name: "FlowStageRelation.csv",
+      size: 153,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489095115e-4,
+      name: "Goal.csv",
+      size: 236,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548909761e-3,
+      name: "GoalLink.csv",
+      size: 134,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548909993e-3,
+      name: "GroupSubscription.csv",
+      size: 71,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489102246e-4,
+      name: "Idea.csv",
+      size: 233,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489104548e-4,
+      name: "IdeaComment.csv",
+      size: 122,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548910705e-3,
+      name: "InboundSocialPost.csv",
+      size: 204,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489109546e-4,
+      name: "InstalledMobileApp.csv",
+      size: 160,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489112295e-4,
+      name: "InteractionCountReport.csv",
+      size: 194,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489114626e-4,
+      name: "JigsawSavedSearch.csv",
+      size: 171,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489116912e-4,
+      name: "JobTracker.csv",
+      size: 232,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 169349654891197e-2,
+      name: "Lead.csv",
+      size: 12692,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489124846e-4,
+      name: "LinkedInLeadGen.csv",
+      size: 545,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489122144e-4,
+      name: "LinkReference.csv",
+      size: 118,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489127207e-4,
+      name: "ListEmail.csv",
+      size: 307,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 169349654891297e-2,
+      name: "ListEmailRecipientSource.csv",
+      size: 149,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548913215e-3,
+      name: "ListEmailSentResult.csv",
+      size: 172,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489135222e-4,
+      name: "Macro.csv",
+      size: 168,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489137717e-4,
+      name: "MacroAction.csv",
+      size: 197,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548914813e-3,
+      name: "MacroInstruction.csv",
+      size: 172,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548915078e-3,
+      name: "ManagedContentBlock.csv",
+      size: 114,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489153062e-4,
+      name: "ManagedContentBlockVersion.csv",
+      size: 276,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489155227e-4,
+      name: "MatchingInformation.csv",
+      size: 194,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489157473e-4,
+      name: "Metric.csv",
+      size: 301,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489159827e-4,
+      name: "MetricDataLink.csv",
+      size: 181,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489162234e-4,
+      name: "MetricsTransmissionHistory.csv",
+      size: 197,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489164568e-4,
+      name: "NewsFeed.csv",
+      size: 316,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548916738e-3,
+      name: "Note.csv",
+      size: 160,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489169932e-4,
+      name: "NotifDeliveryUserPref.csv",
+      size: 165,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489172314e-4,
+      name: "NotificationMember.csv",
+      size: 138,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489175203e-4,
+      name: "Opportunity.csv",
+      size: 14323,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489177817e-4,
+      name: "OpportunityCompetitor.csv",
+      size: 158,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489180647e-4,
+      name: "OpportunityContactRole.csv",
+      size: 135,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489183357e-4,
+      name: "OpportunityHistory.csv",
+      size: 7076,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489186191e-4,
+      name: "OpportunityLineItem.csv",
+      size: 222,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489189055e-4,
+      name: "Order.csv",
+      size: 812,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548919165e-3,
+      name: "OrderItem.csv",
+      size: 262,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489194182e-4,
+      name: "OrgDeleteRequest.csv",
+      size: 131,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489196597e-4,
+      name: "OrgWideEmailAddress.csv",
+      size: 167,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489199138e-4,
+      name: "Partner.csv",
+      size: 184,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548920137e-3,
+      name: "Period.csv",
+      size: 131,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489203665e-4,
+      name: "PersonalizationResource.csv",
+      size: 157,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548920596e-3,
+      name: "PersonalizedUnswdQuestion.csv",
+      size: 213,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548920832e-3,
+      name: "Pricebook2.csv",
+      size: 487,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489212131e-4,
+      name: "PricebookEntry.csv",
+      size: 6815,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548921503e-3,
+      name: "ProcessInstance.csv",
+      size: 210,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489218086e-4,
+      name: "ProcessInstanceNode.csv",
+      size: 186,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489221013e-4,
+      name: "ProcessInstanceStep.csv",
+      size: 223,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489223867e-4,
+      name: "ProcessInstanceWorkitem.csv",
+      size: 256,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548922648e-3,
+      name: "Product2.csv",
+      size: 3569,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489229277e-4,
+      name: "PushIntent.csv",
+      size: 170,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489231802e-4,
+      name: "PushProfileMapping.csv",
+      size: 180,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489234668e-4,
+      name: "QuickText.csv",
+      size: 148,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548923717e-3,
+      name: "RecommendationAudience.csv",
+      size: 183,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489239634e-4,
+      name: "RecommendationDefinition.csv",
+      size: 213,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489242021e-4,
+      name: "RecommendationMetric.csv",
+      size: 238,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489244277e-4,
+      name: "RecordAction.csv",
+      size: 179,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 169349654892465e-2,
+      name: "RecordOrigin.csv",
+      size: 168,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489301016e-4,
+      name: "RecordType.csv",
+      size: 1730,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489304597e-4,
+      name: "Scorecard.csv",
+      size: 146,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489307544e-4,
+      name: "ScorecardAssociation.csv",
+      size: 138,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489310156e-4,
+      name: "ScorecardMetric.csv",
+      size: 157,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548931282e-3,
+      name: "SearchActivity.csv",
+      size: 245,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489315234e-4,
+      name: "SearchPromotionRule.csv",
+      size: 115,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489318071e-4,
+      name: "SetupAssistantAnswer.csv",
+      size: 130,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489320789e-4,
+      name: "SetupAssistantProgress.csv",
+      size: 143,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489323313e-4,
+      name: "SetupFlowProgress.csv",
+      size: 265,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548932579e-3,
+      name: "SocialPersona.csv",
+      size: 200,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489328882e-4,
+      name: "Solution.csv",
+      size: 5877,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489331887e-4,
+      name: "StreamingChannel.csv",
+      size: 143,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489334734e-4,
+      name: "SystemStreamingChannel.csv",
+      size: 133,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489337415e-4,
+      name: "Task.csv",
+      size: 643,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489340002e-4,
+      name: "TaskRelation.csv",
+      size: 143,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489342727e-4,
+      name: "TodayGoal.csv",
+      size: 134,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489345286e-4,
+      name: "Tombstone.csv",
+      size: 116,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489348232e-4,
+      name: "TopicDataCategoryRule.csv",
+      size: 156,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489350837e-4,
+      name: "TopicGroupActivity.csv",
+      size: 156,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548935351e-3,
+      name: "TopicUserActivity.csv",
+      size: 142,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489356191e-4,
+      name: "TransitionMessage.csv",
+      size: 134,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489358992e-4,
+      name: "TrendingTopic.csv",
+      size: 169,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548936189e-3,
+      name: "User.csv",
+      size: 4166,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489364915e-4,
+      name: "UserAppInfo.csv",
+      size: 147,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489367617e-4,
+      name: "UserAppMenuCustomization.csv",
+      size: 145,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489370664e-4,
+      name: "UserMetrics.csv",
+      size: 243,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489373357e-4,
+      name: "UserNavItem.csv",
+      size: 229,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489376245e-4,
+      name: "UserProvAccount.csv",
+      size: 283,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548937946e-3,
+      name: "UserProvAccountStaging.csv",
+      size: 255,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548938693e-3,
+      name: "UserProvisioningLog.csv",
+      size: 199,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489389937e-4,
+      name: "UserProvisioningRequest.csv",
+      size: 324,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548938362e-3,
+      name: "UserProvMockTarget.csv",
+      size: 198,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489393325e-4,
+      name: "UserRole.csv",
+      size: 3826,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489396377e-4,
+      name: "UserSetupAppInfo.csv",
+      size: 129,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489399238e-4,
+      name: "WorkCoaching.csv",
+      size: 152,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548940232e-3,
+      name: "WorkFeedback.csv",
+      size: 153,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548940514e-3,
+      name: "WorkFeedbackQuestion.csv",
+      size: 233,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489412988e-4,
+      name: "WorkFeedbackQuestionSet.csv",
+      size: 163,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489417188e-4,
+      name: "WorkFeedbackRequest.csv",
+      size: 417,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489420798e-4,
+      name: "WorkFeedbackTemplate.csv",
+      size: 133,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489423828e-4,
+      name: "WorkPerformanceCycle.csv",
+      size: 199,
+      typeId: "object"
+    }
+  ],
+  "/Test Files/": [
+    {
+      lastModifiedAt: 17154221529413257e-4,
+      name: ".DS_Store",
+      size: 6148,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489431294e-4,
+      name: "Categories.csv",
+      size: 441,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489434463e-4,
+      name: "Conversion Data.csv",
+      size: 5338,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489438535e-4,
+      name: "Customers.csv",
+      size: 13295,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489795928e-4,
+      name: "Receipts.xls",
+      size: 180736,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496805889e-4,
+      name: "test.csv",
+      size: 2995,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496808403e-4,
+      name: "test.json",
+      size: 7906,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496810217e-4,
+      name: "test.spss",
+      size: 17,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496812114e-4,
+      name: "test.xls",
+      size: 16,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496813933e-4,
+      name: "test.xlsx",
+      size: 17,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965496815903e-4,
+      name: "test.xml",
+      size: 4429,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496549656176e-3,
+      name: "WDI_Data Part 1.csv",
+      size: 98362709,
+      typeId: "object"
+    },
+    {
+      childCount: 31,
+      name: "Encoding Test Files/",
+      typeId: "folder"
+    },
+    {
+      childCount: 22,
+      name: "Encoding/",
+      typeId: "folder"
+    }
+  ],
+  "/Test Files/Encoding/": [
+    {
+      lastModifiedAt: 1693496548971085e-3,
+      name: ".DS_Store",
+      size: 6148,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489713987e-4,
+      name: "big5",
+      size: 614,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489717205e-4,
+      name: "euc-jp",
+      size: 3919,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489720256e-4,
+      name: "euc-kr",
+      size: 2480,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489723247e-4,
+      name: "gb18030",
+      size: 1665,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489726301e-4,
+      name: "iso-2022-jp",
+      size: 2924,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548972923e-3,
+      name: "iso-8859-2",
+      size: 1600,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489732087e-4,
+      name: "iso-8859-5",
+      size: 1024,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489735156e-4,
+      name: "iso-8859-6",
+      size: 2241,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548973808e-3,
+      name: "iso-8859-7",
+      size: 1033,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548974117e-3,
+      name: "koi8-r",
+      size: 1024,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489744368e-4,
+      name: "shift_jis",
+      size: 2816,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489747432e-4,
+      name: "utf-16be",
+      size: 1334,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489750378e-4,
+      name: "utf-16le",
+      size: 1334,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548975353e-3,
+      name: "utf-8",
+      size: 1125,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489756477e-4,
+      name: "windows-1250",
+      size: 1617,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548976063e-3,
+      name: "windows-1251",
+      size: 1024,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489764612e-4,
+      name: "windows-1252",
+      size: 2976,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548976842e-3,
+      name: "windows-1253",
+      size: 1052,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489771694e-4,
+      name: "windows-1254",
+      size: 2445,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489775845e-4,
+      name: "windows-1255",
+      size: 2405,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489779197e-4,
+      name: "windows-1256",
+      size: 2241,
+      typeId: "object"
+    }
+  ],
+  "/Test Files/Encoding Test Files/": [
+    {
+      lastModifiedAt: 16934965489442913e-4,
+      name: "ascii.txt",
+      size: 44,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489445723e-4,
+      name: "big5.txt",
+      size: 37,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489608037e-4,
+      name: "euc-jp.txt",
+      size: 218,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489611482e-4,
+      name: "euc-kr.txt",
+      size: 153,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489614668e-4,
+      name: "gb2312.txt",
+      size: 105,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489622007e-4,
+      name: "hz-gb-2312.txt",
+      size: 117,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489628079e-4,
+      name: "ibm855.txt",
+      size: 290,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489631594e-4,
+      name: "ibm866.txt",
+      size: 290,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548963535e-3,
+      name: "iso-2022-jp.txt",
+      size: 224,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489638435e-4,
+      name: "iso-2022-kr.txt",
+      size: 198,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489641516e-4,
+      name: "iso-8859-2.txt",
+      size: 273,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489644885e-4,
+      name: "iso-8859-5-bulgarian.txt",
+      size: 304,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489647957e-4,
+      name: "iso-8859-5-russian.txt",
+      size: 290,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489651277e-4,
+      name: "iso-8859-7.txt",
+      size: 319,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548965516e-3,
+      name: "iso-8859-8.txt",
+      size: 307,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548966125e-3,
+      name: "koi8-r.txt",
+      size: 290,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548966477e-3,
+      name: "shift_jis.txt",
+      size: 216,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548966814e-3,
+      name: "tis-620.txt",
+      size: 68,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 169349654896711e-2,
+      name: "utf-16be.txt",
+      size: 2,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489673923e-4,
+      name: "utf-16le.txt",
+      size: 84,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489677126e-4,
+      name: "utf-32be.txt",
+      size: 4,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489680146e-4,
+      name: "utf-32le.txt",
+      size: 18,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489683838e-4,
+      name: "utf-8-with-bom.txt",
+      size: 58,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548968695e-3,
+      name: "utf-8-without-bom.txt",
+      size: 58,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489689941e-4,
+      name: "windows-1251.txt",
+      size: 290,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489693103e-4,
+      name: "windows-1252.txt",
+      size: 433,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548969597e-3,
+      name: "windows-1255.txt",
+      size: 36,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548969907e-3,
+      name: "x-iso-10646-ucs-4-2143.txt",
+      size: 20,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489702273e-4,
+      name: "x-iso-10646-ucs-4-3412.txt",
+      size: 20,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489705442e-4,
+      name: "x-mac-cyrillic.txt",
+      size: 290,
+      typeId: "object"
+    },
+    {
+      childCount: 38,
+      name: "encodings/",
+      typeId: "folder"
+    }
+  ],
+  "/Test Files/Encoding Test Files/encodings/": [
+    {
+      lastModifiedAt: 16934965489449883e-4,
+      name: "big5",
+      size: 614,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548945328e-3,
+      name: "euc_jp",
+      size: 3919,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548945665e-3,
+      name: "euc_kr",
+      size: 2480,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489459692e-4,
+      name: "gb18030",
+      size: 1665,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489464001e-4,
+      name: "iso2022cn",
+      size: 1749,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489467563e-4,
+      name: "iso2022jp",
+      size: 2924,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489471028e-4,
+      name: "iso2022kr",
+      size: 3172,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489475432e-4,
+      name: "iso88591_en",
+      size: 2955,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489478547e-4,
+      name: "iso88592_cs",
+      size: 1600,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489481494e-4,
+      name: "iso88595_ru",
+      size: 1024,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489484915e-4,
+      name: "iso88596_ar",
+      size: 2241,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489488186e-4,
+      name: "iso88597_el",
+      size: 1033,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489491514e-4,
+      name: "iso88598",
+      size: 2352,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489494717e-4,
+      name: "iso88598_he",
+      size: 2353,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489497935e-4,
+      name: "iso88599_tr",
+      size: 2424,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489500933e-4,
+      name: "koi8r",
+      size: 1024,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489504285e-4,
+      name: "lang_arabic",
+      size: 4059,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489507395e-4,
+      name: "lang_chinese",
+      size: 916,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548951052e-3,
+      name: "lang_czech",
+      size: 1795,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489513948e-4,
+      name: "lang_greek",
+      size: 1895,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489517375e-4,
+      name: "lang_hebrew",
+      size: 4124,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489520645e-4,
+      name: "lang_japanese",
+      size: 3978,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489523867e-4,
+      name: "lang_korean",
+      size: 3466,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489526934e-4,
+      name: "lang_russian",
+      size: 1873,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548953026e-3,
+      name: "lang_turkish",
+      size: 2678,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489533665e-4,
+      name: "shiftjis",
+      size: 2816,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489536746e-4,
+      name: "utf16be",
+      size: 1334,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489539407e-4,
+      name: "utf16le",
+      size: 1334,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548954251e-3,
+      name: "utf32be",
+      size: 2664,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548954572e-3,
+      name: "utf32le",
+      size: 2664,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548954873e-3,
+      name: "utf8",
+      size: 1125,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548955194e-3,
+      name: "windows_1250",
+      size: 1617,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489555002e-4,
+      name: "windows_1251",
+      size: 1024,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489558293e-4,
+      name: "windows_1252",
+      size: 2976,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489561287e-4,
+      name: "windows_1253",
+      size: 1052,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489564668e-4,
+      name: "windows_1254",
+      size: 2445,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 1693496548956883e-3,
+      name: "windows_1255",
+      size: 2405,
+      typeId: "object"
+    },
+    {
+      lastModifiedAt: 16934965489572607e-4,
+      name: "windows_1256",
+      size: 2241,
+      typeId: "object"
+    }
+  ]
+}, G = "0.1.921", B = "Connector preview aborted.", H = "Connector read aborted.", V = 4096, W = 1e3, Y = "Connector list items failed.", A = "Connector preview failed.", m = "Connector read failed.", E = "https://resources.datapositioning.app/";
+class Z {
+  abortController;
+  config;
+  connectionConfig;
+  constructor(i) {
+    this.abortController = null, this.config = h, this.config.version = G, this.connectionConfig = i;
+  }
+  abort() {
+    this.abortController && (this.abortController.abort(), this.abortController = null);
+  }
+  getPreviewInterface() {
+    return { connector: this, preview: J };
+  }
+  getReadInterface() {
+    return { connector: this, read: q };
+  }
+  async list(i, t) {
+    return new Promise((a, c) => {
+      try {
+        const r = $[t.folderPath], d = [];
+        for (const n of r)
+          n.typeId === "folder" ? d.push(Q(t.folderPath, n.name, n.childCount)) : d.push(K(t.folderPath, n.name, n.lastModifiedAt, n.size));
+        a({ cursor: void 0, isMore: !1, connectionItemConfigs: d, totalCount: d.length });
+      } catch (r) {
+        c(l(this, Y, "listItems.1", r));
+      }
+    });
+  }
+}
+const J = (e, i, t, a) => new Promise((c, r) => {
+  try {
+    e.abortController = new AbortController();
+    const d = e.abortController.signal;
+    d.addEventListener("abort", () => r(l(e, A, "preview.2", new u(B))));
+    const n = `${t.name}${t.extension ? `.${t.extension}` : ""}`, p = `${E}fileStore${t.folderPath}${n}`, b = { Range: `bytes=0-${a.chunkSize || V}` };
+    fetch(encodeURI(p), { headers: b, signal: d }).then(async (s) => {
+      try {
+        if (s.ok)
+          e.abortController = null, c({ result: { data: new Uint8Array(await s.arrayBuffer()), typeId: "uint8Array" } });
+        else {
+          const f = `Connector preview failed to fetch '${t.folderPath}${t.name}' file. Response status ${s.status}${s.statusText ? ` - ${s.statusText}` : ""} received.`, y = new C(f, { locator: "preview.3", body: await s.text() });
+          r(l(e, A, "preview.4", y));
+        }
+      } catch (f) {
+        r(l(e, A, "preview.5", f));
+      }
+    }).catch((s) => r(l(e, A, "preview.6", s)));
+  } catch (d) {
+    r(l(e, A, "preview.1", d));
+  }
+}), q = (e, i, t, a, c) => new Promise((r, d) => {
+  try {
+    i({ typeId: "start", properties: {} }), e.abortController = new AbortController();
+    const n = e.abortController.signal;
+    n.addEventListener(
+      "abort",
+      () => d(l(e, m, "read.10", new u(H)))
+      /*, { once: true, signal } TODO: Don't need once and signal? */
+    );
+    let p = [];
+    const b = [], s = c.csvParse({
+      cast: (o, I) => (b[I.index] = I.quoting, o),
+      delimiter: a.valueDelimiterId,
+      info: !0,
+      relax_column_count: !0,
+      relax_quotes: !0
+    });
+    s.on("readable", () => {
+      try {
+        let o;
+        for (; (o = s.read()) !== null; )
+          n.throwIfAborted(), p.push({ fieldQuotings: b, fieldValues: o.record }), !(p.length < W) && (c.chunk(p), p = []);
+      } catch (o) {
+        d(l(e, m, "read.9", o));
+      }
+    }), s.on("error", (o) => d(l(e, m, "read.8", o))), s.on("end", () => {
+      try {
+        n.throwIfAborted(), e.abortController = null, p.length > 0 && (c.chunk(p), p = []), c.complete({
+          byteCount: s.info.bytes,
+          commentLineCount: s.info.comment_lines,
+          emptyLineCount: s.info.empty_lines,
+          invalidFieldLengthCount: s.info.invalid_field_length,
+          lineCount: s.info.lines,
+          recordCount: s.info.records
+        }), r(), i({ typeId: "end", properties: {} });
+      } catch (o) {
+        d(l(e, m, "read.7", o));
+      }
+    });
+    const f = `${t.name}${t.extension ? `.${t.extension}` : ""}`, y = `${E}fileStore${t.folderPath}${f}`;
+    fetch(encodeURI(y), { signal: n }).then(async (o) => {
+      try {
+        if (o.ok) {
+          const M = o.body.pipeThrough(new TextDecoderStream(a.encodingId)).getReader();
+          let j;
+          for (; !(j = await M.read()).done; )
+            n.throwIfAborted(), s.write(j.value, (v) => {
+              v && d(l(e, m, "read.2", v));
+            });
+          s.end();
+        } else {
+          const I = `Connector read failed to fetch '${t.folderPath}${t.name}' file. Response status ${o.status}${o.statusText ? ` - ${o.statusText}` : ""} received.`, M = new C(I, { locator: "read.3", body: await o.text() });
+          d(l(e, m, "read.4", M));
+        }
+      } catch (I) {
+        d(l(e, m, "read.5", I));
+      }
+    }).catch((o) => d(l(e, m, "read.6", o)));
+  } catch (n) {
+    d(l(e, m, "read.1", n));
+  }
+}), Q = (e, i, t) => ({ childCount: t, folderPath: e, label: i, name: i, typeId: "folder" }), K = (e, i, t, a) => {
+  const c = S(i), r = P(i);
+  return {
+    extension: r,
+    folderPath: e,
+    label: i,
+    lastModifiedAt: g(t),
+    mimeType: _(r),
+    name: c,
+    size: a,
+    typeId: "object"
+  };
+}, l = (e, i, t, a) => (e.abortController = null, new R(i, { locator: `${h.id}.${t}` }, void 0, a));
+export {
+  Z as default
+};
