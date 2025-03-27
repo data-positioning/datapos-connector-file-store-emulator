@@ -3,7 +3,7 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.1.923",
+    "version": "0.1.924",
     "peerDependencies": {
         "@datapos/datapos-share-core": "^0.1.640",
         "csv-parse": "^5.6.0",
@@ -36,6 +36,6 @@
         "updateDependencies": "npm run updateOperations",
         "updateOperations": "npm install --save-dev @datapos/datapos-dev-operations@latest",
         "uploadPluginToPagesViaGithub": "node -e \"require('@datapos/datapos-dev-operations/scriptHelpers').uploadPlugin()\"",
-        "uploadPluginToR2": "npx wrangler r2 object put plugins-eu/connectors/datapos-connector-file-store-emulator-es.js --file=dist/datapos-connector-file-store-emulator-es.js --jurisdiction=eu"
+        "uploadPluginToR2": "npx wrangler r2 object put plugins-eu/connectors/datapos-connector-file-store-emulator-es.js --file=dist/datapos-connector-file-store-emulator-es.js --jurisdiction=eu --remote"
     }
 }

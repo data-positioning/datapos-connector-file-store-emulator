@@ -2164,7 +2164,7 @@ const S = (e) => {
       typeId: "object"
     }
   ]
-}, G = "0.1.921", B = "Connector preview aborted.", H = "Connector read aborted.", V = 4096, W = 1e3, Y = "Connector list items failed.", A = "Connector preview failed.", m = "Connector read failed.", E = "https://resources.datapositioning.app/";
+}, G = "0.1.923", B = "Connector preview aborted.", H = "Connector read aborted.", V = 4096, W = 1e3, Y = "Connector list items failed.", A = "Connector preview failed.", m = "Connector read failed.", E = "https://resources.datapositioning.app/";
 class Z {
   abortController;
   config;
