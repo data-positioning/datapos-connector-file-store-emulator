@@ -84,7 +84,6 @@ const preview = (
     settings: PreviewSettings
 ): Promise<{ error?: unknown; result?: PreviewResult }> => {
     return new Promise((resolve, reject) => {
-        console.log(1234, connector, itemConfig, settings);
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
@@ -94,7 +93,6 @@ const preview = (
             // Fetch chunk from start of file.
             const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
             const url = `${URL_PREFIX}/fileStore${itemConfig.folderPath}${fullFileName}`;
-            console.log(1234, url);
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             fetch(encodeURI(url), { headers, signal })
                 .then(async (response) => {
