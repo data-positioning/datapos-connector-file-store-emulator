@@ -16,7 +16,7 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.1.934",
+    "version": "0.2.2",
     "description": {
         "en": "The File Store Emulator imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users.\n"
     },
@@ -25,7 +25,7 @@
     "peerDependencies": [
         {
             "name": "@datapos/datapos-share-core",
-            "version": "0.1.640"
+            "version": "0.1.644"
         },
         {
             "name": "csv-parse",
@@ -33,7 +33,7 @@
         },
         {
             "name": "nanoid",
-            "version": "5.0.8"
+            "version": "5.1.5"
         }
     ]
 }
