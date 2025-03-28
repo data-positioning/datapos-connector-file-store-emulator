@@ -59,7 +59,6 @@ export default class FileStoreEmulatorConnector implements Connector {
     async list(callback: (data: ConnectorCallbackData) => void, settings: ListSettings): Promise<ListResult> {
         return new Promise((resolve, reject) => {
             try {
-                console.log(1111, settings);
                 const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
                 const connectionItemConfigs: ConnectionItemConfig[] = [];
                 for (const indexItem of indexItems) {
@@ -85,6 +84,7 @@ const preview = (
     settings: PreviewSettings
 ): Promise<{ error?: unknown; result?: PreviewResult }> => {
     return new Promise((resolve, reject) => {
+        console.log(1234, connector, itemConfig, settings);
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
