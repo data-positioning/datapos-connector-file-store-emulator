@@ -3,14 +3,14 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.1.932",
+    "version": "0.1.933",
     "peerDependencies": {
         "@datapos/datapos-share-core": "^0.1.640",
         "csv-parse": "^5.6.0",
         "nanoid": "^5.0.8"
     },
     "devDependencies": {
-        "@datapos/datapos-dev-operations": "^0.1.622",
+        "@datapos/datapos-dev-operations": "^0.1.626",
         "@eslint/js": "^9.15.0",
         "@types/node": "^22.9.3",
         "eslint": "^9.15.0",
@@ -32,10 +32,11 @@
         "lint": "npx eslint src/**/*.ts",
         "publishToNPM": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
         "release": "npm run syncWithGitHub && npm run build && npm run uploadPluginToR2",
-        "syncWithGitHub": "npm run bumpVersion && node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.syncWithGitHub())\"",
+        "syncWithGitHub": "npm run bumpVersion && npm run buildConfig && node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.syncWithGitHub())\"",
         "test": "echo \"***** TEST SCRIPT NOT IMPLEMENTED. *****\"",
         "updateDependencies": "npm run updateOperations",
         "updateOperations": "npm install --save-dev @datapos/datapos-dev-operations@latest",
+        "uploadConnector": "node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.uploadConnector())\"",
         "uploadPluginToPagesViaGithub": "node -e \"require('@datapos/datapos-dev-operations/scriptHelpers').uploadPlugin()\"",
         "uploadPluginToR2": "npx wrangler r2 object put plugins-eu/connectors/datapos-connector-file-store-emulator-es.js --file=dist/datapos-connector-file-store-emulator-es.js --jurisdiction=eu --remote"
     }
