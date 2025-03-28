@@ -27,7 +27,7 @@ const DEFAULT_READ_CHUNK_SIZE = 1000;
 const ERROR_LIST_ITEMS_FAILED = 'Connector list items failed.';
 const ERROR_PREVIEW_FAILED = 'Connector preview failed.';
 const ERROR_READ_FAILED = 'Connector read failed.';
-const URL_PREFIX = 'https://resources.datapos.app/';
+const URL_PREFIX = 'https://resources.datapos.app';
 
 // Classes - File Store Emulator Connector
 export default class FileStoreEmulatorConnector implements Connector {
@@ -93,7 +93,7 @@ const preview = (
 
             // Fetch chunk from start of file.
             const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
-            const url = `${URL_PREFIX}fileStore${itemConfig.folderPath}${fullFileName}`;
+            const url = `${URL_PREFIX}/fileStore${itemConfig.folderPath}${fullFileName}`;
             console.log(1234, url);
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             fetch(encodeURI(url), { headers, signal })
