@@ -16,7 +16,7 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.12",
+    "version": "0.2.13",
     "description": {
         "en": "The File Store Emulator imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users.\n"
     },
