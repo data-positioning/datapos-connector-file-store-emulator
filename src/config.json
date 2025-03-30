@@ -3,6 +3,7 @@
     "label": {
         "en": "File Store Emulator"
     },
+    "description": {},
     "categoryId": "fileStore",
     "implementations": {
         "default": {
@@ -16,8 +17,7 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.31",
-    "description": {},
+    "version": "0.2.32",
     "dependencies": [],
     "peerDependencies": [
         {
