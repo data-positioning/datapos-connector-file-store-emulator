@@ -100,6 +100,7 @@ const preview = (
                     try {
                         if (response.ok) {
                             connector.abortController = null;
+                            console.log(2222);
                             resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' } });
                         } else {
                             const message = `Connector preview failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
