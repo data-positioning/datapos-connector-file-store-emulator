@@ -83,6 +83,7 @@ const preview = (
     itemConfig: ConnectionItemConfig,
     settings: PreviewSettings
 ): Promise<{ error?: unknown; result?: PreviewResult }> => {
+    console.log(1111);
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
