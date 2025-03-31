@@ -83,7 +83,6 @@ const preview = (
     itemConfig: ConnectionItemConfig,
     settings: PreviewSettings
 ): Promise<{ error?: unknown; result?: PreviewResult }> => {
-    console.log(1111);
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
@@ -100,7 +99,6 @@ const preview = (
                     try {
                         if (response.ok) {
                             connector.abortController = null;
-                            console.log(2222);
                             resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' } });
                         } else {
                             const message = `Connector preview failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
@@ -255,7 +253,6 @@ const buildObjectItemConfig = (folderPath: string, fullName: string, lastModifie
 
 // Utilities - Construct Error and Tidy Up
 const constructErrorAndTidyUp = (connector: Connector, message: string, context: string, error: unknown): ConnectorError => {
-    console.log('ERROR', connector, message, context, error);
     connector.abortController = null;
     return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
 };
