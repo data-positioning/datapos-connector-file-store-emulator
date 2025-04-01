@@ -27,7 +27,7 @@ const DEFAULT_READ_CHUNK_SIZE = 1000;
 const ERROR_LIST_ITEMS_FAILED = 'Connector list items failed.';
 const ERROR_PREVIEW_FAILED = 'Connector preview failed.';
 const ERROR_READ_FAILED = 'Connector read failed.';
-const URL_PREFIX = 'https://resources.datapos.app';
+const URL_PREFIX = 'https://sampledata.datapos.app/fileStore';
 
 // Classes - File Store Emulator Connector
 export default class FileStoreEmulatorConnector implements Connector {
