@@ -7,6 +7,7 @@ import type { CastingContext } from 'csv-parse';
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorCallbackData, ConnectorConfig, DataViewPreviewConfig, ReadRecord } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
+import type { FindResult } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { PreviewInterface, PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
 import type { ReadInterface, ReadSettings } from '@datapos/datapos-share-core';
@@ -17,7 +18,7 @@ import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
 // Interfaces/Schemas/Types - File Store Index
-type FileStoreIndex = Record<string, { childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
+type FileStoreIndex = Record<string, { id?: string; childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Constants
 const CALLBACK_PREVIEW_ABORTED = 'Connector preview aborted.';
@@ -46,6 +47,17 @@ export default class FileStoreEmulatorConnector implements Connector {
         if (!this.abortController) return;
         this.abortController.abort();
         this.abortController = null;
+    }
+
+    find(id: string): FindResult | undefined {
+        for (const folderPath in fileStoreIndex) {
+            if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
+                const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
+                const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === id);
+                if (indexItem) return { folderPath };
+            }
+        }
+        return undefined;
     }
 
     getPreviewInterface(): PreviewInterface {
