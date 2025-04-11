@@ -77,7 +77,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                     if (indexItem.typeId === 'folder') {
                         connectionItemConfigs.push(buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
                     } else {
-                        connectionItemConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
+                        connectionItemConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
                     }
                 }
                 resolve({ cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length });
@@ -248,10 +248,11 @@ const buildFolderItemConfig = (folderPath: string, name: string, childCount: num
 };
 
 // Utilities - Build Object (File) Item Configuration
-const buildObjectItemConfig = (folderPath: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig => {
+const buildObjectItemConfig = (folderPath: string, fullName: string, id: string, lastModifiedAt: number, size: number): ConnectionItemConfig => {
     const name = extractNameFromPath(fullName);
     const extension = extractExtensionFromPath(fullName);
     return {
+        id,
         extension,
         folderPath,
         label: fullName,
