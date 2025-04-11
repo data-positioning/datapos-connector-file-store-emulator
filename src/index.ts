@@ -248,7 +248,7 @@ const buildFolderItemConfig = (folderPath: string, name: string, childCount: num
 };
 
 // Utilities - Build Object (File) Item Configuration
-const buildObjectItemConfig = (folderPath: string, fullName: string, id: string, lastModifiedAt: number, size: number): ConnectionItemConfig => {
+const buildObjectItemConfig = (folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig => {
     const name = extractNameFromPath(fullName);
     const extension = extractExtensionFromPath(fullName);
     return {
