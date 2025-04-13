@@ -49,7 +49,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.abortController = null;
     }
 
-    find(id: string): FindResult | undefined {
+    async find(id: string): Promise<FindResult | undefined> {
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
                 const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
