@@ -7,7 +7,7 @@ import type { CastingContext } from 'csv-parse';
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorCallbackData, ConnectorConfig, DataViewPreviewConfig, ReadRecord } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
-import type { FindResult } from '@datapos/datapos-share-core';
+import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { PreviewInterface, PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
 import type { ReadInterface, ReadSettings } from '@datapos/datapos-share-core';
@@ -49,11 +49,11 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.abortController = null;
     }
 
-    async find(id: string): Promise<FindResult | undefined> {
+    async find(findSettings: FindSettings): Promise<FindResult | undefined> {
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
                 const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
-                const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === id);
+                const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === findSettings.objectId);
                 if (indexItem) return { folderPath };
             }
         }
@@ -243,12 +243,12 @@ const read = (
 };
 
 // Utilities - Build Folder Item Configuration
-const buildFolderItemConfig = (folderPath: string, name: string, childCount: number): ConnectionItemConfig => {
+function buildFolderItemConfig(folderPath: string, name: string, childCount: number): ConnectionItemConfig {
     return { childCount, folderPath, label: name, name, typeId: 'folder' };
-};
+}
 
 // Utilities - Build Object (File) Item Configuration
-const buildObjectItemConfig = (folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig => {
+function buildObjectItemConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig {
     const name = extractNameFromPath(fullName);
     const extension = extractExtensionFromPath(fullName);
     return {
@@ -262,10 +262,10 @@ const buildObjectItemConfig = (folderPath: string, id: string, fullName: string,
         size,
         typeId: 'object'
     };
-};
+}
 
 // Utilities - Construct Error and Tidy Up
-const constructErrorAndTidyUp = (connector: Connector, message: string, context: string, error: unknown): ConnectorError => {
+function constructErrorAndTidyUp(connector: Connector, message: string, context: string, error: unknown): ConnectorError {
     connector.abortController = null;
     return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
-};
+}
