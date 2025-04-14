@@ -49,7 +49,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.abortController = null;
     }
 
-    async find(findSettings: FindSettings): Promise<FindResult | undefined> {
+    async find(findSettings: FindSettings): Promise<FindResult> {
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
                 const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
@@ -57,7 +57,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 if (indexItem) return { folderPath };
             }
         }
-        return undefined;
+        return {};
     }
 
     getPreviewInterface(): PreviewInterface {
@@ -68,7 +68,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         return { connector: this, read };
     }
 
-    async list(callback: (data: ConnectorCallbackData) => void, settings: ListSettings): Promise<ListResult> {
+    async list(settings: ListSettings): Promise<ListResult> {
         return new Promise((resolve, reject) => {
             try {
                 const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
