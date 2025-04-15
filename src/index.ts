@@ -11,7 +11,7 @@ import type { EstablishContainerResult } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { DataViewPreviewConfig, PreviewInterface, PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
-import type { ReadInterface, ReadRecord, ReadSettings } from '@datapos/datapos-share-core';
+import type { RetrieveInterface, RetrieveRecord, RetrieveSettings } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
 import config from './config.json';
@@ -69,8 +69,8 @@ export default class FileStoreEmulatorConnector implements Connector {
         return { connector: this, preview };
     }
 
-    getReadInterface(): ReadInterface {
-        return { connector: this, read };
+    getRetrieveInterface(): RetrieveInterface {
+        return { connector: this, retrieve };
     }
 
     async list(settings: ListSettings): Promise<ListResult> {
@@ -133,13 +133,13 @@ async function preview(
     });
 }
 
-// Utilities - Read
-async function read(
+// Utilities - Retrieve
+async function retrieve(
     connector: Connector,
     callback: (data: ConnectorCallbackData) => void,
     itemConfig: ConnectionItemConfig,
     previewConfig: DataViewPreviewConfig,
-    settings: ReadSettings
+    settings: RetrieveSettings
 ): Promise<void> {
     return new Promise((resolve, reject) => {
         try {
@@ -154,7 +154,7 @@ async function read(
             );
 
             // Parser - Declare variables.
-            let pendingRows: ReadRecord[] = []; // Array to store rows of parsed field values and associated information.
+            let pendingRows: RetrieveRecord[] = []; // Array to store rows of parsed field values and associated information.
             const fieldQuotings: boolean[] = []; // Array to store field information for a single row.
 
             // Parser - Create a parser object for CSV parsing.
