@@ -5,22 +5,13 @@ import type { CastingContext } from 'csv-parse';
 
 // Dependencies - Framework
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
-import type {
-    ConnectionConfig,
-    ConnectionItemConfig,
-    Connector,
-    ConnectorCallbackData,
-    ConnectorConfig,
-    DataViewPreviewConfig,
-    EstablishContainerResult,
-    EstablishContainerSettings,
-    ReadRecord
-} from '@datapos/datapos-share-core';
+import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorCallbackData, ConnectorConfig } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
+import type { EstablishContainerResult } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
-import type { PreviewInterface, PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
-import type { ReadInterface, ReadSettings } from '@datapos/datapos-share-core';
+import type { DataViewPreviewConfig, PreviewInterface, PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
+import type { ReadInterface, ReadRecord, ReadSettings } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
 import config from './config.json';
@@ -102,13 +93,13 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 }
 
-// Interfaces - Preview
-const preview = (
+// Utilities - Preview
+async function preview(
     connector: Connector,
     callback: (data: ConnectorCallbackData) => void,
     itemConfig: ConnectionItemConfig,
     settings: PreviewSettings
-): Promise<{ error?: unknown; result?: PreviewResult }> => {
+): Promise<{ error?: unknown; result?: PreviewResult }> {
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
@@ -140,16 +131,16 @@ const preview = (
             reject(constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.1', error));
         }
     });
-};
+}
 
-// Interfaces - Read
-const read = (
+// Utilities - Read
+async function read(
     connector: Connector,
     callback: (data: ConnectorCallbackData) => void,
     itemConfig: ConnectionItemConfig,
     previewConfig: DataViewPreviewConfig,
     settings: ReadSettings
-): Promise<void> => {
+): Promise<void> {
     return new Promise((resolve, reject) => {
         try {
             callback({ typeId: 'start', properties: {} });
@@ -254,7 +245,7 @@ const read = (
             reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.1', error));
         }
     });
-};
+}
 
 // Utilities - Build Folder Item Configuration
 function buildFolderItemConfig(folderPath: string, name: string, childCount: number): ConnectionItemConfig {
