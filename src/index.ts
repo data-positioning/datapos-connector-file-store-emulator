@@ -5,7 +5,17 @@ import type { CastingContext } from 'csv-parse';
 
 // Dependencies - Framework
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
-import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorCallbackData, ConnectorConfig, DataViewPreviewConfig, ReadRecord } from '@datapos/datapos-share-core';
+import type {
+    ConnectionConfig,
+    ConnectionItemConfig,
+    Connector,
+    ConnectorCallbackData,
+    ConnectorConfig,
+    DataViewPreviewConfig,
+    EstablishContainerResult,
+    EstablishContainerSettings,
+    ReadRecord
+} from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
@@ -47,6 +57,10 @@ export default class FileStoreEmulatorConnector implements Connector {
         if (!this.abortController) return;
         this.abortController.abort();
         this.abortController = null;
+    }
+
+    async establishContainer(): Promise<EstablishContainerResult> {
+        return {};
     }
 
     async find(findSettings: FindSettings): Promise<FindResult> {
