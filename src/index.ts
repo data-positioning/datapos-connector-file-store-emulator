@@ -18,7 +18,7 @@ import config from './config.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
-// Interfaces/Schemas/Types - File Store Index
+// Interfaces/Types - File Store Index
 type FileStoreIndex = Record<string, { id?: string; childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Constants
@@ -93,7 +93,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 }
 
-// Utilities - Preview
+// Operations - Preview
 async function preview(
     connector: Connector,
     callback: (data: ConnectorCallbackData) => void,
@@ -133,7 +133,7 @@ async function preview(
     });
 }
 
-// Utilities - Retrieve
+// Operations - Retrieve
 async function retrieve(
     connector: Connector,
     callback: (data: ConnectorCallbackData) => void,
