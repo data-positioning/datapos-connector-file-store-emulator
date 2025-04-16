@@ -58,7 +58,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
                 const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
-                const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === findSettings.objectId);
+                const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === findSettings.objectName);
                 if (indexItem) return { folderPath };
             }
         }
