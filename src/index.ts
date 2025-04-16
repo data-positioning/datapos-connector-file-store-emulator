@@ -50,10 +50,6 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.abortController = null;
     }
 
-    async establishContainer(): Promise<EstablishContainerResult> {
-        return {};
-    }
-
     async find(findSettings: FindSettings): Promise<FindResult> {
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
