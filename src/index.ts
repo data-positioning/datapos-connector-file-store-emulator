@@ -94,12 +94,7 @@ export default class FileStoreEmulatorConnector implements Connector {
 }
 
 // Operations - Preview
-async function preview(
-    connector: Connector,
-    callback: (data: ConnectorCallbackData) => void,
-    itemConfig: ConnectionItemConfig,
-    settings: PreviewSettings
-): Promise<{ error?: unknown; result?: PreviewResult }> {
+async function preview(connector: Connector, itemConfig: ConnectionItemConfig, settings: PreviewSettings): Promise<{ error?: unknown; result?: PreviewResult }> {
     return new Promise((resolve, reject) => {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
@@ -136,10 +131,10 @@ async function preview(
 // Operations - Retrieve
 async function retrieve(
     connector: Connector,
-    callback: (data: ConnectorCallbackData) => void,
     itemConfig: ConnectionItemConfig,
     previewConfig: DataViewPreviewConfig,
-    settings: RetrieveSettings
+    settings: RetrieveSettings,
+    callback: (data: ConnectorCallbackData) => void
 ): Promise<void> {
     return new Promise((resolve, reject) => {
         try {
