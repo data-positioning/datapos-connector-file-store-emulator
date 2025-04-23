@@ -1,4 +1,4 @@
-// TODO: Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js
+// TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js
 
 // Dependencies - Vendor
 import type { CastingContext } from 'csv-parse';
