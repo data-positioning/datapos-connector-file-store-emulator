@@ -9,7 +9,7 @@ import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorCallba
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
-import type { DataViewPreviewConfig, PreviewInterface, PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
+import type { DataViewPreviewConfig, PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
 import type { RetrieveInterface, RetrieveRecord, RetrieveSettings } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
@@ -43,12 +43,14 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.connectionConfig = connectionConfig;
     }
 
+    // Operations - Abort
     abort(): void {
         if (!this.abortController) return;
         this.abortController.abort();
         this.abortController = null;
     }
 
+    // Operations - Find
     async find(findSettings: FindSettings): Promise<FindResult> {
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
@@ -60,10 +62,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         return {};
     }
 
-    getPreviewInterface(): PreviewInterface {
-        return { preview: this.preview };
-    }
-
+    // Operations - Get Retrieve Interface
     getRetrieveInterface(): RetrieveInterface {
         return { retrieve: this.retrieve };
     }
@@ -114,7 +113,35 @@ export default class FileStoreEmulatorConnector implements Connector {
         }
     }
 
-    // Operations - Retrieve
+    // Utilities - Build Folder Item Configuration
+    private buildFolderItemConfig(folderPath: string, name: string, childCount: number): ConnectionItemConfig {
+        return { childCount, folderPath, label: name, name, typeId: 'folder' };
+    }
+
+    // Utilities - Build Object (File) Item Configuration
+    private buildObjectItemConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig {
+        const name = extractNameFromPath(fullName);
+        const extension = extractExtensionFromPath(fullName);
+        return {
+            id,
+            extension,
+            folderPath,
+            label: fullName,
+            lastModifiedAt: convertMillisecondsToTimestamp(lastModifiedAt),
+            mimeType: lookupMimeTypeForExtension(extension),
+            name,
+            size,
+            typeId: 'object'
+        };
+    }
+
+    // Utilities - Construct Error and Tidy Up
+    private constructErrorAndTidyUp(message: string, context: string, error: unknown): ConnectorError {
+        this.abortController = null;
+        return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
+    }
+
+    // Utilities - Retrieve
     private async retrieve(
         itemConfig: ConnectionItemConfig,
         previewConfig: DataViewPreviewConfig,
@@ -225,33 +252,5 @@ export default class FileStoreEmulatorConnector implements Connector {
                 reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.1', error));
             }
         });
-    }
-
-    // Utilities - Build Folder Item Configuration
-    private buildFolderItemConfig(folderPath: string, name: string, childCount: number): ConnectionItemConfig {
-        return { childCount, folderPath, label: name, name, typeId: 'folder' };
-    }
-
-    // Utilities - Build Object (File) Item Configuration
-    private buildObjectItemConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig {
-        const name = extractNameFromPath(fullName);
-        const extension = extractExtensionFromPath(fullName);
-        return {
-            id,
-            extension,
-            folderPath,
-            label: fullName,
-            lastModifiedAt: convertMillisecondsToTimestamp(lastModifiedAt),
-            mimeType: lookupMimeTypeForExtension(extension),
-            name,
-            size,
-            typeId: 'object'
-        };
-    }
-
-    // Utilities - Construct Error and Tidy Up
-    private constructErrorAndTidyUp(message: string, context: string, error: unknown): ConnectorError {
-        this.abortController = null;
-        return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
     }
 }
