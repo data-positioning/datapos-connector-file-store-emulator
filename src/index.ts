@@ -69,22 +69,20 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     async list(settings: ListSettings): Promise<ListResult> {
-        return new Promise((resolve, reject) => {
-            try {
-                const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
-                const connectionItemConfigs: ConnectionItemConfig[] = [];
-                for (const indexItem of indexItems) {
-                    if (indexItem.typeId === 'folder') {
-                        connectionItemConfigs.push(this.buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
-                    } else {
-                        connectionItemConfigs.push(this.buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
-                    }
+        try {
+            const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
+            const connectionItemConfigs: ConnectionItemConfig[] = [];
+            for (const indexItem of indexItems) {
+                if (indexItem.typeId === 'folder') {
+                    connectionItemConfigs.push(this.buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
+                } else {
+                    connectionItemConfigs.push(this.buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
                 }
-                resolve({ cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length });
-            } catch (error) {
-                reject(this.constructErrorAndTidyUp(ERROR_LIST_ITEMS_FAILED, 'listItems.1', error));
             }
-        });
+            return { cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length };
+        } catch (error) {
+            throw this.constructErrorAndTidyUp(ERROR_LIST_ITEMS_FAILED, 'listItems.1', error);
+        }
     }
 
     // Operations - Preview
