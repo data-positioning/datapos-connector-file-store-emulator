@@ -68,6 +68,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         return { retrieve: this.retrieve };
     }
 
+    // Operations - List
     async list(settings: ListSettings): Promise<ListResult> {
         try {
             const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
@@ -86,38 +87,31 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Preview
-    private async preview(itemConfig: ConnectionItemConfig, settings: PreviewSettings): Promise<{ error?: unknown; result?: PreviewResult }> {
-        return new Promise((resolve, reject) => {
-            try {
-                // Create an abort controller. Get the signal for the abort controller and add an abort listener.
-                this.abortController = new AbortController();
-                const signal = this.abortController.signal;
-                signal.addEventListener('abort', () => reject(this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED))));
+    async preview(itemConfig: ConnectionItemConfig, settings: PreviewSettings): Promise<PreviewResult> {
+        try {
+            // Create an abort controller. Get the signal for the abort controller and add an abort listener.
+            this.abortController = new AbortController();
+            const signal = this.abortController.signal;
+            signal.addEventListener('abort', () => {
+                throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED));
+            });
 
-                // Fetch chunk from start of file.
-                const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
-                const url = `${URL_PREFIX}/fileStore${itemConfig.folderPath}${fullFileName}`;
-                const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
-                fetch(encodeURI(url), { headers, signal })
-                    .then(async (response) => {
-                        try {
-                            if (response.ok) {
-                                this.abortController = null;
-                                resolve({ result: { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' } });
-                            } else {
-                                const message = `Connector preview failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
-                                const error = new FetchError(message, { locator: 'preview.3', body: await response.text() });
-                                reject(this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.4', error));
-                            }
-                        } catch (error) {
-                            reject(this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.5', error));
-                        }
-                    })
-                    .catch((error) => reject(this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.6', error)));
-            } catch (error) {
-                reject(this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.1', error));
+            // Fetch chunk from start of file.
+            const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
+            const url = `${URL_PREFIX}/fileStore${itemConfig.folderPath}${fullFileName}`;
+            const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
+            const response = await fetch(encodeURI(url), { headers, signal });
+            if (response.ok) {
+                this.abortController = null;
+                return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
+            } else {
+                const message = `Connector preview failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
+                const error = new FetchError(message, { locator: 'preview.3', body: await response.text() });
+                throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.4', error);
             }
-        });
+        } catch (error) {
+            throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.1', error);
+        }
     }
 
     // Operations - Retrieve
