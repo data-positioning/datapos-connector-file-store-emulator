@@ -9,8 +9,8 @@ import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorCallba
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
-import type { DataViewPreviewConfig, PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
-import type { RetrieveInterface, RetrieveRecord, RetrieveSettings } from '@datapos/datapos-share-core';
+import type { PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
+import type { RetrieveInterface, RetrieveRecord, RetrieveSettingsForCSV } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
 import config from './config.json';
@@ -148,15 +148,10 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Utilities - Retrieve
-    private async retrieve(
-        itemConfig: ConnectionItemConfig,
-        previewConfig: DataViewPreviewConfig,
-        settings: RetrieveSettings,
-        callback: (data: ConnectorCallbackData) => void
-    ): Promise<void> {
+    private async retrieve(settings: RetrieveSettingsForCSV): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
-                callback({ typeId: 'start', properties: {} });
+                settings.callback({ typeId: 'start', properties: {} });
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
                 this.abortController = new AbortController();
                 const signal = this.abortController.signal;
@@ -176,7 +171,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                         fieldQuotings[context.index] = context.quoting;
                         return value;
                     },
-                    delimiter: previewConfig.valueDelimiterId,
+                    delimiter: settings.valueDelimiterId,
                     info: true,
                     relax_column_count: true,
                     relax_quotes: true
@@ -220,20 +215,21 @@ export default class FileStoreEmulatorConnector implements Connector {
                             recordCount: parser.info.records
                         });
                         resolve();
-                        callback({ typeId: 'end', properties: {} });
+                        settings.callback({ typeId: 'end', properties: {} });
                     } catch (error) {
                         reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.7', error));
                     }
                 });
 
                 // Fetch, decode and forward the contents of the file to the parser.
-                const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
-                const url = `${URL_PREFIX}fileStore${itemConfig.folderPath}${fullFileName}`;
+                // const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
+                // const url = `${URL_PREFIX}fileStore${itemConfig.folderPath}${fullFileName}`;
+                const url = `${URL_PREFIX}fileStore${settings.path}`;
                 fetch(encodeURI(url), { signal })
                     .then(async (response) => {
                         try {
                             if (response.ok) {
-                                const stream = response.body.pipeThrough(new TextDecoderStream(previewConfig.encodingId));
+                                const stream = response.body.pipeThrough(new TextDecoderStream(settings.encodingId));
                                 const decodedStreamReader = stream.getReader();
                                 let result;
                                 while (!(result = await decodedStreamReader.read()).done) {
@@ -245,7 +241,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
-                                const message = `Connector read failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
+                                const message = `Connector read failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                                 const error = new FetchError(message, { locator: 'read.3', body: await response.text() });
                                 reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.4', error));
                             }
