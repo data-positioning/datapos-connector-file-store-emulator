@@ -25,6 +25,7 @@ const CALLBACK_PREVIEW_ABORTED = 'Connector preview aborted.';
 const CALLBACK_READ_ABORTED = 'Connector read aborted.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_READ_CHUNK_SIZE = 1000;
+const ERROR_FIND_ITEM_FAILED = 'Connector find item failed.';
 const ERROR_LIST_ITEMS_FAILED = 'Connector list items failed.';
 const ERROR_PREVIEW_FAILED = 'Connector preview failed.';
 const ERROR_READ_FAILED = 'Connector read failed.';
@@ -52,14 +53,19 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Operations - Find
     async find(findSettings: FindSettings): Promise<FindResult> {
-        for (const folderPath in fileStoreIndex) {
-            if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
-                const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
-                const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === findSettings.objectName);
-                if (indexItem) return { folderPath };
+        try {
+            // Loop through file store index checking for matching object name.
+            for (const folderPath in fileStoreIndex) {
+                if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
+                    const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
+                    const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === findSettings.objectName);
+                    if (indexItem) return { folderPath }; // Found, return folder path.
+                }
             }
+            return {}; // Not found, return undefined folder path.
+        } catch (error) {
+            throw this.constructErrorAndTidyUp(ERROR_FIND_ITEM_FAILED, 'find.1', error);
         }
-        return {};
     }
 
     // Operations - Get Retrieve Interface

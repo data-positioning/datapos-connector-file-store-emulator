@@ -12,7 +12,15 @@ export default [
     ...tseslint.configs.recommended,
     {
         rules: {
-            '@typescript-eslint/no-unused-vars': 'warn'
+            '@typescript-eslint/consistent-type-imports': 'warn',
+            '@typescript-eslint/no-import-type-side-effects': 'warn',
+            '@typescript-eslint/no-unused-vars': 'warn',
+
+            'import/no-duplicates': 'off',
+            'sort-imports': ['warn', { allowSeparatedGroups: true, ignoreCase: true, memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'] }],
+
+            'no-empty': 'warn',
+            'prefer-const': 'warn'
         }
     }
 ];
