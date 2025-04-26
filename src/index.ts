@@ -1,15 +1,15 @@
 // TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js
 
 // Dependencies - Vendor
-import type { CastingContext } from 'csv-parse';
+import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
 // Dependencies - Framework
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
-import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorCallbackData, ConnectorConfig } from '@datapos/datapos-share-core';
+import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorCallbackData, ConnectorConfig, RetrieveSummary } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
-import type { PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
+import type { PreviewData, PreviewSettings } from '@datapos/datapos-share-core';
 import type { RetrieveInterface, RetrieveRecord, RetrieveSettingsForCSV } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
@@ -52,7 +52,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Find
-    async find(findSettings: FindSettings): Promise<FindResult> {
+    async find(connectionConfig: ConnectionConfig, findSettings: FindSettings): Promise<FindResult> {
         try {
             // Loop through file store index checking for matching object name.
             for (const folderPath in fileStoreIndex) {
@@ -74,7 +74,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - List
-    async list(settings: ListSettings): Promise<ListResult> {
+    async list(connectionConfig: ConnectionConfig, settings: ListSettings): Promise<ListResult> {
         try {
             console.log(1234, settings);
             const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
@@ -93,7 +93,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Preview
-    async preview(settings: PreviewSettings): Promise<PreviewResult> {
+    async preview(connectionConfig: ConnectionConfig, settings: PreviewSettings): Promise<PreviewData> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             this.abortController = new AbortController();
@@ -150,10 +150,17 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Utilities - Retrieve
-    private async retrieve(settings: RetrieveSettingsForCSV): Promise<void> {
+    private async retrieve(
+        connectionConfig: ConnectionConfig,
+        settings: RetrieveSettingsForCSV,
+        chunk: (records: RetrieveRecord[]) => void,
+        complete: (result: RetrieveSummary) => void,
+        callback: (data: ConnectorCallbackData) => void,
+        tools: { csvParse: (options?: Options, callback?: Callback) => Parser | undefined }
+    ): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
-                settings.callback({ typeId: 'start', properties: {} });
+                callback({ typeId: 'start', properties: {} });
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
                 this.abortController = new AbortController();
                 const signal = this.abortController.signal;
@@ -168,7 +175,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 const fieldQuotings: boolean[] = []; // Array to store field information for a single row.
 
                 // Parser - Create a parser object for CSV parsing.
-                const parser = settings.csvParse({
+                const parser = tools.csvParse({
                     cast: (value, context) => {
                         fieldQuotings[context.index] = context.quoting;
                         return value;
@@ -188,7 +195,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                             // TODO: Do we need to clear 'fieldInfos' array for each record? Different number of values in a row?
                             pendingRows.push({ fieldQuotings, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
                             if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
-                            settings.chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
+                            chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
                     } catch (error) {
@@ -205,10 +212,10 @@ export default class FileStoreEmulatorConnector implements Connector {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
                         this.abortController = null; // Clear the abort controller.
                         if (pendingRows.length > 0) {
-                            settings.chunk(pendingRows);
+                            chunk(pendingRows);
                             pendingRows = [];
                         }
-                        settings.complete({
+                        complete({
                             byteCount: parser.info.bytes,
                             commentLineCount: parser.info.comment_lines,
                             emptyLineCount: parser.info.empty_lines,
@@ -217,7 +224,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                             recordCount: parser.info.records
                         });
                         resolve();
-                        settings.callback({ typeId: 'end', properties: {} });
+                        callback({ typeId: 'end', properties: {} });
                     } catch (error) {
                         reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.7', error));
                     }
