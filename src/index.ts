@@ -76,7 +76,6 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - List
     async list(connector: Connector, connectionConfig: ConnectionConfig, settings: ListSettings): Promise<ListResult> {
         try {
-            console.log(1111, settings);
             const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
             const connectionItemConfigs: ConnectionItemConfig[] = [];
             for (const indexItem of indexItems) {
@@ -95,23 +94,19 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - Preview
     async preview(connector: Connector, connectionConfig: ConnectionConfig, settings: PreviewSettings): Promise<PreviewData> {
         try {
-            console.log(2222, settings, connector);
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
-            this.abortController = new AbortController();
-            const signal = this.abortController.signal;
-            // signal.addEventListener('abort', () => {
-            //     throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED));
-            // });
+            connector.abortController = new AbortController();
+            const signal = connector.abortController.signal;
+            signal.addEventListener('abort', () => {
+                throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED));
+            });
 
             // Fetch chunk from start of file.
-            // const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
-            // const url = `${URL_PREFIX}/fileStore${itemConfig.folderPath}${fullFileName}`;
             const url = `${URL_PREFIX}/fileStore${settings.path}`;
-            console.log(3333, settings.path, url);
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             const response = await fetch(encodeURI(url), { headers, signal });
             if (response.ok) {
-                this.abortController = null;
+                connector.abortController = null;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
             } else {
                 const message = `Connector preview failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
