@@ -133,8 +133,8 @@ export default class FileStoreEmulatorConnector implements Connector {
                 console.log(1111, settings);
                 callback({ typeId: 'start', properties: {} });
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
-                this.abortController = new AbortController();
-                const signal = this.abortController.signal;
+                connector.abortController = new AbortController();
+                const signal = connector.abortController.signal;
                 signal.addEventListener(
                     'abort',
                     () => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.10', new AbortError(CALLBACK_READ_ABORTED)))
@@ -181,7 +181,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 parser.on('end', () => {
                     try {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                        this.abortController = null; // Clear the abort controller.
+                        connector.abortController = null; // Clear the abort controller.
                         if (pendingRows.length > 0) {
                             chunk(pendingRows);
                             pendingRows = [];
