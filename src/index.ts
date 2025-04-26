@@ -166,6 +166,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                             // TODO: Do we need to clear 'fieldInfos' array for each record? Different number of values in a row?
                             pendingRows.push({ fieldQuotings, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
                             if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
+                            console.log(7777, pendingRows.length);
                             chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
@@ -183,6 +184,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
                         connector.abortController = null; // Clear the abort controller.
                         if (pendingRows.length > 0) {
+                            console.log(8888, pendingRows.length);
                             chunk(pendingRows);
                             pendingRows = [];
                         }
