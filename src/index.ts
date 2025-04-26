@@ -99,9 +99,9 @@ export default class FileStoreEmulatorConnector implements Connector {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             this.abortController = new AbortController();
             const signal = this.abortController.signal;
-            signal.addEventListener('abort', () => {
-                throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED));
-            });
+            // signal.addEventListener('abort', () => {
+            //     throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED));
+            // });
 
             // Fetch chunk from start of file.
             // const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
