@@ -76,6 +76,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - List
     async list(settings: ListSettings): Promise<ListResult> {
         try {
+            console.log(1234, settings);
             const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
             const connectionItemConfigs: ConnectionItemConfig[] = [];
             for (const indexItem of indexItems) {
@@ -92,7 +93,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Preview
-    async preview(itemConfig: ConnectionItemConfig, settings: PreviewSettings): Promise<PreviewResult> {
+    async preview(settings: PreviewSettings): Promise<PreviewResult> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             this.abortController = new AbortController();
@@ -102,15 +103,16 @@ export default class FileStoreEmulatorConnector implements Connector {
             });
 
             // Fetch chunk from start of file.
-            const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
-            const url = `${URL_PREFIX}/fileStore${itemConfig.folderPath}${fullFileName}`;
+            // const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
+            // const url = `${URL_PREFIX}/fileStore${itemConfig.folderPath}${fullFileName}`;
+            const url = `${URL_PREFIX}/fileStore${settings.path}`;
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             const response = await fetch(encodeURI(url), { headers, signal });
             if (response.ok) {
                 this.abortController = null;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
             } else {
-                const message = `Connector preview failed to fetch '${itemConfig.folderPath}${itemConfig.name}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
+                const message = `Connector preview failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                 const error = new FetchError(message, { locator: 'preview.3', body: await response.text() });
                 throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.4', error);
             }
