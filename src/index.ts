@@ -76,7 +76,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - List
     async list(connectionConfig: ConnectionConfig, settings: ListSettings): Promise<ListResult> {
         try {
-            console.log(1234, settings);
+            console.log(1111, settings);
             const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
             const connectionItemConfigs: ConnectionItemConfig[] = [];
             for (const indexItem of indexItems) {
@@ -95,6 +95,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - Preview
     async preview(connectionConfig: ConnectionConfig, settings: PreviewSettings): Promise<PreviewData> {
         try {
+            console.log(2222, settings);
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             this.abortController = new AbortController();
             const signal = this.abortController.signal;
@@ -106,6 +107,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             // const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
             // const url = `${URL_PREFIX}/fileStore${itemConfig.folderPath}${fullFileName}`;
             const url = `${URL_PREFIX}/fileStore${settings.path}`;
+            console.log(3333, settings.path, url);
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             const response = await fetch(encodeURI(url), { headers, signal });
             if (response.ok) {
