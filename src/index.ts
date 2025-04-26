@@ -10,7 +10,7 @@ import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFr
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { PreviewData, PreviewSettings } from '@datapos/datapos-share-core';
-import type { RetrieveInterface, RetrieveRecord, RetrieveSettingsForCSV } from '@datapos/datapos-share-core';
+import type { RetrieveRecord, RetrieveSettingsForCSV } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
 import config from './config.json';
@@ -52,53 +52,53 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Find
-    async find(connector: Connector, connectionConfig: ConnectionConfig, findSettings: FindSettings): Promise<FindResult> {
+    async find(connector: FileStoreEmulatorConnector, connectionConfig: ConnectionConfig, settings: FindSettings): Promise<FindResult> {
         try {
             // Loop through file store index checking for matching object name.
             for (const folderPath in fileStoreIndex) {
                 if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
                     const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
-                    const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === findSettings.objectName);
+                    const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === settings.objectName);
                     if (indexItem) return { folderPath }; // Found, return folder path.
                 }
             }
             return {}; // Not found, return undefined folder path.
         } catch (error) {
-            throw this.constructErrorAndTidyUp(ERROR_FIND_ITEM_FAILED, 'find.1', error);
+            throw constructErrorAndTidyUp(connector, ERROR_FIND_ITEM_FAILED, 'find.1', error);
         }
     }
 
-    // Operations - Get Retrieve Interface
-    getRetrieveInterface(): RetrieveInterface {
-        return { retrieve: this.retrieve };
-    }
+    // // Operations - Get Retrieve Interface
+    // getRetrieveInterface(): RetrieveInterface {
+    //     return { retrieve: this.retrieve };
+    // }
 
     // Operations - List
-    async list(connector: Connector, connectionConfig: ConnectionConfig, settings: ListSettings): Promise<ListResult> {
+    async list(connector: FileStoreEmulatorConnector, connectionConfig: ConnectionConfig, settings: ListSettings): Promise<ListResult> {
         try {
             const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
             const connectionItemConfigs: ConnectionItemConfig[] = [];
             for (const indexItem of indexItems) {
                 if (indexItem.typeId === 'folder') {
-                    connectionItemConfigs.push(this.buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
+                    connectionItemConfigs.push(buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
                 } else {
-                    connectionItemConfigs.push(this.buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
+                    connectionItemConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
                 }
             }
             return { cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length };
         } catch (error) {
-            throw this.constructErrorAndTidyUp(ERROR_LIST_ITEMS_FAILED, 'listItems.1', error);
+            throw constructErrorAndTidyUp(connector, ERROR_LIST_ITEMS_FAILED, 'listItems.1', error);
         }
     }
 
     // Operations - Preview
-    async preview(connector: Connector, connectionConfig: ConnectionConfig, settings: PreviewSettings): Promise<PreviewData> {
+    async preview(connector: FileStoreEmulatorConnector, connectionConfig: ConnectionConfig, settings: PreviewSettings): Promise<PreviewData> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () => {
-                throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED));
+                throw constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED));
             });
 
             // Fetch chunk from start of file.
@@ -111,44 +111,16 @@ export default class FileStoreEmulatorConnector implements Connector {
             } else {
                 const message = `Connector preview failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                 const error = new FetchError(message, { locator: 'preview.3', body: await response.text() });
-                throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.4', error);
+                throw constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.4', error);
             }
         } catch (error) {
-            throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.1', error);
+            throw constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.1', error);
         }
     }
 
-    // Utilities - Build Folder Item Configuration
-    private buildFolderItemConfig(folderPath: string, name: string, childCount: number): ConnectionItemConfig {
-        return { childCount, folderPath, label: name, name, typeId: 'folder' };
-    }
-
-    // Utilities - Build Object (File) Item Configuration
-    private buildObjectItemConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig {
-        const name = extractNameFromPath(fullName);
-        const extension = extractExtensionFromPath(fullName);
-        return {
-            id,
-            extension,
-            folderPath,
-            label: fullName,
-            lastModifiedAt: convertMillisecondsToTimestamp(lastModifiedAt),
-            mimeType: lookupMimeTypeForExtension(extension),
-            name,
-            size,
-            typeId: 'object'
-        };
-    }
-
-    // Utilities - Construct Error and Tidy Up
-    private constructErrorAndTidyUp(message: string, context: string, error: unknown): ConnectorError {
-        this.abortController = null;
-        return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
-    }
-
     // Utilities - Retrieve
-    private async retrieve(
-        connector: Connector,
+    async retrieve(
+        connector: FileStoreEmulatorConnector,
         connectionConfig: ConnectionConfig,
         settings: RetrieveSettingsForCSV,
         chunk: (records: RetrieveRecord[]) => void,
@@ -164,7 +136,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 const signal = this.abortController.signal;
                 signal.addEventListener(
                     'abort',
-                    () => reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.10', new AbortError(CALLBACK_READ_ABORTED)))
+                    () => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.10', new AbortError(CALLBACK_READ_ABORTED)))
                     /*, { once: true, signal } TODO: Don't need once and signal? */
                 );
 
@@ -197,12 +169,12 @@ export default class FileStoreEmulatorConnector implements Connector {
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
                     } catch (error) {
-                        reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.9', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.9', error));
                     }
                 });
 
                 // Parser - Event listener for the 'error' event.
-                parser.on('error', (error) => reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.8', error)));
+                parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.8', error)));
 
                 // Parser - Event listener for the 'end' (end of data) event.
                 parser.on('end', () => {
@@ -224,7 +196,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                         resolve();
                         callback({ typeId: 'end', properties: {} });
                     } catch (error) {
-                        reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.7', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.7', error));
                     }
                 });
 
@@ -243,23 +215,51 @@ export default class FileStoreEmulatorConnector implements Connector {
                                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
                                     // Write the decoded data to the parser and terminate if there is an error.
                                     parser.write(result.value, (error) => {
-                                        if (error) reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.2', error));
+                                        if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.2', error));
                                     });
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
                                 const message = `Connector read failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                                 const error = new FetchError(message, { locator: 'read.3', body: await response.text() });
-                                reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.4', error));
+                                reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.4', error));
                             }
                         } catch (error) {
-                            reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.5', error));
+                            reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.5', error));
                         }
                     })
-                    .catch((error) => reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.6', error)));
+                    .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.6', error)));
             } catch (error) {
-                reject(this.constructErrorAndTidyUp(ERROR_READ_FAILED, 'read.1', error));
+                reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.1', error));
             }
         });
     }
+}
+
+// Utilities - Build Folder Item Configuration
+function buildFolderItemConfig(folderPath: string, name: string, childCount: number): ConnectionItemConfig {
+    return { childCount, folderPath, label: name, name, typeId: 'folder' };
+}
+
+// Utilities - Build Object (File) Item Configuration
+function buildObjectItemConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig {
+    const name = extractNameFromPath(fullName);
+    const extension = extractExtensionFromPath(fullName);
+    return {
+        id,
+        extension,
+        folderPath,
+        label: fullName,
+        lastModifiedAt: convertMillisecondsToTimestamp(lastModifiedAt),
+        mimeType: lookupMimeTypeForExtension(extension),
+        name,
+        size,
+        typeId: 'object'
+    };
+}
+
+// Utilities - Construct Error and Tidy Up
+function constructErrorAndTidyUp(connector: Connector, message: string, context: string, error: unknown) {
+    connector.abortController = null;
+    return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
 }
