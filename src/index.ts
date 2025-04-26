@@ -94,7 +94,6 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - Preview
     async preview(connector: Connector, connectionConfig: ConnectionConfig, settings: PreviewSettings): Promise<PreviewData> {
         try {
-            console.log(1111, settings);
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
@@ -105,16 +104,11 @@ export default class FileStoreEmulatorConnector implements Connector {
             // Fetch chunk from start of file.
             const url = `${URL_PREFIX}/fileStore${settings.path}`;
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
-            console.log(2222, url, headers, signal);
             const response = await fetch(encodeURI(url), { headers, signal });
             if (response.ok) {
-                console.log(3333);
-
                 connector.abortController = null;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
             } else {
-                console.log(4444);
-
                 const message = `Connector preview failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                 const error = new FetchError(message, { locator: 'preview.3', body: await response.text() });
                 throw this.constructErrorAndTidyUp(ERROR_PREVIEW_FAILED, 'preview.4', error);
