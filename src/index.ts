@@ -52,7 +52,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Find
-    async find(connectionConfig: ConnectionConfig, findSettings: FindSettings): Promise<FindResult> {
+    async find(connector: Connector, connectionConfig: ConnectionConfig, findSettings: FindSettings): Promise<FindResult> {
         try {
             // Loop through file store index checking for matching object name.
             for (const folderPath in fileStoreIndex) {
@@ -74,7 +74,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - List
-    async list(connectionConfig: ConnectionConfig, settings: ListSettings): Promise<ListResult> {
+    async list(connector: Connector, connectionConfig: ConnectionConfig, settings: ListSettings): Promise<ListResult> {
         try {
             console.log(1111, settings);
             const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
@@ -93,9 +93,9 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Preview
-    async preview(connectionConfig: ConnectionConfig, settings: PreviewSettings): Promise<PreviewData> {
+    async preview(connector: Connector, connectionConfig: ConnectionConfig, settings: PreviewSettings): Promise<PreviewData> {
         try {
-            console.log(2222, settings, this);
+            console.log(2222, settings, connector);
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             this.abortController = new AbortController();
             const signal = this.abortController.signal;
@@ -153,6 +153,7 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Utilities - Retrieve
     private async retrieve(
+        connector: Connector,
         connectionConfig: ConnectionConfig,
         settings: RetrieveSettingsForCSV,
         chunk: (records: RetrieveRecord[]) => void,
