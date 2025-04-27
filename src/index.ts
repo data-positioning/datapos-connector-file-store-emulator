@@ -68,11 +68,6 @@ export default class FileStoreEmulatorConnector implements Connector {
         }
     }
 
-    // // Operations - Get Retrieve Interface
-    // getRetrieveInterface(): RetrieveInterface {
-    //     return { retrieve: this.retrieve };
-    // }
-
     // Operations - List
     async list(connector: FileStoreEmulatorConnector, connectionConfig: ConnectionConfig, settings: ListSettings): Promise<ListResult> {
         try {
