@@ -1,7 +1,7 @@
 // TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js
 
 // Dependencies - Vendor
-import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
+import type { CastingContext } from 'csv-parse';
 
 // Dependencies - Framework
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
@@ -10,7 +10,7 @@ import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFr
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { PreviewData, PreviewSettings } from '@datapos/datapos-share-core';
-import type { RetrieveRecord, RetrieveSettingsForCSV, RetrieveSummary } from '@datapos/datapos-share-core';
+import type { RetrieveRecord, RetrieveSettingsForCSV, RetrieveSummary, RetrieveTools } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
 import config from './config.json';
@@ -120,7 +120,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         settings: RetrieveSettingsForCSV,
         chunk: (records: RetrieveRecord[]) => void,
         complete: (result: RetrieveSummary) => void,
-        tools: { csvParse: (options?: Options, callback?: Callback) => Parser | undefined }
+        tools: RetrieveTools
     ): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
