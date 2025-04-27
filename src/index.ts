@@ -5,12 +5,12 @@ import type { Callback, CastingContext, Options, Parser } from 'csv-parse';
 
 // Dependencies - Framework
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
-import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorCallbackData, ConnectorConfig, RetrieveSummary } from '@datapos/datapos-share-core';
+import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorConfig } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { PreviewData, PreviewSettings } from '@datapos/datapos-share-core';
-import type { RetrieveRecord, RetrieveSettingsForCSV } from '@datapos/datapos-share-core';
+import type { RetrieveRecord, RetrieveSettingsForCSV, RetrieveSummary } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
 import config from './config.json';
@@ -45,14 +45,15 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Abort
-    abort(): void {
-        if (!this.abortController) return;
-        this.abortController.abort();
-        this.abortController = null;
+    abort(connector: FileStoreEmulatorConnector): void {
+        if (!connector.abortController) return;
+        connector.abortController.abort();
+        connector.abortController = null;
+        return;
     }
 
     // Operations - Find
-    async find(connector: FileStoreEmulatorConnector, connectionConfig: ConnectionConfig, settings: FindSettings): Promise<FindResult> {
+    async find(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
         try {
             // Loop through file store index checking for matching object name.
             for (const folderPath in fileStoreIndex) {
@@ -69,7 +70,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - List
-    async list(connector: FileStoreEmulatorConnector, connectionConfig: ConnectionConfig, settings: ListSettings): Promise<ListResult> {
+    async list(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
         try {
             const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
             const connectionItemConfigs: ConnectionItemConfig[] = [];
@@ -82,12 +83,12 @@ export default class FileStoreEmulatorConnector implements Connector {
             }
             return { cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length };
         } catch (error) {
-            throw constructErrorAndTidyUp(connector, ERROR_LIST_ITEMS_FAILED, 'listItems.1', error);
+            throw constructErrorAndTidyUp(connector, ERROR_LIST_ITEMS_FAILED, 'list.1', error);
         }
     }
 
     // Operations - Preview
-    async preview(connector: FileStoreEmulatorConnector, connectionConfig: ConnectionConfig, settings: PreviewSettings): Promise<PreviewData> {
+    async preview(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewData> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
@@ -113,26 +114,22 @@ export default class FileStoreEmulatorConnector implements Connector {
         }
     }
 
-    // Utilities - Retrieve
+    // Operations - Retrieve
     async retrieve(
         connector: FileStoreEmulatorConnector,
-        connectionConfig: ConnectionConfig,
         settings: RetrieveSettingsForCSV,
         chunk: (records: RetrieveRecord[]) => void,
         complete: (result: RetrieveSummary) => void,
-        callback: (data: ConnectorCallbackData) => void,
         tools: { csvParse: (options?: Options, callback?: Callback) => Parser | undefined }
     ): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
-                console.log(1111, settings);
-                callback({ typeId: 'start', properties: {} });
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
                 connector.abortController = new AbortController();
                 const signal = connector.abortController.signal;
                 signal.addEventListener(
                     'abort',
-                    () => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.10', new AbortError(CALLBACK_READ_ABORTED)))
+                    () => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.10', new AbortError(CALLBACK_READ_ABORTED)))
                     /*, { once: true, signal } TODO: Don't need once and signal? */
                 );
 
@@ -161,17 +158,16 @@ export default class FileStoreEmulatorConnector implements Connector {
                             // TODO: Do we need to clear 'fieldInfos' array for each record? Different number of values in a row?
                             pendingRows.push({ fieldQuotings, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
                             if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
-                            console.log(7777, pendingRows.length);
                             chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.9', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.9', error));
                     }
                 });
 
                 // Parser - Event listener for the 'error' event.
-                parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.8', error)));
+                parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.8', error)));
 
                 // Parser - Event listener for the 'end' (end of data) event.
                 parser.on('end', () => {
@@ -179,7 +175,6 @@ export default class FileStoreEmulatorConnector implements Connector {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
                         connector.abortController = null; // Clear the abort controller.
                         if (pendingRows.length > 0) {
-                            console.log(8888, pendingRows.length);
                             chunk(pendingRows);
                             pendingRows = [];
                         }
@@ -192,9 +187,8 @@ export default class FileStoreEmulatorConnector implements Connector {
                             recordCount: parser.info.records
                         });
                         resolve();
-                        callback({ typeId: 'end', properties: {} });
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.7', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.7', error));
                     }
                 });
 
@@ -213,22 +207,22 @@ export default class FileStoreEmulatorConnector implements Connector {
                                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
                                     // Write the decoded data to the parser and terminate if there is an error.
                                     parser.write(result.value, (error) => {
-                                        if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.2', error));
+                                        if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.2', error));
                                     });
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
                                 const message = `Connector read failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
-                                const error = new FetchError(message, { locator: 'read.3', body: await response.text() });
-                                reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.4', error));
+                                const error = new FetchError(message, { locator: 'retrieve.3', body: await response.text() });
+                                reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.4', error));
                             }
                         } catch (error) {
-                            reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.5', error));
+                            reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.5', error));
                         }
                     })
-                    .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.6', error)));
+                    .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.6', error)));
             } catch (error) {
-                reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'read.1', error));
+                reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.1', error));
             }
         });
     }
@@ -257,7 +251,7 @@ function buildObjectItemConfig(folderPath: string, id: string, fullName: string,
 }
 
 // Utilities - Construct Error and Tidy Up
-function constructErrorAndTidyUp(connector: Connector, message: string, context: string, error: unknown) {
+function constructErrorAndTidyUp(connector: FileStoreEmulatorConnector, message: string, context: string, error: unknown) {
     connector.abortController = null;
     return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
 }
