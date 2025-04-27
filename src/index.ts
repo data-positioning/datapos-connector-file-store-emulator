@@ -10,7 +10,7 @@ import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFr
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { PreviewData, PreviewSettings } from '@datapos/datapos-share-core';
-import type { RetrieveRecord, RetrieveSettingsForCSV, RetrieveSummary, RetrieveTools } from '@datapos/datapos-share-core';
+import type { RetrieveRecordForDSV, RetrieveSettingsForDSV, RetrieveSummary, RetrieveTools } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
 import config from './config.json';
@@ -117,8 +117,8 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - Retrieve
     async retrieve(
         connector: FileStoreEmulatorConnector,
-        settings: RetrieveSettingsForCSV,
-        chunk: (records: RetrieveRecord[]) => void,
+        settings: RetrieveSettingsForDSV,
+        chunk: (records: RetrieveRecordForDSV[]) => void,
         complete: (result: RetrieveSummary) => void,
         tools: RetrieveTools
     ): Promise<void> {
@@ -134,7 +134,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 );
 
                 // Parser - Declare variables.
-                let pendingRows: RetrieveRecord[] = []; // Array to store rows of parsed field values and associated information.
+                let pendingRows: RetrieveRecordForDSV[] = []; // Array to store rows of parsed field values and associated information.
                 const fieldQuotings: boolean[] = []; // Array to store field information for a single row.
 
                 // Parser - Create a parser object for CSV parsing.
