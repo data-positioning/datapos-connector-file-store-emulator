@@ -1,4 +1,4 @@
-// TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js
+// TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
 
 // Dependencies - Vendor
 import type { CastingContext } from 'csv-parse';
@@ -127,11 +127,9 @@ export default class FileStoreEmulatorConnector implements Connector {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
                 connector.abortController = new AbortController();
                 const signal = connector.abortController.signal;
-                signal.addEventListener(
-                    'abort',
-                    () => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.10', new AbortError(CALLBACK_RETRIEVE_ABORTED)))
-                    /*, { once: true, signal } TODO: Don't need once and signal? */
-                );
+                signal.addEventListener('abort', () => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.2', new AbortError(CALLBACK_RETRIEVE_ABORTED))), {
+                    once: true
+                });
 
                 // Parser - Declare variables.
                 let pendingRows: DSVRecord[] = []; // Array to store rows of parsed field values and associated information.
@@ -155,19 +153,19 @@ export default class FileStoreEmulatorConnector implements Connector {
                         let data;
                         while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                            // TODO: Do we need to clear 'fieldInfos' array for each record? Different number of values in a row?
                             pendingRows.push({ fieldQuotings, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
+                            fieldQuotings.length = 0;
                             if (pendingRows.length < DEFAULT_RETRIEVE_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
                             chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.9', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.3', error));
                     }
                 });
 
                 // Parser - Event listener for the 'error' event.
-                parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.8', error)));
+                parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.4', error)));
 
                 // Parser - Event listener for the 'end' (end of data) event.
                 parser.on('end', () => {
@@ -188,13 +186,11 @@ export default class FileStoreEmulatorConnector implements Connector {
                         });
                         resolve();
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.7', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.5', error));
                     }
                 });
 
                 // Fetch, decode and forward the contents of the file to the parser.
-                // const fullFileName = `${itemConfig.name}${itemConfig.extension ? `.${itemConfig.extension}` : ''}`;
-                // const url = `${URL_PREFIX}fileStore${itemConfig.folderPath}${fullFileName}`;
                 const url = `${URL_PREFIX}/fileStore${settings.path}`;
                 fetch(encodeURI(url), { signal })
                     .then(async (response) => {
@@ -207,20 +203,20 @@ export default class FileStoreEmulatorConnector implements Connector {
                                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
                                     // Write the decoded data to the parser and terminate if there is an error.
                                     parser.write(result.value, (error) => {
-                                        if (error) reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.2', error));
+                                        if (error) reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.6', error));
                                     });
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
                                 const message = `Connector retrieve failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
-                                const error = new FetchError(message, { locator: 'retrieve.3', body: await response.text() });
-                                reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.4', error));
+                                const error = new FetchError(message, { locator: 'retrieve.7', body: await response.text() });
+                                reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.8', error));
                             }
                         } catch (error) {
-                            reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.5', error));
+                            reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.9', error));
                         }
                     })
-                    .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.6', error)));
+                    .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.10', error)));
             } catch (error) {
                 reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.1', error));
             }
