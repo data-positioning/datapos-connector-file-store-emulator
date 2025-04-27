@@ -5,12 +5,12 @@ import type { CastingContext } from 'csv-parse';
 
 // Dependencies - Framework
 import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
-import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorConfig } from '@datapos/datapos-share-core';
+import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorConfig, DSVRecord } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { PreviewData, PreviewSettings } from '@datapos/datapos-share-core';
-import type { RetrieveRecordForDSV, RetrieveSettingsForDSV, RetrieveSummary, RetrieveTools } from '@datapos/datapos-share-core';
+import type { RetrieveSettingsForDSV, RetrieveSummary, RetrieveTools } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
 import config from './config.json';
@@ -118,7 +118,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     async retrieve(
         connector: FileStoreEmulatorConnector,
         settings: RetrieveSettingsForDSV,
-        chunk: (records: RetrieveRecordForDSV[]) => void,
+        chunk: (records: DSVRecord[]) => void,
         complete: (result: RetrieveSummary) => void,
         tools: RetrieveTools
     ): Promise<void> {
@@ -134,7 +134,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 );
 
                 // Parser - Declare variables.
-                let pendingRows: RetrieveRecordForDSV[] = []; // Array to store rows of parsed field values and associated information.
+                let pendingRows: DSVRecord[] = []; // Array to store rows of parsed field values and associated information.
                 const fieldQuotings: boolean[] = []; // Array to store field information for a single row.
 
                 // Parser - Create a parser object for CSV parsing.
