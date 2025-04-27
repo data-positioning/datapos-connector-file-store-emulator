@@ -21,14 +21,14 @@ import { version } from '../package.json';
 type FileStoreIndex = Record<string, { id?: string; childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Constants
-const CALLBACK_PREVIEW_ABORTED = 'Connector preview aborted.';
-const CALLBACK_RETRIEVE_ABORTED = 'Connector retrieve aborted.';
+const CALLBACK_PREVIEW_ABORTED = 'Connector preview item aborted.';
+const CALLBACK_RETRIEVE_ABORTED = 'Connector retrieve items aborted.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_RETRIEVE_CHUNK_SIZE = 1000;
 const ERROR_FIND_ITEM_FAILED = 'Connector find item failed.';
 const ERROR_LIST_ITEMS_FAILED = 'Connector list items failed.';
-const ERROR_PREVIEW_FAILED = 'Connector preview failed.';
-const ERROR_RETRIEVE_FAILED = 'Connector retrieve failed.';
+const ERROR_PREVIEW_FAILED = 'Connector preview item failed.';
+const ERROR_RETRIEVE_FAILED = 'Connector retrieve items failed.';
 const URL_PREFIX = 'https://sampledata.datapos.app';
 
 // Classes - File Store Emulator Connector
