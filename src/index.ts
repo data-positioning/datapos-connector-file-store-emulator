@@ -22,13 +22,13 @@ type FileStoreIndex = Record<string, { id?: string; childCount?: number; lastMod
 
 // Constants
 const CALLBACK_PREVIEW_ABORTED = 'Connector preview aborted.';
-const CALLBACK_READ_ABORTED = 'Connector read aborted.';
+const CALLBACK_RETRIEVE_ABORTED = 'Connector retrieve aborted.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
-const DEFAULT_READ_CHUNK_SIZE = 1000;
+const DEFAULT_RETRIEVE_CHUNK_SIZE = 1000;
 const ERROR_FIND_ITEM_FAILED = 'Connector find item failed.';
 const ERROR_LIST_ITEMS_FAILED = 'Connector list items failed.';
 const ERROR_PREVIEW_FAILED = 'Connector preview failed.';
-const ERROR_READ_FAILED = 'Connector read failed.';
+const ERROR_RETRIEVE_FAILED = 'Connector retrieve failed.';
 const URL_PREFIX = 'https://sampledata.datapos.app';
 
 // Classes - File Store Emulator Connector
@@ -129,7 +129,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 const signal = connector.abortController.signal;
                 signal.addEventListener(
                     'abort',
-                    () => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.10', new AbortError(CALLBACK_READ_ABORTED)))
+                    () => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.10', new AbortError(CALLBACK_RETRIEVE_ABORTED)))
                     /*, { once: true, signal } TODO: Don't need once and signal? */
                 );
 
@@ -157,17 +157,17 @@ export default class FileStoreEmulatorConnector implements Connector {
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
                             // TODO: Do we need to clear 'fieldInfos' array for each record? Different number of values in a row?
                             pendingRows.push({ fieldQuotings, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
-                            if (pendingRows.length < DEFAULT_READ_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
+                            if (pendingRows.length < DEFAULT_RETRIEVE_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
                             chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.9', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.9', error));
                     }
                 });
 
                 // Parser - Event listener for the 'error' event.
-                parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.8', error)));
+                parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.8', error)));
 
                 // Parser - Event listener for the 'end' (end of data) event.
                 parser.on('end', () => {
@@ -188,7 +188,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                         });
                         resolve();
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.7', error));
+                        reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.7', error));
                     }
                 });
 
@@ -207,22 +207,22 @@ export default class FileStoreEmulatorConnector implements Connector {
                                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
                                     // Write the decoded data to the parser and terminate if there is an error.
                                     parser.write(result.value, (error) => {
-                                        if (error) reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.2', error));
+                                        if (error) reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.2', error));
                                     });
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
-                                const message = `Connector read failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
+                                const message = `Connector retrieve failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                                 const error = new FetchError(message, { locator: 'retrieve.3', body: await response.text() });
-                                reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.4', error));
+                                reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.4', error));
                             }
                         } catch (error) {
-                            reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.5', error));
+                            reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.5', error));
                         }
                     })
-                    .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.6', error)));
+                    .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.6', error)));
             } catch (error) {
-                reject(constructErrorAndTidyUp(connector, ERROR_READ_FAILED, 'retrieve.1', error));
+                reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.1', error));
             }
         });
     }
