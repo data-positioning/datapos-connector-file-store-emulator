@@ -4,7 +4,7 @@
 import type { CastingContext } from 'csv-parse';
 
 // Dependencies - Framework
-import { AbortError, ConnectorError, FetchError } from '@datapos/datapos-share-core';
+import { AbortError, FetchError } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorConfig, DSVRecord } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
@@ -25,10 +25,6 @@ const CALLBACK_PREVIEW_ABORTED = 'Connector failed to abort preview item operati
 const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve records operation.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_RETRIEVE_CHUNK_SIZE = 1000;
-const ERROR_FIND_ITEM_FAILED = 'Connector failed to execute find item operation.';
-const ERROR_LIST_ITEMS_FAILED = 'Connector failed to execute list items operation.';
-const ERROR_PREVIEW_FAILED = 'Connector failed to execute preview item operation.';
-const ERROR_RETRIEVE_FAILED = 'Connector failed to execute retrieve records operation.';
 const URL_PREFIX = 'https://sampledata.datapos.app';
 
 // Classes - File Store Emulator Connector
@@ -54,37 +50,29 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Operations - Find
     async find(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
-        try {
-            // Loop through the file store index checking for an item with an identifier equal to the object name.
-            for (const folderPath in fileStoreIndex) {
-                if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
-                    const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
-                    const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === settings.objectName);
-                    if (indexItem) return { folderPath }; // Found, return folder path.
-                }
+        // Loop through the file store index checking for an item with an identifier equal to the object name.
+        for (const folderPath in fileStoreIndex) {
+            if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
+                const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
+                const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === settings.objectName);
+                if (indexItem) return { folderPath }; // Found, return folder path.
             }
-            return {}; // Not found, return undefined folder path.
-        } catch (error) {
-            throw constructErrorAndTidyUp(connector, ERROR_FIND_ITEM_FAILED, 'find.1', error);
         }
+        return {}; // Not found, return undefined folder path.
     }
 
     // Operations - List
     async list(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
-        try {
-            const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
-            const connectionItemConfigs: ConnectionItemConfig[] = [];
-            for (const indexItem of indexItems) {
-                if (indexItem.typeId === 'folder') {
-                    connectionItemConfigs.push(buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
-                } else {
-                    connectionItemConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
-                }
+        const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
+        const connectionItemConfigs: ConnectionItemConfig[] = [];
+        for (const indexItem of indexItems) {
+            if (indexItem.typeId === 'folder') {
+                connectionItemConfigs.push(buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
+            } else {
+                connectionItemConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
             }
-            return { cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length };
-        } catch (error) {
-            throw constructErrorAndTidyUp(connector, ERROR_LIST_ITEMS_FAILED, 'list.1', error);
         }
+        return { cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length };
     }
 
     // Operations - Preview
@@ -94,7 +82,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () => {
-                throw constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.2', new AbortError(CALLBACK_PREVIEW_ABORTED));
+                throw new AbortError(CALLBACK_PREVIEW_ABORTED);
             });
 
             // Fetch chunk from start of file.
@@ -107,10 +95,11 @@ export default class FileStoreEmulatorConnector implements Connector {
             } else {
                 const message = `Connector preview failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                 const error = new FetchError(message, { locator: 'preview.3', body: await response.text() });
-                throw constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.4', error);
+                throw error;
             }
         } catch (error) {
-            throw constructErrorAndTidyUp(connector, ERROR_PREVIEW_FAILED, 'preview.1', error);
+            connector.abortController = null;
+            throw error;
         }
     }
 
@@ -127,9 +116,14 @@ export default class FileStoreEmulatorConnector implements Connector {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
                 connector.abortController = new AbortController();
                 const signal = connector.abortController.signal;
-                signal.addEventListener('abort', () => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.2', new AbortError(CALLBACK_RETRIEVE_ABORTED))), {
-                    once: true
-                });
+                signal.addEventListener(
+                    'abort',
+                    () => {
+                        connector.abortController = null;
+                        reject(new AbortError(CALLBACK_RETRIEVE_ABORTED));
+                    },
+                    { once: true }
+                );
 
                 // Parser - Declare variables.
                 let pendingRows: DSVRecord[] = []; // Array to store rows of parsed field values and associated information.
@@ -160,12 +154,16 @@ export default class FileStoreEmulatorConnector implements Connector {
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.3', error));
+                        connector.abortController = null;
+                        reject(error);
                     }
                 });
 
                 // Parser - Event listener for the 'error' event.
-                parser.on('error', (error) => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.4', error)));
+                parser.on('error', (error) => {
+                    connector.abortController = null;
+                    reject(error);
+                });
 
                 // Parser - Event listener for the 'end' (end of data) event.
                 parser.on('end', () => {
@@ -186,7 +184,8 @@ export default class FileStoreEmulatorConnector implements Connector {
                         });
                         resolve();
                     } catch (error) {
-                        reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.5', error));
+                        connector.abortController = null;
+                        reject(error);
                     }
                 });
 
@@ -203,22 +202,31 @@ export default class FileStoreEmulatorConnector implements Connector {
                                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
                                     // Write the decoded data to the parser and terminate if there is an error.
                                     parser.write(result.value, (error) => {
-                                        if (error) reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.6', error));
+                                        if (error) {
+                                            connector.abortController = null;
+                                            reject(error);
+                                        }
                                     });
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
                                 const message = `Connector retrieve failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
                                 const error = new FetchError(message, { locator: 'retrieve.7', body: await response.text() });
-                                reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.8', error));
+                                connector.abortController = null;
+                                reject(error);
                             }
                         } catch (error) {
-                            reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.9', error));
+                            connector.abortController = null;
+                            reject(error);
                         }
                     })
-                    .catch((error) => reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.10', error)));
+                    .catch((error) => {
+                        connector.abortController = null;
+                        reject(error);
+                    });
             } catch (error) {
-                reject(constructErrorAndTidyUp(connector, ERROR_RETRIEVE_FAILED, 'retrieve.1', error));
+                connector.abortController = null;
+                reject(error);
             }
         });
     }
@@ -244,11 +252,4 @@ function buildObjectItemConfig(folderPath: string, id: string, fullName: string,
         size,
         typeId: 'object'
     };
-}
-
-// Utilities - Construct Error and Tidy Up
-function constructErrorAndTidyUp(connector: FileStoreEmulatorConnector, message: string, context: string, error: unknown) {
-    connector.abortController = null;
-    return error;
-    // return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
 }
