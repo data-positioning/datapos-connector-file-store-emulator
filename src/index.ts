@@ -249,5 +249,6 @@ function buildObjectItemConfig(folderPath: string, id: string, fullName: string,
 // Utilities - Construct Error and Tidy Up
 function constructErrorAndTidyUp(connector: FileStoreEmulatorConnector, message: string, context: string, error: unknown) {
     connector.abortController = null;
-    return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
+    return error;
+    // return new ConnectorError(message, { locator: `${config.id}.${context}` }, undefined, error);
 }
