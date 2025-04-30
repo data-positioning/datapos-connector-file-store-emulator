@@ -113,6 +113,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     ): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
+                console.log(1111, settings);
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
                 connector.abortController = new AbortController();
                 const signal = connector.abortController.signal;
