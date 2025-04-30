@@ -21,8 +21,8 @@ import { version } from '../package.json';
 type FileStoreIndex = Record<string, { id?: string; childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Constants
-const CALLBACK_PREVIEW_ABORTED = 'Connector failed to abort preview item operation.';
-const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve records operation.';
+const CALLBACK_PREVIEW_ABORTED = 'Connector failed to abort preview object operation.';
+const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve all records operation.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_RETRIEVE_CHUNK_SIZE = 1000;
 const URL_PREFIX = 'https://sampledata.datapos.app';
