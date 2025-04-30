@@ -113,7 +113,6 @@ export default class FileStoreEmulatorConnector implements Connector {
     ): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
-                console.log(1111, settings);
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
                 connector.abortController = new AbortController();
                 const signal = connector.abortController.signal;
@@ -146,10 +145,10 @@ export default class FileStoreEmulatorConnector implements Connector {
                 parser.on('readable', () => {
                     try {
                         let data;
-                        while ((data = parser.read() as { info: CastingContext; record: string[] }) !== null) {
+                        while ((data = parser.read() as string[]) !== null) {
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
                             // pendingRows.push({ fieldQuotings, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
-                            pendingRows.push(data.record); // Append the row of parsed values and associated information to the pending rows array.
+                            pendingRows.push(data); // Append the row of parsed values and associated information to the pending rows array.
                             // fieldQuotings.length = 0;
                             if (pendingRows.length < DEFAULT_RETRIEVE_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
                             chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
