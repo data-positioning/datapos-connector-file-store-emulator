@@ -1,8 +1,5 @@
 // TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
 
-// Dependencies - Vendor
-import type { CastingContext } from 'csv-parse';
-
 // Dependencies - Framework
 import { AbortError, FetchError } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorConfig } from '@datapos/datapos-share-core';
@@ -127,14 +124,9 @@ export default class FileStoreEmulatorConnector implements Connector {
 
                 // Parser - Declare variables.
                 let pendingRows: string[][] = []; // Array to store rows of parsed field values and associated information.
-                // const fieldQuotings: boolean[] = []; // Array to store field information for a single row.
 
                 // Parser - Create a parser object for CSV parsing.
                 const parser = tools.csvParse({
-                    // cast: (value, context) => {
-                    //     fieldQuotings[context.index] = context.quoting;
-                    //     return value;
-                    // },
                     delimiter: settings.valueDelimiterId,
                     info: true,
                     relax_column_count: true,
@@ -147,9 +139,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                         let data;
                         while ((data = parser.read() as string[]) !== null) {
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                            // pendingRows.push({ fieldQuotings, fieldValues: data.record }); // Append the row of parsed values and associated information to the pending rows array.
                             pendingRows.push(data); // Append the row of parsed values and associated information to the pending rows array.
-                            // fieldQuotings.length = 0;
                             if (pendingRows.length < DEFAULT_RETRIEVE_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
                             chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
