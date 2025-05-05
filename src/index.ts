@@ -37,7 +37,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.connectionConfig = connectionConfig;
     }
 
-    // Operations - Abort
+    // Operations - Abort (Operation)
     abort(connector: FileStoreEmulatorConnector): void {
         if (!connector.abortController) return;
         connector.abortController.abort();
@@ -45,7 +45,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         return;
     }
 
-    // Operations - Find
+    // Operations - Find (Object)
     async find(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
         // Loop through the file store index checking for an item with an identifier equal to the object name.
         for (const folderPath in fileStoreIndex) {
@@ -58,7 +58,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         return {}; // Not found, return undefined folder path.
     }
 
-    // Operations - List
+    // Operations - List (Items)
     async list(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
         const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
         const connectionItemConfigs: ConnectionItemConfig[] = [];
@@ -72,7 +72,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         return { cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length };
     }
 
-    // Operations - Preview
+    // Operations - Preview (Object)
     async preview(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewData> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
@@ -100,7 +100,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         }
     }
 
-    // Operations - Retrieve
+    // Operations - Retrieve (Records)
     async retrieve(
         connector: FileStoreEmulatorConnector,
         settings: RetrieveSettings,
