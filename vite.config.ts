@@ -11,7 +11,7 @@ export default defineConfig({
             entry: resolve('src/index.ts'),
             name: 'DataposFileStoreEmulatorConnector',
             formats: ['es'],
-            fileName: (format: string) => `${config.id}-${format}.js`
+            fileName: (format: string) => `${config.id}.${format}.js`
         },
         rollupOptions: {
             external: ['csv-parse']

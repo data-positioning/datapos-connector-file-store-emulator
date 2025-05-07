@@ -3,7 +3,7 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.2.125",
+    "version": "0.2.126",
     "peerDependencies": {
         "@datapos/datapos-share-core": "^0.1.801",
         "csv-parse": "^5.6.0",
@@ -36,7 +36,7 @@
         "updateOperations": "npm install --save-dev @datapos/datapos-dev-operations@latest",
         "updateShareCore": "npm install @datapos/datapos-share-core@latest",
         "uploadModuleConfig": "node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.uploadModuleConfig())\"",
-        "uploadConnectorToR2": "npx wrangler r2 object put datapos-engine-eu/connectors/datapos-connector-file-store-emulator-es.js --file=dist/datapos-connector-file-store-emulator-es.js --content-type application/javascript --jurisdiction=eu --remote",
-        "uploadModuleToR2": "node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.uploadModuleToR2('datapos-connector-file-store-emulator-es.js', 'datapos-engine-eu/connectors/datapos-connector-file-store-emulator-es.js'))\""
+        "uploadConnectorToR2": "npx wrangler r2 object put datapos-engine-eu/connectors/datapos-connector-file-store-emulator.es.js --file=dist/datapos-connector-file-store-emulator.es.js --content-type application/javascript --jurisdiction=eu --remote",
+        "uploadModuleToR2": "node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.uploadModuleToR2('datapos-connector-file-store-emulator.es.js', 'datapos-engine-eu/connectors/datapos-connector-file-store-emulator.es.js'))\""
     }
 }
