@@ -47,7 +47,6 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Operations - Find (Object)
     async find(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
-        console.log('find');
         // Loop through the file store index checking for an item with an identifier equal to the object name.
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
@@ -61,7 +60,6 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Operations - List (Items)
     async list(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
-        console.log('list');
         const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
         const connectionItemConfigs: ConnectionItemConfig[] = [];
         for (const indexItem of indexItems) {
@@ -76,7 +74,6 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Operations - Preview (Object)
     async preview(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewData> {
-        console.log('preview');
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
@@ -111,7 +108,6 @@ export default class FileStoreEmulatorConnector implements Connector {
         complete: (result: RetrieveSummary) => void,
         tools: RetrieveTools
     ): Promise<void> {
-        console.log('retrieve');
         return new Promise((resolve, reject) => {
             try {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
