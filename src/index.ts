@@ -60,7 +60,7 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Operations - List (Items)
     async list(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
-        console.log(1234, config);
+        console.log(5678, config);
         const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
         const connectionItemConfigs: ConnectionItemConfig[] = [];
         for (const indexItem of indexItems) {
