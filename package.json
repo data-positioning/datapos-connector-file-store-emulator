@@ -3,9 +3,9 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.2.142",
+    "version": "0.2.143",
     "peerDependencies": {
-        "@datapos/datapos-share-core": "^0.1.801",
+        "@datapos/datapos-share-core": "^0.1.804",
         "csv-parse": "^5.6.0",
         "date-fns": "^4.1.0",
         "nanoid": "^5.1.5"
@@ -13,7 +13,7 @@
     "devDependencies": {
         "@datapos/datapos-dev-operations": "^0.2.18",
         "@eslint/js": "^9.26.0",
-        "@types/node": "^22.15.15",
+        "@types/node": "^22.15.17",
         "eslint": "^9.26.0",
         "globals": "^16.1.0",
         "prettier": "^3.5.3",
