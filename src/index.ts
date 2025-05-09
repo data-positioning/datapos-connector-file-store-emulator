@@ -22,7 +22,7 @@ const CALLBACK_PREVIEW_ABORTED = 'Connector failed to abort preview object opera
 const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve all records operation.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_RETRIEVE_CHUNK_SIZE = 1000;
-const URL_PREFIX = 'https://sampledata.datapos.app';
+const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 
 // Classes - File Store Emulator Connector
 export default class FileStoreEmulatorConnector implements Connector {
