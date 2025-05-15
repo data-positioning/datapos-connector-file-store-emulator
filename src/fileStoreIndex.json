@@ -1,5 +1,5 @@
 {
-    "/": [
+    "": [
         { "id": "wqo4aCXdZscDeyG_TQwTf", "lastModifiedAt": 1743507686216.5598, "name": "ENGAGEMENT_START_EVENTS_202405121858.csv", "size": 122800, "typeId": "object" },
         { "id": "vZRfxKej9vbSbgGjmXoIp", "lastModifiedAt": 1743507686221.789, "name": "PEOPLE_BIRTH_EVENTS_202405121857.csv", "size": 114287, "typeId": "object" },
         { "childCount": 3, "name": "AUDATACY Interchange Format", "typeId": "folder" },
