@@ -1,8 +1,11 @@
 // TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
 
+// Dependencies - Vendor
+import { nanoid } from 'nanoid';
+
 // Dependencies - Framework
 import { AbortError, FetchError } from '@datapos/datapos-share-core';
-import type { ConnectionConfig, ConnectionItemConfig, Connector, ConnectorConfig } from '@datapos/datapos-share-core';
+import type { ConnectionConfig, ConnectionNodeConfig, Connector, ConnectorConfig } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
@@ -61,15 +64,15 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - List (Items)
     async list(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
         const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
-        const connectionItemConfigs: ConnectionItemConfig[] = [];
+        const connectionNodeConfigs: ConnectionNodeConfig[] = [];
         for (const indexItem of indexItems) {
             if (indexItem.typeId === 'folder') {
-                connectionItemConfigs.push(buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
+                connectionNodeConfigs.push(buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
             } else {
-                connectionItemConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
+                connectionNodeConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
             }
         }
-        return { cursor: undefined, isMore: false, connectionItemConfigs, totalCount: connectionItemConfigs.length };
+        return { cursor: undefined, isMore: false, connectionNodeConfigs, totalCount: connectionNodeConfigs.length };
     }
 
     // Operations - Preview (Object)
@@ -223,13 +226,13 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 }
 
-// Utilities - Build Folder Item Configuration
-function buildFolderItemConfig(folderPath: string, name: string, childCount: number): ConnectionItemConfig {
-    return { childCount, folderPath, label: name, name, typeId: 'folder' };
+// Utilities - Build Folder Node Configuration
+function buildFolderItemConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
+    return { id: nanoid(), childCount, folderPath, label: name, name, typeId: 'folder' };
 }
 
-// Utilities - Build Object (File) Item Configuration
-function buildObjectItemConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionItemConfig {
+// Utilities - Build Object (File) Node Configuration
+function buildObjectItemConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
     const name = extractNameFromPath(fullName);
     const extension = extractExtensionFromPath(fullName);
     return {
