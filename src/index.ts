@@ -50,7 +50,7 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Operations - Find (Object)
     async find(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
-        // Loop through the file store index checking for an item with an identifier equal to the object name.
+        // Loop through the file store index checking for an object entry with an identifier equal to the object name.
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
                 const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
