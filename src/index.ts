@@ -9,7 +9,7 @@ import type { ConnectionConfig, ConnectionNodeConfig, Connector, ConnectorConfig
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
-import type { PreviewData, PreviewSettings } from '@datapos/datapos-share-core';
+import type { PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
 import type { RetrieveSettings, RetrieveSummary, RetrieveTools } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
@@ -61,7 +61,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         return {}; // Not found, return undefined folder path.
     }
 
-    // Operations - List (Items)
+    // Operations - List (Nodes)
     async list(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
         const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
@@ -76,7 +76,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Preview (Object)
-    async preview(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewData> {
+    async preview(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();

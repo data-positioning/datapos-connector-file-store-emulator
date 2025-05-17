@@ -3,15 +3,15 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.2.150",
+    "version": "0.2.151",
     "peerDependencies": {
-        "@datapos/datapos-share-core": "^0.1.811",
+        "@datapos/datapos-share-core": "^0.1.815",
         "csv-parse": "^5.6.0",
         "date-fns": "^4.1.0",
         "nanoid": "^5.1.5"
     },
     "devDependencies": {
-        "@datapos/datapos-dev-operations": "^0.2.20",
+        "@datapos/datapos-dev-operations": "^0.2.24",
         "@eslint/js": "^9.26.0",
         "@types/node": "^22.15.17",
         "eslint": "^9.26.0",
