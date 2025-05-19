@@ -4,9 +4,9 @@
 import { nanoid } from 'nanoid';
 
 // Dependencies - Framework
-import { AbortError, FetchError } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectionNodeConfig, Connector, ConnectorConfig } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
+import { FetchError, OperationsError } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
@@ -82,7 +82,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () => {
-                throw new AbortError(CALLBACK_PREVIEW_ABORTED);
+                throw new OperationsError(CALLBACK_PREVIEW_ABORTED);
             });
 
             // Fetch chunk from start of file.
@@ -120,7 +120,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                     'abort',
                     () => {
                         connector.abortController = null;
-                        reject(new AbortError(CALLBACK_RETRIEVE_ABORTED));
+                        reject(new OperationsError(CALLBACK_RETRIEVE_ABORTED));
                     },
                     { once: true }
                 );
