@@ -4,9 +4,9 @@
 import { nanoid } from 'nanoid';
 
 // Dependencies - Framework
+import { buildFetchError, OperationalError } from '@datapos/datapos-share-core';
 import type { ConnectionConfig, ConnectionNodeConfig, Connector, ConnectorConfig } from '@datapos/datapos-share-core';
 import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-share-core';
-import { FetchError, OperationsError } from '@datapos/datapos-share-core';
 import type { FindResult, FindSettings } from '@datapos/datapos-share-core';
 import type { ListResult, ListSettings } from '@datapos/datapos-share-core';
 import type { PreviewResult, PreviewSettings } from '@datapos/datapos-share-core';
@@ -82,7 +82,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () => {
-                throw new OperationsError(CALLBACK_PREVIEW_ABORTED);
+                throw new OperationalError(CALLBACK_PREVIEW_ABORTED, { locator: 'datapos-connector-file-store-emulator|index.preview|1' });
             });
 
             // Fetch chunk from start of file.
@@ -93,9 +93,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 connector.abortController = null;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
             } else {
-                const message = `Connector preview failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
-                const error = new FetchError(message, { locator: 'preview.3', body: await response.text() });
-                throw error;
+                throw await buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator.preview.1');
             }
         } catch (error) {
             connector.abortController = null;
@@ -120,7 +118,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                     'abort',
                     () => {
                         connector.abortController = null;
-                        reject(new OperationsError(CALLBACK_RETRIEVE_ABORTED));
+                        reject(new OperationalError(CALLBACK_RETRIEVE_ABORTED, { locator: 'datapos-connector-file-store-emulator|index.retrieve|1' }));
                     },
                     { once: true }
                 );
@@ -204,8 +202,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
-                                const message = `Connector retrieve failed to fetch '${settings.path}' file. Response status ${response.status}${response.statusText ? ` - ${response.statusText}` : ''} received.`;
-                                const error = new FetchError(message, { locator: 'retrieve.7', body: await response.text() });
+                                const error = await buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator.retrieve.1');
                                 connector.abortController = null;
                                 reject(error);
                             }
