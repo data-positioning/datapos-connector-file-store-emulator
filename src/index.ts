@@ -78,6 +78,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - Preview (Object)
     async preview(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult> {
         try {
+            throw new Error('Testing error pass back');
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
