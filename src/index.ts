@@ -48,8 +48,8 @@ export default class FileStoreEmulatorConnector implements Connector {
         return;
     }
 
-    // Operations - Find (Object)
-    async find(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
+    // Operations - Find Object
+    async findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
         // Loop through the file store index checking for an object entry with an identifier equal to the object name.
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
@@ -61,8 +61,8 @@ export default class FileStoreEmulatorConnector implements Connector {
         return {}; // Not found, return undefined folder path.
     }
 
-    // Operations - List (Nodes)
-    async list(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
+    // Operations - List Nodes
+    async listNodes(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
         const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
         for (const indexItem of indexItems) {
@@ -82,7 +82,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () => {
-                throw new OperationalError(CALLBACK_PREVIEW_ABORTED, { locator: 'datapos-connector-file-store-emulator|index.preview|1' });
+                throw new OperationalError(CALLBACK_PREVIEW_ABORTED, 'datapos-connector-file-store-emulator|Connector|preview.abort');
             });
 
             // Fetch chunk from start of file.
@@ -93,7 +93,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 connector.abortController = null;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
             } else {
-                throw await buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator.preview.1');
+                throw await buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
             }
         } catch (error) {
             connector.abortController = null;
@@ -101,8 +101,8 @@ export default class FileStoreEmulatorConnector implements Connector {
         }
     }
 
-    // Operations - Retrieve (Records)
-    async retrieve(
+    // Operations - Retrieve Records
+    async retrieveRecords(
         connector: FileStoreEmulatorConnector,
         settings: RetrieveSettings,
         chunk: (records: string[][]) => void,
@@ -118,7 +118,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                     'abort',
                     () => {
                         connector.abortController = null;
-                        reject(new OperationalError(CALLBACK_RETRIEVE_ABORTED, { locator: 'datapos-connector-file-store-emulator|index.retrieve|1' }));
+                        reject(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
                     },
                     { once: true }
                 );
@@ -202,7 +202,11 @@ export default class FileStoreEmulatorConnector implements Connector {
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
-                                const error = await buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator.retrieve.1');
+                                const error = await buildFetchError(
+                                    response,
+                                    `Failed to fetch '${settings.path}' file.`,
+                                    'datapos-connector-file-store-emulator|Connector|retrieve'
+                                );
                                 connector.abortController = null;
                                 reject(error);
                             }
