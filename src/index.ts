@@ -67,9 +67,9 @@ export default class FileStoreEmulatorConnector implements Connector {
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
         for (const indexItem of indexItems) {
             if (indexItem.typeId === 'folder') {
-                connectionNodeConfigs.push(buildFolderNodeConfig(settings.folderPath, indexItem.name, indexItem.childCount));
+                connectionNodeConfigs.push(constructFolderNodeConfig(settings.folderPath, indexItem.name, indexItem.childCount));
             } else {
-                connectionNodeConfigs.push(buildObjectNodeConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
+                connectionNodeConfigs.push(constructObjectNodeConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
             }
         }
         return { cursor: undefined, isMore: false, connectionNodeConfigs, totalCount: connectionNodeConfigs.length };
@@ -227,13 +227,13 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 }
 
-// Utilities - Build Folder Node Configuration
-function buildFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
+// Utilities - Construct Folder Node Configuration
+function constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
     return { id: nanoid(), childCount, folderPath, label: name, name, typeId: 'folder' };
 }
 
-// Utilities - Build Object (File) Node Configuration
-function buildObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
+// Utilities - Construct Object (File) Node Configuration
+function constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
     const name = extractNameFromPath(fullName);
     const extension = extractExtensionFromPath(fullName);
     return {
