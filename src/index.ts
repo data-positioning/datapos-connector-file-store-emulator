@@ -40,8 +40,8 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.connectionConfig = connectionConfig;
     }
 
-    // Operations - Abort (Operation)
-    abort(connector: FileStoreEmulatorConnector): void {
+    // Operations - Abort Operation
+    abortOperation(connector: FileStoreEmulatorConnector): void {
         if (!connector.abortController) return;
         connector.abortController.abort();
         connector.abortController = null;
@@ -67,16 +67,16 @@ export default class FileStoreEmulatorConnector implements Connector {
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
         for (const indexItem of indexItems) {
             if (indexItem.typeId === 'folder') {
-                connectionNodeConfigs.push(buildFolderItemConfig(settings.folderPath, indexItem.name, indexItem.childCount));
+                connectionNodeConfigs.push(buildFolderNodeConfig(settings.folderPath, indexItem.name, indexItem.childCount));
             } else {
-                connectionNodeConfigs.push(buildObjectItemConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
+                connectionNodeConfigs.push(buildObjectNodeConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
             }
         }
         return { cursor: undefined, isMore: false, connectionNodeConfigs, totalCount: connectionNodeConfigs.length };
     }
 
-    // Operations - Preview (Object)
-    async preview(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult> {
+    // Operations - Preview Object
+    async previewObject(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
@@ -228,12 +228,12 @@ export default class FileStoreEmulatorConnector implements Connector {
 }
 
 // Utilities - Build Folder Node Configuration
-function buildFolderItemConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
+function buildFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
     return { id: nanoid(), childCount, folderPath, label: name, name, typeId: 'folder' };
 }
 
 // Utilities - Build Object (File) Node Configuration
-function buildObjectItemConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
+function buildObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
     const name = extractNameFromPath(fullName);
     const extension = extractExtensionFromPath(fullName);
     return {
