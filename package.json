@@ -3,7 +3,7 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.2.162",
+    "version": "0.2.163",
     "peerDependencies": {
         "@datapos/datapos-share-core": "^0.1.855",
         "csv-parse": "^5.6.0",
@@ -11,7 +11,6 @@
         "nanoid": "^5.1.5"
     },
     "devDependencies": {
-        "@datapos/datapos-dev-operations": "^0.2.25",
         "@eslint/js": "^9.27.0",
         "@types/node": "^22.15.21",
         "eslint": "^9.27.0",
@@ -24,17 +23,20 @@
     },
     "scripts": {
         "build": "npx vite build",
-        "buildConfig": "node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.buildConfig())\"",
-        "bumpVersion": "node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.bumpVersion())\"",
+        "buildConfig": "node -e \"import('@datapos/datapos-development').then(m => m.buildConfig())\"",
+        "bumpVersion": "node -e \"import('@datapos/datapos-development').then(m => m.bumpVersion())\"",
         "check": "npx npm-check-updates && npm outdated",
         "format": "prettier --write *.ts",
         "lint": "npx eslint src/**/*.ts",
         "release": "npm run syncWithGitHub && npm run build && npm run uploadModuleToR2 && npm run uploadModuleConfig",
-        "syncWithGitHub": "npm run bumpVersion && npm run buildConfig && node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.syncWithGitHub())\"",
+        "syncWithGitHub": "npm run bumpVersion && npm run buildConfig && node -e \"import('@datapos/datapos-development').then(m => m.syncWithGitHub())\"",
         "updateDependencies": "npm run updateOperations && npm run updateShareCore",
         "updateOperations": "npm install --save-dev @datapos/datapos-dev-operations@latest",
         "updateShareCore": "npm install @datapos/datapos-share-core@latest",
-        "uploadModuleConfig": "node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.uploadModuleConfig())\"",
-        "uploadModuleToR2": "node -e \"import('@datapos/datapos-dev-operations/scriptHelpers.js').then(m => m.uploadModuleToR2('datapos-connector-file-store-emulator.es.js', 'datapos-engine-eu/connectors/datapos-connector-file-store-emulator.es.js'))\""
+        "uploadModuleConfig": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleConfig())\"",
+        "uploadModuleToR2": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-connector-file-store-emulator.es.js', 'datapos-engine-eu/connectors/datapos-connector-file-store-emulator.es.js'))\""
+    },
+    "dependencies": {
+        "@datapos/datapos-development": "^0.3.17"
     }
 }
