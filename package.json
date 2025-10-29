@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.2.173",
+    "version": "0.2.174",
     "peerDependencies": {
         "@datapos/datapos-shared": "^0.3.65",
         "csv-parse": "^6.1.0",
