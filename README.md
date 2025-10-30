@@ -4,7 +4,7 @@ A TypeScript library that implements the File Store Emulator connector. It provi
 
 ## Installation
 
-The DataPos Operations library contains helper functions to upload connectors to the DataPos hosting platform. A developer account is required to access this functionality. Once uploaded, the DataPos engine will automatically retrieve the connector associated with a given connection at runtime.
+When released this connector is uploaded to the Data Positioning engine cloud and a message identifying the new version is sent to all browser apps. There is no need to install this connector.
 
 ## Repository Management Commands
 
