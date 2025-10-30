@@ -1,10 +1,10 @@
 # Data Positioning - File Store Emulator Connector
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
 A TypeScript library that implements the File Store Emulator connector. It provides easy access to a curated set of files for demonstration and evaluation purposes.
 
 ## Installation
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 When released this connector is uploaded to the Data Positioning engine cloud and a message identifying the new version is sent to all browser apps. There is no need to install this connector.
 
