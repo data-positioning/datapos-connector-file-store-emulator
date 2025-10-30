@@ -23,3 +23,11 @@ The following list details the repository management commands implementation by 
 | release        | alt+ctrl+shift+r | Synchronise local repository with the main GitHub repository and upload connector to Data Positioning platform. |
 | syncWithGitHub | alt+ctrl+shift+s | Synchronise local repository with the main GitHub repository.                                                   |
 | update         | alt+ctrl+shift+l | Install the latest version of Data Positioning dependencies.                                                    |
+
+## Compliance
+
+The following badge reflects FOSSA's assessment of this repository's open-source license compliance.
+
+## License
+
+[MIT](./LICENSE) © 2026 Data Positioning Pty Ltd
