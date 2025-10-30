@@ -4,6 +4,8 @@ A TypeScript library that implements the File Store Emulator connector. It provi
 
 ## Installation
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
 When released this connector is uploaded to the Data Positioning engine cloud and a message identifying the new version is sent to all browser apps. There is no need to install this connector.
 
 ## Repository Management Commands
