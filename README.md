@@ -6,7 +6,7 @@ A TypeScript library that implements the File Store Emulator connector. It provi
 
 ## Installation
 
-When released this connector is uploaded to the Data Positioning engine cloud and a message identifying the new version is sent to all browser apps. There is no need to install this connector.
+There’s no need to install this connector manually. Once released, it’s uploaded to the Data Positioning Engine cloud and becomes instantly available to all new instances of the browser app. A notification about the new version is also sent to all existing browser apps.
 
 ## Repository Management Commands
 
