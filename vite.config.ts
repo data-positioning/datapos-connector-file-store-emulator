@@ -1,10 +1,10 @@
-// Dependencies - Vendor
+// Dependencies
 import config from './config.json';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { resolve } from 'path';
 
-// Configuration
+// Exposures - Configuration.
 export default defineConfig({
     build: {
         lib: {
@@ -12,9 +12,6 @@ export default defineConfig({
             name: 'DataposFileStoreEmulatorConnector',
             formats: ['es'],
             fileName: (format: string) => `${config.id}.${format}.js`
-        },
-        rollupOptions: {
-            external: ['csv-parse']
         },
         target: 'ESNext'
     },

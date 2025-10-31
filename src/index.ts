@@ -1,23 +1,18 @@
 // TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
 
-// Dependencies - Vendor
-import { nanoid } from 'nanoid';
-
-// Dependencies - Framework
-import { buildFetchError, OperationalError } from '@datapos/datapos-shared';
-import type { ConnectionConfig, ConnectionNodeConfig, Connector, ConnectorConfig } from '@datapos/datapos-shared';
-import { convertMillisecondsToTimestamp, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared';
+// Dependencies - Framework.
+import type { ConnectionConfig, ConnectionNodeConfig, Connector, ConnectorConfig, ConnectorTools } from '@datapos/datapos-shared';
 import type { FindResult, FindSettings } from '@datapos/datapos-shared';
 import type { ListResult, ListSettings } from '@datapos/datapos-shared';
 import type { PreviewResult, PreviewSettings } from '@datapos/datapos-shared';
-import type { RetrieveSettings, RetrieveSummary, RetrieveTools } from '@datapos/datapos-shared';
+import type { RetrieveSettings, RetrieveSummary } from '@datapos/datapos-shared';
 
-// Dependencies - Data
+// Dependencies - Data.
 import config from '../config.json';
 import fileStoreIndex from './fileStoreIndex.json';
 import { version } from '../package.json';
 
-// Interfaces/Types - File Store Index
+// Types - File store index.
 type FileStoreIndex = Record<string, { id?: string; childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
 
 // Constants
@@ -27,20 +22,22 @@ const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_RETRIEVE_CHUNK_SIZE = 1000;
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 
-// Classes - File Store Emulator Connector
+// Classes - File store emulator connector.
 export default class FileStoreEmulatorConnector implements Connector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
+    readonly tools: ConnectorTools;
 
-    constructor(connectionConfig: ConnectionConfig) {
+    constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools) {
         this.abortController = null;
         this.config = config as ConnectorConfig;
         this.config.version = version;
         this.connectionConfig = connectionConfig;
+        this.tools = tools;
     }
 
-    // Operations - Abort Operation
+    // Operations - Abort operation.
     abortOperation(connector: FileStoreEmulatorConnector): void {
         if (!connector.abortController) return;
         connector.abortController.abort();
@@ -48,7 +45,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         return;
     }
 
-    // Operations - Find Object
+    // Operations - Find object.
     async findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
         // Loop through the file store index checking for an object entry with an identifier equal to the object name.
         for (const folderPath in fileStoreIndex) {
@@ -61,28 +58,28 @@ export default class FileStoreEmulatorConnector implements Connector {
         return {}; // Not found, return undefined folder path.
     }
 
-    // Operations - List Nodes
+    // Operations - List nodes.
     async listNodes(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
         const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
         for (const indexItem of indexItems) {
             if (indexItem.typeId === 'folder') {
-                connectionNodeConfigs.push(constructFolderNodeConfig(settings.folderPath, indexItem.name, indexItem.childCount));
+                connectionNodeConfigs.push(this.constructFolderNodeConfig(settings.folderPath, indexItem.name, indexItem.childCount));
             } else {
-                connectionNodeConfigs.push(constructObjectNodeConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
+                connectionNodeConfigs.push(this.constructObjectNodeConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
             }
         }
         return { cursor: undefined, isMore: false, connectionNodeConfigs, totalCount: connectionNodeConfigs.length };
     }
 
-    // Operations - Preview Object
+    // Operations - Preview object.
     async previewObject(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () => {
-                throw new OperationalError(CALLBACK_PREVIEW_ABORTED, 'datapos-connector-file-store-emulator|Connector|preview.abort');
+                throw new this.tools.shared.OperationalError(CALLBACK_PREVIEW_ABORTED, 'datapos-connector-file-store-emulator|Connector|preview.abort');
             });
 
             // Fetch chunk from start of file.
@@ -93,7 +90,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 connector.abortController = null;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
             } else {
-                throw await buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
+                throw await this.tools.shared.buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
             }
         } catch (error) {
             connector.abortController = null;
@@ -101,13 +98,12 @@ export default class FileStoreEmulatorConnector implements Connector {
         }
     }
 
-    // Operations - Retrieve Records
+    // Operations - Retrieve records.
     async retrieveRecords(
         connector: FileStoreEmulatorConnector,
         settings: RetrieveSettings,
         chunk: (records: string[][]) => void,
-        complete: (result: RetrieveSummary) => void,
-        tools: RetrieveTools
+        complete: (result: RetrieveSummary) => void
     ): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
@@ -118,7 +114,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                     'abort',
                     () => {
                         connector.abortController = null;
-                        reject(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
+                        reject(new this.tools.shared.OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
                     },
                     { once: true }
                 );
@@ -127,7 +123,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 let pendingRows: string[][] = []; // Array to store rows of parsed field values and associated information.
 
                 // Parser - Create a parser object for CSV parsing.
-                const parser = tools.csvParse({
+                const parser = this.tools.csvParse({
                     delimiter: settings.valueDelimiterId,
                     info: true,
                     relax_column_count: true,
@@ -202,7 +198,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
-                                const error = await buildFetchError(
+                                const error = await this.tools.shared.buildFetchError(
                                     response,
                                     `Failed to fetch '${settings.path}' file.`,
                                     'datapos-connector-file-store-emulator|Connector|retrieve'
@@ -225,26 +221,18 @@ export default class FileStoreEmulatorConnector implements Connector {
             }
         });
     }
-}
 
-// Utilities - Construct Folder Node Configuration
-function constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
-    return { id: nanoid(), childCount, folderPath, label: name, name, typeId: 'folder' };
-}
+    // Utilities - Construct folder node configuration.
+    private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
+        return { id: this.tools.nanoid(), childCount, folderPath, label: name, name, typeId: 'folder' };
+    }
 
-// Utilities - Construct Object (File) Node Configuration
-function constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
-    const name = extractNameFromPath(fullName);
-    const extension = extractExtensionFromPath(fullName);
-    return {
-        id,
-        extension,
-        folderPath,
-        label: fullName,
-        lastModifiedAt: convertMillisecondsToTimestamp(lastModifiedAt),
-        mimeType: lookupMimeTypeForExtension(extension),
-        name,
-        size,
-        typeId: 'object'
-    };
+    // Utilities - Construct object (file) node configuration.
+    private constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
+        const name = this.tools.shared.extractNameFromPath(fullName);
+        const extension = this.tools.shared.extractExtensionFromPath(fullName);
+        const lastModifiedAtTimestamp = this.tools.shared.convertMillisecondsToTimestamp(lastModifiedAt);
+        const mimeType = this.tools.shared.lookupMimeTypeForExtension(extension);
+        return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
+    }
 }
