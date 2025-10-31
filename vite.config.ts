@@ -1,4 +1,4 @@
-// Dependencies
+// Dependencies - Vendor.
 import config from './config.json';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
