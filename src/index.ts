@@ -79,7 +79,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () => {
-                throw new this.tools.shared.OperationalError(CALLBACK_PREVIEW_ABORTED, 'datapos-connector-file-store-emulator|Connector|preview.abort');
+                throw new this.tools.dataPos.OperationalError(CALLBACK_PREVIEW_ABORTED, 'datapos-connector-file-store-emulator|Connector|preview.abort');
             });
 
             // Fetch chunk from start of file.
@@ -90,7 +90,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 connector.abortController = null;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
             } else {
-                throw await this.tools.shared.buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
+                throw await this.tools.dataPos.buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
             }
         } catch (error) {
             connector.abortController = null;
@@ -114,7 +114,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                     'abort',
                     () => {
                         connector.abortController = null;
-                        reject(new this.tools.shared.OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
+                        reject(new this.tools.dataPos.OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
                     },
                     { once: true }
                 );
@@ -198,7 +198,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
-                                const error = await this.tools.shared.buildFetchError(
+                                const error = await this.tools.dataPos.buildFetchError(
                                     response,
                                     `Failed to fetch '${settings.path}' file.`,
                                     'datapos-connector-file-store-emulator|Connector|retrieve'
@@ -229,10 +229,10 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Utilities - Construct object (file) node configuration.
     private constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
-        const name = this.tools.shared.extractNameFromPath(fullName);
-        const extension = this.tools.shared.extractExtensionFromPath(fullName);
-        const lastModifiedAtTimestamp = this.tools.shared.convertMillisecondsToTimestamp(lastModifiedAt);
-        const mimeType = this.tools.shared.lookupMimeTypeForExtension(extension);
+        const name = this.tools.dataPos.extractNameFromPath(fullName);
+        const extension = this.tools.dataPos.extractExtensionFromPath(fullName);
+        const lastModifiedAtTimestamp = this.tools.dataPos.convertMillisecondsToTimestamp(lastModifiedAt);
+        const mimeType = this.tools.dataPos.lookupMimeTypeForExtension(extension);
         return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
     }
 }
