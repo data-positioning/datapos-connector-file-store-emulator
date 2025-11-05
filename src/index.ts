@@ -1,3 +1,7 @@
+/*
+ * File store emulator connector class.
+ */
+
 // TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
 
 // Dependencies - Framework.
