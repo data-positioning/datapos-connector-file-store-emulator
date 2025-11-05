@@ -8,9 +8,9 @@ import type { PreviewResult, PreviewSettings } from '@datapos/datapos-shared';
 import type { RetrieveSettings, RetrieveSummary } from '@datapos/datapos-shared';
 
 // Dependencies - Data.
-import config from '../config.json';
-import fileStoreIndex from './fileStoreIndex.json';
-import { version } from '../package.json';
+import config from '~/config.json';
+import fileStoreIndex from '@/fileStoreIndex.json';
+import { version } from '~/package.json';
 
 // Types - File store index.
 type FileStoreIndex = Record<string, { id?: string; childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;

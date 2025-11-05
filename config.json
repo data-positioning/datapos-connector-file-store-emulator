@@ -21,7 +21,7 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.190",
+    "version": "0.2.191",
     "interface": [
         "abortOperation",
         "findObject",

@@ -15,5 +15,8 @@ export default defineConfig({
         },
         target: 'ESNext'
     },
-    plugins: [dts({ outDir: 'dist/types' })]
+    plugins: [dts({ outDir: 'dist/types' })],
+    resolve: {
+        alias: { '~': resolve(__dirname, '.'), '@': resolve(__dirname, 'src') }
+    }
 });
