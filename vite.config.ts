@@ -1,3 +1,7 @@
+/**
+ * Vite configuration.
+ */
+
 // Dependencies - Vendor.
 import config from './config.json';
 import { defineConfig } from 'vite';

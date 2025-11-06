@@ -1,9 +1,13 @@
-// Dependencies
+/**
+ * ESLint configuration.
+ */
+
+// Dependencies - Vendor.
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tseslintParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 
-// Configuration
+// Exposures - Configuration.
 export default [
     {
         files: ['vite.config.ts', 'src/*.ts'],
