@@ -3,10 +3,10 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.2.210",
+    "version": "0.2.211",
     "devDependencies": {
-        "@datapos/datapos-development": "^0.3.189",
-        "@datapos/datapos-shared": "^0.3.254",
+        "@datapos/datapos-development": "^0.3.193",
+        "@datapos/datapos-shared": "^0.3.255",
         "@types/node": "^24.10.1",
         "@typescript-eslint/eslint-plugin": "^8.48.0",
         "@typescript-eslint/parser": "^8.48.0",
@@ -18,7 +18,7 @@
         "license-report-check": "^0.1.2",
         "nanoid": "^5.1.6",
         "npm-check-updates": "^19.1.2",
-        "prettier": "^3.7.2",
+        "prettier": "^3.7.3",
         "typescript": "^5.9.3",
         "vite": "^7.2.4",
         "vite-plugin-dts": "^4.5.4"
