@@ -140,7 +140,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                         let data;
                         while ((data = parser.read() as string[]) !== null) {
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                            pendingRows.push(data); // Append the row of parsed values and associated information to the pending rows array.
+                            // pendingRows.push(data); // Append the row of parsed values and associated information to the pending rows array.
                             if (pendingRows.length < DEFAULT_RETRIEVE_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
                             chunk([]); // Pass the pending rows to the engine using the 'chunk' callback.
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
