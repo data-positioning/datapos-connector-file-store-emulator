@@ -1,5 +1,6 @@
 # Data Positioning File Store Emulator Connector
 
+<span><!-- OWASP_BADGES_START -->[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://data-positioning.github.io/datapos-connector-file-store-emulator/dependency-check-reports/dependency-check-report.html)<!-- OWASP_BADGES_END --></span>
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 A TypeScript library that implements the File Store Emulator connector. It provides easy access to a curated set of files for demonstration and evaluation purposes.
@@ -7,6 +8,30 @@ A TypeScript library that implements the File Store Emulator connector. It provi
 ## Installation
 
 There’s no need to install this connector manually. Once released, it’s uploaded to the Data Positioning Engine cloud and becomes instantly available to all new instances of the browser app. A notification about the new version is also sent to all existing browser apps.
+
+## Reports & Compliance
+
+### Dependency Check Report
+
+The OWASP Dependency Check Report identifies known vulnerabilities in project dependencies. It is generated automatically on each release using the npm package `owasp-dependency-check`. We also rely on GitHub Dependabot to continuously check for vulnerabilities across all dependencies.
+
+[View the OWASP Dependency Check Report](https://data-positioning.github.io/connector-file-store-emulator/dependency-check-reports/dependency-check-report.html)
+
+### Dependency Licenses
+
+The following table lists top-level production and peer dependencies. All these dependencies (including transitive ones) have been recursively verified to use Apache-2.0, CC0-1.0, or MIT—commercially friendly licenses with minimal restrictions. Developers cloning this repository should independently verify dev and optional dependencies; users of the uploaded library are covered by these checks.
+
+<!-- DEPENDENCY_LICENSES_START -->
+
+<!-- DEPENDENCY_LICENSES_END -->
+
+**Installed dependencies are kept up-to-date with latest releases.**
+
+### Bundle Analysis Report
+
+The Bundle Analysis Report provides a detailed breakdown of the bundle's composition and module sizes, helping to identify which modules contribute most to the final build. It is generated automatically on each release using the npm package `rollup-plugin-visualizer`.
+
+[View the Bundle Analysis Report](https://data-positioning.github.io/datapos-connector-file-store-emulator/stats/index.html)
 
 ## Repository Management Commands
 
