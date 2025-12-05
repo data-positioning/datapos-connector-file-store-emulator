@@ -1,9 +1,9 @@
 {
     "name": "datapos-connector-file-store-emulator",
     "license": "MIT",
-    "private": true,
+    "private": false,
     "type": "module",
-    "version": "0.2.214",
+    "version": "0.2.215",
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.261",
         "@datapos/datapos-shared": "^0.3.259",
