@@ -119,7 +119,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                     'abort',
                     () => {
                         connector.abortController = null;
-                        reject(new this.tools.dataPos.OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
+                        reject(new connector.tools.dataPos.OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
                     },
                     { once: true }
                 );
@@ -128,7 +128,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 let pendingRows: string[][] = []; // Array to store rows of parsed field values and associated information.
 
                 // Parser - Create a parser object for CSV parsing.
-                const parser = this.tools.csvParse({
+                const parser = connector.tools.csvParse({
                     delimiter: settings.valueDelimiterId,
                     info: true,
                     relax_column_count: true,
@@ -203,7 +203,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
-                                const error = await this.tools.dataPos.buildFetchError(
+                                const error = await connector.tools.dataPos.buildFetchError(
                                     response,
                                     `Failed to fetch '${settings.path}' file.`,
                                     'datapos-connector-file-store-emulator|Connector|retrieve'
