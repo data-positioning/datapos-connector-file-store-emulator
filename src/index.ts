@@ -38,7 +38,6 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.config = config as ConnectorConfig;
         this.config.version = version;
         this.connectionConfig = connectionConfig;
-        console.log('tools', tools);
         this.tools = tools;
     }
 
@@ -110,6 +109,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveSummary) => void
     ): Promise<void> {
+        console.log('tools', this.tools);
         return new Promise((resolve, reject) => {
             try {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
