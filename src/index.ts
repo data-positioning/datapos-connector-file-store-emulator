@@ -38,6 +38,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.config = config as ConnectorConfig;
         this.config.version = version;
         this.connectionConfig = connectionConfig;
+        console.log('tools', tools);
         this.tools = tools;
     }
 
