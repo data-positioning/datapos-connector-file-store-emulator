@@ -5,11 +5,21 @@
 // TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
 
 // Dependencies - Framework.
-import type { ConnectionConfig, ConnectionNodeConfig, Connector, ConnectorConfig, ConnectorTools } from '@datapos/datapos-shared';
-import type { FindResult, FindSettings } from '@datapos/datapos-shared';
-import type { ListResult, ListSettings } from '@datapos/datapos-shared';
-import type { PreviewResult, PreviewSettings } from '@datapos/datapos-shared';
-import type { RetrieveSettings, RetrieveSummary } from '@datapos/datapos-shared';
+import type {
+    ConnectionConfig,
+    ConnectionNodeConfig,
+    Connector,
+    ConnectorConfig,
+    ConnectorTools,
+    FindResult,
+    FindSettings,
+    ListResult,
+    ListSettings,
+    PreviewResult,
+    PreviewSettings,
+    RetrieveSettings,
+    RetrieveSummary
+} from '@datapos/datapos-shared';
 
 // Dependencies - Data.
 import config from '~/config.json';
@@ -34,7 +44,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     readonly tools: ConnectorTools;
 
     constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools) {
-        this.abortController = null;
+        this.abortController = undefined;
         this.config = config as ConnectorConfig;
         this.config.version = version;
         this.connectionConfig = connectionConfig;
@@ -45,8 +55,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     abortOperation(connector: FileStoreEmulatorConnector): void {
         if (!connector.abortController) return;
         connector.abortController.abort();
-        connector.abortController = null;
-        return;
+        connector.abortController = undefined;
     }
 
     // Operations - Find object.
@@ -91,13 +100,13 @@ export default class FileStoreEmulatorConnector implements Connector {
             const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             const response = await fetch(encodeURI(url), { headers, signal });
             if (response.ok) {
-                connector.abortController = null;
+                connector.abortController = undefined;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
             } else {
                 throw await this.tools.dataPos.buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
             }
         } catch (error) {
-            connector.abortController = null;
+            connector.abortController = undefined;
             throw error;
         }
     }
@@ -117,7 +126,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 signal.addEventListener(
                     'abort',
                     () => {
-                        connector.abortController = null;
+                        connector.abortController = undefined;
                         reject(new connector.tools.dataPos.OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
                     },
                     { once: true }
@@ -146,14 +155,14 @@ export default class FileStoreEmulatorConnector implements Connector {
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
                     } catch (error) {
-                        connector.abortController = null;
+                        connector.abortController = undefined;
                         reject(error);
                     }
                 });
 
                 // Parser - Event listener for the 'error' event.
                 parser.on('error', (error) => {
-                    connector.abortController = null;
+                    connector.abortController = undefined;
                     reject(error);
                 });
 
@@ -161,7 +170,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 parser.on('end', () => {
                     try {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                        connector.abortController = null; // Clear the abort controller.
+                        connector.abortController = undefined; // Clear the abort controller.
                         if (pendingRows.length > 0) {
                             chunk([]);
                             pendingRows = [];
@@ -176,7 +185,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                         });
                         resolve();
                     } catch (error) {
-                        connector.abortController = null;
+                        connector.abortController = undefined;
                         reject(error);
                     }
                 });
@@ -195,7 +204,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                                     // Write the decoded data to the parser and terminate if there is an error.
                                     parser.write(result.value, (error) => {
                                         if (error) {
-                                            connector.abortController = null;
+                                            connector.abortController = undefined;
                                             reject(error);
                                         }
                                     });
@@ -207,20 +216,20 @@ export default class FileStoreEmulatorConnector implements Connector {
                                     `Failed to fetch '${settings.path}' file.`,
                                     'datapos-connector-file-store-emulator|Connector|retrieve'
                                 );
-                                connector.abortController = null;
+                                connector.abortController = undefined;
                                 reject(error);
                             }
                         } catch (error) {
-                            connector.abortController = null;
+                            connector.abortController = undefined;
                             reject(error);
                         }
                     })
                     .catch((error) => {
-                        connector.abortController = null;
+                        connector.abortController = undefined;
                         reject(error);
                     });
             } catch (error) {
-                connector.abortController = null;
+                connector.abortController = undefined;
                 reject(error);
             }
         });

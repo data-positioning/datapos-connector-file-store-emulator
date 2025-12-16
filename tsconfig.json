@@ -1,18 +1,27 @@
 {
     "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "baseUrl": ".",
-        "declaration": true,
-        "module": "ESNext",
-        "moduleResolution": "node",
-        "noImplicitAny": true,
-        "outDir": "./dist",
+        "baseUrl": "./", // Makes relative imports like "src/..." resolve from the repo root.
+        "declaration": true, // Emit .d.ts files so consumers get typings.
+        "esModuleInterop": true, // Allow default-import syntax for CommonJS packages.
+        "isolatedModules": true, // Treat each file as a separate module; keeps Vite happy.
+        "lib": ["ESNext"], // Target the latest JavaScript libs and built-ins.
+        "module": "ESNext", // Generate native ESM output for bundlers.
+        "moduleResolution": "bundler", // Resolve modules like a bundler (needed for aliases and imports such as 'sonda/vite').
+        "noUncheckedIndexedAccess": true, // Enforce checks when indexing into objects or arrays.
+        "noImplicitAny": true, // Disallow implicit any types to keep everything typed.
+        "outDir": "dist", // Place compiler output in dist/.
         "paths": {
+            // Configure import aliases used across the project.
             "~/*": ["*"],
             "@/*": ["src/*"]
         },
-        "resolveJsonModule": true,
-        "target": "ESNext"
+        "resolveJsonModule": true, // Allow importing JSON modules directly.
+        "skipLibCheck": true, // Skip type checking for .d.ts in node_modules to speed up builds.
+        "sourceMap": true, // Emit source maps for better debugging.
+        "strict": true, // Enable the full strict type-checking suite.
+        "strictNullChecks": true, // Major strict setting: enforce null/undefined checks.
+        "target": "ESNext", // Target latest JavaScript syntax when emitting.
+        "useDefineForClassFields": true // Use define semantics for class fields (aligns with JS standard).
     },
-    "include": ["vite.config.ts", "src/**/*.ts", "tests/**/*"]
+    "include": ["vite.config.*", "src/**/*", "tests/**/*"]
 }

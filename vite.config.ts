@@ -45,8 +45,8 @@ export default defineConfig({
     plugins: [dts({ outDir: 'dist/types' })],
     resolve: {
         alias: {
-            '~': resolve(__dirname, '.'),
-            '@': resolve(__dirname, 'src')
+            '~': fileURLToPath(new URL('./', import.meta.url)), // Base alias matching tsconfig.
+            '@': fileURLToPath(new URL('src', import.meta.url)) // Source alias matching tsconfig.
         }
     }
 });

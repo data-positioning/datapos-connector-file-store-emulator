@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "declaration": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "outDir": "./dist",
+        "paths": {
+            "~/*": ["*"],
+            "@/*": ["src/*"]
+        },
+        "resolveJsonModule": true,
+        "target": "ESNext"
+    },
+    "include": ["vite.config.ts", "src/**/*.ts", "tests/**/*"]
+}
