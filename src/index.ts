@@ -109,7 +109,6 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveSummary) => void
     ): Promise<void> {
-        console.log(1111);
         return new Promise((resolve, reject) => {
             try {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
