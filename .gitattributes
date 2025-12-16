@@ -1,4 +1,2 @@
-dependency-check-reports/*.html linguist-vendored
-dependency-check-reports/*.json linguist-vendored
-stats/*.js linguist-vendored
-stats/*.html linguist-vendored
+bundle-analysis-reports/** linguist-vendored
+dependency-check-reports/** linguist-vendored
