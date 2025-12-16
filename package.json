@@ -1,19 +1,46 @@
 {
     "name": "datapos-connector-file-store-emulator",
+    "version": "0.2.248",
     "license": "MIT",
+    "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "private": false,
     "type": "module",
-    "version": "0.2.247",
+    "homepage": "https://www.datapos.app",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/data-positioning/datapos-connector-file-store-emulator.git"
+    },
+    "bugs": {
+        "url": "https://github.com/data-positioning/datapos-connector-file-store-emulator/issues"
+    },
+    "module": "./dist/datapos-connector-file-store-emulator.es.es.js",
+    "types": "./dist/types/src/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/datapos-connector-file-store-emulator.es.js",
+            "types": "./dist/types/src/index.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "prettier": "@datapos/datapos-development/prettierrc",
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.379",
         "@datapos/datapos-shared": "^0.3.300",
-        "@types/node": "^25.0.2",
+        "@datapos/eslint-config-datapos": "^1.0.18",
+        "@types/node": "^25.0.3",
         "@typescript-eslint/eslint-plugin": "^8.50.0",
         "@typescript-eslint/parser": "^8.50.0",
         "csv-parse": "^6.1.0",
         "eslint": "^9.39.2",
+        "eslint-import-resolver-typescript": "^4.4.4",
         "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-security": "^3.0.1",
+        "eslint-plugin-sonarjs": "^3.0.5",
+        "eslint-plugin-unicorn": "^62.0.0",
         "jiti": "^2.6.1",
+        "license-downloader": "^1.3.3",
         "license-report": "^6.8.1",
         "license-report-check": "^0.1.2",
         "license-report-recursive": "^6.8.2",
@@ -22,38 +49,22 @@
         "owasp-dependency-check": "^1.0.0",
         "prettier": "^3.7.4",
         "rollup-plugin-visualizer": "^6.0.5",
+        "sonda": "^0.10.1",
         "typescript": "^5.9.3",
         "vite": "^7.3.0",
-        "vite-plugin-dts": "^4.5.4"
+        "vite-plugin-dts": "^4.5.4",
+        "vitest": "^4.0.16"
     },
     "scripts": {
-        "audit": "node -e \"import('@datapos/datapos-development').then(m => m.auditDependencies())\"",
+        "audit": "op run --env-file=.env -- node -e \"import('@datapos/datapos-development').then(m => m.auditDependencies())\"",
         "build": "node -e \"import('@datapos/datapos-development').then(m => m.buildProject())\"",
         "check": "node -e \"import('@datapos/datapos-development').then(m => m.checkDependencies())\"",
-        "document": "node -e \"import('@datapos/datapos-development').then(m => m.documentDependencies(['MIT']))\"",
+        "document": "op run --env-file=.env -- node -e \"import('@datapos/datapos-development').then(m => m.documentDependencies(['MIT']))\"",
         "format": "node -e \"import('@datapos/datapos-development').then(m => m.formatCode())\"",
         "lint": "node -e \"import('@datapos/datapos-development').then(m => m.lintCode())\"",
         "release": "op run --env-file=.env -- node -e \"import('@datapos/datapos-development').then(m => m.releaseProject())\"",
         "sync": "node -e \"import('@datapos/datapos-development').then(m => m.syncProjectWithGitHub())\"",
         "test": "node -e \"import('@datapos/datapos-development').then(m => m.testProject())\"",
-        "update": "node -e \"import('@datapos/datapos-development').then(m => m.updateDataPosDependencies(['development', 'shared']))\"",
-        "audit1": "npm audit",
-        "build1": "vite build",
-        "buildConnectorConfig1": "node -e \"import('@datapos/datapos-development').then(m => m.buildConnectorConfig())\"",
-        "bump:version1": "node -e \"import('@datapos/datapos-development').then(m => m.bumpVersion())\"",
-        "check1": "npm outdated; npm-check-updates -i",
-        "document1": "license-report --only=prod,peer > LICENSES.json && license-report-check --source ./LICENSES.json --allowed 'MIT' --allowed 'n/a' --allowed 'Apache-2.0' --output=table",
-        "format1": "prettier --write src/",
-        "lint1": "eslint .",
-        "publishToNPM1": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
-        "release1": "npm run syncWithGitHub && npm run build && npm run uploadModuleToR2 && npm run uploadModuleConfig",
-        "release2": "npm run build && npm run uploadModuleToR2 && npm run uploadModuleConfig",
-        "sync1": "npm run bump:version && npm run _sync:withGitHub",
-        "update:dataPosDeps1": "npm run _update:developDep && npm run _update:sharedDep",
-        "_sync:withGitHub1": "node -e \"import('@datapos/datapos-development').then(m => m.syncWithGitHub())\"",
-        "_update:developDep1": "npm install --save-dev @datapos/datapos-development@latest",
-        "_update:sharedDep1": "npm install @datapos/datapos-shared@latest",
-        "uploadModuleConfig1": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleConfig())\"",
-        "uploadModuleToR21": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-connector-file-store-emulator.es.js', 'datapos-engine-eu/connectors/datapos-connector-file-store-emulator.es.js'))\""
+        "update": "node -e \"import('@datapos/datapos-development').then(m => m.updateDataPosDependencies(['development', 'shared']))\""
     }
 }
