@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": false,
     "type": "module",
-    "version": "0.2.233",
+    "version": "0.2.234",
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.373",
         "@datapos/datapos-shared": "^0.3.300",
