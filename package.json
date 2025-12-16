@@ -3,9 +3,9 @@
     "license": "MIT",
     "private": false,
     "type": "module",
-    "version": "0.2.243",
+    "version": "0.2.244",
     "devDependencies": {
-        "@datapos/datapos-development": "^0.3.377",
+        "@datapos/datapos-development": "^0.3.378",
         "@datapos/datapos-shared": "^0.3.300",
         "@types/node": "^25.0.2",
         "@typescript-eslint/eslint-plugin": "^8.50.0",
