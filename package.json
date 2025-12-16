@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": false,
     "type": "module",
-    "version": "0.2.234",
+    "version": "0.2.235",
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.373",
         "@datapos/datapos-shared": "^0.3.300",
@@ -33,7 +33,7 @@
         "document": "node -e \"import('@datapos/datapos-development').then(m => m.documentDependencies(['MIT']))\"",
         "format": "node -e \"import('@datapos/datapos-development').then(m => m.formatCode())\"",
         "lint": "node -e \"import('@datapos/datapos-development').then(m => m.lintCode())\"",
-        "release": "node -e \"import('@datapos/datapos-development').then(m => m.releaseProject())\"",
+        "release": "op run --env-file=.env -- node -e \"import('@datapos/datapos-development').then(m => m.releaseProject())\"",
         "sync": "node -e \"import('@datapos/datapos-development').then(m => m.syncProjectWithGitHub())\"",
         "test": "node -e \"import('@datapos/datapos-development').then(m => m.testProject())\"",
         "update": "node -e \"import('@datapos/datapos-development').then(m => m.updateDataPosDependencies(['development', 'shared']))\"",
