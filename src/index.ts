@@ -2,9 +2,13 @@
  * File store emulator connector class.
  */
 
-// TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
+// NOTE: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
 
-// Dependencies - Framework.
+// Dependencies - Vendor.
+import type { HeadersInit } from 'undici';
+
+/** Dependencies - Framework. */
+import { normalizeToError } from '@datapos/datapos-shared';
 import type {
     ConnectionConfig,
     ConnectionNodeConfig,
@@ -21,22 +25,25 @@ import type {
     RetrieveSummary
 } from '@datapos/datapos-shared';
 
-// Dependencies - Data.
+/** Dependencies - Data. */
 import config from '~/config.json';
 import fileStoreIndex from '@/fileStoreIndex.json';
 import { version } from '~/package.json';
 
-// Types - File store index.
-type FileStoreIndex = Record<string, { id?: string; childCount?: number; lastModifiedAt?: number; name: string; size?: number; typeId: string }[]>;
+/** Interfaces/Types - File store index. */
+type FileStoreIndexItem =
+    | ({ typeId: 'folder'; childCount: number } & { name: string })
+    | ({ typeId: 'object'; id: string; lastModifiedAt: number; size: number } & { name: string });
+type FileStoreIndex = Record<string, FileStoreIndexItem[]>;
 
-// Constants
+/** Constants */
 const CALLBACK_PREVIEW_ABORTED = 'Connector failed to abort preview object operation.';
 const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve all records operation.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_RETRIEVE_CHUNK_SIZE = 1000;
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 
-// Classes - File store emulator connector.
+/** Classes - File store emulator connector. */
 export default class FileStoreEmulatorConnector implements Connector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
@@ -59,21 +66,22 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Find object.
-    async findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
+    findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
         // Loop through the file store index checking for an object entry with an identifier equal to the object name.
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
+                // eslint-disable-next-line security/detect-object-injection
                 const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
-                const indexItem = indexItems.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === settings.objectName);
-                if (indexItem) return { folderPath }; // Found, return folder path.
+                const indexItem = indexItems?.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === settings.objectName);
+                if (indexItem) return Promise.resolve({ folderPath }); // Found, return folder path.
             }
         }
-        return {}; // Not found, return undefined folder path.
+        return Promise.resolve({}); // Not found, return undefined folder path.
     }
 
     // Operations - List nodes.
-    async listNodes(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
-        const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath];
+    listNodes(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
+        const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath] ?? [];
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
         for (const indexItem of indexItems) {
             if (indexItem.typeId === 'folder') {
@@ -82,7 +90,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 connectionNodeConfigs.push(this.constructObjectNodeConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
             }
         }
-        return { cursor: undefined, isMore: false, connectionNodeConfigs, totalCount: connectionNodeConfigs.length };
+        return Promise.resolve({ cursor: undefined, isMore: false, connectionNodeConfigs, totalCount: connectionNodeConfigs.length });
     }
 
     // Operations - Preview object.
@@ -97,7 +105,7 @@ export default class FileStoreEmulatorConnector implements Connector {
 
             // Fetch chunk from start of file.
             const url = `${URL_PREFIX}/fileStore${settings.path}`;
-            const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize || DEFAULT_PREVIEW_CHUNK_SIZE}` };
+            const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize != null || DEFAULT_PREVIEW_CHUNK_SIZE}` };
             const response = await fetch(encodeURI(url), { headers, signal });
             if (response.ok) {
                 connector.abortController = undefined;
@@ -146,24 +154,24 @@ export default class FileStoreEmulatorConnector implements Connector {
                 // Parser - Event listener for the 'readable' (data available) event.
                 parser.on('readable', () => {
                     try {
-                        let data;
-                        while ((data = parser.read() as string[]) !== null) {
+                        let data: string[] | null;
+                        while ((data = parser.read() as string[] | null) !== null) {
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                            // pendingRows.push(data); // Append the row of parsed values and associated information to the pending rows array.
+                            pendingRows.push(data); // Append the row of parsed values and associated information to the pending rows array.
                             if (pendingRows.length < DEFAULT_RETRIEVE_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
                             chunk([]); // Pass the pending rows to the engine using the 'chunk' callback.
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
                     } catch (error) {
                         connector.abortController = undefined;
-                        reject(error);
+                        reject(normalizeToError(error));
                     }
                 });
 
                 // Parser - Event listener for the 'error' event.
                 parser.on('error', (error) => {
                     connector.abortController = undefined;
-                    reject(error);
+                    reject(normalizeToError(error));
                 });
 
                 // Parser - Event listener for the 'end' (end of data) event.
@@ -186,7 +194,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                         resolve();
                     } catch (error) {
                         connector.abortController = undefined;
-                        reject(error);
+                        reject(normalizeToError(error));
                     }
                 });
 
@@ -195,19 +203,20 @@ export default class FileStoreEmulatorConnector implements Connector {
                 fetch(encodeURI(url), { signal })
                     .then(async (response) => {
                         try {
-                            if (response.ok) {
+                            if (response.ok && response.body) {
                                 const stream = response.body.pipeThrough(new TextDecoderStream(settings.encodingId));
                                 const decodedStreamReader = stream.getReader();
-                                let result;
-                                while (!(result = await decodedStreamReader.read()).done) {
+                                let result = await decodedStreamReader.read();
+                                while (!result.done) {
                                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
                                     // Write the decoded data to the parser and terminate if there is an error.
                                     parser.write(result.value, (error) => {
                                         if (error) {
                                             connector.abortController = undefined;
-                                            reject(error);
+                                            reject(normalizeToError(error));
                                         }
                                     });
+                                    result = await decodedStreamReader.read();
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
@@ -221,28 +230,28 @@ export default class FileStoreEmulatorConnector implements Connector {
                             }
                         } catch (error) {
                             connector.abortController = undefined;
-                            reject(error);
+                            reject(normalizeToError(error));
                         }
                     })
-                    .catch((error) => {
+                    .catch((error: unknown) => {
                         connector.abortController = undefined;
-                        reject(error);
+                        reject(normalizeToError(error));
                     });
             } catch (error) {
                 connector.abortController = undefined;
-                reject(error);
+                reject(normalizeToError(error));
             }
         });
     }
 
-    // Utilities - Construct folder node configuration.
+    /** Utilities - Construct folder node configuration. */
     private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
         return { id: this.tools.nanoid(), childCount, folderPath, label: name, name, typeId: 'folder' };
     }
 
-    // Utilities - Construct object (file) node configuration.
+    /** Utilities - Construct object (file) node configuration. */
     private constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
-        const name = this.tools.dataPos.extractNameFromPath(fullName);
+        const name = this.tools.dataPos.extractNameFromPath(fullName) ?? '';
         const extension = this.tools.dataPos.extractExtensionFromPath(fullName);
         const lastModifiedAtTimestamp = this.tools.dataPos.convertMillisecondsToTimestamp(lastModifiedAt);
         const mimeType = this.tools.dataPos.lookupMimeTypeForExtension(extension);
