@@ -17,6 +17,8 @@ import type {
     ConnectorTools,
     FindResult,
     FindSettings,
+    GetReaderResult,
+    GetReaderSettings,
     ListResult,
     ListSettings,
     PreviewResult,
@@ -77,6 +79,22 @@ export default class FileStoreEmulatorConnector implements Connector {
             }
         }
         return Promise.resolve({}); // Not found, return undefined folder path.
+    }
+
+    // Operations - Get reader.
+    async getReader(connector: FileStoreEmulatorConnector, settings: GetReaderSettings): Promise<GetReaderResult> {
+        try {
+            console.log('getReader', 'connector', connector);
+            console.log('getReader', 'settings', settings);
+            const response = await fetch('https://sample-data-eu.datapos.app/fileStore/ENGAGEMENT_START_EVENTS_202405121858.csv');
+            console.log('getReader', 'response', response);
+            if (!response.body) throw new Error('ReadableStream not supported by this browser.');
+
+            return await Promise.resolve({ readable: response.body }); // Not found, return undefined folder path.
+        } catch (error) {
+            connector.abortController = undefined;
+            throw error;
+        }
     }
 
     // Operations - List nodes.
@@ -253,7 +271,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     private constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
         const name = this.tools.dataPos.extractNameFromPath(fullName) ?? '';
         const extension = this.tools.dataPos.extractExtensionFromPath(fullName);
-        const lastModifiedAtTimestamp = this.tools.dataPos.convertMillisecondsToTimestamp(lastModifiedAt);
+        const lastModifiedAtTimestamp = lastModifiedAt;
         const mimeType = this.tools.dataPos.lookupMimeTypeForExtension(extension);
         return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
     }

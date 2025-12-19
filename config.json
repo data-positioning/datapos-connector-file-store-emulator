@@ -20,6 +20,7 @@
     "operations": [
         "abortOperation",
         "findObject",
+        "getReader",
         "listNodes",
         "previewObject",
         "retrieveRecords"
@@ -31,5 +32,5 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.273"
+    "version": "0.2.275"
 }
