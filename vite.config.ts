@@ -40,6 +40,7 @@ export default defineConfig({
                 })
             ]
         },
+        sourcemap: true,
         target: 'ESNext'
     },
     plugins: [dts({ outDir: 'dist/types' })],
