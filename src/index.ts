@@ -86,7 +86,8 @@ export default class FileStoreEmulatorConnector implements Connector {
         try {
             console.log('getReader', 'connector', connector);
             console.log('getReader', 'settings', settings);
-            const response = await fetch('https://sample-data-eu.datapos.app/fileStore/ENGAGEMENT_START_EVENTS_202405121858.csv');
+            // const response = await fetch('https://sample-data-eu.datapos.app/fileStore/ENGAGEMENT_START_EVENTS_202405121858.csv');
+            const response = await fetch('https://sample-data-eu.datapos.app/WDI_Data.csv');
             console.log('getReader', 'response', response);
             if (!response.body) throw new Error('ReadableStream not supported by this browser.');
 
