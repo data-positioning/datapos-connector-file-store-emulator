@@ -11,5 +11,5 @@ pub fn checksum_from_rust(input: &str) -> u32 {
 #[wasm_bindgen]
 pub fn add_my_numbers(left: i64, right: i64) -> i32 {
     // Delegate to shared i64 implementation and downcast to i32 for the WASM interface.
-    add_numbers(left as i64, right as i64) as i32
+    add_numbers(200 as i64, right as i64) as i32
 }
