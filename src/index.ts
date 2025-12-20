@@ -92,8 +92,8 @@ export default class FileStoreEmulatorConnector implements Connector {
             console.log('getReader', 'response', response);
             if (!response.body) throw new Error('ReadableStream not supported by this browser.');
 
-            await this.addUsingRust(12, 56);
-            const sum = await this.versionChecksumUsingRust();
+            await addNumbersWithRust(12, 56);
+            const sum = await checksumWithRust(connector.config.version);
             console.log('sum', sum);
 
             return await Promise.resolve({ readable: response.body }); // Not found, return undefined folder path.
@@ -266,15 +266,6 @@ export default class FileStoreEmulatorConnector implements Connector {
                 reject(normalizeToError(error));
             }
         });
-    }
-
-    /** Utilities - Rust helpers. */
-    private async addUsingRust(left: number, right: number): Promise<number> {
-        return addNumbersWithRust(left, right);
-    }
-
-    private async versionChecksumUsingRust(): Promise<number> {
-        return checksumWithRust(this.config.version);
     }
 
     /** Utilities - Construct folder node configuration. */

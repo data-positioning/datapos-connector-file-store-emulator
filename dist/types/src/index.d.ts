@@ -12,9 +12,6 @@ export default class FileStoreEmulatorConnector implements Connector {
     listNodes(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult>;
     previewObject(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult>;
     retrieveRecords(connector: FileStoreEmulatorConnector, settings: RetrieveSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveSummary) => void): Promise<void>;
-    /** Utilities - Rust helpers. */
-    private addUsingRust;
-    private versionChecksumUsingRust;
     /** Utilities - Construct folder node configuration. */
     private constructFolderNodeConfig;
     /** Utilities - Construct object (file) node configuration. */
