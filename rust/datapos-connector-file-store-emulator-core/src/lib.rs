@@ -1,4 +1,5 @@
 use wasm_bindgen::prelude::*;
+use datapos_engine_shared::add_numbers;
 
 /// Computes a simple checksum by summing every byte in the input string.
 #[wasm_bindgen]
@@ -9,5 +10,6 @@ pub fn checksum_from_rust(input: &str) -> u32 {
 /// Adds two signed 32-bit integers using native Rust arithmetic.
 #[wasm_bindgen]
 pub fn add_numbers(left: i32, right: i32) -> i32 {
-    left + right
+    // left + right
+    add_numbers(left,right);
 }

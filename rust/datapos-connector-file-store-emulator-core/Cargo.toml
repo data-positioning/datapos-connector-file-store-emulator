@@ -11,6 +11,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 wasm-bindgen = "0.2"
+datapos-engine-shared = { path = "../../../../datapos-engine/rust/datapos_engine_shared" }
 
 [profile.release]
 opt-level = "z"
