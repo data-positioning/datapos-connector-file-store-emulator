@@ -9,6 +9,14 @@
 
 A TypeScript library that implements the File Store Emulator connector. It provides easy access to a curated set of files for demonstration and evaluation purposes.
 
+## Rust WebAssembly Helpers
+
+The connector now ships with a lightweight Rust crate located in [rust/datapos-connector-file-store-emulator-core](rust/datapos-connector-file-store-emulator-core). It is compiled to WebAssembly with `wasm-pack` so TypeScript can call native Rust logic.
+
+- Run `npm run build:rust` (requires the [`wasm-pack` CLI](https://rustwasm.github.io/wasm-pack/installer/)) whenever you change the Rust sources. The command rebuilds the package into [rust/datapos-connector-file-store-emulator-core/pkg](rust/datapos-connector-file-store-emulator-core/pkg).
+- The async wrapper in [src/rustBridge.ts](src/rustBridge.ts) lazy-loads the generated bindings and surfaces helpers like `addNumbersWithRust()` and `checksumWithRust()`.
+- `FileStoreEmulatorConnector` exposes `addUsingRust()` and `versionChecksumUsingRust()` so consumers can exercise the Rust-backed functionality without dealing with low-level WebAssembly plumbing.
+
 ## Installation
 
 There’s no need to install this connector manually. Once released, it’s uploaded to the Data Positioning Engine cloud and becomes instantly available to all new instances of the browser app. A notification about the new version is also sent to all existing browser apps.
@@ -48,6 +56,7 @@ The following list details the repository management commands implementation by 
 | -------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
 | audit                | alt+ctrl+shift+a | Audit the project's dependencies for known security vulnerabilities.                                            |
 | build                | alt+ctrl+shift+b | Type-check, compile and minify for production. Output in '/dist' directory.                                     |
+| build:rust           |                  | Compile the Rust helper crate to WebAssembly via `wasm-pack`. Requires the `wasm-pack` CLI in your PATH.        |
 | buildConnectorConfig |                  |                                                                                                                 |
 | bumpVersion          | alt+ctrl+shift+v |                                                                                                                 |
 | check                | alt+ctrl+shift+c | List the dependencies in the project that are outdated.                                                         |

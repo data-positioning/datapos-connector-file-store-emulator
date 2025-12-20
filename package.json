@@ -1,6 +1,6 @@
 {
     "name": "datapos-connector-file-store-emulator",
-    "version": "0.2.280",
+    "version": "0.2.287",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "private": false,
@@ -26,8 +26,8 @@
     ],
     "prettier": "@datapos/datapos-development/prettierrc",
     "devDependencies": {
-        "@datapos/datapos-development": "^0.3.395",
-        "@datapos/datapos-shared": "^0.3.329",
+        "@datapos/datapos-development": "^0.3.396",
+        "@datapos/datapos-shared": "^0.3.330",
         "@datapos/eslint-config-datapos": "^1.0.27",
         "@types/node": "^25.0.3",
         "@typescript-eslint/eslint-plugin": "^8.50.0",
@@ -52,12 +52,14 @@
         "sonda": "^0.10.1",
         "typescript": "^5.9.3",
         "vite": "^7.3.0",
+        "vite-plugin-wasm": "^3.5.0",
         "vite-plugin-dts": "^4.5.4",
         "vitest": "^4.0.16"
     },
     "scripts": {
         "audit": "op run --env-file=.env -- node -e \"import('@datapos/datapos-development').then(m => m.auditDependencies())\"",
         "build": "node -e \"import('@datapos/datapos-development').then(m => m.buildProject())\"",
+        "build:rust": "wasm-pack build ./rust/datapos-connector-file-store-emulator-core --release --target bundler --out-dir pkg",
         "check": "node -e \"import('@datapos/datapos-development').then(m => m.checkDependencies())\"",
         "document": "op run --env-file=.env -- node -e \"import('@datapos/datapos-development').then(m => m.documentDependencies(['MIT']))\"",
         "format": "node -e \"import('@datapos/datapos-development').then(m => m.formatCode())\"",

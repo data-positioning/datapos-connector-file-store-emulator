@@ -31,6 +31,7 @@ import type {
 import config from '~/config.json';
 import fileStoreIndex from '@/fileStoreIndex.json';
 import { version } from '~/package.json';
+import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
 
 /** Interfaces/Types - File store index. */
 type FileStoreIndexItem =
@@ -90,6 +91,10 @@ export default class FileStoreEmulatorConnector implements Connector {
             // const response = await fetch('https://sample-data-eu.datapos.app/WDI_Data.csv');
             console.log('getReader', 'response', response);
             if (!response.body) throw new Error('ReadableStream not supported by this browser.');
+
+            await this.addUsingRust(12, 56);
+            const sum = await this.versionChecksumUsingRust();
+            console.log('sum', sum);
 
             return await Promise.resolve({ readable: response.body }); // Not found, return undefined folder path.
         } catch (error) {
@@ -261,6 +266,15 @@ export default class FileStoreEmulatorConnector implements Connector {
                 reject(normalizeToError(error));
             }
         });
+    }
+
+    /** Utilities - Rust helpers. */
+    private async addUsingRust(left: number, right: number): Promise<number> {
+        return addNumbersWithRust(left, right);
+    }
+
+    private async versionChecksumUsingRust(): Promise<number> {
+        return checksumWithRust(this.config.version);
     }
 
     /** Utilities - Construct folder node configuration. */

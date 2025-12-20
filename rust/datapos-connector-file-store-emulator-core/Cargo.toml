@@ -1,0 +1,19 @@
+[package]
+name = "datapos-connector-file-store-emulator-core"
+version = "0.1.0"
+edition = "2021"
+authors = ["Data Positioning <support@datapos.app>"]
+description = "Rust helpers that compile to WebAssembly for the datapos file store connector."
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"

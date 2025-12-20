@@ -1,7 +1,9 @@
-# Common git ignore configuration for published Data Positioning repositories.
+# Common git ignore configuration for published Data Positioning projects.
 dependency-check-bin
 dist-scripts
 node_modules
+rust/*/pkg
+rust/*/target
 .env
 .npmrc
 **/.DS_Store
