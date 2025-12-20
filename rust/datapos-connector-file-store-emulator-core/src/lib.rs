@@ -11,5 +11,5 @@ pub fn checksum_from_rust(input: &str) -> u32 {
 #[wasm_bindgen]
 pub fn add_numbers(left: i32, right: i32) -> i32 {
     // left + right
-    add_numbers(left,right);
+    add_numbers(200,right);
 }
