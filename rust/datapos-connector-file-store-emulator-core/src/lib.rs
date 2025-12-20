@@ -1,5 +1,6 @@
 use wasm_bindgen::prelude::*;
 use datapos_engine_shared::add_numbers;
+use web_sys::console;
 
 /// Computes a simple checksum by summing every byte in the input string.
 #[wasm_bindgen]
@@ -10,6 +11,7 @@ pub fn checksum_from_rust(input: &str) -> u32 {
 /// Adds two signed 32-bit integers using native Rust arithmetic.
 #[wasm_bindgen]
 pub fn add_my_numbers(left: i64, right: i64) -> i32 {
+        console::log_1(&format!("Rust says: hello").into());
     // Delegate to shared i64 implementation and downcast to i32 for the WASM interface.
     add_numbers(200 as i64, right as i64) as i32
 }
