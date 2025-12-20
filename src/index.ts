@@ -92,9 +92,9 @@ export default class FileStoreEmulatorConnector implements Connector {
             console.log('getReader', 'response', response);
             if (!response.body) throw new Error('ReadableStream not supported by this browser.');
 
-            await addNumbersWithRust(12, 56);
+            const xxx = await addNumbersWithRust(12, 56);
             const sum = await checksumWithRust(connector.config.version);
-            console.log('sum', sum);
+            console.log('sum', sum, xxx);
 
             return await Promise.resolve({ readable: response.body }); // Not found, return undefined folder path.
         } catch (error) {
