@@ -10,6 +10,7 @@ let rustBindingsPromise: Promise<RustBindings> | undefined;
 // Utilities
 async function addNumbersWithRust(left: number, right: number): Promise<number> {
     const { add_my_numbers } = await loadRustBindings();
+    console.log(1111, left, right);
     return add_my_numbers(Math.trunc(left), Math.trunc(right));
 }
 
