@@ -9,7 +9,7 @@ pub fn checksum_from_rust(input: &str) -> u32 {
 
 /// Adds two signed 32-bit integers using native Rust arithmetic.
 #[wasm_bindgen]
-pub fn add_numbers(left: i32, right: i32) -> i32 {
-    // left + right
-    add_numbers(200,right);
+pub fn add_my_numbers(left: i64, right: i64) -> i32 {
+    // Delegate to shared i64 implementation and downcast to i32 for the WASM interface.
+    add_numbers(left as i64, right as i64) as i32
 }
