@@ -23,5 +23,5 @@
         "target": "ESNext", // Target latest JavaScript syntax when emitting.
         "useDefineForClassFields": true // Use define semantics for class fields (aligns with JS standard).
     },
-    "include": ["vite.config.*", "src/**/*", "tests/**/*"]
+    "include": ["vite.config.*", "src/**/*", "tests/**/*", "rust/**/*.d.ts"]
 }
