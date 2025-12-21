@@ -1,4 +1,3 @@
-import { CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import { ConnectionConfig, Connector, ConnectorConfig, ConnectorTools, FindResult, FindSettings, GetReadableStreamResult, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary, ToolConfig } from '@datapos/datapos-shared';
 /** Classes - File store emulator connector. */
 export default class FileStoreEmulatorConnector implements Connector {
@@ -7,7 +6,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     readonly connectionConfig: ConnectionConfig;
     readonly tools: ConnectorTools;
     readonly toolConfigs: ToolConfig[];
-    csvParseTool: CSVParseTool | undefined;
+    private readonly toolCache;
     constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools, toolConfigs: ToolConfig[]);
     abortOperation(connector: FileStoreEmulatorConnector): void;
     findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult>;

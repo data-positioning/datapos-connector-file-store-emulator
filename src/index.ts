@@ -57,7 +57,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     readonly tools: ConnectorTools;
 
     readonly toolConfigs;
-    csvParseTool: CSVParseTool | undefined;
+    private readonly toolCache: Map<string, unknown>;
 
     constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools, toolConfigs: ToolConfig[]) {
         this.abortController = undefined;
@@ -66,8 +66,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.connectionConfig = connectionConfig;
         this.tools = tools;
         this.toolConfigs = toolConfigs;
-
-        this.csvParseTool = undefined;
+        this.toolCache = new Map();
     }
 
     // Operations - Abort operation.
@@ -160,7 +159,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        const csvParseTool = connector.csvParseTool ?? (connector.csvParseTool = await connector.loadTool<CSVParseTool>('csv-parse'));
+        const csvParseTool = await connector.loadTool<CSVParseTool>('csv-parse');
         console.log(1234, csvParseTool);
         return new Promise((resolve, reject) => {
             try {
@@ -296,12 +295,17 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Helpers - Load tool.
     private async loadTool<T>(toolName: string): Promise<T> {
+        const cachedTool = this.toolCache.get(toolName);
+        if (cachedTool != undefined) return cachedTool as T;
+
         const fullName = `datapos-tool-${toolName}.es.js`;
         const toolModuleConfig = this.toolConfigs.find((config) => config.id === toolName);
         if (!toolModuleConfig) throw new Error(`Unknown tool '${toolName}'.`);
 
         const url = `https://engine-eu.datapos.app/tools/${fullName}_v${toolModuleConfig.version}/datapos-tool-${fullName}.es.js`;
-        const csvParseModule = (await import(/* @vite-ignore */ url)) as { T: new () => T };
-        return new csvParseModule.T();
+        const toolModule = (await import(/* @vite-ignore */ url)) as { T: new () => T };
+        const toolInstance = new toolModule.T();
+        this.toolCache.set(toolName, toolInstance);
+        return toolInstance;
     }
 }
