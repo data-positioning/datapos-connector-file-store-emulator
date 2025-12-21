@@ -300,6 +300,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     private async loadCSVParseTool(): Promise<CSVParseTool> {
         if (this.csvParseTool) return this.csvParseTool;
 
+        console.log('this', this);
         const toolModuleConfig = this.toolConfigs.find((config) => config.id === 'datapos-tool-csv-parse');
         if (!toolModuleConfig) throw new Error(`Unknown tool 'datapos-tool-csv-parse''.`);
 

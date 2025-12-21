@@ -1,6 +1,6 @@
 {
     "name": "datapos-connector-file-store-emulator",
-    "version": "0.2.310",
+    "version": "0.2.311",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "private": false,
