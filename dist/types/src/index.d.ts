@@ -1,11 +1,14 @@
-import { ConnectionConfig, Connector, ConnectorConfig, ConnectorTools, FindResult, FindSettings, GetReadableStreamResult, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary } from '@datapos/datapos-shared';
+import { CSVParseTool } from '@datapos/datapos-tool-csv-parse';
+import { ConnectionConfig, Connector, ConnectorConfig, ConnectorTools, FindResult, FindSettings, GetReadableStreamResult, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary, ToolConfig } from '@datapos/datapos-shared';
 /** Classes - File store emulator connector. */
 export default class FileStoreEmulatorConnector implements Connector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
     readonly tools: ConnectorTools;
-    constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools);
+    readonly toolConfigs: ToolConfig[];
+    csvParseTool: CSVParseTool | undefined;
+    constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools, toolConfigs: ToolConfig[]);
     abortOperation(connector: FileStoreEmulatorConnector): void;
     findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult>;
     getReadableStream(connector: FileStoreEmulatorConnector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult>;
@@ -16,4 +19,5 @@ export default class FileStoreEmulatorConnector implements Connector {
     private constructFolderNodeConfig;
     /** Utilities - Construct object (file) node configuration. */
     private constructObjectNodeConfig;
+    private loadCSVParseTool;
 }

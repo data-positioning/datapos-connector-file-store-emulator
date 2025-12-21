@@ -8,6 +8,7 @@
 import { nanoid } from 'nanoid';
 
 /** Dependencies - Framework. */
+import type { CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import { buildFetchError, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension, normalizeToError, OperationalError } from '@datapos/datapos-shared';
 import type {
     ConnectionConfig,
@@ -24,7 +25,8 @@ import type {
     PreviewResult,
     PreviewSettings,
     RetrieveRecordsSettings,
-    RetrieveRecordsSummary
+    RetrieveRecordsSummary,
+    ToolConfig
 } from '@datapos/datapos-shared';
 
 /** Dependencies - Data. */
@@ -53,12 +55,18 @@ export default class FileStoreEmulatorConnector implements Connector {
     readonly connectionConfig: ConnectionConfig;
     readonly tools: ConnectorTools;
 
-    constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools) {
+    readonly toolConfigs;
+    csvParseTool: CSVParseTool | undefined;
+
+    constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools, toolConfigs: ToolConfig[]) {
         this.abortController = undefined;
         this.config = config as ConnectorConfig;
         this.config.version = version;
         this.connectionConfig = connectionConfig;
         this.tools = tools;
+        this.toolConfigs = toolConfigs;
+
+        this.csvParseTool = undefined;
     }
 
     // Operations - Abort operation.
@@ -151,6 +159,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
+        const xxxx = await this.loadCSVParseTool();
         return new Promise((resolve, reject) => {
             try {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
@@ -169,6 +178,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 let pendingRows: string[][] = []; // Array to store rows of parsed field values and associated information.
 
                 // Parser - Create a parser object for CSV parsing.
+                console.log(1111, xxxx);
                 const parser = connector.tools.csvParse({
                     delimiter: settings.valueDelimiterId,
                     info: true,
@@ -281,5 +291,17 @@ export default class FileStoreEmulatorConnector implements Connector {
         const lastModifiedAtTimestamp = lastModifiedAt;
         const mimeType = lookupMimeTypeForExtension(extension);
         return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
+    }
+
+    // Helpers - Load CSV Parse tool.
+    private async loadCSVParseTool(): Promise<CSVParseTool> {
+        if (this.csvParseTool) return this.csvParseTool;
+
+        const toolModuleConfig = this.toolConfigs.find((config) => config.id === 'datapos-tool-csv-parse');
+        if (!toolModuleConfig) throw new Error(`Unknown tool 'datapos-tool-csv-parse''.`);
+
+        const url = `https://engine-eu.datapos.app/tools/csv-parse_v${toolModuleConfig.version}/datapos-tool-csv-parse.es.js`;
+        const csvParseModule = (await import(/* @vite-ignore */ url)) as { CSVParseTool: new () => CSVParseTool };
+        return new csvParseModule.CSVParseTool();
     }
 }
