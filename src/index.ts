@@ -104,7 +104,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             const sum = await checksumWithRust(connector.config.version);
             console.log('sum', sum, xxx);
 
-            const xxxx = await this.loadCSVParseTool();
+            const xxxx = await connector.loadCSVParseTool();
             console.log(7777, xxxx);
 
             return await Promise.resolve({ readable: response.body }); // Not found, return undefined folder path.
@@ -162,7 +162,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        const xxxx = await this.loadCSVParseTool();
+        const xxxx = await connector.loadCSVParseTool();
         return new Promise((resolve, reject) => {
             try {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
