@@ -160,6 +160,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
         const csvParseTool = await connector.loadCSVParseTool();
+        console.log(1234, csvParseTool);
         return new Promise((resolve, reject) => {
             try {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.

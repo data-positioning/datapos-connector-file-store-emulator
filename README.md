@@ -1,10 +1,6 @@
 # Data Positioning File Store Emulator Connector
 
-<span><!-- OWASP_BADGES_START -->
-[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://data-positioning.github.io/datapos-connector-file-store-emulator/dependency-check-reports/dependency-check-report.html)
-
-<!-- OWASP_BADGES_END --></span>
-
+<span><!-- OWASP_BADGES_START -->[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://data-positioning.github.io/datapos-connector-file-store-emulator/dependency-check-reports/dependency-check-report.html)<!-- OWASP_BADGES_END --></span>
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 A TypeScript library that implements the File Store Emulator connector. It provides easy access to a curated set of files for demonstration and evaluation purposes.
@@ -35,8 +31,10 @@ The following table lists top-level production and peer dependencies. All these 
 
 <!-- DEPENDENCY_LICENSES_START -->
 
-| Name | Type | Installed | Latest | Latest Released | Deps | Document |
-| :--- | :--- | :-------: | :----: | :-------------- | ---: | :------- |
+| Name                    | Type | Installed | Latest  | Latest Released          | Deps | Document                                                                                  |
+| :---------------------- | :--- | :-------: | :-----: | :----------------------- | ---: | :---------------------------------------------------------------------------------------- |
+| @datapos/datapos-shared | MIT  |  0.3.332  | 0.3.332 | this month: 2025-12-21   |    3 | [LICENSE](https://raw.githubusercontent.com/data-positioning/datapos-shared/main/LICENSE) |
+| nanoid                  | MIT  |   5.1.6   |  5.1.6  | 2 months ago: 2025-09-22 |    0 | [LICENSE](https://raw.githubusercontent.com/ai/nanoid/main/LICENSE)                       |
 
 <!-- DEPENDENCY_LICENSES_END -->
 
