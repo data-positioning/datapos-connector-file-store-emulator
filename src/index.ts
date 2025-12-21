@@ -82,8 +82,8 @@ export default class FileStoreEmulatorConnector implements Connector {
         return Promise.resolve({}); // Not found, return undefined folder path.
     }
 
-    // Operations - Get reader.
-    async ReadableStream(connector: FileStoreEmulatorConnector, settings: GetReaderSettings): Promise<GetReaderResult> {
+    // Operations - Get readable stream.
+    async getReadableStream(connector: FileStoreEmulatorConnector, settings: GetReaderSettings): Promise<GetReaderResult> {
         try {
             console.log('getReader', 'connector', connector);
             console.log('getReader', 'settings', settings);
