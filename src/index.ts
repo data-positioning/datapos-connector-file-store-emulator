@@ -194,7 +194,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                             signal.throwIfAborted(); // Check if the abort signal has been triggered.
                             pendingRows.push(data); // Append the row of parsed values and associated information to the pending rows array.
                             if (pendingRows.length < DEFAULT_RETRIEVE_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
-                            chunk([]); // Pass the pending rows to the engine using the 'chunk' callback.
+                            chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
                             pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
                         }
                     } catch (error) {
@@ -215,7 +215,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
                         connector.abortController = undefined; // Clear the abort controller.
                         if (pendingRows.length > 0) {
-                            chunk([]);
+                            chunk(pendingRows);
                             pendingRows = [];
                         }
                         complete({
