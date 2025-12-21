@@ -1,4 +1,4 @@
-import { ConnectionConfig, Connector, ConnectorConfig, ConnectorTools, FindResult, FindSettings, GetReaderResult, GetReaderSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveSettings, RetrieveSummary } from '@datapos/datapos-shared';
+import { ConnectionConfig, Connector, ConnectorConfig, ConnectorTools, FindResult, FindSettings, GetReadableStreamResult, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary } from '@datapos/datapos-shared';
 /** Classes - File store emulator connector. */
 export default class FileStoreEmulatorConnector implements Connector {
     abortController: AbortController | undefined;
@@ -8,10 +8,10 @@ export default class FileStoreEmulatorConnector implements Connector {
     constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools);
     abortOperation(connector: FileStoreEmulatorConnector): void;
     findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult>;
-    getReadableStream(connector: FileStoreEmulatorConnector, settings: GetReaderSettings): Promise<GetReaderResult>;
+    getReadableStream(connector: FileStoreEmulatorConnector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult>;
     listNodes(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult>;
     previewObject(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult>;
-    retrieveRecords(connector: FileStoreEmulatorConnector, settings: RetrieveSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveSummary) => void): Promise<void>;
+    retrieveRecords(connector: FileStoreEmulatorConnector, settings: RetrieveRecordsSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
     /** Utilities - Construct folder node configuration. */
     private constructFolderNodeConfig;
     /** Utilities - Construct object (file) node configuration. */

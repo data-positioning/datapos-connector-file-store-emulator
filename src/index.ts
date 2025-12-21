@@ -4,11 +4,11 @@
 
 // NOTE: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
 
-// Dependencies - Vendor.
-import type { HeadersInit } from 'undici';
+/** Dependencies - Vendor. */
+import { nanoid } from 'nanoid';
 
 /** Dependencies - Framework. */
-import { normalizeToError } from '@datapos/datapos-shared';
+import { buildFetchError, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension, normalizeToError, OperationalError } from '@datapos/datapos-shared';
 import type {
     ConnectionConfig,
     ConnectionNodeConfig,
@@ -17,14 +17,14 @@ import type {
     ConnectorTools,
     FindResult,
     FindSettings,
-    GetReaderResult,
-    GetReaderSettings,
+    GetReadableStreamResult,
+    GetReadableStreamSettings,
     ListResult,
     ListSettings,
     PreviewResult,
     PreviewSettings,
-    RetrieveSettings,
-    RetrieveSummary
+    RetrieveRecordsSettings,
+    RetrieveRecordsSummary
 } from '@datapos/datapos-shared';
 
 /** Dependencies - Data. */
@@ -83,7 +83,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Get readable stream.
-    async getReadableStream(connector: FileStoreEmulatorConnector, settings: GetReaderSettings): Promise<GetReaderResult> {
+    async getReadableStream(connector: FileStoreEmulatorConnector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult> {
         try {
             console.log('getReader', 'connector', connector);
             console.log('getReader', 'settings', settings);
@@ -124,18 +124,19 @@ export default class FileStoreEmulatorConnector implements Connector {
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
             signal.addEventListener('abort', () => {
-                throw new this.tools.dataPos.OperationalError(CALLBACK_PREVIEW_ABORTED, 'datapos-connector-file-store-emulator|Connector|preview.abort');
+                throw new OperationalError(CALLBACK_PREVIEW_ABORTED, 'datapos-connector-file-store-emulator|Connector|preview.abort');
             });
 
             // Fetch chunk from start of file.
             const url = `${URL_PREFIX}/fileStore${settings.path}`;
-            const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize != null || DEFAULT_PREVIEW_CHUNK_SIZE}` };
+            const chunkSize = settings.chunkSize ?? DEFAULT_PREVIEW_CHUNK_SIZE;
+            const headers: HeadersInit = { Range: `bytes=0-${chunkSize}` };
             const response = await fetch(encodeURI(url), { headers, signal });
             if (response.ok) {
                 connector.abortController = undefined;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
             } else {
-                throw await this.tools.dataPos.buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
+                throw await buildFetchError(response, `Failed to fetch '${settings.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
             }
         } catch (error) {
             connector.abortController = undefined;
@@ -146,9 +147,9 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - Retrieve records.
     async retrieveRecords(
         connector: FileStoreEmulatorConnector,
-        settings: RetrieveSettings,
+        settings: RetrieveRecordsSettings,
         chunk: (records: string[][]) => void,
-        complete: (result: RetrieveSummary) => void
+        complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
@@ -159,7 +160,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                     'abort',
                     () => {
                         connector.abortController = undefined;
-                        reject(new connector.tools.dataPos.OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
+                        reject(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
                     },
                     { once: true }
                 );
@@ -270,15 +271,15 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     /** Utilities - Construct folder node configuration. */
     private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
-        return { id: this.tools.nanoid(), childCount, folderPath, label: name, name, typeId: 'folder' };
+        return { id: nanoid(), childCount, folderPath, label: name, name, typeId: 'folder' };
     }
 
     /** Utilities - Construct object (file) node configuration. */
     private constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
-        const name = this.tools.dataPos.extractNameFromPath(fullName) ?? '';
-        const extension = this.tools.dataPos.extractExtensionFromPath(fullName);
+        const name = extractNameFromPath(fullName) ?? '';
+        const extension = extractExtensionFromPath(fullName);
         const lastModifiedAtTimestamp = lastModifiedAt;
-        const mimeType = this.tools.dataPos.lookupMimeTypeForExtension(extension);
+        const mimeType = lookupMimeTypeForExtension(extension);
         return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
     }
 }
