@@ -104,6 +104,9 @@ export default class FileStoreEmulatorConnector implements Connector {
             const sum = await checksumWithRust(connector.config.version);
             console.log('sum', sum, xxx);
 
+            const xxxx = await this.loadCSVParseTool();
+            console.log(7777, xxxx);
+
             return await Promise.resolve({ readable: response.body }); // Not found, return undefined folder path.
         } catch (error) {
             connector.abortController = undefined;
