@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid';
 
 /** Dependencies - Framework. */
 import type { CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import { buildFetchError, extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension, normalizeToError, OperationalError } from '@datapos/datapos-shared';
+import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared';
 import type {
     ConnectionConfig,
     ConnectionNodeConfig,
@@ -28,6 +28,7 @@ import type {
     RetrieveRecordsSummary,
     ToolConfig
 } from '@datapos/datapos-shared';
+import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 
 /** Dependencies - Data. */
 import config from '~/config.json';
