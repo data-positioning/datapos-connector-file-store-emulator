@@ -104,9 +104,6 @@ export default class FileStoreEmulatorConnector implements Connector {
             const sum = await checksumWithRust(connector.config.version);
             console.log('sum', sum, xxx);
 
-            const xxxx = await connector.loadCSVParseTool();
-            console.log(7777, xxxx);
-
             return await Promise.resolve({ readable: response.body }); // Not found, return undefined folder path.
         } catch (error) {
             connector.abortController = undefined;
@@ -162,7 +159,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        const xxxx = await connector.loadCSVParseTool();
+        const csvParseTool = await connector.loadCSVParseTool();
         return new Promise((resolve, reject) => {
             try {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
@@ -181,8 +178,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                 let pendingRows: string[][] = []; // Array to store rows of parsed field values and associated information.
 
                 // Parser - Create a parser object for CSV parsing.
-                console.log(1111, xxxx);
-                const parser = connector.tools.csvParse({
+                const parser = csvParseTool.buildParser({
                     delimiter: settings.valueDelimiterId,
                     info: true,
                     relax_column_count: true,
