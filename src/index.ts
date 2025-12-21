@@ -160,7 +160,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        const csvParseTool = await connector.loadCSVParseTool();
+        const csvParseTool = await connector.loadCSVParseTool<CSVParseTool>();
         console.log(1234, csvParseTool);
         return new Promise((resolve, reject) => {
             try {
@@ -295,7 +295,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Helpers - Load CSV Parse tool.
-    private async loadCSVParseTool(): Promise<CSVParseTool> {
+    private async loadCSVParseTool<T>(): Promise<T> {
         if (this.csvParseTool) return this.csvParseTool;
 
         console.log('this', this);
@@ -303,7 +303,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         if (!toolModuleConfig) throw new Error(`Unknown tool 'datapos-tool-csv-parse''.`);
 
         const url = `https://engine-eu.datapos.app/tools/csv-parse_v${toolModuleConfig.version}/datapos-tool-csv-parse.es.js`;
-        const csvParseModule = (await import(/* @vite-ignore */ url)) as { CSVParseTool: new () => CSVParseTool };
-        return new csvParseModule.CSVParseTool();
+        const csvParseModule = (await import(/* @vite-ignore */ url)) as { T: new () => T };
+        return new csvParseModule.T();
     }
 }
