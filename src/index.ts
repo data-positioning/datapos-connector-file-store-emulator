@@ -160,7 +160,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        const csvParseTool = await connector.loadCSVParseTool<CSVParseTool>();
+        const csvParseTool = connector.csvParseTool ?? (connector.csvParseTool = await connector.loadTool<CSVParseTool>('csv-parse'));
         console.log(1234, csvParseTool);
         return new Promise((resolve, reject) => {
             try {
@@ -294,15 +294,13 @@ export default class FileStoreEmulatorConnector implements Connector {
         return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
     }
 
-    // Helpers - Load CSV Parse tool.
-    private async loadCSVParseTool<T>(): Promise<T> {
-        if (this.csvParseTool) return this.csvParseTool;
+    // Helpers - Load tool.
+    private async loadTool<T>(toolName: string): Promise<T> {
+        const fullName = `datapos-tool-${toolName}.es.js`;
+        const toolModuleConfig = this.toolConfigs.find((config) => config.id === toolName);
+        if (!toolModuleConfig) throw new Error(`Unknown tool '${toolName}'.`);
 
-        console.log('this', this);
-        const toolModuleConfig = this.toolConfigs.find((config) => config.id === 'datapos-tool-csv-parse');
-        if (!toolModuleConfig) throw new Error(`Unknown tool 'datapos-tool-csv-parse''.`);
-
-        const url = `https://engine-eu.datapos.app/tools/csv-parse_v${toolModuleConfig.version}/datapos-tool-csv-parse.es.js`;
+        const url = `https://engine-eu.datapos.app/tools/${fullName}_v${toolModuleConfig.version}/datapos-tool-${fullName}.es.js`;
         const csvParseModule = (await import(/* @vite-ignore */ url)) as { T: new () => T };
         return new csvParseModule.T();
     }
