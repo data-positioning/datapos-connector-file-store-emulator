@@ -8,7 +8,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools);
     abortOperation(connector: FileStoreEmulatorConnector): void;
     findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult>;
-    getReader(connector: FileStoreEmulatorConnector, settings: GetReaderSettings): Promise<GetReaderResult>;
+    ReadableStream(connector: FileStoreEmulatorConnector, settings: GetReaderSettings): Promise<GetReaderResult>;
     listNodes(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult>;
     previewObject(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult>;
     retrieveRecords(connector: FileStoreEmulatorConnector, settings: RetrieveSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveSummary) => void): Promise<void>;

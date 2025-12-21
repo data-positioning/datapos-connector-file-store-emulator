@@ -7,15 +7,13 @@ import { defineConfig } from 'vite'; // Core Vite API.
 import dts from 'vite-plugin-dts'; // Emit .d.ts files alongside the bundle.
 import Sonda from 'sonda/vite'; // Visualize bundle results with Sonda plugin.
 import { visualizer } from 'rollup-plugin-visualizer'; // Generate bundle size report.
-import wasm from 'vite-plugin-wasm'; // Allow bundling wasm modules emitted by wasm-pack.
 import { fileURLToPath, URL } from 'node:url'; // ESM-safe path helpers.
 
-// Dependencies - Data,
-import config from './config.json';
+// Dependencies - Data.
+import config from './config.json' with { type: 'json' }; // Provide configuration identifier for naming.
 
 // Exposures - Configuration.
 export default defineConfig({
-    base: 'https://engine-eu.datapos.app/',
     build: {
         lib: {
             entry: fileURLToPath(new URL('src/index.ts', import.meta.url)), // Absolute entry path.
@@ -23,7 +21,7 @@ export default defineConfig({
             formats: ['es'] // Only emit native ES modules.
         },
         rollupOptions: {
-            external: [/^https:\/\/engine-eu\.datapos\.app\//],
+            external: ['@datapos/datapos-shared', 'dotenv', 'nanoid', 'node:child_process', 'node:fs', 'node:path', 'node:readline', 'node:url', 'node:util'], // Keep runtime dependencies out of bundle.
             plugins: [
                 Sonda({
                     filename: 'index', // Output file name.
@@ -42,9 +40,9 @@ export default defineConfig({
             ]
         },
         sourcemap: true,
-        target: 'ESNext'
+        target: 'ESNext' // Emit modern JavaScript for consumers.
     },
-    plugins: [dts({ outDir: 'dist/types' }), wasm()],
+    plugins: [dts({ outDir: 'dist/types' })], // Generate type declarations in dist/types.
     resolve: {
         alias: {
             '~': fileURLToPath(new URL('./', import.meta.url)), // Base alias matching tsconfig.

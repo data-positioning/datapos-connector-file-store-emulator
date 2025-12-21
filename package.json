@@ -1,6 +1,6 @@
 {
     "name": "datapos-connector-file-store-emulator",
-    "version": "0.2.302",
+    "version": "0.2.304",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "private": false,
@@ -26,9 +26,9 @@
     ],
     "prettier": "@datapos/datapos-development/prettierrc",
     "devDependencies": {
-        "@datapos/datapos-development": "^0.3.396",
-        "@datapos/datapos-shared": "^0.3.330",
-        "@datapos/eslint-config-datapos": "^1.0.27",
+        "@datapos/datapos-development": "^0.3.424",
+        "@datapos/datapos-shared": "^0.3.331",
+        "@datapos/eslint-config-datapos": "^1.0.28",
         "@types/node": "^25.0.3",
         "@typescript-eslint/eslint-plugin": "^8.50.0",
         "@typescript-eslint/parser": "^8.50.0",
@@ -67,6 +67,6 @@
         "release": "op run --env-file=.env -- node -e \"import('@datapos/datapos-development').then(m => m.releaseProject())\"",
         "sync": "node -e \"import('@datapos/datapos-development').then(m => m.syncProjectWithGitHub())\"",
         "test": "node -e \"import('@datapos/datapos-development').then(m => m.testProject())\"",
-        "update": "node -e \"import('@datapos/datapos-development').then(m => m.updateDataPosDependencies(['development', 'shared']))\""
+        "update": "node -e \"import('@datapos/datapos-development').then(m => m.updateDataPosDependencies(['development', 'eslint', 'shared']))\""
     }
 }

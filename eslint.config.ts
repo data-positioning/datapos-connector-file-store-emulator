@@ -2,8 +2,8 @@
  * ESLint configuration.
  */
 
-// Dependencies - Framework.
+/** Dependencies - Framework. */
 import datapos from '@datapos/eslint-config-datapos';
 
-// Exposures - Configuration.
+/** Exposures - Configuration. */
 export default [...datapos];

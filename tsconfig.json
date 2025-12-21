@@ -4,7 +4,7 @@
         "declaration": true, // Emit .d.ts files so consumers get typings.
         "esModuleInterop": true, // Allow default-import syntax for CommonJS packages.
         "isolatedModules": true, // Treat each file as a separate module; keeps Vite happy.
-        "lib": ["ESNext"], // Target the latest JavaScript libs and built-ins.
+        "lib": ["ESNext", "dom"], // Target the latest JavaScript libs and built-ins.
         "module": "ESNext", // Generate native ESM output for bundlers.
         "moduleResolution": "bundler", // Resolve modules like a bundler (needed for aliases and imports such as 'sonda/vite').
         "noUncheckedIndexedAccess": true, // Enforce checks when indexing into objects or arrays.
@@ -23,5 +23,5 @@
         "target": "ESNext", // Target latest JavaScript syntax when emitting.
         "useDefineForClassFields": true // Use define semantics for class fields (aligns with JS standard).
     },
-    "include": ["vite.config.*", "src/**/*", "tests/**/*", "rust/**/*.d.ts"]
+    "include": ["vite.config.*", "src/**/*", "tests/**/*"]
 }

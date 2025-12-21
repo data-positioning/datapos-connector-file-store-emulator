@@ -83,7 +83,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Get reader.
-    async getReader(connector: FileStoreEmulatorConnector, settings: GetReaderSettings): Promise<GetReaderResult> {
+    async ReadableStream(connector: FileStoreEmulatorConnector, settings: GetReaderSettings): Promise<GetReaderResult> {
         try {
             console.log('getReader', 'connector', connector);
             console.log('getReader', 'settings', settings);
