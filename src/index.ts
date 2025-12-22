@@ -8,7 +8,7 @@
 import { nanoid } from 'nanoid';
 
 /** Dependencies - Framework. */
-import type { CSVParseTool } from '@datapos/datapos-tool-csv-parse';
+import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared';
 import type {
     ConnectionConfig,
@@ -297,8 +297,8 @@ export default class FileStoreEmulatorConnector implements Connector {
         if (!toolModuleConfig) throw new Error(`Unknown tool '${toolName}'.`);
 
         const url = `https://engine-eu.datapos.app/tools/${toolName}_v${toolModuleConfig.version}/${fullName}.es.js`;
-        const toolModule = (await import(/* @vite-ignore */ url)) as { T: new () => T };
-        const toolInstance = new toolModule.T();
+        const toolModule = (await import(/* @vite-ignore */ url)) as { Tool: new () => T };
+        const toolInstance = new toolModule.Tool();
         return toolInstance;
     }
 }
