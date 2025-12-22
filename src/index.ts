@@ -296,7 +296,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         const toolModuleConfig = this.toolConfigs.find((config) => config.id === fullName);
         if (!toolModuleConfig) throw new Error(`Unknown tool '${toolName}'.`);
 
-        const url = `https://engine-eu.datapos.app/tools/${fullName}_v${toolModuleConfig.version}/${fullName}.es.js`;
+        const url = `https://engine-eu.datapos.app/tools/${toolName}_v${toolModuleConfig.version}/${fullName}.es.js`;
         const toolModule = (await import(/* @vite-ignore */ url)) as { T: new () => T };
         const toolInstance = new toolModule.T();
         return toolInstance;
