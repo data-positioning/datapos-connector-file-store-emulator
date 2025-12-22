@@ -291,12 +291,12 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Helpers - Load tool.
-    private async loadTool<T>(toolName: string): Promise<T> {
-        const fullName = `datapos-tool-${toolName}`;
-        const toolModuleConfig = this.toolConfigs.find((config) => config.id === fullName);
-        if (!toolModuleConfig) throw new Error(`Unknown tool '${toolName}'.`);
+    private async loadTool<T>(toolId: string): Promise<T> {
+        const toolName = `datapos-tool-${toolId}`;
+        const toolModuleConfig = this.toolConfigs.find((config) => config.id === toolName);
+        if (!toolModuleConfig) throw new Error(`Unknown tool '${toolId}'.`);
 
-        const url = `https://engine-eu.datapos.app/tools/${toolName}_v${toolModuleConfig.version}/${fullName}.es.js`;
+        const url = `https://engine-eu.datapos.app/tools/${toolId}_v${toolModuleConfig.version}/${toolName}.es.js`;
         const toolModule = (await import(/* @vite-ignore */ url)) as { Tool: new () => T };
         const toolInstance = new toolModule.Tool();
         return toolInstance;
