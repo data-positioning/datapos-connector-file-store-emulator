@@ -1,4 +1,4 @@
-import { ToolConfig } from '@datapos/datapos-shared';
+import { ToolConfig } from '@datapos/datapos-shared/component/tool';
 import { ConnectionConfig, Connector, ConnectorConfig, FindResult, FindSettings, GetReadableStreamResult, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
 /** Classes - File store emulator connector. */
 export default class FileStoreEmulatorConnector implements Connector {

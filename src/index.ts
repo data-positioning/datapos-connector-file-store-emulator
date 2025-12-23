@@ -9,8 +9,8 @@ import { nanoid } from 'nanoid';
 
 /** Dependencies - Framework. */
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import { loadToolForConnector } from '@datapos/datapos-shared/component/connector';
-import type { ToolConfig } from '@datapos/datapos-shared';
+import { loadTool } from '@datapos/datapos-shared/component/tool';
+import type { ToolConfig } from '@datapos/datapos-shared/component/tool';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
     ConnectionConfig,
@@ -151,8 +151,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        const csvParseTool = await loadToolForConnector<CSVParseTool>(connector.toolConfigs, 'csv-parse');
-        console.log(1234, csvParseTool);
+        const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
         return new Promise((resolve, reject) => {
             try {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
