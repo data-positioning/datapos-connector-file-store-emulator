@@ -9,13 +9,13 @@ import { nanoid } from 'nanoid';
 
 /** Dependencies - Framework. */
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared';
+import type { ToolConfig } from '@datapos/datapos-shared';
+import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
     ConnectionConfig,
     ConnectionNodeConfig,
     Connector,
     ConnectorConfig,
-    ConnectorTools,
     FindResult,
     FindSettings,
     GetReadableStreamResult,
@@ -25,9 +25,8 @@ import type {
     PreviewResult,
     PreviewSettings,
     RetrieveRecordsSettings,
-    RetrieveRecordsSummary,
-    ToolConfig
-} from '@datapos/datapos-shared';
+    RetrieveRecordsSummary
+} from '@datapos/datapos-shared/component/connector';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 
 /** Dependencies - Data. */
@@ -54,27 +53,25 @@ export default class FileStoreEmulatorConnector implements Connector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
-    readonly tools: ConnectorTools;
     readonly toolConfigs;
 
-    constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools, toolConfigs: ToolConfig[]) {
+    constructor(connectionConfig: ConnectionConfig, toolConfigs: ToolConfig[]) {
         this.abortController = undefined;
         this.config = config as ConnectorConfig;
         this.config.version = version;
         this.connectionConfig = connectionConfig;
-        this.tools = tools;
         this.toolConfigs = toolConfigs;
     }
 
     // Operations - Abort operation.
-    abortOperation(connector: FileStoreEmulatorConnector): void {
+    abortOperation(connector: Connector): void {
         if (!connector.abortController) return;
         connector.abortController.abort();
         connector.abortController = undefined;
     }
 
     // Operations - Find object.
-    findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult> {
+    findObject(connector: Connector, settings: FindSettings): Promise<FindResult> {
         // Loop through the file store index checking for an object entry with an identifier equal to the object name.
         for (const folderPath in fileStoreIndex) {
             if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
@@ -88,7 +85,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Get readable stream.
-    async getReadableStream(connector: FileStoreEmulatorConnector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult> {
+    async getReadableStream(connector: Connector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult> {
         try {
             console.log('getReader', 'connector', connector);
             console.log('getReader', 'settings', settings);
@@ -109,7 +106,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - List nodes.
-    listNodes(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult> {
+    listNodes(connector: Connector, settings: ListSettings): Promise<ListResult> {
         const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath] ?? [];
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
         for (const indexItem of indexItems) {
@@ -123,7 +120,7 @@ export default class FileStoreEmulatorConnector implements Connector {
     }
 
     // Operations - Preview object.
-    async previewObject(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult> {
+    async previewObject(connector: Connector, settings: PreviewSettings): Promise<PreviewResult> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
@@ -151,12 +148,12 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     // Operations - Retrieve records.
     async retrieveRecords(
-        connector: FileStoreEmulatorConnector,
+        connector: Connector,
         settings: RetrieveRecordsSettings,
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        const csvParseTool = await connector.loadTool<CSVParseTool>('csv-parse');
+        const csvParseTool = await (connector as FileStoreEmulatorConnector).loadTool<CSVParseTool>('csv-parse');
         console.log(1234, csvParseTool);
         return new Promise((resolve, reject) => {
             try {
@@ -252,7 +249,7 @@ export default class FileStoreEmulatorConnector implements Connector {
                                 }
                                 parser.end(); // Signal no more data will be written.
                             } else {
-                                const error = await connector.tools.dataPos.buildFetchError(
+                                const error = await buildFetchError(
                                     response,
                                     `Failed to fetch '${settings.path}' file.`,
                                     'datapos-connector-file-store-emulator|Connector|retrieve'
@@ -278,7 +275,7 @@ export default class FileStoreEmulatorConnector implements Connector {
 
     /** Utilities - Construct folder node configuration. */
     private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
-        return { id: nanoid(), childCount, folderPath, label: name, name, typeId: 'folder' };
+        return { id: nanoid(), childCount, extension: undefined, folderPath, label: name, name, typeId: 'folder' };
     }
 
     /** Utilities - Construct object (file) node configuration. */

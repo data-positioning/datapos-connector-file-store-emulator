@@ -1,18 +1,18 @@
-import { ConnectionConfig, Connector, ConnectorConfig, ConnectorTools, FindResult, FindSettings, GetReadableStreamResult, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary, ToolConfig } from '@datapos/datapos-shared';
+import { ToolConfig } from '@datapos/datapos-shared';
+import { ConnectionConfig, Connector, ConnectorConfig, FindResult, FindSettings, GetReadableStreamResult, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
 /** Classes - File store emulator connector. */
 export default class FileStoreEmulatorConnector implements Connector {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
-    readonly tools: ConnectorTools;
     readonly toolConfigs: ToolConfig[];
-    constructor(connectionConfig: ConnectionConfig, tools: ConnectorTools, toolConfigs: ToolConfig[]);
-    abortOperation(connector: FileStoreEmulatorConnector): void;
-    findObject(connector: FileStoreEmulatorConnector, settings: FindSettings): Promise<FindResult>;
-    getReadableStream(connector: FileStoreEmulatorConnector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult>;
-    listNodes(connector: FileStoreEmulatorConnector, settings: ListSettings): Promise<ListResult>;
-    previewObject(connector: FileStoreEmulatorConnector, settings: PreviewSettings): Promise<PreviewResult>;
-    retrieveRecords(connector: FileStoreEmulatorConnector, settings: RetrieveRecordsSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
+    constructor(connectionConfig: ConnectionConfig, toolConfigs: ToolConfig[]);
+    abortOperation(connector: Connector): void;
+    findObject(connector: Connector, settings: FindSettings): Promise<FindResult>;
+    getReadableStream(connector: Connector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult>;
+    listNodes(connector: Connector, settings: ListSettings): Promise<ListResult>;
+    previewObject(connector: Connector, settings: PreviewSettings): Promise<PreviewResult>;
+    retrieveRecords(connector: Connector, settings: RetrieveRecordsSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
     /** Utilities - Construct folder node configuration. */
     private constructFolderNodeConfig;
     /** Utilities - Construct object (file) node configuration. */
