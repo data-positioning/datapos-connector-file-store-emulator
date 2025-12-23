@@ -88,10 +88,8 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - Get readable stream.
     async getReadableStream(connector: Connector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult> {
         try {
-            console.log('getReader', 'settings', settings);
             const url = `${URL_PREFIX}/fileStore${settings.path}`;
-            const response = await fetch(url); // 'https://sample-data-eu.datapos.app/WDI_Data.csv' or 'https://sample-data-eu.datapos.app/fileStore/ENGAGEMENT_START_EVENTS_202405121858.csv'
-            console.log('getReader', 'response', response);
+            const response = await fetch(url);
             if (!response.body) throw new Error('ReadableStream not supported by this browser.');
 
             const xxx = await addNumbersWithRust(12, 56);
@@ -130,7 +128,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             });
 
             // Fetch chunk from start of file.
-            const url = `${URL_PREFIX}/fileStore/${settings.path}`;
+            const url = `${URL_PREFIX}/fileStore${settings.path}`;
             const chunkSize = settings.chunkSize ?? DEFAULT_PREVIEW_CHUNK_SIZE;
             const headers: HeadersInit = { Range: `bytes=0-${chunkSize}` };
             const response = await fetch(encodeURI(url), { headers, signal });
