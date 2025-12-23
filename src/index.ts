@@ -130,7 +130,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             });
 
             // Fetch chunk from start of file.
-            const url = `${URL_PREFIX}/fileStore${settings.path}`;
+            const url = `${URL_PREFIX}/fileStore/${settings.path}`;
             const chunkSize = settings.chunkSize ?? DEFAULT_PREVIEW_CHUNK_SIZE;
             const headers: HeadersInit = { Range: `bytes=0-${chunkSize}` };
             const response = await fetch(encodeURI(url), { headers, signal });
