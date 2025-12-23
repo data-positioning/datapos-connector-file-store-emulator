@@ -19,5 +19,4 @@ export default class FileStoreEmulatorConnector implements Connector {
     private constructFolderNodeConfig;
     /** Utilities - Construct object (file) node configuration. */
     private constructObjectNodeConfig;
-    private loadTool;
 }

@@ -9,6 +9,7 @@ import { nanoid } from 'nanoid';
 
 /** Dependencies - Framework. */
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
+import { loadToolForConnector } from '@datapos/datapos-shared/component/connector';
 import type { ToolConfig } from '@datapos/datapos-shared';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
@@ -152,7 +153,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        const csvParseTool = await (connector as FileStoreEmulatorConnector).loadTool<CSVParseTool>('csv-parse');
+        const csvParseTool = await loadToolForConnector<CSVParseTool>(connector, 'csv-parse');
         console.log(1234, csvParseTool);
         return new Promise((resolve, reject) => {
             try {
@@ -286,15 +287,15 @@ export default class FileStoreEmulatorConnector implements Connector {
         return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
     }
 
-    // Helpers - Load tool.
-    private async loadTool<T>(toolId: string): Promise<T> {
-        const toolName = `datapos-tool-${toolId}`;
-        const toolModuleConfig = this.toolConfigs.find((config) => config.id === toolName);
-        if (!toolModuleConfig) throw new Error(`Unknown tool '${toolId}'.`);
+    // // Helpers - Load tool for connector.
+    // private async loadToolForConnector<T>(connector: Connector, toolId: string): Promise<T> {
+    //     const toolName = `datapos-tool-${toolId}`;
+    //     const toolModuleConfig = connector.toolConfigs.find((config) => config.id === toolName);
+    //     if (!toolModuleConfig) throw new Error(`Unknown tool '${toolId}'.`);
 
-        const url = `https://engine-eu.datapos.app/tools/${toolId}_v${toolModuleConfig.version}/${toolName}.es.js`;
-        const toolModule = (await import(/* @vite-ignore */ url)) as { Tool: new () => T };
-        const toolInstance = new toolModule.Tool();
-        return toolInstance;
-    }
+    //     const url = `https://engine-eu.datapos.app/tools/${toolId}_v${toolModuleConfig.version}/${toolName}.es.js`;
+    //     const toolModule = (await import(/* @vite-ignore */ url)) as { Tool: new () => T };
+    //     const toolInstance = new toolModule.Tool();
+    //     return toolInstance;
+    // }
 }
