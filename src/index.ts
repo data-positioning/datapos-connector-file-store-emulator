@@ -153,7 +153,7 @@ export default class FileStoreEmulatorConnector implements Connector {
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        const csvParseTool = await loadToolForConnector<CSVParseTool>(connector, 'csv-parse');
+        const csvParseTool = await loadToolForConnector<CSVParseTool>(connector.toolConfigs, 'csv-parse');
         console.log(1234, csvParseTool);
         return new Promise((resolve, reject) => {
             try {
