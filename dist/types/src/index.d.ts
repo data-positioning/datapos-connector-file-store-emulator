@@ -7,7 +7,9 @@ export default class FileStoreEmulatorConnector implements Connector {
     readonly connectionConfig: ConnectionConfig;
     readonly toolConfigs: ToolConfig[];
     constructor(connectionConfig: ConnectionConfig, toolConfigs: ToolConfig[]);
+    /** Abort operation. */
     abortOperation(connector: Connector): void;
+    /** Find object. */
     findObject(connector: Connector, settings: FindSettings): Promise<FindResult>;
     getReadableStream(connector: Connector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult>;
     listNodes(connector: Connector, settings: ListSettings): Promise<ListResult>;

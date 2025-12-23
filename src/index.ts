@@ -63,14 +63,14 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.toolConfigs = toolConfigs;
     }
 
-    // Operations - Abort operation.
+    /** Abort operation. */
     abortOperation(connector: Connector): void {
         if (!connector.abortController) return;
         connector.abortController.abort();
         connector.abortController = undefined;
     }
 
-    // Operations - Find object.
+    /** Find object. */
     findObject(connector: Connector, settings: FindSettings): Promise<FindResult> {
         // Loop through the file store index checking for an object entry with an identifier equal to the object name.
         for (const folderPath in fileStoreIndex) {
@@ -87,10 +87,9 @@ export default class FileStoreEmulatorConnector implements Connector {
     // Operations - Get readable stream.
     async getReadableStream(connector: Connector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult> {
         try {
-            console.log('getReader', 'connector', connector);
             console.log('getReader', 'settings', settings);
-            // const response = await fetch('https://sample-data-eu.datapos.app/fileStore/ENGAGEMENT_START_EVENTS_202405121858.csv');
-            const response = await fetch('https://sample-data-eu.datapos.app/WDI_Data.csv');
+            const url = `${URL_PREFIX}/fileStore${settings.path}`;
+            const response = await fetch(url); // 'https://sample-data-eu.datapos.app/WDI_Data.csv' or 'https://sample-data-eu.datapos.app/fileStore/ENGAGEMENT_START_EVENTS_202405121858.csv'
             console.log('getReader', 'response', response);
             if (!response.body) throw new Error('ReadableStream not supported by this browser.');
 
@@ -98,7 +97,7 @@ export default class FileStoreEmulatorConnector implements Connector {
             const sum = await checksumWithRust(connector.config.version);
             console.log('sum', sum, xxx);
 
-            return await Promise.resolve({ readable: response.body }); // Not found, return undefined folder path.
+            return await Promise.resolve({ readable: response.body });
         } catch (error) {
             connector.abortController = undefined;
             throw error;
