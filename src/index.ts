@@ -9,7 +9,7 @@
 import { nanoid } from 'nanoid';
 
 /** Dependencies - Framework. */
-import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
+import type { Tool as CSVParseTool, Parser } from '@datapos/datapos-tool-csv-parse';
 import { loadTool } from '@datapos/datapos-shared/component/tool';
 import type { ToolConfig } from '@datapos/datapos-shared/component/tool';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
@@ -47,6 +47,11 @@ const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve all record
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_RETRIEVE_CHUNK_SIZE = 1000;
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
+
+interface RowBuffer {
+    push: (row: string[]) => void;
+    flush: () => void;
+}
 
 /** File store emulator connector. */
 export default class FileStoreEmulatorConnector implements ConnectorInterface {
@@ -143,6 +148,32 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         }
     }
 
+    private createRowBuffer(chunk: (records: string[][]) => void, size: number): RowBuffer {
+        let pendingRows: string[][] = [];
+        const flush = (): void => {
+            if (pendingRows.length === 0) return;
+            chunk(pendingRows);
+            pendingRows = [];
+        };
+        const push = (row: string[]): void => {
+            pendingRows.push(row);
+            if (pendingRows.length >= size) flush();
+        };
+        return { flush, push };
+    }
+
+    private handleReadable(parser: Parser, signal: AbortSignal, buffer: RowBuffer, fail: (error: unknown) => void): void {
+        try {
+            let data: string[] | null;
+            while ((data = parser.read() as string[] | null) !== null) {
+                signal.throwIfAborted();
+                buffer.push(data);
+            }
+        } catch (error) {
+            fail(error);
+        }
+    }
+
     /** Retrieves all records from a CSV object node using streaming and chunked processing. */
     async retrieveRecords(
         connector: ConnectorInterface,
@@ -152,62 +183,34 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     ): Promise<void> {
         const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
         return new Promise((resolve, reject) => {
+            const fail = (error: unknown): void => {
+                connector.abortController = undefined;
+                reject(normalizeToError(error));
+            };
+
             try {
                 // Create an abort controller and get the signal. Add an abort listener to the signal.
                 connector.abortController = new AbortController();
                 const signal = connector.abortController.signal;
-                signal.addEventListener(
-                    'abort',
-                    () => {
-                        connector.abortController = undefined;
-                        reject(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieve.abort'));
-                    },
-                    { once: true }
-                );
+                signal.addEventListener('abort', () => fail(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
 
                 // Parser - Declare variables.
-                let pendingRows: string[][] = []; // Array to store rows of parsed field values and associated information.
+                // let pendingRows: string[][] = []; // Array to store rows of parsed field values and associated information.
 
                 // Parser - Create a parser object for CSV parsing.
-                const parser = csvParseTool.buildParser({
-                    delimiter: settings.valueDelimiterId,
-                    info: true,
-                    relax_column_count: true,
-                    relax_quotes: true
-                });
-
-                // Parser - Event listener for the 'readable' (data available) event.
-                parser.on('readable', () => {
-                    try {
-                        let data: string[] | null;
-                        while ((data = parser.read() as string[] | null) !== null) {
-                            signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                            pendingRows.push(data); // Append the row of parsed values and associated information to the pending rows array.
-                            if (pendingRows.length < DEFAULT_RETRIEVE_CHUNK_SIZE) continue; // Continue with next iteration if the pending rows array is not yet full.
-                            chunk(pendingRows); // Pass the pending rows to the engine using the 'chunk' callback.
-                            pendingRows = []; // Clear the pending rows array in preparation for the next batch of data.
-                        }
-                    } catch (error) {
-                        connector.abortController = undefined;
-                        reject(normalizeToError(error));
-                    }
-                });
-
-                // Parser - Event listener for the 'error' event.
-                parser.on('error', (error) => {
-                    connector.abortController = undefined;
-                    reject(normalizeToError(error));
-                });
-
-                // Parser - Event listener for the 'end' (end of data) event.
+                const buffer = this.createRowBuffer(chunk, DEFAULT_RETRIEVE_CHUNK_SIZE);
+                const parser = csvParseTool.buildParser({ delimiter: settings.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true });
+                parser.on('readable', () => this.handleReadable(parser, signal, buffer, fail));
+                parser.on('error', (error) => fail(error));
                 parser.on('end', () => {
                     try {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
                         connector.abortController = undefined; // Clear the abort controller.
-                        if (pendingRows.length > 0) {
-                            chunk(pendingRows);
-                            pendingRows = [];
-                        }
+                        buffer.flush();
+                        // if (pendingRows.length > 0) {
+                        //     chunk(pendingRows);
+                        //     pendingRows = [];
+                        // }
                         complete({
                             byteCount: parser.info.bytes,
                             commentLineCount: parser.info.comment_lines,
@@ -224,8 +227,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
                 });
 
                 // Fetch, decode and forward the contents of the file to the parser.
-                const url = `${URL_PREFIX}/fileStore${settings.path}`;
-                fetch(encodeURI(url), { signal })
+                fetch(encodeURI(`${URL_PREFIX}/fileStore${settings.path}`), { signal })
                     .then(async (response) => {
                         try {
                             if (response.ok && response.body) {

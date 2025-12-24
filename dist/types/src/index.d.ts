@@ -1,5 +1,5 @@
 import { ToolConfig } from '@datapos/datapos-shared/component/tool';
-import { ConnectionConfig, ConnectorConfig, ConnectorInterface, FindObjectFolderPathSettings, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
+import { ConnectionConfig, ConnectorConfig, ConnectorInterface, FindObjectFolderPathSettings, GetReadableStreamSettings, ListNodesResult, ListNodesSettings, PreviewObjectResult, PreviewObjectSettings, RetrieveRecordsSettings, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
 /** File store emulator connector. */
 export default class FileStoreEmulatorConnector implements ConnectorInterface {
     abortController: AbortController | undefined;
@@ -14,9 +14,11 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     /** Get a readable stream for the specified object node path. */
     getReadableStream(connector: ConnectorInterface, settings: GetReadableStreamSettings): Promise<ReadableStream<Uint8Array<ArrayBuffer>>>;
     /** Lists all nodes (folders and objects) in the specified folder path. */
-    listNodes(connector: ConnectorInterface, settings: ListSettings): Promise<ListResult>;
+    listNodes(connector: ConnectorInterface, settings: ListNodesSettings): Promise<ListNodesResult>;
     /** Preview the contents of the object node with the specified path. */
-    previewObject(connector: ConnectorInterface, settings: PreviewSettings): Promise<PreviewResult>;
+    previewObject(connector: ConnectorInterface, settings: PreviewObjectSettings): Promise<PreviewObjectResult>;
+    private createRowBuffer;
+    private handleReadable;
     /** Retrieves all records from a CSV object node using streaming and chunked processing. */
     retrieveRecords(connector: ConnectorInterface, settings: RetrieveRecordsSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
     /** Construct folder node configuration. */
