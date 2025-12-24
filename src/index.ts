@@ -161,6 +161,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             const fail = (error: unknown): void => {
                 if (isFinished) return;
                 isFinished = true;
+                if (connector.abortController) connector.abortController.abort();
                 connector.abortController = undefined;
                 reject(normalizeToError(error));
             };
@@ -171,8 +172,8 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
                 const signal = connector.abortController.signal;
                 signal.addEventListener('abort', () => fail(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
 
-                // Parser - Create a parser object for CSV parsing.
-                const rowBuffer = this.createRowBuffer(chunk, DEFAULT_RETRIEVE_CHUNK_SIZE);
+                const chunkSize = settings.chunkSize ?? DEFAULT_RETRIEVE_CHUNK_SIZE;
+                const rowBuffer = this.createRowBuffer(chunk, chunkSize);
                 const parser = csvParseTool.buildParser({ delimiter: settings.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true });
                 parser.on('readable', () => this.handleReadable(parser, signal, rowBuffer, fail));
                 parser.on('error', (error) => fail(error));
