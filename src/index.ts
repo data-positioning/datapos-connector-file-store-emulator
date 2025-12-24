@@ -75,7 +75,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         const fileStoreFolderPaths = fileStoreFolderPathData as FileStoreFolderPaths;
         // Loop through the folder path data checking for an object entry with an identifier equal to the object name.
         for (const folderPath in fileStoreFolderPaths) {
-            if (Object.prototype.hasOwnProperty.call(fileStoreFolderPaths, folderPath)) {
+            if (Object.hasOwn(fileStoreFolderPaths, folderPath)) {
                 // eslint-disable-next-line security/detect-object-injection
                 const folderPathNodes = fileStoreFolderPaths[folderPath];
                 const folderPathNode = folderPathNodes?.find((folderPathNode) => folderPathNode.typeId === 'object' && folderPathNode.id === settings.nodeId);

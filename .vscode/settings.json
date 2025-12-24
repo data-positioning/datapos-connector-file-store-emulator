@@ -1,3 +1,7 @@
 {
-    "rust-analyzer.linkedProjects": ["${workspaceFolder}/rust/datapos-connector-file-store-emulator-core/Cargo.toml"]
+    "rust-analyzer.linkedProjects": ["${workspaceFolder}/rust/datapos-connector-file-store-emulator-core/Cargo.toml"],
+    "sonarlint.connectedMode.project": {
+        "connectionId": "data-positioning",
+        "projectKey": "data-positioning_datapos-connector-file-store-emulator"
+    }
 }
