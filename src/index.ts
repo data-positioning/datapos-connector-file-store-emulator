@@ -9,7 +9,6 @@
 import { nanoid } from 'nanoid';
 
 /** Dependencies - Framework. */
-import type { Tool as CSVParseTool, Parser } from '@datapos/datapos-tool-csv-parse';
 import { loadTool } from '@datapos/datapos-shared/component/tool';
 import type { ToolConfig } from '@datapos/datapos-shared/component/tool';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
@@ -27,6 +26,7 @@ import type {
     RetrieveRecordsSettings,
     RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
+import type { Tool as CSVParseTool, Parser } from '@datapos/datapos-tool-csv-parse';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 
 /** Data dependencies. */
@@ -148,32 +148,6 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         }
     }
 
-    private createRowBuffer(chunk: (records: string[][]) => void, chunkSize: number): RowBuffer {
-        let rows: string[][] = [];
-        const flush = (): void => {
-            if (rows.length === 0) return;
-            chunk(rows);
-            rows = [];
-        };
-        const push = (row: string[]): void => {
-            rows.push(row);
-            if (rows.length >= chunkSize) flush();
-        };
-        return { flush, push };
-    }
-
-    private handleReadable(parser: Parser, signal: AbortSignal, rowBuffer: RowBuffer, fail: (error: unknown) => void): void {
-        try {
-            let row: string[] | null;
-            while ((row = parser.read() as string[] | null) !== null) {
-                signal.throwIfAborted();
-                rowBuffer.push(row);
-            }
-        } catch (error) {
-            fail(error);
-        }
-    }
-
     /** Retrieves all records from a CSV object node using streaming and chunked processing. */
     async retrieveRecords(
         connector: ConnectorInterface,
@@ -208,14 +182,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
                         rowBuffer.flush();
                         connector.abortController = undefined; // Clear the abort controller.
                         isFinished = true;
-                        complete({
-                            byteCount: parser.info.bytes,
-                            commentLineCount: parser.info.comment_lines,
-                            emptyLineCount: parser.info.empty_lines,
-                            invalidFieldLengthCount: parser.info.invalid_field_length,
-                            lineCount: parser.info.lines,
-                            recordCount: parser.info.records
-                        });
+                        complete(this.constructRetrieveRecordsSummary(parser));
                         resolve();
                     } catch (error) {
                         connector.abortController = undefined;
@@ -223,69 +190,81 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
                     }
                 });
 
-                // Fetch, decode and forward the contents of the file to the parser.
-                // fetch(encodeURI(`${URL_PREFIX}/fileStore${settings.path}`), { signal })
-                //     .then(async (response) => {
-                //         try {
-                //             if (response.ok && response.body) {
-                //                 const stream = response.body.pipeThrough(new TextDecoderStream(settings.encodingId));
-                //                 const decodedStreamReader = stream.getReader();
-                //                 let result = await decodedStreamReader.read();
-                //                 while (!result.done) {
-                //                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                //                     // Write the decoded data to the parser and terminate if there is an error.
-                //                     parser.write(result.value, (error) => {
-                //                         if (error) {
-                //                             connector.abortController = undefined;
-                //                             reject(normalizeToError(error));
-                //                         }
-                //                     });
-                //                     result = await decodedStreamReader.read();
-                //                 }
-                //                 parser.end(); // Signal no more data will be written.
-                //             } else {
-                //                 const error = await buildFetchError(
-                //                     response,
-                //                     `Failed to fetch '${settings.path}' file.`,
-                //                     'datapos-connector-file-store-emulator|Connector|retrieve'
-                //                 );
-                //                 connector.abortController = undefined;
-                //                 reject(error);
-                //             }
-                //         } catch (error) {
-                //             connector.abortController = undefined;
-                //             reject(normalizeToError(error));
-                //         }
-                //     })
-                //     .catch((error: unknown) => {
-                //         connector.abortController = undefined;
-                //         reject(normalizeToError(error));
-                //     });
-                void this.streamIntoParser(`${URL_PREFIX}/fileStore${settings.path}`, settings.path, settings.encodingId, signal, parser).catch(fail);
+                void this.streamIntoParser(`${URL_PREFIX}/fileStore${settings.path}`, settings.path, settings.encodingId, signal, parser, fail).catch(fail);
             } catch (error) {
                 fail(error);
             }
         });
     }
 
-    private async streamIntoParser(url: string, path: string, encodingId: string, signal: AbortSignal, parser: Parser): Promise<void> {
+    private constructRetrieveRecordsSummary(parser: Parser): RetrieveRecordsSummary {
+        return {
+            byteCount: parser.info.bytes,
+            commentLineCount: parser.info.comment_lines,
+            emptyLineCount: parser.info.empty_lines,
+            invalidFieldLengthCount: parser.info.invalid_field_length,
+            lineCount: parser.info.lines,
+            recordCount: parser.info.records
+        };
+    }
+
+    private createRowBuffer(chunk: (records: string[][]) => void, chunkSize: number): RowBuffer {
+        let rows: string[][] = [];
+        const flush = (): void => {
+            if (rows.length === 0) return;
+            chunk(rows);
+            rows = [];
+        };
+        const push = (row: string[]): void => {
+            rows.push(row);
+            if (rows.length >= chunkSize) flush();
+        };
+        return { flush, push };
+    }
+
+    private handleReadable(parser: Parser, signal: AbortSignal, rowBuffer: RowBuffer, fail: (error: unknown) => void): void {
+        try {
+            let row: string[] | null;
+            while ((row = parser.read() as string[] | null) !== null) {
+                signal.throwIfAborted();
+                rowBuffer.push(row);
+            }
+        } catch (error) {
+            fail(error);
+        }
+    }
+
+    private async streamIntoParser(url: string, path: string, encodingId: string, signal: AbortSignal, parser: Parser, fail: (error: unknown) => void): Promise<void> {
         const response = await fetch(encodeURI(url), { signal });
         if (!response.ok || !response.body) {
             throw await buildFetchError(response, `Failed to fetch '${path}' file.`, 'datapos-connector-file-store-emulator|Connector|retrieve');
         }
 
-        const reader = response.body.pipeThrough(new TextDecoderStream(encodingId)).getReader();
-        while (true) {
-            const { value, done } = await reader.read();
-            if (done) break;
-            signal.throwIfAborted();
-            await new Promise<void>((resolve, reject) => {
-                parser.write(value, (error) => {
-                    if (error) reject(error);
-                    else resolve();
-                });
+        // const reader = response.body.pipeThrough(new TextDecoderStream(encodingId)).getReader();
+        // while (true) {
+        //     const { value, done } = await reader.read();
+        //     if (done) break;
+        //     signal.throwIfAborted();
+        //     await new Promise<void>((resolve, reject) => {
+        //         parser.write(value, (error) => {
+        //             if (error) reject(error);
+        //             else resolve();
+        //         });
+        //     });
+        // }
+        // const stream = response.body.pipeThrough(new TextDecoderStream(settings.encodingId));
+        const stream = response.body.pipeThrough(new TextDecoderStream(encodingId));
+        const decodedStreamReader = stream.getReader();
+        let result = await decodedStreamReader.read();
+        while (!result.done) {
+            signal.throwIfAborted(); // Check if the abort signal has been triggered.
+            // Write the decoded data to the parser and terminate if there is an error.
+            parser.write(result.value, (error) => {
+                if (error) fail(error);
             });
+            result = await decodedStreamReader.read();
         }
+        parser.end(); // Signal no more data will be written.
 
         parser.end();
     }
