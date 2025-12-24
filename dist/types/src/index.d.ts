@@ -23,6 +23,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     private createRowBuffer;
     private handleReadable;
     private streamIntoParser;
+    private writeToParser;
     /** Construct folder node configuration. */
     private constructFolderNodeConfig;
     /** Construct object (file) node configuration. */

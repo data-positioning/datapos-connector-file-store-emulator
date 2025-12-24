@@ -190,7 +190,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
                     }
                 });
 
-                void this.streamIntoParser(`${URL_PREFIX}/fileStore${settings.path}`, settings.path, settings.encodingId, signal, parser, fail).catch(fail);
+                void this.streamIntoParser(`${URL_PREFIX}/fileStore${settings.path}`, settings.path, settings.encodingId, signal, parser).catch(fail);
             } catch (error) {
                 fail(error);
             }
@@ -234,40 +234,32 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         }
     }
 
-    private async streamIntoParser(url: string, path: string, encodingId: string, signal: AbortSignal, parser: Parser, fail: (error: unknown) => void): Promise<void> {
+    private async streamIntoParser(url: string, path: string, encodingId: string, signal: AbortSignal, parser: Parser): Promise<void> {
         const response = await fetch(encodeURI(url), { signal });
         if (!response.ok || !response.body) {
             throw await buildFetchError(response, `Failed to fetch '${path}' file.`, 'datapos-connector-file-store-emulator|Connector|retrieve');
         }
 
-        // const reader = response.body.pipeThrough(new TextDecoderStream(encodingId)).getReader();
-        // while (true) {
-        //     const { value, done } = await reader.read();
-        //     if (done) break;
-        //     signal.throwIfAborted();
-        //     await new Promise<void>((resolve, reject) => {
-        //         parser.write(value, (error) => {
-        //             if (error) reject(error);
-        //             else resolve();
-        //         });
-        //     });
-        // }
-        // const stream = response.body.pipeThrough(new TextDecoderStream(settings.encodingId));
-        const stream = response.body.pipeThrough(new TextDecoderStream(encodingId));
-        const decodedStreamReader = stream.getReader();
-        let result = await decodedStreamReader.read();
+        const reader = response.body.pipeThrough(new TextDecoderStream(encodingId)).getReader();
+        let result = await reader.read();
         while (!result.done) {
-            signal.throwIfAborted(); // Check if the abort signal has been triggered.
-            // Write the decoded data to the parser and terminate if there is an error.
-            parser.write(result.value, (error) => {
-                if (error) fail(error);
-            });
-            result = await decodedStreamReader.read();
+            signal.throwIfAborted();
+            await this.writeToParser(parser, result.value);
+            result = await reader.read();
         }
-        parser.end(); // Signal no more data will be written.
 
         parser.end();
     }
+
+    private writeToParser(parser: Parser, chunk: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            parser.write(chunk, (error) => {
+                if (error) reject(error);
+                else resolve();
+            });
+        });
+    }
+
     /** Construct folder node configuration. */
     private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
         return { id: nanoid(), childCount, extension: undefined, folderPath, label: name, name, typeId: 'folder' };
