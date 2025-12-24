@@ -1,22 +1,26 @@
 import { ToolConfig } from '@datapos/datapos-shared/component/tool';
-import { ConnectionConfig, Connector, ConnectorConfig, FindResult, FindSettings, GetReadableStreamResult, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
-/** Classes - File store emulator connector. */
-export default class FileStoreEmulatorConnector implements Connector {
+import { ConnectionConfig, ConnectorConfig, ConnectorInterface, FindObjectFolderPathSettings, GetReadableStreamSettings, ListResult, ListSettings, PreviewResult, PreviewSettings, RetrieveRecordsSettings, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
+/** File store emulator connector. */
+export default class FileStoreEmulatorConnector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
     readonly toolConfigs: ToolConfig[];
     constructor(connectionConfig: ConnectionConfig, toolConfigs: ToolConfig[]);
-    /** Abort operation. */
-    abortOperation(connector: Connector): void;
-    /** Find object. */
-    findObject(connector: Connector, settings: FindSettings): Promise<FindResult>;
-    getReadableStream(connector: Connector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult>;
-    listNodes(connector: Connector, settings: ListSettings): Promise<ListResult>;
-    previewObject(connector: Connector, settings: PreviewSettings): Promise<PreviewResult>;
-    retrieveRecords(connector: Connector, settings: RetrieveRecordsSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
-    /** Utilities - Construct folder node configuration. */
+    /** Abort the currently running operation. */
+    abortOperation(connector: ConnectorInterface): void;
+    /** Find the folder path containing the specified object node. */
+    findObjectFolderPath(connector: ConnectorInterface, settings: FindObjectFolderPathSettings): Promise<string | null>;
+    /** Get a readable stream for the specified object node path. */
+    getReadableStream(connector: ConnectorInterface, settings: GetReadableStreamSettings): Promise<ReadableStream>;
+    /** Lists all nodes (folders and objects) in the specified folder path. */
+    listNodes(connector: ConnectorInterface, settings: ListSettings): Promise<ListResult>;
+    /** Preview the contents of the object node with the specified path. */
+    previewObject(connector: ConnectorInterface, settings: PreviewSettings): Promise<PreviewResult>;
+    /** Retrieves all records from a CSV object node using streaming and chunked processing. */
+    retrieveRecords(connector: ConnectorInterface, settings: RetrieveRecordsSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
+    /** Construct folder node configuration. */
     private constructFolderNodeConfig;
-    /** Utilities - Construct object (file) node configuration. */
+    /** Construct object (file) node configuration. */
     private constructObjectNodeConfig;
 }
