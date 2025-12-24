@@ -148,26 +148,26 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         }
     }
 
-    private createRowBuffer(chunk: (records: string[][]) => void, size: number): RowBuffer {
-        let pendingRows: string[][] = [];
+    private createRowBuffer(chunk: (records: string[][]) => void, chunkSize: number): RowBuffer {
+        let rows: string[][] = [];
         const flush = (): void => {
-            if (pendingRows.length === 0) return;
-            chunk(pendingRows);
-            pendingRows = [];
+            if (rows.length === 0) return;
+            chunk(rows);
+            rows = [];
         };
         const push = (row: string[]): void => {
-            pendingRows.push(row);
-            if (pendingRows.length >= size) flush();
+            rows.push(row);
+            if (rows.length >= chunkSize) flush();
         };
         return { flush, push };
     }
 
-    private handleReadable(parser: Parser, signal: AbortSignal, buffer: RowBuffer, fail: (error: unknown) => void): void {
+    private handleReadable(parser: Parser, signal: AbortSignal, rowBuffer: RowBuffer, fail: (error: unknown) => void): void {
         try {
-            let data: string[] | null;
-            while ((data = parser.read() as string[] | null) !== null) {
+            let row: string[] | null;
+            while ((row = parser.read() as string[] | null) !== null) {
                 signal.throwIfAborted();
-                buffer.push(data);
+                rowBuffer.push(row);
             }
         } catch (error) {
             fail(error);
@@ -183,7 +183,10 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     ): Promise<void> {
         const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
         return new Promise((resolve, reject) => {
+            let isFinished = false;
             const fail = (error: unknown): void => {
+                if (isFinished) return;
+                isFinished = true;
                 connector.abortController = undefined;
                 reject(normalizeToError(error));
             };
@@ -194,23 +197,17 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
                 const signal = connector.abortController.signal;
                 signal.addEventListener('abort', () => fail(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
 
-                // Parser - Declare variables.
-                // let pendingRows: string[][] = []; // Array to store rows of parsed field values and associated information.
-
                 // Parser - Create a parser object for CSV parsing.
-                const buffer = this.createRowBuffer(chunk, DEFAULT_RETRIEVE_CHUNK_SIZE);
+                const rowBuffer = this.createRowBuffer(chunk, DEFAULT_RETRIEVE_CHUNK_SIZE);
                 const parser = csvParseTool.buildParser({ delimiter: settings.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true });
-                parser.on('readable', () => this.handleReadable(parser, signal, buffer, fail));
+                parser.on('readable', () => this.handleReadable(parser, signal, rowBuffer, fail));
                 parser.on('error', (error) => fail(error));
                 parser.on('end', () => {
                     try {
                         signal.throwIfAborted(); // Check if the abort signal has been triggered.
+                        rowBuffer.flush();
                         connector.abortController = undefined; // Clear the abort controller.
-                        buffer.flush();
-                        // if (pendingRows.length > 0) {
-                        //     chunk(pendingRows);
-                        //     pendingRows = [];
-                        // }
+                        isFinished = true;
                         complete({
                             byteCount: parser.info.bytes,
                             commentLineCount: parser.info.comment_lines,
@@ -227,50 +224,71 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
                 });
 
                 // Fetch, decode and forward the contents of the file to the parser.
-                fetch(encodeURI(`${URL_PREFIX}/fileStore${settings.path}`), { signal })
-                    .then(async (response) => {
-                        try {
-                            if (response.ok && response.body) {
-                                const stream = response.body.pipeThrough(new TextDecoderStream(settings.encodingId));
-                                const decodedStreamReader = stream.getReader();
-                                let result = await decodedStreamReader.read();
-                                while (!result.done) {
-                                    signal.throwIfAborted(); // Check if the abort signal has been triggered.
-                                    // Write the decoded data to the parser and terminate if there is an error.
-                                    parser.write(result.value, (error) => {
-                                        if (error) {
-                                            connector.abortController = undefined;
-                                            reject(normalizeToError(error));
-                                        }
-                                    });
-                                    result = await decodedStreamReader.read();
-                                }
-                                parser.end(); // Signal no more data will be written.
-                            } else {
-                                const error = await buildFetchError(
-                                    response,
-                                    `Failed to fetch '${settings.path}' file.`,
-                                    'datapos-connector-file-store-emulator|Connector|retrieve'
-                                );
-                                connector.abortController = undefined;
-                                reject(error);
-                            }
-                        } catch (error) {
-                            connector.abortController = undefined;
-                            reject(normalizeToError(error));
-                        }
-                    })
-                    .catch((error: unknown) => {
-                        connector.abortController = undefined;
-                        reject(normalizeToError(error));
-                    });
+                // fetch(encodeURI(`${URL_PREFIX}/fileStore${settings.path}`), { signal })
+                //     .then(async (response) => {
+                //         try {
+                //             if (response.ok && response.body) {
+                //                 const stream = response.body.pipeThrough(new TextDecoderStream(settings.encodingId));
+                //                 const decodedStreamReader = stream.getReader();
+                //                 let result = await decodedStreamReader.read();
+                //                 while (!result.done) {
+                //                     signal.throwIfAborted(); // Check if the abort signal has been triggered.
+                //                     // Write the decoded data to the parser and terminate if there is an error.
+                //                     parser.write(result.value, (error) => {
+                //                         if (error) {
+                //                             connector.abortController = undefined;
+                //                             reject(normalizeToError(error));
+                //                         }
+                //                     });
+                //                     result = await decodedStreamReader.read();
+                //                 }
+                //                 parser.end(); // Signal no more data will be written.
+                //             } else {
+                //                 const error = await buildFetchError(
+                //                     response,
+                //                     `Failed to fetch '${settings.path}' file.`,
+                //                     'datapos-connector-file-store-emulator|Connector|retrieve'
+                //                 );
+                //                 connector.abortController = undefined;
+                //                 reject(error);
+                //             }
+                //         } catch (error) {
+                //             connector.abortController = undefined;
+                //             reject(normalizeToError(error));
+                //         }
+                //     })
+                //     .catch((error: unknown) => {
+                //         connector.abortController = undefined;
+                //         reject(normalizeToError(error));
+                //     });
+                void this.streamIntoParser(`${URL_PREFIX}/fileStore${settings.path}`, settings.path, settings.encodingId, signal, parser).catch(fail);
             } catch (error) {
-                connector.abortController = undefined;
-                reject(normalizeToError(error));
+                fail(error);
             }
         });
     }
 
+    private async streamIntoParser(url: string, path: string, encodingId: string, signal: AbortSignal, parser: Parser): Promise<void> {
+        const response = await fetch(encodeURI(url), { signal });
+        if (!response.ok || !response.body) {
+            throw await buildFetchError(response, `Failed to fetch '${path}' file.`, 'datapos-connector-file-store-emulator|Connector|retrieve');
+        }
+
+        const reader = response.body.pipeThrough(new TextDecoderStream(encodingId)).getReader();
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            signal.throwIfAborted();
+            await new Promise<void>((resolve, reject) => {
+                parser.write(value, (error) => {
+                    if (error) reject(error);
+                    else resolve();
+                });
+            });
+        }
+
+        parser.end();
+    }
     /** Construct folder node configuration. */
     private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
         return { id: nanoid(), childCount, extension: undefined, folderPath, label: name, name, typeId: 'folder' };
