@@ -20,10 +20,10 @@ import type {
     ConnectorInterface,
     FindObjectFolderPathSettings,
     GetReadableStreamSettings,
-    ListResult,
-    ListSettings,
-    PreviewResult,
-    PreviewSettings,
+    ListNodesResult,
+    ListNodesSettings,
+    PreviewObjectResult,
+    PreviewObjectSettings,
     RetrieveRecordsSettings,
     RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
@@ -104,7 +104,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     }
 
     /** Lists all nodes (folders and objects) in the specified folder path. */
-    listNodes(connector: ConnectorInterface, settings: ListSettings): Promise<ListResult> {
+    listNodes(connector: ConnectorInterface, settings: ListNodesSettings): Promise<ListNodesResult> {
         const fileStoreFolderPaths = fileStoreFolderPathData as FileStoreFolderPaths;
         const folderNodes = fileStoreFolderPaths[settings.folderPath] ?? [];
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
@@ -119,7 +119,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     }
 
     /** Preview the contents of the object node with the specified path. */
-    async previewObject(connector: ConnectorInterface, settings: PreviewSettings): Promise<PreviewResult> {
+    async previewObject(connector: ConnectorInterface, settings: PreviewObjectSettings): Promise<PreviewObjectResult> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
@@ -129,10 +129,8 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             });
 
             // Fetch chunk from start of file.
-            const url = `${URL_PREFIX}/fileStore${settings.path}`;
-            const chunkSize = settings.chunkSize ?? DEFAULT_PREVIEW_CHUNK_SIZE;
-            const headers: HeadersInit = { Range: `bytes=0-${chunkSize}` };
-            const response = await fetch(encodeURI(url), { headers, signal });
+            const headers: HeadersInit = { Range: `bytes=0-${settings.chunkSize ?? DEFAULT_PREVIEW_CHUNK_SIZE}` };
+            const response = await fetch(encodeURI(`${URL_PREFIX}/fileStore${settings.path}`), { headers, signal });
             if (response.ok) {
                 connector.abortController = undefined;
                 return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
