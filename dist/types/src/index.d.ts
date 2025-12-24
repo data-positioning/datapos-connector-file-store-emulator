@@ -12,7 +12,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     /** Find the folder path containing the specified object node. */
     findObjectFolderPath(connector: ConnectorInterface, settings: FindObjectFolderPathSettings): Promise<string | null>;
     /** Get a readable stream for the specified object node path. */
-    getReadableStream(connector: ConnectorInterface, settings: GetReadableStreamSettings): Promise<ReadableStream>;
+    getReadableStream(connector: ConnectorInterface, settings: GetReadableStreamSettings): Promise<ReadableStream<Uint8Array<ArrayBuffer>>>;
     /** Lists all nodes (folders and objects) in the specified folder path. */
     listNodes(connector: ConnectorInterface, settings: ListSettings): Promise<ListResult>;
     /** Preview the contents of the object node with the specified path. */

@@ -86,7 +86,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     }
 
     /** Get a readable stream for the specified object node path. */
-    async getReadableStream(connector: ConnectorInterface, settings: GetReadableStreamSettings): Promise<ReadableStream> {
+    async getReadableStream(connector: ConnectorInterface, settings: GetReadableStreamSettings): Promise<ReadableStream<Uint8Array<ArrayBuffer>>> {
         try {
             const response = await fetch(`${URL_PREFIX}/fileStore${settings.path}`);
             if (response.body == null) throw new Error('Readable streams not supported by this browser.');
