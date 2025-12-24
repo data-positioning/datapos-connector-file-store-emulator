@@ -3,15 +3,17 @@
  */
 
 // Dependencies - Vendor.
-import { defineConfig } from 'vite'; // Core Vite API.
 import dts from 'vite-plugin-dts'; // Emit .d.ts files alongside the bundle.
 import Sonda from 'sonda/vite'; // Visualize bundle results with Sonda plugin.
 import { visualizer } from 'rollup-plugin-visualizer'; // Generate bundle size report.
 import wasm from 'vite-plugin-wasm'; // Allow bundling wasm modules emitted by wasm-pack.
+import { defineConfig, type PluginOption } from 'vite'; // Core Vite API.
 import { fileURLToPath, URL } from 'node:url'; // ESM-safe path helpers.
 
 // Dependencies - Data,
 import config from './config.json';
+
+const wasmPlugin = wasm() as PluginOption;
 
 // Exposures - Configuration.
 export default defineConfig({
@@ -44,7 +46,7 @@ export default defineConfig({
         sourcemap: true,
         target: 'ESNext'
     },
-    plugins: [dts({ outDir: 'dist/types' }), wasm()],
+    plugins: [dts({ outDir: 'dist/types' }), wasmPlugin],
     resolve: {
         alias: {
             '~': fileURLToPath(new URL('./', import.meta.url)), // Base alias matching tsconfig.

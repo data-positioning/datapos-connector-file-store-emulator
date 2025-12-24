@@ -1,8 +1,9 @@
-/*
+/**
  * File store emulator connector class.
+ *
+ * TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js.
+ * This would allow us to secure the bucket?
  */
-
-// NOTE: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js. This would allow us to secure the bucket?
 
 /** Dependencies - Vendor. */
 import { nanoid } from 'nanoid';
@@ -15,11 +16,9 @@ import { buildFetchError, normalizeToError, OperationalError } from '@datapos/da
 import type {
     ConnectionConfig,
     ConnectionNodeConfig,
-    Connector,
     ConnectorConfig,
-    FindResult,
-    FindSettings,
-    GetReadableStreamResult,
+    ConnectorInterface,
+    FindObjectFolderPathSettings,
     GetReadableStreamSettings,
     ListResult,
     ListSettings,
@@ -30,17 +29,17 @@ import type {
 } from '@datapos/datapos-shared/component/connector';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 
-/** Dependencies - Data. */
+/** Data dependencies. */
 import config from '~/config.json';
-import fileStoreIndex from '@/fileStoreIndex.json';
+import fileStoreFolderPathData from '@/fileStoreFolderPaths.json';
 import { version } from '~/package.json';
 import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
 
-/** Interfaces/Types - File store index. */
-type FileStoreIndexItem =
+/** File store folder paths. */
+type FileStoreFolderNode =
     | ({ typeId: 'folder'; childCount: number } & { name: string })
     | ({ typeId: 'object'; id: string; lastModifiedAt: number; size: number } & { name: string });
-type FileStoreIndex = Record<string, FileStoreIndexItem[]>;
+type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>;
 
 /** Constants */
 const CALLBACK_PREVIEW_ABORTED = 'Connector failed to abort preview object operation.';
@@ -49,8 +48,8 @@ const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const DEFAULT_RETRIEVE_CHUNK_SIZE = 1000;
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 
-/** Classes - File store emulator connector. */
-export default class FileStoreEmulatorConnector implements Connector {
+/** File store emulator connector. */
+export default class FileStoreEmulatorConnector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
@@ -64,61 +63,63 @@ export default class FileStoreEmulatorConnector implements Connector {
         this.toolConfigs = toolConfigs;
     }
 
-    /** Abort operation. */
-    abortOperation(connector: Connector): void {
+    /** Abort the currently running operation. */
+    abortOperation(connector: ConnectorInterface): void {
         if (!connector.abortController) return;
         connector.abortController.abort();
         connector.abortController = undefined;
     }
 
-    /** Find object. */
-    findObject(connector: Connector, settings: FindSettings): Promise<FindResult> {
-        // Loop through the file store index checking for an object entry with an identifier equal to the object name.
-        for (const folderPath in fileStoreIndex) {
-            if (Object.prototype.hasOwnProperty.call(fileStoreIndex, folderPath)) {
+    /** Find the folder path containing the specified object node. */
+    findObjectFolderPath(connector: ConnectorInterface, settings: FindObjectFolderPathSettings): Promise<string | null> {
+        const fileStoreFolderPaths = fileStoreFolderPathData as FileStoreFolderPaths;
+        // Loop through the folder path data checking for an object entry with an identifier equal to the object name.
+        for (const folderPath in fileStoreFolderPaths) {
+            if (Object.prototype.hasOwnProperty.call(fileStoreFolderPaths, folderPath)) {
                 // eslint-disable-next-line security/detect-object-injection
-                const indexItems = (fileStoreIndex as FileStoreIndex)[folderPath];
-                const indexItem = indexItems?.find((indexItem) => indexItem.typeId === 'object' && indexItem.id === settings.objectName);
-                if (indexItem) return Promise.resolve({ folderPath }); // Found, return folder path.
+                const folderPathNodes = fileStoreFolderPaths[folderPath];
+                const folderPathNode = folderPathNodes?.find((folderPathNode) => folderPathNode.typeId === 'object' && folderPathNode.id === settings.nodeId);
+                if (folderPathNode) return Promise.resolve(folderPath); // Found, return folder path.
             }
         }
-        return Promise.resolve({}); // Not found, return undefined folder path.
+        return Promise.resolve(null); // Not found.
     }
 
-    // Operations - Get readable stream.
-    async getReadableStream(connector: Connector, settings: GetReadableStreamSettings): Promise<GetReadableStreamResult> {
+    /** Get a readable stream for the specified object node path. */
+    async getReadableStream(connector: ConnectorInterface, settings: GetReadableStreamSettings): Promise<ReadableStream> {
         try {
-            const url = `${URL_PREFIX}/fileStore${settings.path}`;
-            const response = await fetch(url);
-            if (!response.body) throw new Error('ReadableStream not supported by this browser.');
+            const response = await fetch(`${URL_PREFIX}/fileStore${settings.path}`);
+            if (response.body == null) throw new Error('Readable streams not supported by this browser.');
 
+            // TODO: Remove after testing.
             const xxx = await addNumbersWithRust(12, 56);
             const sum = await checksumWithRust(connector.config.version);
             console.log('sum', sum, xxx);
 
-            return await Promise.resolve({ readable: response.body });
+            return await Promise.resolve(response.body);
         } catch (error) {
             connector.abortController = undefined;
             throw error;
         }
     }
 
-    // Operations - List nodes.
-    listNodes(connector: Connector, settings: ListSettings): Promise<ListResult> {
-        const indexItems = (fileStoreIndex as FileStoreIndex)[settings.folderPath] ?? [];
+    /** Lists all nodes (folders and objects) in the specified folder path. */
+    listNodes(connector: ConnectorInterface, settings: ListSettings): Promise<ListResult> {
+        const fileStoreFolderPaths = fileStoreFolderPathData as FileStoreFolderPaths;
+        const folderNodes = fileStoreFolderPaths[settings.folderPath] ?? [];
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
-        for (const indexItem of indexItems) {
-            if (indexItem.typeId === 'folder') {
-                connectionNodeConfigs.push(this.constructFolderNodeConfig(settings.folderPath, indexItem.name, indexItem.childCount));
+        for (const folderNode of folderNodes) {
+            if (folderNode.typeId === 'folder') {
+                connectionNodeConfigs.push(this.constructFolderNodeConfig(settings.folderPath, folderNode.name, folderNode.childCount));
             } else {
-                connectionNodeConfigs.push(this.constructObjectNodeConfig(settings.folderPath, indexItem.id, indexItem.name, indexItem.lastModifiedAt, indexItem.size));
+                connectionNodeConfigs.push(this.constructObjectNodeConfig(settings.folderPath, folderNode.id, folderNode.name, folderNode.lastModifiedAt, folderNode.size));
             }
         }
         return Promise.resolve({ cursor: undefined, isMore: false, connectionNodeConfigs, totalCount: connectionNodeConfigs.length });
     }
 
-    // Operations - Preview object.
-    async previewObject(connector: Connector, settings: PreviewSettings): Promise<PreviewResult> {
+    /** Preview the contents of the object node with the specified path. */
+    async previewObject(connector: ConnectorInterface, settings: PreviewSettings): Promise<PreviewResult> {
         try {
             // Create an abort controller. Get the signal for the abort controller and add an abort listener.
             connector.abortController = new AbortController();
@@ -144,9 +145,9 @@ export default class FileStoreEmulatorConnector implements Connector {
         }
     }
 
-    // Operations - Retrieve records.
+    /** Retrieves all records from a CSV object node using streaming and chunked processing. */
     async retrieveRecords(
-        connector: Connector,
+        connector: ConnectorInterface,
         settings: RetrieveRecordsSettings,
         chunk: (records: string[][]) => void,
         complete: (result: RetrieveRecordsSummary) => void
@@ -270,12 +271,12 @@ export default class FileStoreEmulatorConnector implements Connector {
         });
     }
 
-    /** Utilities - Construct folder node configuration. */
+    /** Construct folder node configuration. */
     private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
         return { id: nanoid(), childCount, extension: undefined, folderPath, label: name, name, typeId: 'folder' };
     }
 
-    /** Utilities - Construct object (file) node configuration. */
+    /** Construct object (file) node configuration. */
     private constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
         const name = extractNameFromPath(fullName) ?? '';
         const extension = extractExtensionFromPath(fullName);
@@ -283,16 +284,4 @@ export default class FileStoreEmulatorConnector implements Connector {
         const mimeType = lookupMimeTypeForExtension(extension);
         return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
     }
-
-    // // Helpers - Load tool for connector.
-    // private async loadToolForConnector<T>(connector: Connector, toolId: string): Promise<T> {
-    //     const toolName = `datapos-tool-${toolId}`;
-    //     const toolModuleConfig = connector.toolConfigs.find((config) => config.id === toolName);
-    //     if (!toolModuleConfig) throw new Error(`Unknown tool '${toolId}'.`);
-
-    //     const url = `https://engine-eu.datapos.app/tools/${toolId}_v${toolModuleConfig.version}/${toolName}.es.js`;
-    //     const toolModule = (await import(/* @vite-ignore */ url)) as { Tool: new () => T };
-    //     const toolInstance = new toolModule.Tool();
-    //     return toolInstance;
-    // }
 }
