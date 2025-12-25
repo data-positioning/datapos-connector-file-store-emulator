@@ -168,7 +168,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             const handleComplete = (summary: RetrieveRecordsSummary): void => {
                 try {
                     signal.throwIfAborted();
-                    options.complete(summary);
+                    console.log(summary);
                     finalize(() => resolve());
                 } catch (error) {
                     handleError(error);
