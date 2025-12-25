@@ -19,7 +19,6 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     previewObject(connector: ConnectorInterface, options: PreviewObjectOptions): Promise<PreviewObjectResult>;
     /** Retrieves all records from a CSV object node using streaming and chunked processing. */
     retrieveRecords(connector: ConnectorInterface, options: RetrieveRecordsOptions): Promise<void>;
-    private abortErrorFactory;
     /** Construct folder node configuration. */
     private constructFolderNodeConfig;
     /** Construct object (file) node configuration. */

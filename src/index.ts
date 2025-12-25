@@ -150,7 +150,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         return new Promise((resolve, reject) => {
             let isSettled = false;
             const { signal } = (connector.abortController = new AbortController());
-            signal.addEventListener('abort', () => handleError(this.abortErrorFactory()), { once: true });
+            signal.addEventListener('abort', () => handleError(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
 
             const finalize = (settle: () => void): void => {
                 if (isSettled) return;
@@ -160,8 +160,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             };
 
             const handleError = (error: unknown): void => {
-                const finalError = signal.aborted ? this.abortErrorFactory() : normalizeToError(error);
-                finalize(() => reject(finalError));
+                finalize(() => reject(normalizeToError(error)));
             };
 
             const handleComplete = (summary: RetrieveRecordsSummary): void => {
@@ -178,10 +177,6 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             const url = `${URL_PREFIX}/fileStore${options.path}`;
             void csvParseTool.parseStream(parseOptions, options, url, signal, handleError, handleComplete).catch((error: unknown) => handleError(error));
         });
-    }
-
-    private abortErrorFactory(): OperationalError {
-        return new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'datapos-connector-file-store-emulator|Connector|retrieveRecords.abort');
     }
 
     /** Construct folder node configuration. */
