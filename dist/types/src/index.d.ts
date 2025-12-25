@@ -1,5 +1,5 @@
 import { ToolConfig } from '@datapos/datapos-shared/component/tool';
-import { ConnectionConfig, ConnectorConfig, ConnectorInterface, FindObjectFolderPathSettings, GetReadableStreamSettings, ListNodesResult, ListNodesSettings, PreviewObjectResult, PreviewObjectSettings, RetrieveRecordsSettings, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
+import { ConnectionConfig, ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, PreviewObjectResult, RetrieveRecordsOptions } from '@datapos/datapos-shared/component/connector';
 /** File store emulator connector. */
 export default class FileStoreEmulatorConnector implements ConnectorInterface {
     abortController: AbortController | undefined;
@@ -10,20 +10,16 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     /** Abort the currently running operation. */
     abortOperation(connector: ConnectorInterface): void;
     /** Find the folder path containing the specified object node. */
-    findObjectFolderPath(connector: ConnectorInterface, settings: FindObjectFolderPathSettings): Promise<string | null>;
+    findObjectFolderPath(connector: ConnectorInterface, options: FindObjectFolderPathOptions): Promise<string | null>;
     /** Get a readable stream for the specified object node path. */
-    getReadableStream(connector: ConnectorInterface, settings: GetReadableStreamSettings): Promise<ReadableStream<Uint8Array<ArrayBuffer>>>;
+    getReadableStream(connector: ConnectorInterface, options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>>;
     /** Lists all nodes (folders and objects) in the specified folder path. */
-    listNodes(connector: ConnectorInterface, settings: ListNodesSettings): Promise<ListNodesResult>;
+    listNodes(connector: ConnectorInterface, options: ListNodesOptions): Promise<ListNodesResult>;
     /** Preview the contents of the object node with the specified path. */
-    previewObject(connector: ConnectorInterface, settings: PreviewObjectSettings): Promise<PreviewObjectResult>;
+    previewObject(connector: ConnectorInterface, options: PreviewObjectOptions): Promise<PreviewObjectResult>;
     /** Retrieves all records from a CSV object node using streaming and chunked processing. */
-    retrieveRecords(connector: ConnectorInterface, settings: RetrieveRecordsSettings, chunk: (records: string[][]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
-    private constructRetrieveRecordsSummary;
-    private createRowBuffer;
-    private handleReadable;
-    private streamIntoParser;
-    private writeToParser;
+    retrieveRecords(connector: ConnectorInterface, options: RetrieveRecordsOptions): Promise<void>;
+    private abortErrorFactory;
     /** Construct folder node configuration. */
     private constructFolderNodeConfig;
     /** Construct object (file) node configuration. */
