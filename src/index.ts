@@ -158,26 +158,17 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
 
         return new Promise((resolve, reject) => {
-            let isFinished = false;
-            const fail = (error: unknown): void => {
-                if (isFinished) return;
-                isFinished = true;
-                if (connector.abortController) connector.abortController.abort();
-                connector.abortController = undefined;
-                reject(normalizeToError(error));
-            };
-
             // try {
             //     // Create an abort controller and get the signal. Add an abort listener to the signal.
             //     connector.abortController = new AbortController();
             //     const signal = connector.abortController.signal;
-            //     signal.addEventListener('abort', () => fail(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
+            //     signal.addEventListener('abort', () => onError(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
 
             //     const chunkSize = settings.chunkSize ?? DEFAULT_RETRIEVE_CHUNK_SIZE;
             //     const rowBuffer = this.createRowBuffer(chunk, chunkSize);
             //     const parser = csvParseTool.buildParser({ delimiter: settings.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true });
-            //     parser.on('readable', () => this.handleReadable(parser, signal, rowBuffer, fail));
-            //     parser.on('error', (error) => fail(error));
+            //     parser.on('readable', () => this.handleReadable(parser, signal, rowBuffer, onError));
+            //     parser.on('error', (error) => onError(error));
             //     parser.on('end', () => {
             //         try {
             //             signal.throwIfAborted(); // Check if the abort signal has been triggered.
@@ -192,17 +183,34 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             //         }
             //     });
 
-            //     void this.streamIntoParser(`${URL_PREFIX}/fileStore${settings.path}`, settings.path, settings.encodingId, signal, parser).catch(fail);
+            //     void this.streamIntoParser(`${URL_PREFIX}/fileStore${settings.path}`, settings.path, settings.encodingId, signal, parser).catch(onError);
             // } catch (error) {
-            //     fail(error);
+            //     onError(error);
             // }
+
+            let isFinished = false;
+
+            const onComplete = (summary: RetrieveRecordsSummary): void => {
+                signal.throwIfAborted(); // Check if the abort signal has been triggered.
+                connector.abortController = undefined; // Clear the abort controller.
+                isFinished = true;
+                complete(summary);
+                resolve();
+            };
+            const onError = (error: unknown): void => {
+                if (isFinished) return;
+                isFinished = true;
+                if (connector.abortController) connector.abortController.abort();
+                connector.abortController = undefined;
+                reject(normalizeToError(error));
+            };
 
             connector.abortController = new AbortController();
             const signal = connector.abortController.signal;
-            signal.addEventListener('abort', () => fail(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
+            signal.addEventListener('abort', () => onError(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
 
             const parseOptions = { delimiter: settings.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
-            void csvParseTool.parseStream(parseOptions, settings, `${URL_PREFIX}/fileStore${settings.path}`, signal, reject, resolve);
+            void csvParseTool.parseStream(parseOptions, settings, `${URL_PREFIX}/fileStore${settings.path}`, signal, onError, onComplete);
         });
     }
 
@@ -231,7 +239,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         return { flush, push };
     }
 
-    private handleReadable(parser: Parser, signal: AbortSignal, rowBuffer: RowBuffer, fail: (error: unknown) => void): void {
+    private handleReadable(parser: Parser, signal: AbortSignal, rowBuffer: RowBuffer, onError: (error: unknown) => void): void {
         try {
             let row: string[] | null;
             while ((row = parser.read() as string[] | null) !== null) {
@@ -239,7 +247,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
                 rowBuffer.push(row);
             }
         } catch (error) {
-            fail(error);
+            onError(error);
         }
     }
 
