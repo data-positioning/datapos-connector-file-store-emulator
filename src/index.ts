@@ -41,7 +41,6 @@ type FileStoreFolderNode =
 type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>;
 
 /** Constants */
-const CALLBACK_PREVIEW_ABORTED = 'Connector failed to abort preview object operation.';
 const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve all records operation.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
@@ -136,6 +135,9 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             if (!response.ok) {
                 throw await buildFetchError(response, `Failed to fetch '${options.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
             }
+
+            const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
+
             return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
         } catch (error) {
             throw normalizeToError(error);
@@ -175,7 +177,9 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
 
             const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
             const url = `${URL_PREFIX}/fileStore${options.path}`;
+            console.log(1111);
             void csvParseTool.parseStream(parseOptions, options, url, signal, handleError, handleComplete).catch((error: unknown) => handleError(error));
+            console.log(9999);
         });
     }
 
