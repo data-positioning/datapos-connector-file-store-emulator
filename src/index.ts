@@ -180,8 +180,8 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
         const url = `${URL_PREFIX}/fileStore${options.path}`;
         console.log(1111);
-        void csvParseTool.parseStream(parseOptions, options, url, signal).catch((error: unknown) => handleError(error));
-        console.log(9999);
+        const xxxx = await csvParseTool.parseStream(parseOptions, options, url, signal).catch((error: unknown) => handleError(error));
+        console.log(9999, xxxx);
         // });
     }
 
