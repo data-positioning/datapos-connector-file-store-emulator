@@ -159,7 +159,6 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
             const url = `${URL_PREFIX}/fileStore${options.path}`;
             const summary = await csvParseTool.parseStream(parseOptions, options, url, connector.abortController, chunk);
-            console.log('Summary', summary);
             complete(summary);
         } catch (error) {
             throw normalizeToError(error);
