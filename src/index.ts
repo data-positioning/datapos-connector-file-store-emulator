@@ -151,7 +151,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         // return new Promise((resolve, reject) => {
         let isSettled = false;
         const { signal } = (connector.abortController = new AbortController());
-        // signal.addEventListener('abort', () => handleError(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
+        signal.addEventListener('abort', () => console.log('aaaa', signal.reason), { once: true });
 
         const finalize = (settle: () => void): void => {
             if (isSettled) return;

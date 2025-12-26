@@ -6,7 +6,7 @@ let v = (e = 21) => {
   return t;
 };
 async function f(e, t) {
-  const i = `datapos-tool-${t}`, d = e.find((a) => a.id === i);
+  const i = `datapos-tool-${t}`, d = e.find((o) => o.id === i);
   if (!d) throw new Error(`Connector could not load unknown tool '${t}'.`);
   const s = await import(`https://engine-eu.datapos.app/tools/${t}_v${d.version}/${i}.es.js`);
   return new s.Tool();
@@ -31,13 +31,13 @@ class h extends y {
 }
 async function I(e, t, i) {
   const d = ` - ${e.statusText}`, s = `${t} Response status '${e.status}${e.statusText ? d : ""}' received.`;
-  let a;
+  let o;
   try {
-    a = await e.text();
-  } catch (o) {
-    a = `<body unavailable: ${l(o).message}>`;
+    o = await e.text();
+  } catch (a) {
+    o = `<body unavailable: ${l(a).message}>`;
   }
-  return new C(s, i, a);
+  return new C(s, i, o);
 }
 function l(e) {
   if (e instanceof Error) return e;
@@ -83,7 +83,7 @@ function P(e) {
       return "application/octet-stream";
   }
 }
-const R = "datapos-connector-file-store-emulator", S = { en: "File Store Emulator" }, k = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, _ = null, x = "fileStore", T = { default: { authMethodId: "none", maxConnectionCount: 1 } }, F = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', O = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', U = null, N = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], L = null, V = "beta", D = "connector", B = "source", G = null, q = null, H = null, Z = "0.2.369", K = {
+const R = "datapos-connector-file-store-emulator", S = { en: "File Store Emulator" }, k = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, _ = null, x = "fileStore", T = { default: { authMethodId: "none", maxConnectionCount: 1 } }, F = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', O = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', U = null, N = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], L = null, V = "beta", D = "connector", B = "source", G = null, q = null, H = null, Z = "0.2.370", K = {
   id: R,
   label: S,
   description: k,
@@ -165,8 +165,8 @@ class Y {
         throw await I(s, `Failed to fetch '${i.path}' file.`, "datapos-connector-file-store-emulator|Connector|getReadableStream");
       if (s.body == null)
         throw new h("Readable streams are not supported in this runtime.", "datapos-connector-file-store-emulator|Connector|getReadableStream.unsupported");
-      const a = await Q(12, 56), o = await J(t.config.version);
-      return console.log("sum", o, a), await Promise.resolve(s.body);
+      const o = await Q(12, 56), a = await J(t.config.version);
+      return console.log("sum", a, o), await Promise.resolve(s.body);
     } catch (s) {
       throw l(s);
     } finally {
@@ -175,20 +175,20 @@ class Y {
   }
   /** Lists all nodes (folders and objects) in the specified folder path. */
   listNodes(t, i) {
-    const s = b[i.folderPath] ?? [], a = [];
-    for (const o of s)
-      o.typeId === "folder" ? a.push(this.constructFolderNodeConfig(i.folderPath, o.name, o.childCount)) : a.push(this.constructObjectNodeConfig(i.folderPath, o.id, o.name, o.lastModifiedAt, o.size));
-    return Promise.resolve({ cursor: void 0, isMore: !1, connectionNodeConfigs: a, totalCount: a.length });
+    const s = b[i.folderPath] ?? [], o = [];
+    for (const a of s)
+      a.typeId === "folder" ? o.push(this.constructFolderNodeConfig(i.folderPath, a.name, a.childCount)) : o.push(this.constructObjectNodeConfig(i.folderPath, a.id, a.name, a.lastModifiedAt, a.size));
+    return Promise.resolve({ cursor: void 0, isMore: !1, connectionNodeConfigs: o, totalCount: o.length });
   }
   /** Preview the contents of the object node with the specified path. */
   async previewObject(t, i) {
     const { signal: d } = t.abortController = new AbortController();
     try {
-      const a = { Range: `bytes=0-${Math.max(1, i.chunkSize ?? X) - 1}` }, o = await fetch(encodeURI(`${m}/fileStore${i.path}`), { headers: a, signal: d });
-      if (!o.ok)
-        throw await I(o, `Failed to fetch '${i.path}' file.`, "datapos-connector-file-store-emulator|Connector|preview");
+      const o = { Range: `bytes=0-${Math.max(1, i.chunkSize ?? X) - 1}` }, a = await fetch(encodeURI(`${m}/fileStore${i.path}`), { headers: o, signal: d });
+      if (!a.ok)
+        throw await I(a, `Failed to fetch '${i.path}' file.`, "datapos-connector-file-store-emulator|Connector|preview");
       const c = await f(t.toolConfigs, "csv-parse");
-      return { data: new Uint8Array(await o.arrayBuffer()), typeId: "uint8Array" };
+      return { data: new Uint8Array(await a.arrayBuffer()), typeId: "uint8Array" };
     } catch (s) {
       throw l(s);
     } finally {
@@ -199,10 +199,12 @@ class Y {
   async retrieveRecords(t, i) {
     const d = await f(t.toolConfigs, "csv-parse");
     let s = !1;
-    const { signal: a } = t.abortController = new AbortController(), o = (n) => {
+    const { signal: o } = t.abortController = new AbortController();
+    o.addEventListener("abort", () => console.log("aaaa", o.reason), { once: !0 });
+    const a = (n) => {
       s || (s = !0, t.abortController = void 0, n());
     }, c = (n) => {
-      console.log(5555, n), o(() => {
+      console.log(5555, n), a(() => {
         throw l(n);
       });
     }, r = { delimiter: i.valueDelimiterId, info: !0, relax_column_count: !0, relax_quotes: !0 }, p = `${m}/fileStore${i.path}`;
@@ -215,9 +217,9 @@ class Y {
     return { id: v(), childCount: d, extension: void 0, folderPath: t, label: i, name: i, typeId: "folder" };
   }
   /** Construct object (file) node configuration. */
-  constructObjectNodeConfig(t, i, d, s, a) {
-    const o = w(d) ?? "", c = E(d), r = s, p = P(c);
-    return { id: i, extension: c, folderPath: t, label: d, lastModifiedAt: r, mimeType: p, name: o, size: a, typeId: "object" };
+  constructObjectNodeConfig(t, i, d, s, o) {
+    const a = w(d) ?? "", c = E(d), r = s, p = P(c);
+    return { id: i, extension: c, folderPath: t, label: d, lastModifiedAt: r, mimeType: p, name: a, size: o, typeId: "object" };
   }
 }
 export {
