@@ -40,7 +40,7 @@ type FileStoreFolderNode =
 type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>;
 
 /** Constants */
-const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve all records operation.';
+// const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve all records operation.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 
@@ -149,23 +149,23 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
 
         // return new Promise((resolve, reject) => {
-        let isSettled = false;
-        const { signal } = (connector.abortController = new AbortController());
-        signal.addEventListener('abort', () => console.log('aaaa', signal.reason), { once: true });
+        // let isSettled = false;
+        connector.abortController = new AbortController();
+        // signal.addEventListener('abort', () => console.log('aaaa', signal.reason), { once: true });
 
-        const finalize = (settle: () => void): void => {
-            if (isSettled) return;
-            isSettled = true;
-            connector.abortController = undefined;
-            settle();
-        };
+        // const finalize = (settle: () => void): void => {
+        //     if (isSettled) return;
+        //     isSettled = true;
+        //     connector.abortController = undefined;
+        //     settle();
+        // };
 
-        const handleError = (error: unknown): void => {
-            console.log(5555, error);
-            finalize(() => {
-                throw normalizeToError(error);
-            });
-        };
+        // const handleError = (error: unknown): void => {
+        //     console.log(5555, error);
+        //     finalize(() => {
+        //         throw normalizeToError(error);
+        //     });
+        // };
 
         // const handleComplete = (summary: RetrieveRecordsSummary): void => {
         //     try {
@@ -180,7 +180,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
         const url = `${URL_PREFIX}/fileStore${options.path}`;
         console.log('0000');
-        const xxxx = await csvParseTool.parseStream(parseOptions, options, url, connector.abortController).catch((error: unknown) => handleError(error));
+        const xxxx = await csvParseTool.parseStream(parseOptions, options, url, connector.abortController);
         console.log(9999, xxxx);
         // });
     }
