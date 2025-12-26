@@ -146,43 +146,19 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     }
     /** Retrieves all records from a CSV object node using streaming and chunked processing. */
     async retrieveRecords(connector: ConnectorInterface, options: RetrieveRecordsOptions): Promise<void> {
-        const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
-
-        // return new Promise((resolve, reject) => {
-        // let isSettled = false;
         connector.abortController = new AbortController();
-        // signal.addEventListener('abort', () => console.log('aaaa', signal.reason), { once: true });
 
-        // const finalize = (settle: () => void): void => {
-        //     if (isSettled) return;
-        //     isSettled = true;
-        //     connector.abortController = undefined;
-        //     settle();
-        // };
-
-        // const handleError = (error: unknown): void => {
-        //     console.log(5555, error);
-        //     finalize(() => {
-        //         throw normalizeToError(error);
-        //     });
-        // };
-
-        // const handleComplete = (summary: RetrieveRecordsSummary): void => {
-        //     try {
-        //         signal.throwIfAborted();
-        //         console.log(summary);
-        //         finalize(() => resolve());
-        //     } catch (error) {
-        //         handleError(error);
-        //     }
-        // };
-
-        const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
-        const url = `${URL_PREFIX}/fileStore${options.path}`;
-        console.log('0000');
-        const xxxx = await csvParseTool.parseStream(parseOptions, options, url, connector.abortController);
-        console.log(9999, xxxx);
-        // });
+        try {
+            const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
+            const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
+            const url = `${URL_PREFIX}/fileStore${options.path}`;
+            const summary = await csvParseTool.parseStream(parseOptions, options, url, connector.abortController);
+            console.log('Summary', summary);
+        } catch (error) {
+            throw normalizeToError(error);
+        } finally {
+            connector.abortController = undefined;
+        }
     }
 
     /** Construct folder node configuration. */
