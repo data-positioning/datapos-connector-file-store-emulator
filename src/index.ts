@@ -24,8 +24,7 @@ import type {
     ListNodesResult,
     PreviewObjectOptions,
     PreviewObjectResult,
-    RetrieveRecordsOptions,
-    RetrieveRecordsSummary
+    RetrieveRecordsOptions
 } from '@datapos/datapos-shared/component/connector';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 
@@ -149,39 +148,41 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
     async retrieveRecords(connector: ConnectorInterface, options: RetrieveRecordsOptions): Promise<void> {
         const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
 
-        return new Promise((resolve, reject) => {
-            let isSettled = false;
-            const { signal } = (connector.abortController = new AbortController());
-            signal.addEventListener('abort', () => handleError(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
+        // return new Promise((resolve, reject) => {
+        let isSettled = false;
+        const { signal } = (connector.abortController = new AbortController());
+        signal.addEventListener('abort', () => handleError(new OperationalError(CALLBACK_RETRIEVE_ABORTED, 'retrieveRecords.abort')), { once: true });
 
-            const finalize = (settle: () => void): void => {
-                if (isSettled) return;
-                isSettled = true;
-                connector.abortController = undefined;
-                settle();
-            };
+        const finalize = (settle: () => void): void => {
+            if (isSettled) return;
+            isSettled = true;
+            connector.abortController = undefined;
+            settle();
+        };
 
-            const handleError = (error: unknown): void => {
-                console.log(5555, error);
-                finalize(() => reject(normalizeToError(error)));
-            };
+        const handleError = (error: unknown): void => {
+            console.log(5555, error);
+            finalize(() => {
+                throw normalizeToError(error);
+            });
+        };
 
-            const handleComplete = (summary: RetrieveRecordsSummary): void => {
-                try {
-                    signal.throwIfAborted();
-                    console.log(summary);
-                    finalize(() => resolve());
-                } catch (error) {
-                    handleError(error);
-                }
-            };
+        // const handleComplete = (summary: RetrieveRecordsSummary): void => {
+        //     try {
+        //         signal.throwIfAborted();
+        //         console.log(summary);
+        //         finalize(() => resolve());
+        //     } catch (error) {
+        //         handleError(error);
+        //     }
+        // };
 
-            const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
-            const url = `${URL_PREFIX}/fileStore${options.path}`;
-            console.log(1111);
-            void csvParseTool.parseStream(parseOptions, options, url, signal, handleError, handleComplete).catch((error: unknown) => handleError(error));
-            console.log(9999);
-        });
+        const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
+        const url = `${URL_PREFIX}/fileStore${options.path}`;
+        console.log(1111);
+        void csvParseTool.parseStream(parseOptions, options, url, signal).catch((error: unknown) => handleError(error));
+        console.log(9999);
+        // });
     }
 
     /** Construct folder node configuration. */
