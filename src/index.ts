@@ -24,6 +24,7 @@ import type {
     ListNodesResult,
     PreviewObjectOptions,
     PreviewObjectResult,
+    RetrieveChunksSummary,
     RetrieveRecordsOptions
 } from '@datapos/datapos-shared/component/connector';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
@@ -145,15 +146,21 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         }
     }
     /** Retrieves all records from a CSV object node using streaming and chunked processing. */
-    async retrieveRecords(connector: ConnectorInterface, options: RetrieveRecordsOptions): Promise<void> {
+    async retrieveRecords(
+        connector: ConnectorInterface,
+        options: RetrieveRecordsOptions,
+        chunk: (records: (string[] | Record<string, unknown>)[]) => void,
+        complete: (result: RetrieveChunksSummary) => void
+    ): Promise<void> {
         connector.abortController = new AbortController();
 
         try {
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
             const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
             const url = `${URL_PREFIX}/fileStore${options.path}`;
-            const summary = await csvParseTool.parseStream(parseOptions, options, url, connector.abortController);
+            const summary = await csvParseTool.parseStream(parseOptions, options, url, connector.abortController, chunk);
             console.log('Summary', summary);
+            complete(summary);
         } catch (error) {
             throw normalizeToError(error);
         } finally {
