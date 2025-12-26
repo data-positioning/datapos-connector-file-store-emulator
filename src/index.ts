@@ -162,7 +162,7 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             };
 
             const handleError = (error: unknown): void => {
-                console.log(2222, error);
+                console.log(5555, error);
                 finalize(() => reject(normalizeToError(error)));
             };
 
