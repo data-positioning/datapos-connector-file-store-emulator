@@ -10,8 +10,6 @@ import { nanoid } from 'nanoid';
 
 /**  Framework dependencies. */
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import { loadTool } from '@datapos/datapos-shared/component/tool';
-import type { ToolConfig } from '@datapos/datapos-shared/component/tool';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
     ConnectionConfig,
@@ -24,10 +22,11 @@ import type {
     ListNodesResult,
     PreviewObjectOptions,
     PreviewObjectResult,
-    RetrieveChunksSummary,
-    RetrieveRecordsOptions
+    RetrieveRecordsOptions,
+    RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
+import { loadTool, type ToolConfig } from '@datapos/datapos-shared/component/tool';
 
 /** Data dependencies. */
 import config from '~/config.json';
@@ -41,12 +40,11 @@ type FileStoreFolderNode =
 type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>;
 
 /** Constants */
-// const CALLBACK_RETRIEVE_ABORTED = 'Connector failed to abort retrieve all records operation.';
 const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 
 /** File store emulator connector. */
-export default class FileStoreEmulatorConnector implements ConnectorInterface {
+class Connector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
     readonly connectionConfig: ConnectionConfig;
@@ -58,6 +56,8 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         this.connectionConfig = connectionConfig;
         this.toolConfigs = toolConfigs;
     }
+
+    //#region ----- Operations -----
 
     /** Abort the currently running operation. */
     abortOperation(connector: ConnectorInterface): void {
@@ -150,15 +150,15 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         connector: ConnectorInterface,
         options: RetrieveRecordsOptions,
         chunk: (records: (string[] | Record<string, unknown>)[]) => void,
-        complete: (result: RetrieveChunksSummary) => void
+        complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
         connector.abortController = new AbortController();
 
         try {
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
-            const parseOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
+            const parseStreamOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
             const url = `${URL_PREFIX}/fileStore${options.path}`;
-            const summary = await csvParseTool.parseStream(parseOptions, options, url, connector.abortController, chunk);
+            const summary = await csvParseTool.parseStream(options, parseStreamOptions, url, connector.abortController, chunk);
             complete(summary);
         } catch (error) {
             throw normalizeToError(error);
@@ -166,6 +166,10 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
             connector.abortController = undefined;
         }
     }
+
+    //#endregion
+
+    //#region ----- Helpers -----
 
     /** Construct folder node configuration. */
     private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
@@ -180,4 +184,9 @@ export default class FileStoreEmulatorConnector implements ConnectorInterface {
         const mimeType = lookupMimeTypeForExtension(extension);
         return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
     }
+
+    //#endregion
 }
+
+/** Exports. */
+export { Connector };
