@@ -10,7 +10,7 @@ import { nanoid } from 'nanoid';
 
 /**  Framework dependencies. */
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import type { EngineAPI } from '@datapos/datapos-shared/engine';
+import type { EngineShared } from '@datapos/datapos-shared/engine';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
     ConnectionNodeConfig,
@@ -122,8 +122,8 @@ class Connector implements ConnectorInterface {
     }
 
     /** Preview the contents of the object node with the specified path. */
-    async previewObject(engineAPI: EngineAPI, connector: ConnectorInterface, options: PreviewObjectOptions): Promise<PreviewObjectResult> {
-        console.log('engineAPI', engineAPI);
+    async previewObject(engineShared: EngineShared, connector: ConnectorInterface, options: PreviewObjectOptions): Promise<PreviewObjectResult> {
+        console.log('engineShared', engineShared, engineShared.determineFileType('xyz'));
 
         // Create an abort controller and extract its signal.
         const { signal } = (connector.abortController = new AbortController());
