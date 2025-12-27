@@ -12,15 +12,15 @@ class b extends Error {
     super(t, d), this.name = new.target.name, this.locator = i;
   }
 }
-class j extends b {
-}
-let v = class extends j {
+let j = class extends b {
+};
+class v extends j {
   body;
   /** Sanitized HTTP response body. */
   constructor(t, i, d, s) {
     super(t, i, s), this.name = new.target.name, this.body = C(d ?? void 0);
   }
-};
+}
 class u extends b {
 }
 async function p(e, t, i) {
@@ -29,11 +29,11 @@ async function p(e, t, i) {
   try {
     o = await e.text();
   } catch (a) {
-    o = `<body unavailable: ${n(a).message}>`;
+    o = `<body unavailable: ${l(a).message}>`;
   }
   return new v(s, i, o);
 }
-function n(e) {
+function l(e) {
   if (e instanceof Error) return e;
   if (typeof e == "string") return new Error(e);
   if (typeof e == "number" || typeof e == "boolean" || typeof e == "bigint") return new Error(String(e));
@@ -83,7 +83,7 @@ async function m(e, t) {
   const s = await import(`https://engine-eu.datapos.app/tools/${t}_v${d.version}/${i}.es.js`);
   return new s.Tool();
 }
-const P = "datapos-connector-file-store-emulator", E = { en: "File Store Emulator" }, R = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, S = null, k = "fileStore", _ = { default: { authMethodId: "none", maxConnectionCount: 1 } }, T = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', x = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', F = null, O = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], U = null, N = "beta", L = "connector", V = "source", D = null, B = null, G = null, q = "0.2.375", H = {
+const P = "datapos-connector-file-store-emulator", E = { en: "File Store Emulator" }, R = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, S = null, k = "fileStore", _ = { default: { authMethodId: "none", maxConnectionCount: 1 } }, T = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', x = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', F = null, O = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], U = null, N = "beta", L = "connector", V = "source", D = null, B = null, G = null, q = "0.2.376", H = {
   id: P,
   label: E,
   description: R,
@@ -139,12 +139,11 @@ const Q = 4096, r = "https://sample-data-eu.datapos.app";
 class X {
   abortController;
   config;
-  connectionConfig;
   toolConfigs;
-  constructor(t, i) {
-    this.abortController = void 0, this.config = H, this.connectionConfig = t, this.toolConfigs = i;
+  constructor(t) {
+    this.abortController = void 0, this.config = H, this.toolConfigs = t;
   }
-  //#region ----- Operations -----
+  //#region ##### Operations #####
   /** Abort the currently running operation. */
   abortOperation(t) {
     t.abortController && (t.abortController.abort(), t.abortController = void 0);
@@ -169,7 +168,7 @@ class X {
       const o = await Z(12, 56), a = await K(t.config.version);
       return console.log("sum", a, o), await Promise.resolve(s.body);
     } catch (s) {
-      throw n(s);
+      throw l(s);
     } finally {
       t.abortController = void 0;
     }
@@ -182,42 +181,43 @@ class X {
     return Promise.resolve({ cursor: void 0, isMore: !1, connectionNodeConfigs: o, totalCount: o.length });
   }
   /** Preview the contents of the object node with the specified path. */
-  async previewObject(t, i) {
-    const { signal: d } = t.abortController = new AbortController();
+  async previewObject(t, i, d) {
+    console.log("engineAPI", t);
+    const { signal: s } = i.abortController = new AbortController();
     try {
-      const o = { Range: `bytes=0-${Math.max(1, i.chunkSize ?? Q) - 1}` }, a = await fetch(encodeURI(`${r}/fileStore${i.path}`), { headers: o, signal: d });
-      if (!a.ok)
-        throw await p(a, `Failed to fetch '${i.path}' file.`, "datapos-connector-file-store-emulator|Connector|preview");
-      const c = await m(t.toolConfigs, "csv-parse");
-      return { data: new Uint8Array(await a.arrayBuffer()), typeId: "uint8Array" };
-    } catch (s) {
-      throw n(s);
+      const a = { Range: `bytes=0-${Math.max(1, d.chunkSize ?? Q) - 1}` }, c = await fetch(encodeURI(`${r}/fileStore${d.path}`), { headers: a, signal: s });
+      if (!c.ok)
+        throw await p(c, `Failed to fetch '${d.path}' file.`, "datapos-connector-file-store-emulator|Connector|preview");
+      const n = await m(i.toolConfigs, "csv-parse");
+      return { data: new Uint8Array(await c.arrayBuffer()), typeId: "uint8Array" };
+    } catch (o) {
+      throw l(o);
     } finally {
-      t.abortController = void 0;
+      i.abortController = void 0;
     }
   }
   /** Retrieves all records from a CSV object node using streaming and chunked processing. */
   async retrieveRecords(t, i, d, s) {
     t.abortController = new AbortController();
     try {
-      const o = await m(t.toolConfigs, "csv-parse"), a = { delimiter: i.valueDelimiterId, info: !0, relax_column_count: !0, relax_quotes: !0 }, c = `${r}/fileStore${i.path}`, l = await o.parseStream(i, a, c, t.abortController, d);
-      s(l);
+      const o = await m(t.toolConfigs, "csv-parse"), a = { delimiter: i.valueDelimiterId, info: !0, relax_column_count: !0, relax_quotes: !0 }, c = `${r}/fileStore${i.path}`, n = await o.parseStream(i, a, c, t.abortController, d);
+      s(n);
     } catch (o) {
-      throw n(o);
+      throw l(o);
     } finally {
       t.abortController = void 0;
     }
   }
   //#endregion
-  //#region ----- Helpers -----
+  //#region ##### Helpers #####
   /** Construct folder node configuration. */
   constructFolderNodeConfig(t, i, d) {
     return { id: z(), childCount: d, extension: void 0, folderPath: t, label: i, name: i, typeId: "folder" };
   }
   /** Construct object (file) node configuration. */
   constructObjectNodeConfig(t, i, d, s, o) {
-    const a = h(d) ?? "", c = g(d), l = s, A = w(c);
-    return { id: i, extension: c, folderPath: t, label: d, lastModifiedAt: l, mimeType: A, name: a, size: o, typeId: "object" };
+    const a = h(d) ?? "", c = g(d), n = s, A = w(c);
+    return { id: i, extension: c, folderPath: t, label: d, lastModifiedAt: n, mimeType: A, name: a, size: o, typeId: "object" };
   }
   //#endregion
 }

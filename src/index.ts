@@ -10,9 +10,9 @@ import { nanoid } from 'nanoid';
 
 /**  Framework dependencies. */
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
+import type { EngineAPI } from '@datapos/datapos-shared/engine';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
-    ConnectionConfig,
     ConnectionNodeConfig,
     ConnectorConfig,
     ConnectorInterface,
@@ -47,17 +47,15 @@ const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 class Connector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
-    readonly connectionConfig: ConnectionConfig;
     readonly toolConfigs;
 
-    constructor(connectionConfig: ConnectionConfig, toolConfigs: ToolConfig[]) {
+    constructor(toolConfigs: ToolConfig[]) {
         this.abortController = undefined;
         this.config = config as ConnectorConfig;
-        this.connectionConfig = connectionConfig;
         this.toolConfigs = toolConfigs;
     }
 
-    //#region ----- Operations -----
+    //#region ##### Operations #####
 
     /** Abort the currently running operation. */
     abortOperation(connector: ConnectorInterface): void {
@@ -124,7 +122,9 @@ class Connector implements ConnectorInterface {
     }
 
     /** Preview the contents of the object node with the specified path. */
-    async previewObject(connector: ConnectorInterface, options: PreviewObjectOptions): Promise<PreviewObjectResult> {
+    async previewObject(engineAPI: EngineAPI, connector: ConnectorInterface, options: PreviewObjectOptions): Promise<PreviewObjectResult> {
+        console.log('engineAPI', engineAPI);
+
         // Create an abort controller and extract its signal.
         const { signal } = (connector.abortController = new AbortController());
 
@@ -169,7 +169,7 @@ class Connector implements ConnectorInterface {
 
     //#endregion
 
-    //#region ----- Helpers -----
+    //#region ##### Helpers #####
 
     /** Construct folder node configuration. */
     private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
