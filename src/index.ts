@@ -12,6 +12,7 @@ import { nanoid } from 'nanoid';
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import type { DataViewPreviewConfig } from '@datapos/datapos-shared';
 import type { EngineShared } from '@datapos/datapos-shared/engine';
+import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
     ConnectionNodeConfig,
@@ -126,7 +127,10 @@ class Connector implements ConnectorInterface {
         const { signal } = (connector.abortController = new AbortController());
 
         try {
-            const result = await engineShared.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
+            // const result = await engineShared.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
+
+            const fileOperatorsTool = await loadTool<FileOperatorsTool>(connector.toolConfigs, 'file-operators');
+            const result = await fileOperatorsTool.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
 
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
 
