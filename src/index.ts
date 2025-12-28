@@ -127,11 +127,12 @@ class Connector implements ConnectorInterface {
         const { signal } = (connector.abortController = new AbortController());
 
         try {
-            const unit8Array = await engineShared.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
+            const result = await engineShared.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
 
+            console.log(9999, result);
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
-            console.log(4444);
-            return { data: unit8Array, typeId: 'uint8Array' };
+
+            return { data: result, typeId: 'uint8Array' };
         } catch (error) {
             throw normalizeToError(error);
         } finally {
