@@ -132,6 +132,7 @@ class Connector implements ConnectorInterface {
             const fileOperatorsTool = await loadTool<FileOperatorsTool>(connector.toolConfigs, 'file-operators');
             const result = await fileOperatorsTool.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
 
+            console.log(1234, result);
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
 
             return result;
