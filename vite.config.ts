@@ -17,7 +17,7 @@ const wasmPlugin = wasm() as PluginOption;
 
 // Exposures - Configuration.
 export default defineConfig({
-    base: 'https://engine-eu.datapos.app/',
+    base: '',
     build: {
         lib: {
             entry: fileURLToPath(new URL('src/index.ts', import.meta.url)), // Absolute entry path.
