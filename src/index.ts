@@ -127,17 +127,10 @@ class Connector implements ConnectorInterface {
         const { signal } = (connector.abortController = new AbortController());
 
         try {
-            // const chunkSize = Math.max(1, options.chunkSize ?? DEFAULT_PREVIEW_CHUNK_SIZE);
-            // const headers: HeadersInit = { Range: `bytes=0-${chunkSize - 1}` };
-            // const response = await fetch(encodeURI(`${URL_PREFIX}/fileStore${options.path}`), { headers, signal });
-            // if (!response.ok) {
-            //     throw await buildFetchError(response, `Failed to fetch '${options.path}' file.`, 'datapos-connector-file-store-emulator|Connector|preview');
-            // }
             const unit8Array = await engineShared.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
 
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
-
-            // return { data: new Uint8Array(await response.arrayBuffer()), typeId: 'uint8Array' };
+            console.log(4444);
             return { data: unit8Array, typeId: 'uint8Array' };
         } catch (error) {
             throw normalizeToError(error);
