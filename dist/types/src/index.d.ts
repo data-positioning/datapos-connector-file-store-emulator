@@ -1,5 +1,6 @@
+import { DataViewPreviewConfig } from '@datapos/datapos-shared';
 import { EngineShared } from '@datapos/datapos-shared/engine';
-import { ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, PreviewObjectResult, RetrieveRecordsOptions, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
+import { ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RetrieveRecordsOptions, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
 import { ToolConfig } from '@datapos/datapos-shared/component/tool';
 /** File store emulator connector. */
 declare class Connector implements ConnectorInterface {
@@ -16,7 +17,7 @@ declare class Connector implements ConnectorInterface {
     /** Lists all nodes (folders and objects) in the specified folder path. */
     listNodes(connector: ConnectorInterface, options: ListNodesOptions): Promise<ListNodesResult>;
     /** Preview the contents of the object node with the specified path. */
-    previewObject(engineShared: EngineShared, connector: ConnectorInterface, options: PreviewObjectOptions): Promise<PreviewObjectResult>;
+    previewObject(engineShared: EngineShared, connector: ConnectorInterface, options: PreviewObjectOptions): Promise<DataViewPreviewConfig>;
     /** Retrieves all records from a CSV object node using streaming and chunked processing. */
     retrieveRecords(connector: ConnectorInterface, options: RetrieveRecordsOptions, chunk: (records: (string[] | Record<string, unknown>)[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
     /** Construct folder node configuration. */

@@ -10,6 +10,7 @@ import { nanoid } from 'nanoid';
 
 /**  Framework dependencies. */
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
+import type { DataViewPreviewConfig } from '@datapos/datapos-shared';
 import type { EngineShared } from '@datapos/datapos-shared/engine';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
@@ -21,7 +22,6 @@ import type {
     ListNodesOptions,
     ListNodesResult,
     PreviewObjectOptions,
-    PreviewObjectResult,
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
@@ -40,7 +40,6 @@ type FileStoreFolderNode =
 type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>;
 
 /** Constants */
-const DEFAULT_PREVIEW_CHUNK_SIZE = 4096;
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 
 /** File store emulator connector. */
@@ -55,7 +54,7 @@ class Connector implements ConnectorInterface {
         this.toolConfigs = toolConfigs;
     }
 
-    //#region ##### Operations #####
+    //#region: Operations. #####
 
     /** Abort the currently running operation. */
     abortOperation(connector: ConnectorInterface): void {
@@ -122,17 +121,16 @@ class Connector implements ConnectorInterface {
     }
 
     /** Preview the contents of the object node with the specified path. */
-    async previewObject(engineShared: EngineShared, connector: ConnectorInterface, options: PreviewObjectOptions): Promise<PreviewObjectResult> {
+    async previewObject(engineShared: EngineShared, connector: ConnectorInterface, options: PreviewObjectOptions): Promise<DataViewPreviewConfig> {
         // Create an abort controller and extract its signal.
         const { signal } = (connector.abortController = new AbortController());
 
         try {
             const result = await engineShared.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
 
-            console.log(9999, result);
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
 
-            return { data: result, typeId: 'uint8Array' };
+            return result;
         } catch (error) {
             throw normalizeToError(error);
         } finally {
@@ -163,7 +161,7 @@ class Connector implements ConnectorInterface {
 
     //#endregion
 
-    //#region ##### Helpers #####
+    //#region: Helpers. #####
 
     /** Construct folder node configuration. */
     private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
