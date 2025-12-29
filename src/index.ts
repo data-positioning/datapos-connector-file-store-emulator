@@ -150,6 +150,7 @@ class Connector implements ConnectorInterface {
                 duration,
                 encodingId: previewConfig.encodingId,
                 encodingConfidenceLevel: previewConfig.encodingConfidenceLevel,
+                fileType: previewConfig.fileTypeConfig,
                 hasHeaders: undefined,
                 records: [],
                 size: previewConfig.bytes.length,
