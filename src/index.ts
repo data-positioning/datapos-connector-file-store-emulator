@@ -11,7 +11,6 @@ import { nanoid } from 'nanoid';
 /**  Framework dependencies. */
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import type { DataViewPreviewConfig } from '@datapos/datapos-shared';
-import type { EngineShared } from '@datapos/datapos-shared/engine';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
@@ -122,20 +121,33 @@ class Connector implements ConnectorInterface {
     }
 
     /** Preview the contents of the object node with the specified path. */
-    async previewObject(engineShared: EngineShared, connector: ConnectorInterface, options: PreviewObjectOptions): Promise<DataViewPreviewConfig> {
+    async previewObject(connector: ConnectorInterface, options: PreviewObjectOptions): Promise<DataViewPreviewConfig> {
         // Create an abort controller and extract its signal.
         const { signal } = (connector.abortController = new AbortController());
 
         try {
-            // const result = await engineShared.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
+            const asAt = Date.now();
+            const startedAt = performance.now();
 
             const fileOperatorsTool = await loadTool<FileOperatorsTool>(connector.toolConfigs, 'file-operators');
-            const result = await fileOperatorsTool.previewRemoteFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
+            const previewConfig = await fileOperatorsTool.previewFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
 
-            console.log(1234, result);
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
+            // const structure = csvParseTool.determineStructure(dataViewPreviewConfig.text, [',', ';', '|']);
 
-            return result;
+            const duration = performance.now() - startedAt;
+            return {
+                asAt,
+                columnConfigs: [],
+                dataFormatId: previewConfig.dataFormatId,
+                duration,
+                encodingId: previewConfig.encodingId,
+                encodingConfidenceLevel: previewConfig.encodingConfidenceLevel,
+                hasHeaders: undefined,
+                records: [],
+                size: previewConfig.bytes.length,
+                text: previewConfig.text
+            };
         } catch (error) {
             throw normalizeToError(error);
         } finally {
@@ -185,5 +197,5 @@ class Connector implements ConnectorInterface {
     //#endregion
 }
 
-/** Exports. */
+// Exports.
 export { Connector };
