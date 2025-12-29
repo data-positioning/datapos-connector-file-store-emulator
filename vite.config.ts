@@ -2,7 +2,7 @@
  * Vite configuration.
  */
 
-// Dependencies - Vendor.
+// Vendor dependencies.
 import dts from 'vite-plugin-dts';
 import Sonda from 'sonda/vite';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -10,12 +10,13 @@ import wasm from 'vite-plugin-wasm';
 import { defineConfig, type PluginOption } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
 
-// Dependencies - Data,
+// Data dependencies,
 import config from './config.json';
 
+// Initialisation.
 const wasmPlugin = wasm() as PluginOption;
 
-// Exposures - Configuration.
+// Exports.
 export default defineConfig({
     base: '',
     build: {
@@ -25,7 +26,6 @@ export default defineConfig({
             formats: ['es']
         },
         rollupOptions: {
-            // external: [/^https:\/\/engine-eu\.datapos\.app\//],
             plugins: [
                 Sonda({ filename: 'index', format: 'html', gzip: true, brotli: true, open: false, outputDir: './bundle-analysis-reports/sonda' }),
                 visualizer({ filename: './bundle-analysis-reports/rollup-visualiser/index.html', open: false, gzipSize: true, brotliSize: true })
