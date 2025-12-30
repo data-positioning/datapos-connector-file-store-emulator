@@ -1,17 +1,18 @@
 /**
  * File store emulator connector class.
- *
- * TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js.
- * This would allow us to secure the bucket?
  */
+
+/* TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js.
+   This would allow us to secure the bucket? */
 
 // Vendor dependencies.
 import { nanoid } from 'nanoid';
 
 // Framework dependencies.
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import type { DataViewPreviewConfig, ValueDelimiterId } from '@datapos/datapos-shared';
+import type { DataViewPreviewConfig } from '@datapos/datapos-shared';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
+import { ORDERED_VALUE_DELIMITER_IDS } from '@datapos/datapos-shared';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
     ConnectionNodeConfig,
@@ -153,8 +154,7 @@ class Connector implements ConnectorInterface {
             }
 
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
-            const delimiters: ValueDelimiterId[] = [':', ',', '!', '0x1E', ';', ' ', '\t', '_', '0x1F', '|'];
-            const schemaConfig = await csvParseTool.determineSchemaConfig(previewConfig.text, delimiters);
+            const schemaConfig = await csvParseTool.determineSchemaConfig(previewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
 
             const duration = performance.now() - startedAt;
             return {
