@@ -11,6 +11,7 @@ import { nanoid } from 'nanoid';
 // Framework dependencies.
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import type { DataViewPreviewConfig } from '@datapos/datapos-shared';
+import type { EngineShared } from '@datapos/datapos-shared/engine';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
 import { ORDERED_VALUE_DELIMITER_IDS } from '@datapos/datapos-shared';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
@@ -32,6 +33,7 @@ import { loadTool, type ToolConfig } from '@datapos/datapos-shared/component/too
 // Data dependencies.
 import config from '~/config.json';
 import fileStoreFolderPathData from '@/fileStoreFolderPaths.json';
+
 import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
 
 /**
@@ -51,11 +53,13 @@ const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 class Connector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
+    engineShared: EngineShared;
     readonly toolConfigs;
 
-    constructor(toolConfigs: ToolConfig[]) {
+    constructor(engineShared: EngineShared, toolConfigs: ToolConfig[]) {
         this.abortController = undefined;
         this.config = config as ConnectorConfig;
+        this.engineShared = engineShared;
         this.toolConfigs = toolConfigs;
     }
 
@@ -155,6 +159,7 @@ class Connector implements ConnectorInterface {
 
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
             const schemaConfig = await csvParseTool.determineSchemaConfig(previewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
+            console.log(1111, this.engineShared);
 
             const duration = performance.now() - startedAt;
             return {
