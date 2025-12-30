@@ -1,8 +1,8 @@
-const M = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
-let z = (e = 21) => {
+const z = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
+let j = (e = 21) => {
   let t = "", i = crypto.getRandomValues(new Uint8Array(e |= 0));
   for (; e--; )
-    t += M[i[e] & 63];
+    t += z[i[e] & 63];
   return t;
 };
 class b extends Error {
@@ -12,18 +12,18 @@ class b extends Error {
     super(t, s), this.name = new.target.name, this.locator = i;
   }
 }
-let j = class extends b {
+let v = class extends b {
 };
-class v extends j {
+class u extends v {
   body;
   /** Sanitized HTTP response body. */
   constructor(t, i, s, d) {
-    super(t, i, d), this.name = new.target.name, this.body = h(s ?? void 0);
+    super(t, i, d), this.name = new.target.name, this.body = g(s ?? void 0);
   }
 }
-class u extends b {
+class C extends b {
 }
-async function C(e, t, i) {
+async function h(e, t, i) {
   const s = ` - ${e.statusText}`, d = `${t} Response status '${e.status}${e.statusText ? s : ""}' received.`;
   let o;
   try {
@@ -31,7 +31,7 @@ async function C(e, t, i) {
   } catch (a) {
     o = `<body unavailable: ${l(a).message}>`;
   }
-  return new v(d, i, o);
+  return new u(d, i, o);
 }
 function l(e) {
   if (e instanceof Error) return e;
@@ -46,23 +46,23 @@ function l(e) {
     }
   return new Error("Unknown error");
 }
-function h(e) {
+function g(e) {
   if (!(e == null || e === ""))
     return e.length > 2048 ? `${e.slice(0, 2048)}... [truncated]` : e;
 }
-function g(e) {
+function w(e) {
   if (e) {
     const t = e.lastIndexOf("/"), i = e.lastIndexOf(".", t === -1 ? e.length : t);
     return i === -1 ? e : e.slice(0, Math.max(0, i));
   }
 }
-function w(e) {
+function P(e) {
   if (e) {
     const t = e.lastIndexOf(".");
     if (t !== -1) return e.slice(Math.max(0, t + 1));
   }
 }
-function P(e) {
+function E(e) {
   switch (e) {
     case "csv":
       return "text/csv";
@@ -83,25 +83,25 @@ async function r(e, t) {
   const d = await import(`https://engine-eu.datapos.app/tools/${t}_v${s.version}/${i}.es.js`);
   return new d.Tool();
 }
-const E = "datapos-connector-file-store-emulator", R = { en: "File Store Emulator" }, S = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, T = null, k = "fileStore", _ = { default: { authMethodId: "none", maxConnectionCount: 1 } }, x = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', F = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', O = null, N = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], U = null, L = "beta", D = "connector", V = "source", G = null, B = null, q = null, H = "0.2.391", Z = {
-  id: E,
-  label: R,
-  description: S,
-  category: T,
-  categoryId: k,
-  implementations: _,
-  icon: x,
-  iconDark: F,
-  lastUpdatedAt: O,
-  operations: N,
-  status: U,
-  statusId: L,
-  typeId: D,
-  usageId: V,
-  vendorAccountURL: G,
-  vendorDocumentationURL: B,
-  vendorHomeURL: q,
-  version: H
+const R = "datapos-connector-file-store-emulator", S = { en: "File Store Emulator" }, T = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, x = null, _ = "fileStore", k = { default: { authMethodId: "none", maxConnectionCount: 1 } }, F = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', O = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', N = null, U = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], L = null, D = "beta", V = "connector", G = "source", B = null, q = null, H = null, Z = "0.2.392", K = {
+  id: R,
+  label: S,
+  description: T,
+  category: x,
+  categoryId: _,
+  implementations: k,
+  icon: F,
+  iconDark: O,
+  lastUpdatedAt: N,
+  operations: U,
+  status: L,
+  statusId: D,
+  typeId: V,
+  usageId: G,
+  vendorAccountURL: B,
+  vendorDocumentationURL: q,
+  vendorHomeURL: H,
+  version: Z
 }, f = {
   "": [{ id: "cpB45vx36UWghglh18MUS", lastModifiedAt: 17435076862165598e-4, name: "ENGAGEMENT_START_EVENTS_202405121858.csv", size: 122800, typeId: "object" }, { id: "GUIHoZJcLIFZ6B7A1bu0r", lastModifiedAt: 1743507686221789e-3, name: "PEOPLE_BIRTH_EVENTS_202405121857.csv", size: 114287, typeId: "object" }, { childCount: 3, name: "AUDATACY Interchange Format", typeId: "folder" }, { childCount: 12, name: "Formula 1", typeId: "folder" }, { childCount: 7, name: "Salesforce API", typeId: "folder" }, { childCount: 156, name: "Salesforce Extract", typeId: "folder" }, { childCount: 20, name: "SAP Employee Central Extract", typeId: "folder" }, { childCount: 7, name: "SAP SuccessFactors API", typeId: "folder" }, { childCount: 12, name: "Test Files", typeId: "folder" }],
   "/AUDATACY Interchange Format": [{ childCount: 11, name: "Coded Data", typeId: "folder" }, { childCount: 1, name: "Human Resources", typeId: "folder" }, { childCount: 1, name: "Party", typeId: "folder" }],
@@ -122,26 +122,26 @@ const E = "datapos-connector-file-store-emulator", R = { en: "File Store Emulato
   "/Test Files/Encoding Test Files/encodings": [{ id: "irBUQdMBx4ZhLXyti4t0W", lastModifiedAt: 1743507686243765e-3, name: "big5", size: 614, typeId: "object" }, { id: "BPyMwzoNSnGdUV_dzYEWz", lastModifiedAt: 17435076862438152e-4, name: "euc_jp", size: 3919, typeId: "object" }, { id: "FXjFtwUcRxKmH_ZCAaNz6", lastModifiedAt: 1743507686243867e-3, name: "euc_kr", size: 2480, typeId: "object" }, { id: "5fBDsObvTXORIIgptb-sl", lastModifiedAt: 17435076862439092e-4, name: "gb18030", size: 1665, typeId: "object" }, { id: "7Jt6_ku8bzWNBFjRaagdR", lastModifiedAt: 17435076862439512e-4, name: "iso2022cn", size: 1749, typeId: "object" }, { id: "WLvdjjUGMGnEv3FmDQJ9p", lastModifiedAt: 1743507686243999e-3, name: "iso2022jp", size: 2924, typeId: "object" }, { id: "6CsULI8SIvo4zwFjKAA1_", lastModifiedAt: 17435076862440513e-4, name: "iso2022kr", size: 3172, typeId: "object" }, { id: "SqbmllHEuS76me2jsWjLI", lastModifiedAt: 17435076862440952e-4, name: "iso88591_en", size: 2955, typeId: "object" }, { id: "5oCOldZaxX2XoavVBBgdc", lastModifiedAt: 1743507686244138e-3, name: "iso88592_cs", size: 1600, typeId: "object" }, { id: "UATsUFbSUtqVhVhMJ2sec", lastModifiedAt: 1743507686244182e-3, name: "iso88595_ru", size: 1024, typeId: "object" }, { id: "wC1_pjcjj0NZZWTxqiGaw", lastModifiedAt: 17435076862442336e-4, name: "iso88596_ar", size: 2241, typeId: "object" }, { id: "Pe8RK8l_zBAjLODUX34IB", lastModifiedAt: 1743507686244275e-3, name: "iso88597_el", size: 1033, typeId: "object" }, { id: "Ga6Z1yRgs99Vpa5QrR70_", lastModifiedAt: 17435076862445083e-4, name: "iso88598", size: 2352, typeId: "object" }, { id: "XmtdLSxT84HsoF7OIqye4", lastModifiedAt: 1743507686244566e-3, name: "iso88598_he", size: 2353, typeId: "object" }, { id: "3HCk8XXlua9KEOtc5iseJ", lastModifiedAt: 1743507686244627e-3, name: "iso88599_tr", size: 2424, typeId: "object" }, { id: "zjfA3EHpzaPHAvTkBICWG", lastModifiedAt: 17435076862446736e-4, name: "koi8r", size: 1024, typeId: "object" }, { id: "IRnhQiGe4mxsoQpaJCdRM", lastModifiedAt: 17435076862447236e-4, name: "lang_arabic", size: 4059, typeId: "object" }, { id: "ih-RgplBSErEYOcna-NlI", lastModifiedAt: 17435076862447717e-4, name: "lang_chinese", size: 916, typeId: "object" }, { id: "9EYQqNjgOksavPn--KH46", lastModifiedAt: 17435076862448289e-4, name: "lang_czech", size: 1795, typeId: "object" }, { id: "Xaeq_CiSthaccRyGw22Bx", lastModifiedAt: 17435076862448726e-4, name: "lang_greek", size: 1895, typeId: "object" }, { id: "421DaSaIy8ywB26Rc2GV1", lastModifiedAt: 1743507686244933e-3, name: "lang_hebrew", size: 4124, typeId: "object" }, { id: "N01Ggo186R8phM3c0zLa2", lastModifiedAt: 17435076862449873e-4, name: "lang_japanese", size: 3978, typeId: "object" }, { id: "T8jzTqgGlU30YQd1QvMm3", lastModifiedAt: 17435076862450503e-4, name: "lang_korean", size: 3466, typeId: "object" }, { id: "R-Fkzl2BW0o9Hios70WwI", lastModifiedAt: 17435076862450947e-4, name: "lang_russian", size: 1873, typeId: "object" }, { id: "KiKbYoPDMht0f9ElSfTYZ", lastModifiedAt: 1743507686245141e-3, name: "lang_turkish", size: 2678, typeId: "object" }, { id: "a_RPqwZdZ5DmZOCDUVeiZ", lastModifiedAt: 17435076862451846e-4, name: "shiftjis", size: 2816, typeId: "object" }, { id: "rXd90uYo_IZSqu9U_3Sr6", lastModifiedAt: 1743507686245242e-3, name: "utf16be", size: 1334, typeId: "object" }, { id: "83XbTcV0_WKdvcPEKeuDy", lastModifiedAt: 17435076862452773e-4, name: "utf16le", size: 1334, typeId: "object" }, { id: "Upq9-WDaQTs--Ogg1Qtev", lastModifiedAt: 17435076862453193e-4, name: "utf32be", size: 2664, typeId: "object" }, { id: "mm0RGQoiYeYc7ORPPI2S8", lastModifiedAt: 17435076862453613e-4, name: "utf32le", size: 2664, typeId: "object" }, { id: "J9FIyiit-zK4HquqAwGNE", lastModifiedAt: 17435076862454148e-4, name: "utf8", size: 1125, typeId: "object" }, { id: "pZQOaI1tOrcy2Km0Z7Enb", lastModifiedAt: 17435076862454595e-4, name: "windows_1250", size: 1617, typeId: "object" }, { id: "da-PPmwaWqLyqUz6SRw1v", lastModifiedAt: 1743507686245507e-3, name: "windows_1251", size: 1024, typeId: "object" }, { id: "aw_8vVm1CvdxaiiI3CX-L", lastModifiedAt: 17435076862456494e-4, name: "windows_1252", size: 2976, typeId: "object" }, { id: "-JYzWLdhtRIWC0vwZFj0I", lastModifiedAt: 17435076862456982e-4, name: "windows_1253", size: 1052, typeId: "object" }, { id: "ImvMAQPnb13Mf7mqB7t6m", lastModifiedAt: 17435076862458247e-4, name: "windows_1254", size: 2445, typeId: "object" }, { id: "mYnEtUyasG7Cub5f7WgsT", lastModifiedAt: 17435076862458765e-4, name: "windows_1255", size: 2405, typeId: "object" }, { id: "clQEg9g9e9QiBJcsOcKcs", lastModifiedAt: 17435076862459272e-4, name: "windows_1256", size: 2241, typeId: "object" }]
 };
 let I;
-async function K(e, t) {
+async function Q(e, t) {
   const { add_my_numbers: i } = await y();
   console.log(1111, e, t);
   const s = i(Math.trunc(e), Math.trunc(t));
   return console.log(2222, s), s;
 }
-async function Q(e) {
+async function J(e) {
   const { checksum_from_rust: t } = await y();
   return t(e);
 }
 async function y() {
   return I ??= import("./datapos_connector_file_store_emulator_core-CBVDrOML.js"), I;
 }
-const p = "https://sample-data-eu.datapos.app";
-class W {
+const m = "https://sample-data-eu.datapos.app";
+class $ {
   abortController;
   config;
   toolConfigs;
   constructor(t) {
-    this.abortController = void 0, this.config = Z, this.toolConfigs = t;
+    this.abortController = void 0, this.config = K, this.toolConfigs = t;
   }
   //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   //#region: Operations.
@@ -167,12 +167,12 @@ class W {
   async getReadableStream(t, i) {
     const { signal: s } = t.abortController = new AbortController();
     try {
-      const d = await fetch(`${p}/fileStore${i.path}`, { signal: s });
+      const d = await fetch(`${m}/fileStore${i.path}`, { signal: s });
       if (!d.ok)
-        throw await C(d, `Failed to fetch '${i.path}' file.`, "datapos-connector-file-store-emulator|Connector|getReadableStream");
+        throw await h(d, `Failed to fetch '${i.path}' file.`, "datapos-connector-file-store-emulator|Connector|getReadableStream");
       if (d.body == null)
-        throw new u("Readable streams are not supported in this runtime.", "datapos-connector-file-store-emulator|Connector|getReadableStream.unsupported");
-      const o = await K(12, 56), a = await Q(t.config.version);
+        throw new C("Readable streams are not supported in this runtime.", "datapos-connector-file-store-emulator|Connector|getReadableStream.unsupported");
+      const o = await Q(12, 56), a = await J(t.config.version);
       return console.log("sum", a, o), await Promise.resolve(d.body);
     } catch (d) {
       throw l(d);
@@ -186,7 +186,7 @@ class W {
   listNodes(t, i) {
     const d = f[i.folderPath] ?? [], o = [];
     for (const a of d)
-      a.typeId === "folder" ? o.push(J(i.folderPath, a.name, a.childCount)) : o.push(X(i.folderPath, a.id, a.name, a.lastModifiedAt, a.size));
+      a.typeId === "folder" ? o.push(X(i.folderPath, a.name, a.childCount)) : o.push(Y(i.folderPath, a.id, a.name, a.lastModifiedAt, a.size));
     return Promise.resolve({ cursor: void 0, isMore: !1, connectionNodeConfigs: o, totalCount: o.length });
   }
   /**
@@ -195,25 +195,25 @@ class W {
   async previewObject(t, i) {
     const { signal: s } = t.abortController = new AbortController();
     try {
-      const d = Date.now(), o = performance.now(), c = await (await r(t.toolConfigs, "file-operators")).previewFile(`${p}/fileStore${i.path}`, s, i.chunkSize);
+      const d = Date.now(), o = performance.now(), c = await (await r(t.toolConfigs, "file-operators")).previewFile(`${m}/fileStore${i.path}`, s, i.chunkSize);
       if (c.dataFormatId == null) throw new Error("Connector unable to process files of this type.");
       if (c.text == null)
         throw new Error("File is empty.");
-      const m = await (await r(t.toolConfigs, "csv-parse")).determineSchemaConfig(c.text, [",", ";", "|"]), A = performance.now() - o;
+      const n = await r(t.toolConfigs, "csv-parse"), A = [":", ",", "!", "0x1E", ";", " ", "	", "_", "0x1F", "|"], p = await n.determineSchemaConfig(c.text, A), M = performance.now() - o;
       return {
         asAt: d,
         columnConfigs: [],
         dataFormatId: c.dataFormatId,
-        duration: A,
+        duration: M,
         encodingId: c.encodingId,
         encodingConfidenceLevel: c.encodingConfidenceLevel,
         fileType: c.fileTypeConfig,
         hasHeaders: void 0,
-        recordDelimiterId: m.recordDelimiterId,
+        recordDelimiterId: p.recordDelimiterId,
         records: [],
         size: c.bytes.length,
         text: c.text,
-        valueDelimiterId: m.valueDelimiterId
+        valueDelimiterId: p.valueDelimiterId
       };
     } catch (d) {
       throw l(d);
@@ -227,7 +227,7 @@ class W {
   async retrieveRecords(t, i, s, d) {
     t.abortController = new AbortController();
     try {
-      const o = await r(t.toolConfigs, "csv-parse"), a = { delimiter: i.valueDelimiterId, info: !0, relax_column_count: !0, relax_quotes: !0 }, c = `${p}/fileStore${i.path}`, n = await o.parseStream(i, a, c, t.abortController, s);
+      const o = await r(t.toolConfigs, "csv-parse"), a = { delimiter: i.valueDelimiterId, info: !0, relax_column_count: !0, relax_quotes: !0 }, c = `${m}/fileStore${i.path}`, n = await o.parseStream(i, a, c, t.abortController, s);
       d(n);
     } catch (o) {
       throw l(o);
@@ -237,14 +237,14 @@ class W {
   }
   //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }
-function J(e, t, i) {
-  return { id: z(), childCount: i, extension: void 0, folderPath: e, label: t, name: t, typeId: "folder" };
+function X(e, t, i) {
+  return { id: j(), childCount: i, extension: void 0, folderPath: e, label: t, name: t, typeId: "folder" };
 }
-function X(e, t, i, s, d) {
-  const o = g(i) ?? "", a = w(i), c = s, n = P(a);
+function Y(e, t, i, s, d) {
+  const o = w(i) ?? "", a = P(i), c = s, n = E(a);
   return { id: t, extension: a, folderPath: e, label: i, lastModifiedAt: c, mimeType: n, name: o, size: d, typeId: "object" };
 }
 export {
-  W as Connector
+  $ as Connector
 };
 //# sourceMappingURL=datapos-connector-file-store-emulator.es.js.map

@@ -10,7 +10,7 @@ import { nanoid } from 'nanoid';
 
 // Framework dependencies.
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import type { DataViewPreviewConfig } from '@datapos/datapos-shared';
+import type { DataViewPreviewConfig, ValueDelimiterId } from '@datapos/datapos-shared';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
@@ -153,7 +153,8 @@ class Connector implements ConnectorInterface {
             }
 
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
-            const schemaConfig = await csvParseTool.determineSchemaConfig(previewConfig.text, [',', ';', '|']);
+            const delimiters: ValueDelimiterId[] = [':', ',', '!', '0x1E', ';', ' ', '\t', '_', '0x1F', '|'];
+            const schemaConfig = await csvParseTool.determineSchemaConfig(previewConfig.text, delimiters);
 
             const duration = performance.now() - startedAt;
             return {
