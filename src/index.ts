@@ -10,10 +10,10 @@ import { nanoid } from 'nanoid';
 
 // Framework dependencies.
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import type { DataViewPreviewConfig } from '@datapos/datapos-shared';
-import type { EngineShared } from '@datapos/datapos-shared/engine';
+import type { DataViewPreviewConfig } from '@datapos/datapos-shared/component/dataView';
+import type { EngineUtilities } from '@datapos/datapos-shared/engine';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
-import { ORDERED_VALUE_DELIMITER_IDS } from '@datapos/datapos-shared';
+import { ORDERED_VALUE_DELIMITER_IDS } from '@datapos/datapos-shared/component/dataView';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
     ConnectionNodeConfig,
@@ -53,13 +53,13 @@ const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 class Connector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
-    engineShared: EngineShared;
+    engineUtilities: EngineUtilities;
     readonly toolConfigs;
 
-    constructor(engineShared: EngineShared, toolConfigs: ToolConfig[]) {
+    constructor(engineUtilities: EngineUtilities, toolConfigs: ToolConfig[]) {
         this.abortController = undefined;
         this.config = config as ConnectorConfig;
-        this.engineShared = engineShared;
+        this.engineUtilities = engineUtilities;
         this.toolConfigs = toolConfigs;
     }
 
@@ -159,7 +159,7 @@ class Connector implements ConnectorInterface {
 
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
             const schemaConfig = await csvParseTool.determineSchemaConfig(previewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
-            console.log(1111, this.engineShared);
+            console.log(1111, this.engineUtilities);
 
             const duration = performance.now() - startedAt;
             return {

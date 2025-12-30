@@ -1,5 +1,5 @@
-import { DataViewPreviewConfig } from '@datapos/datapos-shared';
-import { EngineShared } from '@datapos/datapos-shared/engine';
+import { DataViewPreviewConfig } from '@datapos/datapos-shared/component/dataView';
+import { EngineUtilities } from '@datapos/datapos-shared/engine';
 import { ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RetrieveRecordsOptions, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
 import { ToolConfig } from '@datapos/datapos-shared/component/tool';
 /**
@@ -8,9 +8,9 @@ import { ToolConfig } from '@datapos/datapos-shared/component/tool';
 declare class Connector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
-    engineShared: EngineShared;
+    engineUtilities: EngineUtilities;
     readonly toolConfigs: ToolConfig[];
-    constructor(engineShared: EngineShared, toolConfigs: ToolConfig[]);
+    constructor(engineUtilities: EngineUtilities, toolConfigs: ToolConfig[]);
     /**
      * Abort the currently running operation.
      */
