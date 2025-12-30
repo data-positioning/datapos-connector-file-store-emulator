@@ -5,10 +5,10 @@
  * This would allow us to secure the bucket?
  */
 
-/**  Vendor dependencies. */
+// Vendor dependencies.
 import { nanoid } from 'nanoid';
 
-/**  Framework dependencies. */
+// Framework dependencies.
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import type { DataViewPreviewConfig } from '@datapos/datapos-shared';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
@@ -28,21 +28,25 @@ import type {
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 import { loadTool, type ToolConfig } from '@datapos/datapos-shared/component/tool';
 
-/** Data dependencies. */
+// Data dependencies.
 import config from '~/config.json';
 import fileStoreFolderPathData from '@/fileStoreFolderPaths.json';
 import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
 
-/** File store folder paths. */
+/**
+ * File store folder paths.
+ */
 type FileStoreFolderNode =
     | ({ typeId: 'folder'; childCount: number } & { name: string })
     | ({ typeId: 'object'; id: string; lastModifiedAt: number; size: number } & { name: string });
 type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>;
 
-/** Constants */
+// Constants.
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 
-/** File store emulator connector. */
+/**
+ * File store emulator connector.
+ */
 class Connector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
@@ -54,16 +58,21 @@ class Connector implements ConnectorInterface {
         this.toolConfigs = toolConfigs;
     }
 
-    //#region: Operations. #####
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    //#region: Operations.
 
-    /** Abort the currently running operation. */
+    /**
+     * Abort the currently running operation.
+     */
     abortOperation(connector: ConnectorInterface): void {
         if (!connector.abortController) return;
         connector.abortController.abort();
         connector.abortController = undefined;
     }
 
-    /** Find the folder path containing the specified object node. */
+    /**
+     * Find the folder path containing the specified object node.
+     */
     findObjectFolderPath(connector: ConnectorInterface, options: FindObjectFolderPathOptions): Promise<string | null> {
         const fileStoreFolderPaths = fileStoreFolderPathData as FileStoreFolderPaths;
         // Loop through the folder path data checking for an object entry with an identifier equal to the object name.
@@ -78,7 +87,9 @@ class Connector implements ConnectorInterface {
         return Promise.resolve(null); // Not found.
     }
 
-    /** Get a readable stream for the specified object node path. */
+    /**
+     * Get a readable stream for the specified object node path.
+     */
     async getReadableStream(connector: ConnectorInterface, options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>> {
         // Create an abort controller and extract its signal.
         const { signal } = (connector.abortController = new AbortController());
@@ -105,22 +116,26 @@ class Connector implements ConnectorInterface {
         }
     }
 
-    /** Lists all nodes (folders and objects) in the specified folder path. */
+    /**
+     * Lists all nodes (folders and objects) in the specified folder path.
+     */
     listNodes(connector: ConnectorInterface, options: ListNodesOptions): Promise<ListNodesResult> {
         const fileStoreFolderPaths = fileStoreFolderPathData as FileStoreFolderPaths;
         const folderNodes = fileStoreFolderPaths[options.folderPath] ?? [];
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
         for (const folderNode of folderNodes) {
             if (folderNode.typeId === 'folder') {
-                connectionNodeConfigs.push(this.constructFolderNodeConfig(options.folderPath, folderNode.name, folderNode.childCount));
+                connectionNodeConfigs.push(constructFolderNodeConfig(options.folderPath, folderNode.name, folderNode.childCount));
             } else {
-                connectionNodeConfigs.push(this.constructObjectNodeConfig(options.folderPath, folderNode.id, folderNode.name, folderNode.lastModifiedAt, folderNode.size));
+                connectionNodeConfigs.push(constructObjectNodeConfig(options.folderPath, folderNode.id, folderNode.name, folderNode.lastModifiedAt, folderNode.size));
             }
         }
         return Promise.resolve({ cursor: undefined, isMore: false, connectionNodeConfigs, totalCount: connectionNodeConfigs.length });
     }
 
-    /** Preview the contents of the object node with the specified path. */
+    /**
+     * Preview the contents of the object node with the specified path.
+     */
     async previewObject(connector: ConnectorInterface, options: PreviewObjectOptions): Promise<DataViewPreviewConfig> {
         // Create an abort controller and extract its signal.
         const { signal } = (connector.abortController = new AbortController());
@@ -132,15 +147,13 @@ class Connector implements ConnectorInterface {
             const fileOperatorsTool = await loadTool<FileOperatorsTool>(connector.toolConfigs, 'file-operators');
             const previewConfig = await fileOperatorsTool.previewFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
 
-            const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
+            if (previewConfig.dataFormatId == null) throw new Error('Connector unable to process files of this type.');
             if (previewConfig.text == null) {
                 throw new Error('File is empty.');
-            } else {
-                const schemaConfig = csvParseTool.determineSchemaConfig(previewConfig.text, [',', ';', '|']);
-                console.log('schemaConfig', schemaConfig);
             }
 
-            if (previewConfig.dataFormatId == null) throw new Error('Connector unable to process files of this type.');
+            const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
+            const schemaConfig = await csvParseTool.determineSchemaConfig(previewConfig.text, [',', ';', '|']);
 
             const duration = performance.now() - startedAt;
             return {
@@ -152,9 +165,11 @@ class Connector implements ConnectorInterface {
                 encodingConfidenceLevel: previewConfig.encodingConfidenceLevel,
                 fileType: previewConfig.fileTypeConfig,
                 hasHeaders: undefined,
+                recordDelimiterId: schemaConfig.recordDelimiterId,
                 records: [],
                 size: previewConfig.bytes.length,
-                text: previewConfig.text
+                text: previewConfig.text,
+                valueDelimiterId: schemaConfig.valueDelimiterId
             };
         } catch (error) {
             throw normalizeToError(error);
@@ -162,7 +177,9 @@ class Connector implements ConnectorInterface {
             connector.abortController = undefined;
         }
     }
-    /** Retrieves all records from a CSV object node using streaming and chunked processing. */
+    /**
+     * Retrieves all records from a CSV object node using streaming and chunked processing.
+     */
     async retrieveRecords(
         connector: ConnectorInterface,
         options: RetrieveRecordsOptions,
@@ -184,26 +201,31 @@ class Connector implements ConnectorInterface {
         }
     }
 
-    //#endregion
-
-    //#region: Helpers. #####
-
-    /** Construct folder node configuration. */
-    private constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
-        return { id: nanoid(), childCount, extension: undefined, folderPath, label: name, name, typeId: 'folder' };
-    }
-
-    /** Construct object (file) node configuration. */
-    private constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
-        const name = extractNameFromPath(fullName) ?? '';
-        const extension = extractExtensionFromPath(fullName);
-        const lastModifiedAtTimestamp = lastModifiedAt;
-        const mimeType = lookupMimeTypeForExtension(extension);
-        return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
-    }
-
-    //#endregion
+    //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//#region: Helpers.
+
+/**
+ * Construct folder node configuration.
+ */
+function constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
+    return { id: nanoid(), childCount, extension: undefined, folderPath, label: name, name, typeId: 'folder' };
+}
+
+/**
+ * Construct object (file) node configuration.
+ */
+function constructObjectNodeConfig(folderPath: string, id: string, fullName: string, lastModifiedAt: number, size: number): ConnectionNodeConfig {
+    const name = extractNameFromPath(fullName) ?? '';
+    const extension = extractExtensionFromPath(fullName);
+    const lastModifiedAtTimestamp = lastModifiedAt;
+    const mimeType = lookupMimeTypeForExtension(extension);
+    return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
+}
+
+//#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // Exports.
 export { Connector };
