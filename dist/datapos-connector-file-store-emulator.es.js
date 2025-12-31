@@ -34,11 +34,11 @@ async function h(e, t, i) {
   try {
     o = await e.text();
   } catch (n) {
-    o = `<body unavailable: ${r(n).message}>`;
+    o = `<body unavailable: ${m(n).message}>`;
   }
   return new C(d, i, o);
 }
-function r(e) {
+function m(e) {
   if (e instanceof Error) return e;
   if (typeof e == "string") return new Error(e);
   if (typeof e == "number" || typeof e == "boolean" || typeof e == "bigint") return new Error(String(e));
@@ -82,13 +82,13 @@ function R(e) {
       return "application/octet-stream";
   }
 }
-async function m(e, t) {
+async function p(e, t) {
   const i = `datapos-tool-${t}`, s = e.find((o) => o.id === i);
   if (!s) throw new Error(`Connector could not load unknown tool '${t}'.`);
   const d = await import(`https://engine-eu.datapos.app/tools/${t}_v${s.version}/${i}.es.js`);
   return new d.Tool();
 }
-const S = "datapos-connector-file-store-emulator", T = { en: "File Store Emulator" }, x = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, k = null, _ = "fileStore", F = { default: { authMethodId: "none", maxConnectionCount: 1 } }, O = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', U = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', N = null, L = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], D = null, V = "beta", B = "connector", G = "source", q = null, H = null, Z = null, K = "0.2.396", Q = {
+const S = "datapos-connector-file-store-emulator", T = { en: "File Store Emulator" }, x = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, k = null, _ = "fileStore", F = { default: { authMethodId: "none", maxConnectionCount: 1 } }, O = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', U = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', N = null, L = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], D = null, V = "beta", B = "connector", G = "source", q = null, H = null, Z = null, K = "0.2.397", Q = {
   id: S,
   label: T,
   description: x,
@@ -140,7 +140,7 @@ async function X(e) {
 async function A() {
   return I ??= import("./datapos_connector_file_store_emulator_core-CBVDrOML.js"), I;
 }
-const p = "https://sample-data-eu.datapos.app";
+const f = "https://sample-data-eu.datapos.app";
 class ee {
   abortController;
   config;
@@ -173,7 +173,7 @@ class ee {
   async getReadableStream(t, i) {
     const { signal: s } = t.abortController = new AbortController();
     try {
-      const d = await fetch(`${p}/fileStore${i.path}`, { signal: s });
+      const d = await fetch(`${f}/fileStore${i.path}`, { signal: s });
       if (!d.ok)
         throw await h(d, `Failed to fetch '${i.path}' file.`, "datapos-connector-file-store-emulator|Connector|getReadableStream");
       if (d.body == null)
@@ -181,7 +181,7 @@ class ee {
       const o = await J(12, 56), n = await X(t.config.version);
       return console.log("sum", n, o), await Promise.resolve(d.body);
     } catch (d) {
-      throw r(d);
+      throw m(d);
     } finally {
       t.abortController = void 0;
     }
@@ -201,30 +201,27 @@ class ee {
   async previewObject(t, i) {
     const { signal: s } = t.abortController = new AbortController();
     try {
-      const d = Date.now(), o = performance.now(), c = await (await m(t.toolConfigs, "file-operators")).previewFile(`${p}/fileStore${i.path}`, s, i.chunkSize);
+      const d = Date.now(), o = performance.now(), c = await (await p(t.toolConfigs, "file-operators")).previewFile(`${f}/fileStore${i.path}`, s, i.chunkSize);
       if (c.dataFormatId == null) throw new Error("Connector unable to process files of this type.");
-      if (c.text == null)
-        throw new Error("File is empty.");
-      const f = await (await m(t.toolConfigs, "csv-parse")).determineSchemaConfig(this.engineUtilities, c.text, v);
-      console.log(1111, this.engineUtilities);
-      const M = performance.now() - o;
+      if (c.text == null) throw new Error("File is empty.");
+      const r = await (await p(t.toolConfigs, "csv-parse")).determineSchemaConfig(this.engineUtilities, c.text, v), M = performance.now() - o;
       return {
         asAt: d,
-        columnConfigs: [],
+        columnConfigs: r.columnConfigs,
         dataFormatId: c.dataFormatId,
         duration: M,
         encodingId: c.encodingId,
         encodingConfidenceLevel: c.encodingConfidenceLevel,
         fileType: c.fileTypeConfig,
         hasHeaders: void 0,
-        recordDelimiterId: f.recordDelimiterId,
-        records: [],
+        recordDelimiterId: r.recordDelimiterId,
+        records: r.records,
         size: c.bytes.length,
         text: c.text,
-        valueDelimiterId: f.valueDelimiterId
+        valueDelimiterId: r.valueDelimiterId
       };
     } catch (d) {
-      throw r(d);
+      throw m(d);
     } finally {
       t.abortController = void 0;
     }
@@ -235,10 +232,10 @@ class ee {
   async retrieveRecords(t, i, s, d) {
     t.abortController = new AbortController();
     try {
-      const o = await m(t.toolConfigs, "csv-parse"), n = { delimiter: i.valueDelimiterId, info: !0, relax_column_count: !0, relax_quotes: !0 }, c = `${p}/fileStore${i.path}`, l = await o.parseStream(i, n, c, t.abortController, s);
+      const o = await p(t.toolConfigs, "csv-parse"), n = { delimiter: i.valueDelimiterId, info: !0, relax_column_count: !0, relax_quotes: !0 }, c = `${f}/fileStore${i.path}`, l = await o.parseStream(i, n, c, t.abortController, s);
       d(l);
     } catch (o) {
-      throw r(o);
+      throw m(o);
     } finally {
       t.abortController = void 0;
     }
