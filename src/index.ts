@@ -158,7 +158,7 @@ class Connector implements ConnectorInterface {
             }
 
             const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
-            const schemaConfig = await csvParseTool.determineSchemaConfig(previewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
+            const schemaConfig = await csvParseTool.determineSchemaConfig(this.engineUtilities, previewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
             console.log(1111, this.engineUtilities);
 
             const duration = performance.now() - startedAt;
