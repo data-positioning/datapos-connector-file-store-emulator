@@ -143,14 +143,11 @@ class Connector implements ConnectorInterface {
      */
     async previewObject(connector: ConnectorInterface, options: PreviewObjectOptions): Promise<DataViewPreviewConfig> {
         // Create an abort controller and extract its signal.
-        const { signal } = (connector.abortController = new AbortController());
+        const { signal } = (this.abortController = new AbortController());
 
         try {
             const asAt = Date.now();
             const startedAt = performance.now();
-
-            console.log('THIS', this);
-            console.log('CONNECTOR', connector);
 
             const fileOperatorsTool = await loadTool<FileOperatorsTool>(this.toolConfigs, 'file-operators');
             const previewConfig = await fileOperatorsTool.previewFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
@@ -179,7 +176,7 @@ class Connector implements ConnectorInterface {
         } catch (error) {
             throw normalizeToError(error);
         } finally {
-            connector.abortController = undefined;
+            this.abortController = undefined;
         }
     }
     /**
