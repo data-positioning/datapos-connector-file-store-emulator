@@ -63,7 +63,7 @@ class Connector implements ConnectorInterface {
         this.toolConfigs = toolConfigs;
     }
 
-    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     //#region: Operations.
 
     /**
@@ -149,6 +149,9 @@ class Connector implements ConnectorInterface {
             const asAt = Date.now();
             const startedAt = performance.now();
 
+            console.log('THIS', this);
+            console.log('CONNECTOR', connector);
+
             const fileOperatorsTool = await loadTool<FileOperatorsTool>(connector.toolConfigs, 'file-operators');
             const previewConfig = await fileOperatorsTool.previewFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
             if (previewConfig.dataFormatId == null) throw new Error('Connector unable to process files of this type.');
@@ -203,10 +206,10 @@ class Connector implements ConnectorInterface {
         }
     }
 
-    //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }
 
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //#region: Helpers.
 
 /**
@@ -227,7 +230,7 @@ function constructObjectNodeConfig(folderPath: string, id: string, fullName: str
     return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
 }
 
-//#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // Exports.
 export { Connector };
