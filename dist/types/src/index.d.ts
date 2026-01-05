@@ -1,4 +1,4 @@
-import { DataViewPreviewConfig } from '@datapos/datapos-shared/component/dataView';
+import { DataViewPreviewConfig, ObjectRecord } from '@datapos/datapos-shared/component/dataView';
 import { EngineUtilities } from '@datapos/datapos-shared/engine';
 import { ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RetrieveRecordsOptions, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
 import { ToolConfig } from '@datapos/datapos-shared/component/tool';
@@ -14,26 +14,26 @@ declare class Connector implements ConnectorInterface {
     /**
      * Abort the currently running operation.
      */
-    abortOperation(connector: ConnectorInterface): void;
+    abortOperation(): void;
     /**
      * Find the folder path containing the specified object node.
      */
-    findObjectFolderPath(connector: ConnectorInterface, options: FindObjectFolderPathOptions): Promise<string | null>;
+    findObjectFolderPath(options: FindObjectFolderPathOptions): Promise<string | null>;
     /**
      * Get a readable stream for the specified object node path.
      */
-    getReadableStream(connector: ConnectorInterface, options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>>;
+    getReadableStream(options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>>;
     /**
      * Lists all nodes (folders and objects) in the specified folder path.
      */
-    listNodes(connector: ConnectorInterface, options: ListNodesOptions): Promise<ListNodesResult>;
+    listNodes(options: ListNodesOptions): Promise<ListNodesResult>;
     /**
      * Preview the contents of the object node with the specified path.
      */
-    previewObject(connector: ConnectorInterface, options: PreviewObjectOptions): Promise<DataViewPreviewConfig>;
+    previewObject(options: PreviewObjectOptions): Promise<DataViewPreviewConfig>;
     /**
      * Retrieves all records from a CSV object node using streaming and chunked processing.
      */
-    retrieveRecords(connector: ConnectorInterface, options: RetrieveRecordsOptions, chunk: (records: (string[] | Record<string, unknown>)[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
+    retrieveRecords(options: RetrieveRecordsOptions, chunk: (records: ObjectRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
 }
 export { Connector };

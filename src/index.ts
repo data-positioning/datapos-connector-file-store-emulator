@@ -10,7 +10,7 @@ import { nanoid } from 'nanoid';
 
 // Framework dependencies.
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import type { DataViewPreviewConfig } from '@datapos/datapos-shared/component/dataView';
+import type { DataViewPreviewConfig, ObjectRecord } from '@datapos/datapos-shared/component/dataView';
 import type { EngineUtilities } from '@datapos/datapos-shared/engine';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
 import { ORDERED_VALUE_DELIMITER_IDS } from '@datapos/datapos-shared/component/dataView';
@@ -70,7 +70,7 @@ class Connector implements ConnectorInterface {
     /**
      * Abort the currently running operation.
      */
-    abortOperation(connector: ConnectorInterface): void {
+    abortOperation(): void {
         if (!this.abortController) return;
         this.abortController.abort();
         this.abortController = undefined;
@@ -79,7 +79,7 @@ class Connector implements ConnectorInterface {
     /**
      * Find the folder path containing the specified object node.
      */
-    findObjectFolderPath(connector: ConnectorInterface, options: FindObjectFolderPathOptions): Promise<string | null> {
+    findObjectFolderPath(options: FindObjectFolderPathOptions): Promise<string | null> {
         const fileStoreFolderPaths = fileStoreFolderPathData as FileStoreFolderPaths;
         // Loop through the folder path data checking for an object entry with an identifier equal to the object name.
         for (const folderPath in fileStoreFolderPaths) {
@@ -96,7 +96,7 @@ class Connector implements ConnectorInterface {
     /**
      * Get a readable stream for the specified object node path.
      */
-    async getReadableStream(connector: ConnectorInterface, options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>> {
+    async getReadableStream(options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>> {
         // Create an abort controller and extract its signal.
         const { signal } = (this.abortController = new AbortController());
 
@@ -125,7 +125,7 @@ class Connector implements ConnectorInterface {
     /**
      * Lists all nodes (folders and objects) in the specified folder path.
      */
-    listNodes(connector: ConnectorInterface, options: ListNodesOptions): Promise<ListNodesResult> {
+    listNodes(options: ListNodesOptions): Promise<ListNodesResult> {
         const fileStoreFolderPaths = fileStoreFolderPathData as FileStoreFolderPaths;
         const folderNodes = fileStoreFolderPaths[options.folderPath] ?? [];
         const connectionNodeConfigs: ConnectionNodeConfig[] = [];
@@ -142,7 +142,7 @@ class Connector implements ConnectorInterface {
     /**
      * Preview the contents of the object node with the specified path.
      */
-    async previewObject(connector: ConnectorInterface, options: PreviewObjectOptions): Promise<DataViewPreviewConfig> {
+    async previewObject(options: PreviewObjectOptions): Promise<DataViewPreviewConfig> {
         // Create an abort controller and extract its signal.
         const { signal } = (this.abortController = new AbortController());
 
@@ -183,12 +183,7 @@ class Connector implements ConnectorInterface {
     /**
      * Retrieves all records from a CSV object node using streaming and chunked processing.
      */
-    async retrieveRecords(
-        connector: ConnectorInterface,
-        options: RetrieveRecordsOptions,
-        chunk: (records: (string[] | Record<string, unknown>)[]) => void,
-        complete: (result: RetrieveRecordsSummary) => void
-    ): Promise<void> {
+    async retrieveRecords(options: RetrieveRecordsOptions, chunk: (records: ObjectRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void> {
         this.abortController = new AbortController();
 
         try {
