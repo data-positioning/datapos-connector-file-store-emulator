@@ -1,9 +1,9 @@
 const z = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
 let j = (e = 21) => {
-  let t = "", i = crypto.getRandomValues(new Uint8Array(e |= 0));
+  let i = "", t = crypto.getRandomValues(new Uint8Array(e |= 0));
   for (; e--; )
-    t += z[i[e] & 63];
-  return t;
+    i += z[t[e] & 63];
+  return i;
 };
 const a = (e) => new Map(Object.entries(e));
 a({ "en-gb": "Delimited Text" }), a({ "en-gb": "Entity/Event" }), a({ "en-gb": "JSON" }), a({ "en-gb": "SPSS" }), a({ "en-gb": "XLS" }), a({ "en-gb": "XLSX" }), a({ "en-gb": "XML" });
@@ -13,8 +13,8 @@ const v = [",", ";", "	", "|", " ", ":", "_", "!", "0x1F", "0x1E"];
 class y extends Error {
   locator;
   /** Logical source of the error. */
-  constructor(t, i, s) {
-    super(t, s), this.name = new.target.name, this.locator = i;
+  constructor(i, t, s) {
+    super(i, s), this.name = new.target.name, this.locator = t;
   }
 }
 let u = class extends y {
@@ -22,21 +22,21 @@ let u = class extends y {
 class C extends u {
   body;
   /** Sanitized HTTP response body. */
-  constructor(t, i, s, d) {
-    super(t, i, d), this.name = new.target.name, this.body = w(s ?? void 0);
+  constructor(i, t, s, d) {
+    super(i, t, d), this.name = new.target.name, this.body = w(s ?? void 0);
   }
 }
-class g extends y {
+class h extends y {
 }
-async function h(e, t, i) {
-  const s = ` - ${e.statusText}`, d = `${t} Response status '${e.status}${e.statusText ? s : ""}' received.`;
+async function g(e, i, t) {
+  const s = ` - ${e.statusText}`, d = `${i} Response status '${e.status}${e.statusText ? s : ""}' received.`;
   let o;
   try {
     o = await e.text();
   } catch (n) {
     o = `<body unavailable: ${m(n).message}>`;
   }
-  return new C(d, i, o);
+  return new C(d, t, o);
 }
 function m(e) {
   if (e instanceof Error) return e;
@@ -57,14 +57,14 @@ function w(e) {
 }
 function E(e) {
   if (e) {
-    const t = e.lastIndexOf("/"), i = e.lastIndexOf(".", t === -1 ? e.length : t);
-    return i === -1 ? e : e.slice(0, Math.max(0, i));
+    const i = e.lastIndexOf("/"), t = e.lastIndexOf(".", i === -1 ? e.length : i);
+    return t === -1 ? e : e.slice(0, Math.max(0, t));
   }
 }
 function P(e) {
   if (e) {
-    const t = e.lastIndexOf(".");
-    if (t !== -1) return e.slice(Math.max(0, t + 1));
+    const i = e.lastIndexOf(".");
+    if (i !== -1) return e.slice(Math.max(0, i + 1));
   }
 }
 function R(e) {
@@ -82,13 +82,13 @@ function R(e) {
       return "application/octet-stream";
   }
 }
-async function p(e, t) {
-  const i = `datapos-tool-${t}`, s = e.find((o) => o.id === i);
-  if (!s) throw new Error(`Connector could not load unknown tool '${t}'.`);
-  const d = await import(`https://engine-eu.datapos.app/tools/${t}_v${s.version}/${i}.es.js`);
+async function p(e, i) {
+  const t = `datapos-tool-${i}`, s = e.find((o) => o.id === t);
+  if (!s) throw new Error(`Connector could not load unknown tool '${i}'.`);
+  const d = await import(`https://engine-eu.datapos.app/tools/${i}_v${s.version}/${t}.es.js`);
   return new d.Tool();
 }
-const S = "datapos-connector-file-store-emulator", T = { en: "File Store Emulator" }, x = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, k = null, _ = "fileStore", F = { default: { authMethodId: "none", maxConnectionCount: 1 } }, O = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', U = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', N = null, L = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], D = null, V = "beta", B = "connector", G = "source", q = null, H = null, Z = null, K = "0.2.400", Q = {
+const S = "datapos-connector-file-store-emulator", T = { en: "File Store Emulator" }, x = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, k = null, _ = "fileStore", F = { default: { authMethodId: "none", maxConnectionCount: 1 } }, O = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', U = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', N = null, L = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], D = null, V = "beta", B = "connector", G = "source", q = null, H = null, Z = null, K = "0.2.401", Q = {
   id: S,
   label: T,
   description: x,
@@ -127,15 +127,15 @@ const S = "datapos-connector-file-store-emulator", T = { en: "File Store Emulato
   "/Test Files/Encoding Test Files/encodings": [{ id: "irBUQdMBx4ZhLXyti4t0W", lastModifiedAt: 1743507686243765e-3, name: "big5", size: 614, typeId: "object" }, { id: "BPyMwzoNSnGdUV_dzYEWz", lastModifiedAt: 17435076862438152e-4, name: "euc_jp", size: 3919, typeId: "object" }, { id: "FXjFtwUcRxKmH_ZCAaNz6", lastModifiedAt: 1743507686243867e-3, name: "euc_kr", size: 2480, typeId: "object" }, { id: "5fBDsObvTXORIIgptb-sl", lastModifiedAt: 17435076862439092e-4, name: "gb18030", size: 1665, typeId: "object" }, { id: "7Jt6_ku8bzWNBFjRaagdR", lastModifiedAt: 17435076862439512e-4, name: "iso2022cn", size: 1749, typeId: "object" }, { id: "WLvdjjUGMGnEv3FmDQJ9p", lastModifiedAt: 1743507686243999e-3, name: "iso2022jp", size: 2924, typeId: "object" }, { id: "6CsULI8SIvo4zwFjKAA1_", lastModifiedAt: 17435076862440513e-4, name: "iso2022kr", size: 3172, typeId: "object" }, { id: "SqbmllHEuS76me2jsWjLI", lastModifiedAt: 17435076862440952e-4, name: "iso88591_en", size: 2955, typeId: "object" }, { id: "5oCOldZaxX2XoavVBBgdc", lastModifiedAt: 1743507686244138e-3, name: "iso88592_cs", size: 1600, typeId: "object" }, { id: "UATsUFbSUtqVhVhMJ2sec", lastModifiedAt: 1743507686244182e-3, name: "iso88595_ru", size: 1024, typeId: "object" }, { id: "wC1_pjcjj0NZZWTxqiGaw", lastModifiedAt: 17435076862442336e-4, name: "iso88596_ar", size: 2241, typeId: "object" }, { id: "Pe8RK8l_zBAjLODUX34IB", lastModifiedAt: 1743507686244275e-3, name: "iso88597_el", size: 1033, typeId: "object" }, { id: "Ga6Z1yRgs99Vpa5QrR70_", lastModifiedAt: 17435076862445083e-4, name: "iso88598", size: 2352, typeId: "object" }, { id: "XmtdLSxT84HsoF7OIqye4", lastModifiedAt: 1743507686244566e-3, name: "iso88598_he", size: 2353, typeId: "object" }, { id: "3HCk8XXlua9KEOtc5iseJ", lastModifiedAt: 1743507686244627e-3, name: "iso88599_tr", size: 2424, typeId: "object" }, { id: "zjfA3EHpzaPHAvTkBICWG", lastModifiedAt: 17435076862446736e-4, name: "koi8r", size: 1024, typeId: "object" }, { id: "IRnhQiGe4mxsoQpaJCdRM", lastModifiedAt: 17435076862447236e-4, name: "lang_arabic", size: 4059, typeId: "object" }, { id: "ih-RgplBSErEYOcna-NlI", lastModifiedAt: 17435076862447717e-4, name: "lang_chinese", size: 916, typeId: "object" }, { id: "9EYQqNjgOksavPn--KH46", lastModifiedAt: 17435076862448289e-4, name: "lang_czech", size: 1795, typeId: "object" }, { id: "Xaeq_CiSthaccRyGw22Bx", lastModifiedAt: 17435076862448726e-4, name: "lang_greek", size: 1895, typeId: "object" }, { id: "421DaSaIy8ywB26Rc2GV1", lastModifiedAt: 1743507686244933e-3, name: "lang_hebrew", size: 4124, typeId: "object" }, { id: "N01Ggo186R8phM3c0zLa2", lastModifiedAt: 17435076862449873e-4, name: "lang_japanese", size: 3978, typeId: "object" }, { id: "T8jzTqgGlU30YQd1QvMm3", lastModifiedAt: 17435076862450503e-4, name: "lang_korean", size: 3466, typeId: "object" }, { id: "R-Fkzl2BW0o9Hios70WwI", lastModifiedAt: 17435076862450947e-4, name: "lang_russian", size: 1873, typeId: "object" }, { id: "KiKbYoPDMht0f9ElSfTYZ", lastModifiedAt: 1743507686245141e-3, name: "lang_turkish", size: 2678, typeId: "object" }, { id: "a_RPqwZdZ5DmZOCDUVeiZ", lastModifiedAt: 17435076862451846e-4, name: "shiftjis", size: 2816, typeId: "object" }, { id: "rXd90uYo_IZSqu9U_3Sr6", lastModifiedAt: 1743507686245242e-3, name: "utf16be", size: 1334, typeId: "object" }, { id: "83XbTcV0_WKdvcPEKeuDy", lastModifiedAt: 17435076862452773e-4, name: "utf16le", size: 1334, typeId: "object" }, { id: "Upq9-WDaQTs--Ogg1Qtev", lastModifiedAt: 17435076862453193e-4, name: "utf32be", size: 2664, typeId: "object" }, { id: "mm0RGQoiYeYc7ORPPI2S8", lastModifiedAt: 17435076862453613e-4, name: "utf32le", size: 2664, typeId: "object" }, { id: "J9FIyiit-zK4HquqAwGNE", lastModifiedAt: 17435076862454148e-4, name: "utf8", size: 1125, typeId: "object" }, { id: "pZQOaI1tOrcy2Km0Z7Enb", lastModifiedAt: 17435076862454595e-4, name: "windows_1250", size: 1617, typeId: "object" }, { id: "da-PPmwaWqLyqUz6SRw1v", lastModifiedAt: 1743507686245507e-3, name: "windows_1251", size: 1024, typeId: "object" }, { id: "aw_8vVm1CvdxaiiI3CX-L", lastModifiedAt: 17435076862456494e-4, name: "windows_1252", size: 2976, typeId: "object" }, { id: "-JYzWLdhtRIWC0vwZFj0I", lastModifiedAt: 17435076862456982e-4, name: "windows_1253", size: 1052, typeId: "object" }, { id: "ImvMAQPnb13Mf7mqB7t6m", lastModifiedAt: 17435076862458247e-4, name: "windows_1254", size: 2445, typeId: "object" }, { id: "mYnEtUyasG7Cub5f7WgsT", lastModifiedAt: 17435076862458765e-4, name: "windows_1255", size: 2405, typeId: "object" }, { id: "clQEg9g9e9QiBJcsOcKcs", lastModifiedAt: 17435076862459272e-4, name: "windows_1256", size: 2241, typeId: "object" }]
 };
 let I;
-async function J(e, t) {
-  const { add_my_numbers: i } = await A();
-  console.log(1111, e, t);
-  const s = i(Math.trunc(e), Math.trunc(t));
+async function J(e, i) {
+  const { add_my_numbers: t } = await A();
+  console.log(1111, e, i);
+  const s = t(Math.trunc(e), Math.trunc(i));
   return console.log(2222, s), s;
 }
 async function X(e) {
-  const { checksum_from_rust: t } = await A();
-  return t(e);
+  const { checksum_from_rust: i } = await A();
+  return i(e);
 }
 async function A() {
   return I ??= import("./datapos_connector_file_store_emulator_core-CBVDrOML.js"), I;
@@ -146,62 +146,63 @@ class ee {
   config;
   engineUtilities;
   toolConfigs;
-  constructor(t, i) {
-    this.abortController = void 0, this.config = Q, this.engineUtilities = t, this.toolConfigs = i;
+  constructor(i, t) {
+    this.abortController = void 0, this.config = Q, this.engineUtilities = i, this.toolConfigs = t;
   }
   //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   //#region: Operations.
+  //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   /**
    * Abort the currently running operation.
    */
-  abortOperation(t) {
-    t.abortController && (t.abortController.abort(), t.abortController = void 0);
+  abortOperation(i) {
+    this.abortController && (this.abortController.abort(), this.abortController = void 0);
   }
   /**
    * Find the folder path containing the specified object node.
    */
-  findObjectFolderPath(t, i) {
+  findObjectFolderPath(i, t) {
     const s = b;
     for (const d in s)
-      if (Object.hasOwn(s, d) && s[d]?.find((c) => c.typeId === "object" && c.id === i.nodeId))
+      if (Object.hasOwn(s, d) && s[d]?.find((c) => c.typeId === "object" && c.id === t.nodeId))
         return Promise.resolve(d);
     return Promise.resolve(null);
   }
   /**
    * Get a readable stream for the specified object node path.
    */
-  async getReadableStream(t, i) {
-    const { signal: s } = t.abortController = new AbortController();
+  async getReadableStream(i, t) {
+    const { signal: s } = this.abortController = new AbortController();
     try {
-      const d = await fetch(`${f}/fileStore${i.path}`, { signal: s });
+      const d = await fetch(`${f}/fileStore${t.path}`, { signal: s });
       if (!d.ok)
-        throw await h(d, `Failed to fetch '${i.path}' file.`, "datapos-connector-file-store-emulator|Connector|getReadableStream");
+        throw await g(d, `Failed to fetch '${t.path}' file.`, "datapos-connector-file-store-emulator|Connector|getReadableStream");
       if (d.body == null)
-        throw new g("Readable streams are not supported in this runtime.", "datapos-connector-file-store-emulator|Connector|getReadableStream.unsupported");
-      const o = await J(12, 56), n = await X(t.config.version);
+        throw new h("Readable streams are not supported in this runtime.", "datapos-connector-file-store-emulator|Connector|getReadableStream.unsupported");
+      const o = await J(12, 56), n = await X(this.config.version);
       return console.log("sum", n, o), await Promise.resolve(d.body);
     } catch (d) {
       throw m(d);
     } finally {
-      t.abortController = void 0;
+      this.abortController = void 0;
     }
   }
   /**
    * Lists all nodes (folders and objects) in the specified folder path.
    */
-  listNodes(t, i) {
-    const d = b[i.folderPath] ?? [], o = [];
+  listNodes(i, t) {
+    const d = b[t.folderPath] ?? [], o = [];
     for (const n of d)
-      n.typeId === "folder" ? o.push(Y(i.folderPath, n.name, n.childCount)) : o.push(W(i.folderPath, n.id, n.name, n.lastModifiedAt, n.size));
+      n.typeId === "folder" ? o.push(Y(t.folderPath, n.name, n.childCount)) : o.push(W(t.folderPath, n.id, n.name, n.lastModifiedAt, n.size));
     return Promise.resolve({ cursor: void 0, isMore: !1, connectionNodeConfigs: o, totalCount: o.length });
   }
   /**
    * Preview the contents of the object node with the specified path.
    */
-  async previewObject(t, i) {
+  async previewObject(i, t) {
     const { signal: s } = this.abortController = new AbortController();
     try {
-      const d = Date.now(), o = performance.now(), c = await (await p(this.toolConfigs, "file-operators")).previewFile(`${f}/fileStore${i.path}`, s, i.chunkSize);
+      const d = Date.now(), o = performance.now(), c = await (await p(this.toolConfigs, "file-operators")).previewFile(`${f}/fileStore${t.path}`, s, t.chunkSize);
       if (c.dataFormatId == null) throw new Error("Connector unable to process files of this type.");
       if (c.text == null) throw new Error("File is empty.");
       const r = await (await p(this.toolConfigs, "csv-parse")).determineSchemaConfig(this.engineUtilities, c.text, v), M = performance.now() - o;
@@ -229,25 +230,25 @@ class ee {
   /**
    * Retrieves all records from a CSV object node using streaming and chunked processing.
    */
-  async retrieveRecords(t, i, s, d) {
-    t.abortController = new AbortController();
+  async retrieveRecords(i, t, s, d) {
+    this.abortController = new AbortController();
     try {
-      const o = await p(t.toolConfigs, "csv-parse"), n = { delimiter: i.valueDelimiterId, info: !0, relax_column_count: !0, relax_quotes: !0 }, c = `${f}/fileStore${i.path}`, l = await o.parseStream(i, n, c, t.abortController, s);
+      const o = await p(this.toolConfigs, "csv-parse"), n = { delimiter: t.valueDelimiterId, info: !0, relax_column_count: !0, relax_quotes: !0 }, c = `${f}/fileStore${t.path}`, l = await o.parseStream(t, n, c, this.abortController, s);
       d(l);
     } catch (o) {
       throw m(o);
     } finally {
-      t.abortController = void 0;
+      this.abortController = void 0;
     }
   }
   //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }
-function Y(e, t, i) {
-  return { id: j(), childCount: i, extension: void 0, folderPath: e, label: t, name: t, typeId: "folder" };
+function Y(e, i, t) {
+  return { id: j(), childCount: t, extension: void 0, folderPath: e, label: i, name: i, typeId: "folder" };
 }
-function W(e, t, i, s, d) {
-  const o = E(i) ?? "", n = P(i), c = s, l = R(n);
-  return { id: t, extension: n, folderPath: e, label: i, lastModifiedAt: c, mimeType: l, name: o, size: d, typeId: "object" };
+function W(e, i, t, s, d) {
+  const o = E(t) ?? "", n = P(t), c = s, l = R(n);
+  return { id: i, extension: n, folderPath: e, label: t, lastModifiedAt: c, mimeType: l, name: o, size: d, typeId: "object" };
 }
 export {
   ee as Connector

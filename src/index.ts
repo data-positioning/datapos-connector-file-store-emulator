@@ -65,14 +65,15 @@ class Connector implements ConnectorInterface {
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     //#region: Operations.
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
     /**
      * Abort the currently running operation.
      */
     abortOperation(connector: ConnectorInterface): void {
-        if (!connector.abortController) return;
-        connector.abortController.abort();
-        connector.abortController = undefined;
+        if (!this.abortController) return;
+        this.abortController.abort();
+        this.abortController = undefined;
     }
 
     /**
@@ -97,7 +98,7 @@ class Connector implements ConnectorInterface {
      */
     async getReadableStream(connector: ConnectorInterface, options: GetReadableStreamOptions): Promise<ReadableStream<Uint8Array>> {
         // Create an abort controller and extract its signal.
-        const { signal } = (connector.abortController = new AbortController());
+        const { signal } = (this.abortController = new AbortController());
 
         try {
             const response = await fetch(`${URL_PREFIX}/fileStore${options.path}`, { signal });
@@ -110,14 +111,14 @@ class Connector implements ConnectorInterface {
 
             // TODO: Remove after testing.
             const xxx = await addNumbersWithRust(12, 56);
-            const sum = await checksumWithRust(connector.config.version);
+            const sum = await checksumWithRust(this.config.version);
             console.log('sum', sum, xxx);
 
             return await Promise.resolve(response.body);
         } catch (error) {
             throw normalizeToError(error);
         } finally {
-            connector.abortController = undefined;
+            this.abortController = undefined;
         }
     }
 
@@ -188,18 +189,18 @@ class Connector implements ConnectorInterface {
         chunk: (records: (string[] | Record<string, unknown>)[]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
-        connector.abortController = new AbortController();
+        this.abortController = new AbortController();
 
         try {
-            const csvParseTool = await loadTool<CSVParseTool>(connector.toolConfigs, 'csv-parse');
+            const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
             const parseStreamOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
             const url = `${URL_PREFIX}/fileStore${options.path}`;
-            const summary = await csvParseTool.parseStream(options, parseStreamOptions, url, connector.abortController, chunk);
+            const summary = await csvParseTool.parseStream(options, parseStreamOptions, url, this.abortController, chunk);
             complete(summary);
         } catch (error) {
             throw normalizeToError(error);
         } finally {
-            connector.abortController = undefined;
+            this.abortController = undefined;
         }
     }
 
@@ -208,6 +209,7 @@ class Connector implements ConnectorInterface {
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //#region: Helpers.
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 /**
  * Construct folder node configuration.
