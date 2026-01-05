@@ -10,7 +10,6 @@ import { nanoid } from 'nanoid';
 
 // Framework dependencies.
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
-import type { DataViewPreviewConfig, ObjectRecord } from '@datapos/datapos-shared/component/dataView';
 import type { EngineUtilities } from '@datapos/datapos-shared/engine';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
 import { ORDERED_VALUE_DELIMITER_IDS } from '@datapos/datapos-shared/component/dataView';
@@ -27,6 +26,7 @@ import type {
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
+import type { DataViewPreviewConfig, ParseRecord } from '@datapos/datapos-shared/component/dataView';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 import { loadTool, type ToolConfig } from '@datapos/datapos-shared/component/tool';
 
@@ -183,7 +183,7 @@ class Connector implements ConnectorInterface {
     /**
      * Retrieves all records from a CSV object node using streaming and chunked processing.
      */
-    async retrieveRecords(options: RetrieveRecordsOptions, chunk: (records: ObjectRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void> {
+    async retrieveRecords(options: RetrieveRecordsOptions, chunk: (records: ParseRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void> {
         this.abortController = new AbortController();
 
         try {

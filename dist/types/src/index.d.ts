@@ -1,6 +1,6 @@
-import { DataViewPreviewConfig, ObjectRecord } from '@datapos/datapos-shared/component/dataView';
 import { EngineUtilities } from '@datapos/datapos-shared/engine';
 import { ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RetrieveRecordsOptions, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
+import { DataViewPreviewConfig, ParseRecord } from '@datapos/datapos-shared/component/dataView';
 import { ToolConfig } from '@datapos/datapos-shared/component/tool';
 /**
  * File store emulator connector.
@@ -34,6 +34,6 @@ declare class Connector implements ConnectorInterface {
     /**
      * Retrieves all records from a CSV object node using streaming and chunked processing.
      */
-    retrieveRecords(options: RetrieveRecordsOptions, chunk: (records: ObjectRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
+    retrieveRecords(options: RetrieveRecordsOptions, chunk: (records: ParseRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void>;
 }
 export { Connector };
