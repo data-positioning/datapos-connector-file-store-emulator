@@ -152,8 +152,8 @@ class Connector implements ConnectorInterface {
 
             const fileOperatorsTool = await loadTool<FileOperatorsTool>(this.toolConfigs, 'file-operators');
             const previewConfig = await fileOperatorsTool.previewFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
-            if (previewConfig.dataFormatId == null) throw new Error('Connector unable to process files of this type.');
-            if (previewConfig.text == null) throw new Error('File is empty.');
+            if (previewConfig.dataFormatId == null) throw new Error(`File '${options.path}' has unknown type.`);
+            if (previewConfig.text == null) throw new Error(`File '${options.path}' is empty.`);
 
             const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
             const schemaConfig = await csvParseTool.determineSchemaConfig(this.engineUtilities, previewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
@@ -173,7 +173,7 @@ class Connector implements ConnectorInterface {
                 size: previewConfig.bytes.length,
                 text: previewConfig.text,
                 valueDelimiterId: schemaConfig.valueDelimiterId
-            };
+            } as DataViewPreviewConfig;
         } catch (error) {
             throw normalizeToError(error);
         } finally {
