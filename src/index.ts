@@ -12,7 +12,6 @@ import { nanoid } from 'nanoid';
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import type { EngineUtilities } from '@datapos/datapos-shared/engine';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
-import { ORDERED_VALUE_DELIMITER_IDS } from '@datapos/datapos-shared/component/dataView';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
     ConnectionNodeConfig,
@@ -26,7 +25,7 @@ import type {
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
-import type { DataViewPreviewConfig, ParseRecord } from '@datapos/datapos-shared/component/dataView';
+import { type DataViewPreviewConfig, ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord } from '@datapos/datapos-shared/component/dataView';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 import { loadTool, type ToolConfig } from '@datapos/datapos-shared/component/tool';
 
@@ -156,7 +155,7 @@ class Connector implements ConnectorInterface {
             if (previewConfig.text == null) throw new Error(`File '${options.path}' is empty.`);
 
             const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
-            const schemaConfig = await csvParseTool.determineSchemaConfig(this.engineUtilities, previewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
+            const schemaConfig = await csvParseTool.inferSchema(this.engineUtilities, previewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
 
             const duration = performance.now() - startedAt;
             return {
@@ -169,7 +168,7 @@ class Connector implements ConnectorInterface {
                 fileType: previewConfig.fileTypeConfig,
                 hasHeaders: undefined,
                 recordDelimiterId: schemaConfig.recordDelimiterId,
-                records: schemaConfig.records,
+                records: schemaConfig.inferenceRecords,
                 size: previewConfig.bytes.length,
                 text: previewConfig.text,
                 valueDelimiterId: schemaConfig.valueDelimiterId
@@ -183,7 +182,7 @@ class Connector implements ConnectorInterface {
     /**
      * Retrieves all records from a CSV object node using streaming and chunked processing.
      */
-    async retrieveRecords(options: RetrieveRecordsOptions, chunk: (records: ParseRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void> {
+    async retrieveRecords(options: RetrieveRecordsOptions, chunk: (records: ParsingRecord[]) => void, complete: (result: RetrieveRecordsSummary) => void): Promise<void> {
         this.abortController = new AbortController();
 
         try {
