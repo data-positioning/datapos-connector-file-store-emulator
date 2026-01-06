@@ -168,7 +168,8 @@ class Connector implements ConnectorInterface {
                 fileType: previewConfig.fileTypeConfig,
                 hasHeaders: undefined,
                 recordDelimiterId: schemaConfig.recordDelimiterId,
-                records: schemaConfig.inferenceRecords,
+                parsingRecords: schemaConfig.parsingRecords,
+                inferenceRecords: schemaConfig.inferenceRecords,
                 size: previewConfig.bytes.length,
                 text: previewConfig.text,
                 valueDelimiterId: schemaConfig.valueDelimiterId
