@@ -25,9 +25,9 @@ import type {
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
-import { type DataViewPreviewConfig, ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord } from '@datapos/datapos-shared/component/dataView';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 import { loadTool, type ToolConfig } from '@datapos/datapos-shared/component/tool';
+import { ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord, type PreviewConfig } from '@datapos/datapos-shared/component/dataView';
 
 // Data dependencies.
 import config from '~/config.json';
@@ -141,7 +141,7 @@ class Connector implements ConnectorInterface {
     /**
      * Preview the contents of the object node with the specified path.
      */
-    async previewObject(options: PreviewObjectOptions): Promise<DataViewPreviewConfig> {
+    async previewObject(options: PreviewObjectOptions): Promise<PreviewConfig> {
         // Create an abort controller and extract its signal.
         const { signal } = (this.abortController = new AbortController());
 
@@ -166,14 +166,14 @@ class Connector implements ConnectorInterface {
                 encodingId: previewConfig.encodingId,
                 encodingConfidenceLevel: previewConfig.encodingConfidenceLevel,
                 fileType: previewConfig.fileTypeConfig,
-                hasHeaders: undefined,
-                recordDelimiterId: schemaConfig.recordDelimiterId,
+                hasHeaders: false,
+                recordDelimiterCharSeq: schemaConfig.recordDelimiterId,
                 parsingRecords: schemaConfig.parsingRecords,
                 inferenceRecords: schemaConfig.inferenceRecords,
                 size: previewConfig.bytes.length,
                 text: previewConfig.text,
-                valueDelimiterId: schemaConfig.valueDelimiterId
-            } as DataViewPreviewConfig;
+                valueDelimiterCharSeq: schemaConfig.valueDelimiterId
+            } as PreviewConfig;
         } catch (error) {
             throw normalizeToError(error);
         } finally {
