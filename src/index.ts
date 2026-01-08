@@ -155,9 +155,9 @@ class Connector implements ConnectorInterface {
             if (filePreviewConfig.dataFormatId == null) throw new Error(`File '${options.path}' has unknown type.`);
             if (filePreviewConfig.text == null) throw new Error(`File '${options.path}' is empty.`);
 
-            // Parse text to identify delimiters and return record.
+            // Parse text to identify delimiters and transform to string value records.
             const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
-            const parsePreviewConfig = await csvParseTool.parsePreview(filePreviewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
+            const parseTextConfig = await csvParseTool.parseText(filePreviewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
 
             // // Infer values and initialise column configurations.
             // const columnConfigs: ObjectColumnConfig[] = [];
@@ -195,22 +195,21 @@ class Connector implements ConnectorInterface {
             //     }
             // }
 
-            const duration = performance.now() - startedAt;
             return {
                 asAt,
-                columnConfigs: schemaConfig.columnConfigs,
-                dataFormatId: previewConfig.dataFormatId,
-                duration,
-                encodingId: previewConfig.encodingId,
-                encodingConfidenceLevel: previewConfig.encodingConfidenceLevel,
-                fileType: previewConfig.fileTypeConfig,
+                columnConfigs: undefined, // schemaConfig.columnConfigs,
+                dataFormatId: filePreviewConfig.dataFormatId,
+                duration: performance.now() - startedAt,
+                encodingId: filePreviewConfig.encodingId,
+                encodingConfidenceLevel: filePreviewConfig.encodingConfidenceLevel,
+                fileType: filePreviewConfig.fileTypeConfig,
                 hasHeaders: false,
-                recordDelimiterCharSeq: schemaConfig.recordDelimiterId,
-                parsingRecords: schemaConfig.parsingRecords,
-                inferenceRecords: schemaConfig.inferenceRecords,
-                size: previewConfig.bytes.length,
-                text: previewConfig.text,
-                valueDelimiterCharSeq: schemaConfig.valueDelimiterId
+                recordDelimiterId: parseTextConfig.recordDelimiterId,
+                parsingRecords: parseTextConfig.parsingRecords,
+                inferenceRecords: undefined, //  schemaConfig.inferenceRecords,
+                size: filePreviewConfig.bytes.length,
+                text: filePreviewConfig.text,
+                valueDelimiterId: parseTextConfig.valueDelimiterId
             } as PreviewConfig;
         } catch (error) {
             throw normalizeToError(error);
