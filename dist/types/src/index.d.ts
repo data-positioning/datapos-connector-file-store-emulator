@@ -1,7 +1,7 @@
 import { EngineUtilities } from '@datapos/datapos-shared/engine';
 import { ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RetrieveRecordsOptions, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
-import { ToolConfig } from '@datapos/datapos-shared/component/tool';
 import { ParsingRecord, PreviewConfig } from '@datapos/datapos-shared/component/dataView';
+import { ToolConfig } from '@datapos/datapos-shared/component/tool';
 /**
  * File store emulator connector.
  */

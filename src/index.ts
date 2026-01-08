@@ -21,13 +21,14 @@ import type {
     GetReadableStreamOptions,
     ListNodesOptions,
     ListNodesResult,
+    ObjectColumnConfig,
     PreviewObjectOptions,
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
+import { type InferenceRecord, ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord, type PreviewConfig } from '@datapos/datapos-shared/component/dataView';
 import { loadTool, type ToolConfig } from '@datapos/datapos-shared/component/tool';
-import { ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord, type PreviewConfig } from '@datapos/datapos-shared/component/dataView';
 
 // Data dependencies.
 import config from '~/config.json';
@@ -149,23 +150,28 @@ class Connector implements ConnectorInterface {
             const asAt = Date.now();
             const startedAt = performance.now();
 
-            // Preview file to identify type and decode text.
+            // Preview file to determine file format and decode text.
             const fileOperatorsTool = await loadTool<FileOperatorsTool>(this.toolConfigs, 'file-operators');
-            const filePreviewConfig = await fileOperatorsTool.previewFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
-            if (filePreviewConfig.dataFormatId == null) throw new Error(`File '${options.path}' has unknown type.`);
-            if (filePreviewConfig.text == null) throw new Error(`File '${options.path}' is empty.`);
+            const filePreviewResult = await fileOperatorsTool.previewFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
+            if (filePreviewResult.dataFormatId == null) throw new Error(`File '${options.path}' has unknown type.`);
+            if (filePreviewResult.text == null) throw new Error(`File '${options.path}' is empty.`);
 
-            // Parse text to identify delimiters and transform to string value records.
+            // Parse text, identify delimiters, and produce string value records.
             const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
-            const parseTextConfig = await csvParseTool.parseText(filePreviewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
+            const parseTextResult = await csvParseTool.parseText(filePreviewResult.text, ORDERED_VALUE_DELIMITER_IDS);
 
-            // // Infer values and initialise column configurations.
-            // const columnConfigs: ObjectColumnConfig[] = [];
-            // const inferenceRecords: InferenceRecord[] = [];
-            // for (const parsingRecord of parsingRecords) {
-            //     const inferredValues = engineUtilities.inferValues(parsingRecord, columnConfigs);
-            //     inferenceRecords.push(inferredValues);
-            // }
+            // Infer and cast values for each string value record.
+            const typeParsedRecordsResult = this.engineUtilities.typeParsedRecords(parseTextResult.parsedRecords);
+
+            // Cast string value records to value records and initialise column configurations.
+            const columnConfigs: ObjectColumnConfig[] = [];
+            const inferenceRecords: InferenceRecord[] = [];
+            for (const parsingRecord of parseTextResult.parsedRecords) {
+                const inferredValues = this.engineUtilities.inferValues(parsingRecord, columnConfigs);
+                inferenceRecords.push(inferredValues);
+            }
+
+            console.log('inferenceRecords', inferenceRecords, columnConfigs);
 
             // // Infer column labels.
             // // TODO: Only do this if headers detected.
@@ -198,18 +204,18 @@ class Connector implements ConnectorInterface {
             return {
                 asAt,
                 columnConfigs: undefined, // schemaConfig.columnConfigs,
-                dataFormatId: filePreviewConfig.dataFormatId,
+                dataFormatId: filePreviewResult.dataFormatId,
                 duration: performance.now() - startedAt,
-                encodingId: filePreviewConfig.encodingId,
-                encodingConfidenceLevel: filePreviewConfig.encodingConfidenceLevel,
-                fileType: filePreviewConfig.fileTypeConfig,
+                encodingId: filePreviewResult.encodingId,
+                encodingConfidenceLevel: filePreviewResult.encodingConfidenceLevel,
+                fileType: filePreviewResult.fileTypeConfig,
                 hasHeaders: false,
-                recordDelimiterId: parseTextConfig.recordDelimiterId,
-                parsingRecords: parseTextConfig.parsingRecords,
+                recordDelimiterId: parseTextResult.recordDelimiterId,
+                parsedRecords: parseTextResult.parsedRecords,
                 inferenceRecords: undefined, //  schemaConfig.inferenceRecords,
-                size: filePreviewConfig.bytes.length,
-                text: filePreviewConfig.text,
-                valueDelimiterId: parseTextConfig.valueDelimiterId
+                size: filePreviewResult.bytes.length,
+                text: filePreviewResult.text,
+                valueDelimiterId: parseTextResult.valueDelimiterId
             } as PreviewConfig;
         } catch (error) {
             throw normalizeToError(error);

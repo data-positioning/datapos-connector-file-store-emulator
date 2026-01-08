@@ -1,27 +1,27 @@
-const A = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
-let M = (e = 21) => {
+const v = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
+let u = (e = 21) => {
   let t = "", i = crypto.getRandomValues(new Uint8Array(e |= 0));
   for (; e--; )
-    t += A[i[e] & 63];
+    t += v[i[e] & 63];
   return t;
-}, I = class extends Error {
+}, A = class extends Error {
   locator;
   /** Logical source of the error. */
   constructor(t, i, d) {
     super(t, d), this.name = new.target.name, this.locator = i;
   }
-}, z = class extends I {
+}, C = class extends A {
 };
-class j extends z {
+class h extends C {
   body;
   /** Sanitized HTTP response body. */
   constructor(t, i, d, s) {
-    super(t, i, s), this.name = new.target.name, this.body = C(d ?? void 0);
+    super(t, i, s), this.name = new.target.name, this.body = R(d ?? void 0);
   }
 }
-class v extends I {
+class g extends A {
 }
-async function u(e, t, i) {
+async function w(e, t, i) {
   const d = ` - ${e.statusText}`, s = `${t} Response status '${e.status}${e.statusText ? d : ""}' received.`;
   let o;
   try {
@@ -29,7 +29,7 @@ async function u(e, t, i) {
   } catch (a) {
     o = `<body unavailable: ${r(a).message}>`;
   }
-  return new j(s, i, o);
+  return new h(s, i, o);
 }
 function r(e) {
   if (e instanceof Error) return e;
@@ -44,23 +44,23 @@ function r(e) {
     }
   return new Error("Unknown error");
 }
-function C(e) {
+function R(e) {
   if (!(e == null || e === ""))
     return e.length > 2048 ? `${e.slice(0, 2048)}... [truncated]` : e;
 }
-function h(e) {
+function P(e) {
   if (e) {
     const t = e.lastIndexOf("/"), i = e.lastIndexOf(".", t === -1 ? e.length : t);
     return i === -1 ? e : e.slice(0, Math.max(0, i));
   }
 }
-function g(e) {
+function E(e) {
   if (e) {
     const t = e.lastIndexOf(".");
     if (t !== -1) return e.slice(Math.max(0, t + 1));
   }
 }
-function w(e) {
+function S(e) {
   switch (e) {
     case "csv":
       return "text/csv";
@@ -75,36 +75,37 @@ function w(e) {
       return "application/octet-stream";
   }
 }
+const n = (e) => new Map(Object.entries(e));
+n({ "en-gb": "Data Positioning Events" }), n({ "en-gb": "Delimited Text" }), n({ "en-gb": "JSON" }), n({ "en-gb": "SPSS" }), n({ "en-gb": "XLSX" }), n({ "en-gb": "XML" });
+n({ "en-gb": "Newline" }), n({ "en-gb": "Carriage Return" }), n({ "en-gb": "Carriage Return/Newline" });
+n({ "en-gb": "Colon" }), n({ "en-gb": "Comma" }), n({ "en-gb": "Exclamation Mark" }), n({ "en-gb": "Record Separator" }), n({ "en-gb": "Semicolon" }), n({ "en-gb": "Space" }), n({ "en-gb": "Tab" }), n({ "en-gb": "Underscore" }), n({ "en-gb": "Unit Separator" }), n({ "en-gb": "Vertical Bar" });
+const T = [",", ";", "	", "|", " ", ":", "_", "!", "0x1F", "0x1E"];
 async function p(e, t) {
   const i = `datapos-tool-${t}`, d = e.find((o) => o.id === i);
   if (!d) throw new Error(`Connector could not load unknown tool '${t}'.`);
   const s = await import(`https://engine-eu.datapos.app/tools/${t}_v${d.version}/${i}.es.js`);
   return new s.Tool();
 }
-const n = (e) => new Map(Object.entries(e));
-n({ "en-gb": "Data Positioning Events" }), n({ "en-gb": "Delimited Text" }), n({ "en-gb": "JSON" }), n({ "en-gb": "SPSS" }), n({ "en-gb": "XLSX" }), n({ "en-gb": "XML" });
-n({ "en-gb": "Newline" }), n({ "en-gb": "Carriage Return" }), n({ "en-gb": "Carriage Return/Newline" });
-n({ "en-gb": "Colon" }), n({ "en-gb": "Comma" }), n({ "en-gb": "Exclamation Mark" }), n({ "en-gb": "Record Separator" }), n({ "en-gb": "Semicolon" }), n({ "en-gb": "Space" }), n({ "en-gb": "Tab" }), n({ "en-gb": "Underscore" }), n({ "en-gb": "Unit Separator" }), n({ "en-gb": "Vertical Bar" });
-const P = [",", ";", "	", "|", " ", ":", "_", "!", "0x1F", "0x1E"], R = "datapos-connector-file-store-emulator", E = { en: "File Store Emulator" }, S = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, T = null, x = "fileStore", k = { default: { authMethodId: "none", maxConnectionCount: 1 } }, _ = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', F = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', O = null, U = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], N = null, L = "beta", D = "connector", V = "source", B = null, G = null, q = null, H = "0.2.411", Z = {
-  id: R,
-  label: E,
-  description: S,
-  category: T,
-  categoryId: x,
-  implementations: k,
-  icon: _,
-  iconDark: F,
-  lastUpdatedAt: O,
-  operations: U,
-  status: N,
-  statusId: L,
-  typeId: D,
-  usageId: V,
-  vendorAccountURL: B,
-  vendorDocumentationURL: G,
-  vendorHomeURL: q,
-  version: H
-}, f = {
+const x = "datapos-connector-file-store-emulator", k = { en: "File Store Emulator" }, _ = { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." }, F = null, O = "fileStore", U = { default: { authMethodId: "none", maxConnectionCount: 1 } }, N = '<svg fill="#000000" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', L = '<svg fill="#ffffff" height="100%" viewBox="0 0 576 512"><path d="M320 32H64C46.33 32 32 46.33 32 64V448C32 465.7 46.33 480 64 480H296.2C305.1 491.8 317.3 502.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H320C355.3 0 384 28.65 384 64V198.6C372.8 201.8 362.1 206 352 211.2V64C352 46.33 337.7 32 320 32V32zM64 144C64 135.2 71.16 128 80 128H304C312.8 128 320 135.2 320 144C320 152.8 312.8 160 304 160H80C71.16 160 64 152.8 64 144zM272 224C280.8 224 288 231.2 288 240C288 248.8 280.8 256 272 256H80C71.16 256 64 248.8 64 240C64 231.2 71.16 224 80 224H272zM208 320C216.8 320 224 327.2 224 336C224 344.8 216.8 352 208 352H80C71.16 352 64 344.8 64 336C64 327.2 71.16 320 80 320H208zM476.7 324.7C482.9 318.4 493.1 318.4 499.3 324.7C505.6 330.9 505.6 341.1 499.3 347.3L427.3 419.3C421.1 425.6 410.9 425.6 404.7 419.3L364.7 379.3C358.4 373.1 358.4 362.9 364.7 356.7C370.9 350.4 381.1 350.4 387.3 356.7L416 385.4L476.7 324.7zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM432 480C493.9 480 544 429.9 544 368C544 306.1 493.9 256 432 256C370.1 256 320 306.1 320 368C320 429.9 370.1 480 432 480z"/></svg>', D = null, V = ["abortOperation", "findObjectFolderPath", "getReadableStream", "listNodes", "previewObject", "retrieveRecords"], B = null, G = "beta", q = "connector", H = "source", Z = null, K = null, Q = null, J = "0.2.412", X = {
+  id: x,
+  label: k,
+  description: _,
+  category: F,
+  categoryId: O,
+  implementations: U,
+  icon: N,
+  iconDark: L,
+  lastUpdatedAt: D,
+  operations: V,
+  status: B,
+  statusId: G,
+  typeId: q,
+  usageId: H,
+  vendorAccountURL: Z,
+  vendorDocumentationURL: K,
+  vendorHomeURL: Q,
+  version: J
+}, I = {
   "": [{ id: "cpB45vx36UWghglh18MUS", lastModifiedAt: 17435076862165598e-4, name: "ENGAGEMENT_START_EVENTS_202405121858.csv", size: 122800, typeId: "object" }, { id: "GUIHoZJcLIFZ6B7A1bu0r", lastModifiedAt: 1743507686221789e-3, name: "PEOPLE_BIRTH_EVENTS_202405121857.csv", size: 114287, typeId: "object" }, { childCount: 3, name: "AUDATACY Interchange Format", typeId: "folder" }, { childCount: 12, name: "Formula 1", typeId: "folder" }, { childCount: 7, name: "Salesforce API", typeId: "folder" }, { childCount: 156, name: "Salesforce Extract", typeId: "folder" }, { childCount: 20, name: "SAP Employee Central Extract", typeId: "folder" }, { childCount: 7, name: "SAP SuccessFactors API", typeId: "folder" }, { childCount: 12, name: "Test Files", typeId: "folder" }],
   "/AUDATACY Interchange Format": [{ childCount: 11, name: "Coded Data", typeId: "folder" }, { childCount: 1, name: "Human Resources", typeId: "folder" }, { childCount: 1, name: "Party", typeId: "folder" }],
   "/AUDATACY Interchange Format/Coded Data": [{ id: "Z8DTYiYrKBZfGOuEkFky-", lastModifiedAt: 17435076862152952e-4, name: "01. Coded Data - All.csv", size: 13002, typeId: "object" }, { id: "DxA6huk0PyVLKb5oahZCH", lastModifiedAt: 17435076862153406e-4, name: "02. Coded Types - All.csv", size: 93, typeId: "object" }, { id: "1J2vcD7Ki52Q_DG1PZ-eO", lastModifiedAt: 1743507686215382e-3, name: "03. Coded Types - Ids.csv", size: 48, typeId: "object" }, { id: "vO4JrnCBNyas7n5ojey6d", lastModifiedAt: 1743507686215424e-3, name: "04. Coded Types - Labels - Linked by Id.csv", size: 101, typeId: "object" }, { id: "UPRrNFmfmyi1iUWiNVs5n", lastModifiedAt: 17435076862154666e-4, name: "05. Coded Types - Labels - Linked by Alternate Id.csv", size: 96, typeId: "object" }, { id: "P1rsyePqZ4WTCEdG60oZS", lastModifiedAt: 17435076862155642e-4, name: "06. Coded Values - All - Linked by Id.csv", size: 9502, typeId: "object" }, { id: "Z0NjfhIPTWHdGr-P_YH-c", lastModifiedAt: 17435076862156377e-4, name: "07. Coded Values - All - Linked by Alternate Id.csv", size: 7269, typeId: "object" }, { id: "hOqs9LVlYV6j40N7cGU-a", lastModifiedAt: 1743507686215698e-3, name: "08. Coded Values - Ids - Linked by Id.csv", size: 5524, typeId: "object" }, { id: "xKX3X-CkYz-Xir8uizU4k", lastModifiedAt: 17435076862157522e-4, name: "09. Coded Values - Ids - Linked by Alternate Id.csv", size: 3291, typeId: "object" }, { id: "FflxZi-9hBI_Ej4bLUAv_", lastModifiedAt: 17435076862158354e-4, name: "10. Coded Values - Labels - Linked by Id.csv", size: 9752, typeId: "object" }, { id: "vw2hHCyZ6kkVOez7D8iMs", lastModifiedAt: 17435076862159062e-4, name: "11. Coded Values - Labels - Linked by Alternate Id.csv", size: 7512, typeId: "object" }],
@@ -123,28 +124,28 @@ const P = [",", ";", "	", "|", " ", ":", "_", "!", "0x1F", "0x1E"], R = "datapos
   "/Test Files/Encoding Test Files": [{ id: "2TJo3wC-qs3eQ4Q1LiC4p", lastModifiedAt: 17435076862436587e-4, name: "ascii.txt", size: 44, typeId: "object" }, { id: "lrrRdBkfNLjxDpgGBJafD", lastModifiedAt: 17435076862436975e-4, name: "big5.txt", size: 37, typeId: "object" }, { id: "kcfwAkKq1bMepTQIMmX-f", lastModifiedAt: 17435076862459814e-4, name: "euc-jp.txt", size: 218, typeId: "object" }, { id: "bciRqR0P6iJyQ_vtOop3Y", lastModifiedAt: 17435076862460261e-4, name: "euc-kr.txt", size: 153, typeId: "object" }, { id: "f4Q9QEcVNnx0hSGJrhOIV", lastModifiedAt: 17435076862460706e-4, name: "gb2312.txt", size: 105, typeId: "object" }, { id: "PcztjI4G2NZOYCdLSD5kA", lastModifiedAt: 17435076862461167e-4, name: "hz-gb-2312.txt", size: 117, typeId: "object" }, { id: "lLzl7OwIayebmkDf_johR", lastModifiedAt: 17435076862461694e-4, name: "ibm855.txt", size: 290, typeId: "object" }, { id: "Mq7D4ZWQsTMRsTX7_CsvU", lastModifiedAt: 17435076862462126e-4, name: "ibm866.txt", size: 290, typeId: "object" }, { id: "We9LB0aWPrd-IODoVKoRt", lastModifiedAt: 1743507686246254e-3, name: "iso-2022-jp.txt", size: 224, typeId: "object" }, { id: "W0qTlIiYoioBujG6zw8_Y", lastModifiedAt: 17435076862462983e-4, name: "iso-2022-kr.txt", size: 198, typeId: "object" }, { id: "I6IMhKsT4Uz4wGEJvW36C", lastModifiedAt: 17435076862463481e-4, name: "iso-8859-2.txt", size: 273, typeId: "object" }, { id: "Xwkvh13qNNKRwu7jYmzjR", lastModifiedAt: 17435076862463884e-4, name: "iso-8859-5-bulgarian.txt", size: 304, typeId: "object" }, { id: "asxDjWbs34mTKaGTkbNfw", lastModifiedAt: 17435076862464302e-4, name: "iso-8859-5-russian.txt", size: 290, typeId: "object" }, { id: "kgbViYQ9OX4w5SpLdskgZ", lastModifiedAt: 17435076862464714e-4, name: "iso-8859-7.txt", size: 319, typeId: "object" }, { id: "Bq0Gn-1G5BrhTxBUOQ7DF", lastModifiedAt: 17435076862465222e-4, name: "iso-8859-8.txt", size: 307, typeId: "object" }, { id: "jCtOU9WWV8jHWMgr_Oq7r", lastModifiedAt: 17435076862465593e-4, name: "koi8-r.txt", size: 290, typeId: "object" }, { id: "--cTZDZwr5BgECFgDGIo2", lastModifiedAt: 17435076862465964e-4, name: "shift_jis.txt", size: 216, typeId: "object" }, { id: "8mdQ36gjXep2wGj_kuQHx", lastModifiedAt: 1743507686246642e-3, name: "tis-620.txt", size: 68, typeId: "object" }, { id: "5rUGdrjGK4v6hZ1qwH2KJ", lastModifiedAt: 17435076862466946e-4, name: "utf-16be.txt", size: 2, typeId: "object" }, { id: "NtUpxZ5XGC1UAa0bJU4Cd", lastModifiedAt: 17435076862467427e-4, name: "utf-16le.txt", size: 84, typeId: "object" }, { id: "djicGUE7J59cQmEz22Lw2", lastModifiedAt: 1743507686246787e-3, name: "utf-32be.txt", size: 4, typeId: "object" }, { id: "E4ewVZr3kM5JfkCNHhaHv", lastModifiedAt: 17435076862468293e-4, name: "utf-32le.txt", size: 18, typeId: "object" }, { id: "T0gS9i2pl9OCYmqJdcEx-", lastModifiedAt: 17435076862468833e-4, name: "utf-8-with-bom.txt", size: 58, typeId: "object" }, { id: "ctcPwumVXy1mYV1fht5yD", lastModifiedAt: 17435076862469265e-4, name: "utf-8-without-bom.txt", size: 58, typeId: "object" }, { id: "V0aG5TkpxwM3_Q1di66Nz", lastModifiedAt: 1743507686246975e-3, name: "windows-1251.txt", size: 290, typeId: "object" }, { id: "LSFzaM5jL_I544Ol4mErA", lastModifiedAt: 17435076862470168e-4, name: "windows-1252.txt", size: 433, typeId: "object" }, { id: "SF10JGkRZ1rVLdm5LVBrl", lastModifiedAt: 17435076862470657e-4, name: "windows-1255.txt", size: 36, typeId: "object" }, { id: "kEx_hKy6rjhn97BwN07Ip", lastModifiedAt: 1743507686247103e-3, name: "x-iso-10646-ucs-4-2143.txt", size: 20, typeId: "object" }, { id: "XFbR4pbjpQwlmlKFmRqDC", lastModifiedAt: 1743507686247142e-3, name: "x-iso-10646-ucs-4-3412.txt", size: 20, typeId: "object" }, { id: "BuqENK-iJAXc1noTneDzz", lastModifiedAt: 17435076862471843e-4, name: "x-mac-cyrillic.txt", size: 290, typeId: "object" }, { childCount: 38, name: "encodings", typeId: "folder" }],
   "/Test Files/Encoding Test Files/encodings": [{ id: "irBUQdMBx4ZhLXyti4t0W", lastModifiedAt: 1743507686243765e-3, name: "big5", size: 614, typeId: "object" }, { id: "BPyMwzoNSnGdUV_dzYEWz", lastModifiedAt: 17435076862438152e-4, name: "euc_jp", size: 3919, typeId: "object" }, { id: "FXjFtwUcRxKmH_ZCAaNz6", lastModifiedAt: 1743507686243867e-3, name: "euc_kr", size: 2480, typeId: "object" }, { id: "5fBDsObvTXORIIgptb-sl", lastModifiedAt: 17435076862439092e-4, name: "gb18030", size: 1665, typeId: "object" }, { id: "7Jt6_ku8bzWNBFjRaagdR", lastModifiedAt: 17435076862439512e-4, name: "iso2022cn", size: 1749, typeId: "object" }, { id: "WLvdjjUGMGnEv3FmDQJ9p", lastModifiedAt: 1743507686243999e-3, name: "iso2022jp", size: 2924, typeId: "object" }, { id: "6CsULI8SIvo4zwFjKAA1_", lastModifiedAt: 17435076862440513e-4, name: "iso2022kr", size: 3172, typeId: "object" }, { id: "SqbmllHEuS76me2jsWjLI", lastModifiedAt: 17435076862440952e-4, name: "iso88591_en", size: 2955, typeId: "object" }, { id: "5oCOldZaxX2XoavVBBgdc", lastModifiedAt: 1743507686244138e-3, name: "iso88592_cs", size: 1600, typeId: "object" }, { id: "UATsUFbSUtqVhVhMJ2sec", lastModifiedAt: 1743507686244182e-3, name: "iso88595_ru", size: 1024, typeId: "object" }, { id: "wC1_pjcjj0NZZWTxqiGaw", lastModifiedAt: 17435076862442336e-4, name: "iso88596_ar", size: 2241, typeId: "object" }, { id: "Pe8RK8l_zBAjLODUX34IB", lastModifiedAt: 1743507686244275e-3, name: "iso88597_el", size: 1033, typeId: "object" }, { id: "Ga6Z1yRgs99Vpa5QrR70_", lastModifiedAt: 17435076862445083e-4, name: "iso88598", size: 2352, typeId: "object" }, { id: "XmtdLSxT84HsoF7OIqye4", lastModifiedAt: 1743507686244566e-3, name: "iso88598_he", size: 2353, typeId: "object" }, { id: "3HCk8XXlua9KEOtc5iseJ", lastModifiedAt: 1743507686244627e-3, name: "iso88599_tr", size: 2424, typeId: "object" }, { id: "zjfA3EHpzaPHAvTkBICWG", lastModifiedAt: 17435076862446736e-4, name: "koi8r", size: 1024, typeId: "object" }, { id: "IRnhQiGe4mxsoQpaJCdRM", lastModifiedAt: 17435076862447236e-4, name: "lang_arabic", size: 4059, typeId: "object" }, { id: "ih-RgplBSErEYOcna-NlI", lastModifiedAt: 17435076862447717e-4, name: "lang_chinese", size: 916, typeId: "object" }, { id: "9EYQqNjgOksavPn--KH46", lastModifiedAt: 17435076862448289e-4, name: "lang_czech", size: 1795, typeId: "object" }, { id: "Xaeq_CiSthaccRyGw22Bx", lastModifiedAt: 17435076862448726e-4, name: "lang_greek", size: 1895, typeId: "object" }, { id: "421DaSaIy8ywB26Rc2GV1", lastModifiedAt: 1743507686244933e-3, name: "lang_hebrew", size: 4124, typeId: "object" }, { id: "N01Ggo186R8phM3c0zLa2", lastModifiedAt: 17435076862449873e-4, name: "lang_japanese", size: 3978, typeId: "object" }, { id: "T8jzTqgGlU30YQd1QvMm3", lastModifiedAt: 17435076862450503e-4, name: "lang_korean", size: 3466, typeId: "object" }, { id: "R-Fkzl2BW0o9Hios70WwI", lastModifiedAt: 17435076862450947e-4, name: "lang_russian", size: 1873, typeId: "object" }, { id: "KiKbYoPDMht0f9ElSfTYZ", lastModifiedAt: 1743507686245141e-3, name: "lang_turkish", size: 2678, typeId: "object" }, { id: "a_RPqwZdZ5DmZOCDUVeiZ", lastModifiedAt: 17435076862451846e-4, name: "shiftjis", size: 2816, typeId: "object" }, { id: "rXd90uYo_IZSqu9U_3Sr6", lastModifiedAt: 1743507686245242e-3, name: "utf16be", size: 1334, typeId: "object" }, { id: "83XbTcV0_WKdvcPEKeuDy", lastModifiedAt: 17435076862452773e-4, name: "utf16le", size: 1334, typeId: "object" }, { id: "Upq9-WDaQTs--Ogg1Qtev", lastModifiedAt: 17435076862453193e-4, name: "utf32be", size: 2664, typeId: "object" }, { id: "mm0RGQoiYeYc7ORPPI2S8", lastModifiedAt: 17435076862453613e-4, name: "utf32le", size: 2664, typeId: "object" }, { id: "J9FIyiit-zK4HquqAwGNE", lastModifiedAt: 17435076862454148e-4, name: "utf8", size: 1125, typeId: "object" }, { id: "pZQOaI1tOrcy2Km0Z7Enb", lastModifiedAt: 17435076862454595e-4, name: "windows_1250", size: 1617, typeId: "object" }, { id: "da-PPmwaWqLyqUz6SRw1v", lastModifiedAt: 1743507686245507e-3, name: "windows_1251", size: 1024, typeId: "object" }, { id: "aw_8vVm1CvdxaiiI3CX-L", lastModifiedAt: 17435076862456494e-4, name: "windows_1252", size: 2976, typeId: "object" }, { id: "-JYzWLdhtRIWC0vwZFj0I", lastModifiedAt: 17435076862456982e-4, name: "windows_1253", size: 1052, typeId: "object" }, { id: "ImvMAQPnb13Mf7mqB7t6m", lastModifiedAt: 17435076862458247e-4, name: "windows_1254", size: 2445, typeId: "object" }, { id: "mYnEtUyasG7Cub5f7WgsT", lastModifiedAt: 17435076862458765e-4, name: "windows_1255", size: 2405, typeId: "object" }, { id: "clQEg9g9e9QiBJcsOcKcs", lastModifiedAt: 17435076862459272e-4, name: "windows_1256", size: 2241, typeId: "object" }]
 };
-let b;
-async function K(e, t) {
-  const { add_my_numbers: i } = await y();
+let y;
+async function Y(e, t) {
+  const { add_my_numbers: i } = await M();
   console.log(1111, e, t);
   const d = i(Math.trunc(e), Math.trunc(t));
   return console.log(2222, d), d;
 }
-async function Q(e) {
-  const { checksum_from_rust: t } = await y();
+async function W(e) {
+  const { checksum_from_rust: t } = await M();
   return t(e);
 }
-async function y() {
-  return b ??= import("./datapos_connector_file_store_emulator_core-CBVDrOML.js"), b;
+async function M() {
+  return y ??= import("./datapos_connector_file_store_emulator_core-CBVDrOML.js"), y;
 }
 const m = "https://sample-data-eu.datapos.app";
-class $ {
+class se {
   abortController;
   config;
   engineUtilities;
   toolConfigs;
   constructor(t, i) {
-    this.abortController = void 0, this.config = Z, this.engineUtilities = t, this.toolConfigs = i;
+    this.abortController = void 0, this.config = X, this.engineUtilities = t, this.toolConfigs = i;
   }
   //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   //#region: Operations.
@@ -159,7 +160,7 @@ class $ {
    * Find the folder path containing the specified object node.
    */
   findObjectFolderPath(t) {
-    const i = f;
+    const i = I;
     for (const d in i)
       if (Object.hasOwn(i, d) && i[d]?.find((a) => a.typeId === "object" && a.id === t.nodeId))
         return Promise.resolve(d);
@@ -173,10 +174,10 @@ class $ {
     try {
       const d = await fetch(`${m}/fileStore${t.path}`, { signal: i });
       if (!d.ok)
-        throw await u(d, `Failed to fetch '${t.path}' file.`, "datapos-connector-file-store-emulator|Connector|getReadableStream");
+        throw await w(d, `Failed to fetch '${t.path}' file.`, "datapos-connector-file-store-emulator|Connector|getReadableStream");
       if (d.body == null)
-        throw new v("Readable streams are not supported in this runtime.", "datapos-connector-file-store-emulator|Connector|getReadableStream.unsupported");
-      const s = await K(12, 56), o = await Q(this.config.version);
+        throw new g("Readable streams are not supported in this runtime.", "datapos-connector-file-store-emulator|Connector|getReadableStream.unsupported");
+      const s = await Y(12, 56), o = await W(this.config.version);
       return console.log("sum", o, s), await Promise.resolve(d.body);
     } catch (d) {
       throw r(d);
@@ -188,9 +189,9 @@ class $ {
    * Lists all nodes (folders and objects) in the specified folder path.
    */
   listNodes(t) {
-    const d = f[t.folderPath] ?? [], s = [];
+    const d = I[t.folderPath] ?? [], s = [];
     for (const o of d)
-      o.typeId === "folder" ? s.push(J(t.folderPath, o.name, o.childCount)) : s.push(X(t.folderPath, o.id, o.name, o.lastModifiedAt, o.size));
+      o.typeId === "folder" ? s.push($(t.folderPath, o.name, o.childCount)) : s.push(ee(t.folderPath, o.id, o.name, o.lastModifiedAt, o.size));
     return Promise.resolve({ cursor: void 0, isMore: !1, connectionNodeConfigs: s, totalCount: s.length });
   }
   /**
@@ -202,8 +203,12 @@ class $ {
       const d = Date.now(), s = performance.now(), a = await (await p(this.toolConfigs, "file-operators")).previewFile(`${m}/fileStore${t.path}`, i, t.chunkSize);
       if (a.dataFormatId == null) throw new Error(`File '${t.path}' has unknown type.`);
       if (a.text == null) throw new Error(`File '${t.path}' is empty.`);
-      const c = await (await p(this.toolConfigs, "csv-parse")).parseText(a.text, P);
-      return {
+      const c = await (await p(this.toolConfigs, "csv-parse")).parseText(a.text, T), te = this.engineUtilities.typeParsedRecords(c.parsedRecords), f = [], b = [];
+      for (const z of c.parsedRecords) {
+        const j = this.engineUtilities.inferValues(z, f);
+        b.push(j);
+      }
+      return console.log("inferenceRecords", b, f), {
         asAt: d,
         columnConfigs: void 0,
         // schemaConfig.columnConfigs,
@@ -214,7 +219,7 @@ class $ {
         fileType: a.fileTypeConfig,
         hasHeaders: !1,
         recordDelimiterId: c.recordDelimiterId,
-        parsingRecords: c.parsingRecords,
+        parsedRecords: c.parsedRecords,
         inferenceRecords: void 0,
         //  schemaConfig.inferenceRecords,
         size: a.bytes.length,
@@ -243,14 +248,14 @@ class $ {
   }
   //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 }
-function J(e, t, i) {
-  return { id: M(), childCount: i, extension: void 0, folderPath: e, label: t, name: t, typeId: "folder" };
+function $(e, t, i) {
+  return { id: u(), childCount: i, extension: void 0, folderPath: e, label: t, name: t, typeId: "folder" };
 }
-function X(e, t, i, d, s) {
-  const o = h(i) ?? "", a = g(i), l = d, c = w(a);
+function ee(e, t, i, d, s) {
+  const o = P(i) ?? "", a = E(i), l = d, c = S(a);
   return { id: t, extension: a, folderPath: e, label: i, lastModifiedAt: l, mimeType: c, name: o, size: s, typeId: "object" };
 }
 export {
-  $ as Connector
+  se as Connector
 };
 //# sourceMappingURL=datapos-connector-file-store-emulator.es.js.map
