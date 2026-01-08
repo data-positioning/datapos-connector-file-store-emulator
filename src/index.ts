@@ -167,7 +167,7 @@ class Connector implements ConnectorInterface {
                 encodingId: filePreviewResult.encodingId,
                 encodingConfidenceLevel: filePreviewResult.encodingConfidenceLevel,
                 fileType: filePreviewResult.fileTypeConfig,
-                hasHeaders: false,
+                hasHeaders: typeParsedRecordsResult.hasHeaderRow,
                 recordDelimiterId: parseTextResult.recordDelimiterId,
                 parsedRecords: parseTextResult.parsedRecords,
                 inferenceRecords: typeParsedRecordsResult.typedRecords,
