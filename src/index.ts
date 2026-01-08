@@ -2,9 +2,6 @@
  * File store emulator connector class.
  */
 
-/* TODO: Consider Cloudflare R2 Download URL: https://plugins-eu.datapositioning.app/connectors/datapos-connector-file-store-emulator-es.js.
-   This would allow us to secure the bucket? */
-
 // Vendor dependencies.
 import { nanoid } from 'nanoid';
 
@@ -21,14 +18,13 @@ import type {
     GetReadableStreamOptions,
     ListNodesOptions,
     ListNodesResult,
-    ObjectColumnConfig,
     PreviewObjectOptions,
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
-import { type InferenceRecord, ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord, type PreviewConfig } from '@datapos/datapos-shared/component/dataView';
 import { loadTool, type ToolConfig } from '@datapos/datapos-shared/component/tool';
+import { ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord, type PreviewConfig } from '@datapos/datapos-shared/component/dataView';
 
 // Data dependencies.
 import config from '~/config.json';
@@ -163,11 +159,9 @@ class Connector implements ConnectorInterface {
             // Infer and cast values for each string value record.
             const typeParsedRecordsResult = this.engineUtilities.typeParsedRecords(parseTextResult.parsedRecords);
 
-            console.log('inferenceRecords', typeParsedRecordsResult.typedRecords, typeParsedRecordsResult.columnConfigs);
-
             return {
                 asAt,
-                columnConfigs: undefined, // schemaConfig.columnConfigs,
+                columnConfigs: typeParsedRecordsResult.columnConfigs,
                 dataFormatId: filePreviewResult.dataFormatId,
                 duration: performance.now() - startedAt,
                 encodingId: filePreviewResult.encodingId,
@@ -176,7 +170,7 @@ class Connector implements ConnectorInterface {
                 hasHeaders: false,
                 recordDelimiterId: parseTextResult.recordDelimiterId,
                 parsedRecords: parseTextResult.parsedRecords,
-                inferenceRecords: undefined, //  schemaConfig.inferenceRecords,
+                inferenceRecords: typeParsedRecordsResult.typedRecords,
                 size: filePreviewResult.bytes.length,
                 text: filePreviewResult.text,
                 valueDelimiterId: parseTextResult.valueDelimiterId
