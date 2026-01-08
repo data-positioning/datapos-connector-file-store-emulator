@@ -149,13 +149,51 @@ class Connector implements ConnectorInterface {
             const asAt = Date.now();
             const startedAt = performance.now();
 
+            // Preview file to identify type and decode text.
             const fileOperatorsTool = await loadTool<FileOperatorsTool>(this.toolConfigs, 'file-operators');
-            const previewConfig = await fileOperatorsTool.previewFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
-            if (previewConfig.dataFormatId == null) throw new Error(`File '${options.path}' has unknown type.`);
-            if (previewConfig.text == null) throw new Error(`File '${options.path}' is empty.`);
+            const filePreviewConfig = await fileOperatorsTool.previewFile(`${URL_PREFIX}/fileStore${options.path}`, signal, options.chunkSize);
+            if (filePreviewConfig.dataFormatId == null) throw new Error(`File '${options.path}' has unknown type.`);
+            if (filePreviewConfig.text == null) throw new Error(`File '${options.path}' is empty.`);
 
+            // Parse text to identify delimiters and return record.
             const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
-            const schemaConfig = await csvParseTool.inferSchema(this.engineUtilities, previewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
+            const parsePreviewConfig = await csvParseTool.parsePreview(filePreviewConfig.text, ORDERED_VALUE_DELIMITER_IDS);
+
+            // // Infer values and initialise column configurations.
+            // const columnConfigs: ObjectColumnConfig[] = [];
+            // const inferenceRecords: InferenceRecord[] = [];
+            // for (const parsingRecord of parsingRecords) {
+            //     const inferredValues = engineUtilities.inferValues(parsingRecord, columnConfigs);
+            //     inferenceRecords.push(inferredValues);
+            // }
+
+            // // Infer column labels.
+            // // TODO: Only do this if headers detected.
+            // let firstDataRowIndex = 0;
+            // const headerRecord = inferenceRecords[0];
+            // if (headerRecord) {
+            //     const headerValueCount = headerRecord.length;
+            //     for (let headerValueIndex = 0; headerValueIndex < headerValueCount; headerValueIndex++) {
+            //         // eslint-disable-next-line security/detect-object-injection
+            //         const headerValue = headerRecord[headerValueIndex]?.inferredValue;
+            //         const headerLabel = headerValue == undefined ? `Column ${headerValueIndex}` : String(headerValue); // TODO: Default not needed, set in 'inferValues'.
+            //         // eslint-disable-next-line security/detect-object-injection
+            //         const columnConfig = columnConfigs[headerValueIndex];
+            //         if (columnConfig == null) continue;
+            //         columnConfig.label = { en: headerLabel };
+            //     }
+            //     firstDataRowIndex = 1;
+            // }
+
+            // // Infer column characteristics.
+            // for (let recordIndex = firstDataRowIndex; recordIndex < inferenceRecords.length; recordIndex++) {
+            //     // eslint-disable-next-line security/detect-object-injection
+            //     const inferenceRecord = inferenceRecords[recordIndex] ?? [];
+            //     for (let inferenceIndex = 0; inferenceIndex < inferenceRecord.length; inferenceIndex++) {
+            //         // eslint-disable-next-line security/detect-object-injection
+            //         const columnConfig = columnConfigs[inferenceIndex];
+            //     }
+            // }
 
             const duration = performance.now() - startedAt;
             return {

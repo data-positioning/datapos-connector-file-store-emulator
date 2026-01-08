@@ -1,7 +1,7 @@
 import { EngineUtilities } from '@datapos/datapos-shared/engine';
 import { ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RetrieveRecordsOptions, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
-import { DataViewPreviewConfig, ParsingRecord } from '@datapos/datapos-shared/component/dataView';
 import { ToolConfig } from '@datapos/datapos-shared/component/tool';
+import { ParsingRecord, PreviewConfig } from '@datapos/datapos-shared/component/dataView';
 /**
  * File store emulator connector.
  */
@@ -30,7 +30,7 @@ declare class Connector implements ConnectorInterface {
     /**
      * Preview the contents of the object node with the specified path.
      */
-    previewObject(options: PreviewObjectOptions): Promise<DataViewPreviewConfig>;
+    previewObject(options: PreviewObjectOptions): Promise<PreviewConfig>;
     /**
      * Retrieves all records from a CSV object node using streaming and chunked processing.
      */
