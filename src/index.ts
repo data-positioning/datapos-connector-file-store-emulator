@@ -163,43 +163,7 @@ class Connector implements ConnectorInterface {
             // Infer and cast values for each string value record.
             const typeParsedRecordsResult = this.engineUtilities.typeParsedRecords(parseTextResult.parsedRecords);
 
-            // Cast string value records to value records and initialise column configurations.
-            const columnConfigs: ObjectColumnConfig[] = [];
-            const inferenceRecords: InferenceRecord[] = [];
-            for (const parsingRecord of parseTextResult.parsedRecords) {
-                const inferredValues = this.engineUtilities.inferValues(parsingRecord, columnConfigs);
-                inferenceRecords.push(inferredValues);
-            }
-
-            console.log('inferenceRecords', inferenceRecords, columnConfigs);
-
-            // // Infer column labels.
-            // // TODO: Only do this if headers detected.
-            // let firstDataRowIndex = 0;
-            // const headerRecord = inferenceRecords[0];
-            // if (headerRecord) {
-            //     const headerValueCount = headerRecord.length;
-            //     for (let headerValueIndex = 0; headerValueIndex < headerValueCount; headerValueIndex++) {
-            //         // eslint-disable-next-line security/detect-object-injection
-            //         const headerValue = headerRecord[headerValueIndex]?.inferredValue;
-            //         const headerLabel = headerValue == undefined ? `Column ${headerValueIndex}` : String(headerValue); // TODO: Default not needed, set in 'inferValues'.
-            //         // eslint-disable-next-line security/detect-object-injection
-            //         const columnConfig = columnConfigs[headerValueIndex];
-            //         if (columnConfig == null) continue;
-            //         columnConfig.label = { en: headerLabel };
-            //     }
-            //     firstDataRowIndex = 1;
-            // }
-
-            // // Infer column characteristics.
-            // for (let recordIndex = firstDataRowIndex; recordIndex < inferenceRecords.length; recordIndex++) {
-            //     // eslint-disable-next-line security/detect-object-injection
-            //     const inferenceRecord = inferenceRecords[recordIndex] ?? [];
-            //     for (let inferenceIndex = 0; inferenceIndex < inferenceRecord.length; inferenceIndex++) {
-            //         // eslint-disable-next-line security/detect-object-injection
-            //         const columnConfig = columnConfigs[inferenceIndex];
-            //     }
-            // }
+            console.log('inferenceRecords', typeParsedRecordsResult.typedRecords, typeParsedRecordsResult.columnConfigs);
 
             return {
                 asAt,
