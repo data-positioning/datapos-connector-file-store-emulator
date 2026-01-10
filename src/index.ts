@@ -157,20 +157,20 @@ class Connector implements ConnectorInterface {
             const parseTextResult = await csvParseTool.parseText(filePreviewResult.text, ORDERED_VALUE_DELIMITER_IDS);
 
             // Infer and cast values for each string value record.
-            const typeParsedRecordsResult = this.engineUtilities.typeParsedRecords(parseTextResult.parsedRecords);
+            const inferenceSummary = this.engineUtilities.inferDataTypes(parseTextResult.parsedRecords);
 
             return {
                 asAt,
-                columnConfigs: typeParsedRecordsResult.columnConfigs,
+                columnConfigs: inferenceSummary.columnConfigs,
                 dataFormatId: filePreviewResult.dataFormatId,
                 duration: performance.now() - startedAt,
                 encodingId: filePreviewResult.encodingId,
                 encodingConfidenceLevel: filePreviewResult.encodingConfidenceLevel,
                 fileType: filePreviewResult.fileTypeConfig,
-                hasHeaders: typeParsedRecordsResult.hasHeaderRow,
+                hasHeaders: inferenceSummary.hasHeaderRow,
                 recordDelimiterId: parseTextResult.recordDelimiterId,
                 parsedRecords: parseTextResult.parsedRecords,
-                inferenceRecords: typeParsedRecordsResult.typedRecords,
+                inferenceRecords: inferenceSummary.typedRecords,
                 size: filePreviewResult.bytes.length,
                 text: filePreviewResult.text,
                 valueDelimiterId: parseTextResult.valueDelimiterId
@@ -211,7 +211,20 @@ class Connector implements ConnectorInterface {
  * Construct folder node configuration.
  */
 function constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
-    return { id: nanoid(), childCount, extension: undefined, folderPath, label: name, name, typeId: 'folder' };
+    return {
+        childCount,
+        childNodes: [],
+        extension: undefined,
+        folderPath,
+        handle: undefined,
+        id: nanoid(),
+        label: name,
+        lastModifiedAt: undefined,
+        mimeType: undefined,
+        name,
+        size: undefined,
+        typeId: 'folder'
+    };
 }
 
 /**
@@ -222,7 +235,20 @@ function constructObjectNodeConfig(folderPath: string, id: string, fullName: str
     const extension = extractExtensionFromPath(fullName);
     const lastModifiedAtTimestamp = lastModifiedAt;
     const mimeType = lookupMimeTypeForExtension(extension);
-    return { id, extension, folderPath, label: fullName, lastModifiedAt: lastModifiedAtTimestamp, mimeType, name, size, typeId: 'object' };
+    return {
+        childCount: undefined,
+        childNodes: [],
+        extension,
+        folderPath,
+        handle: undefined,
+        id,
+        label: fullName,
+        lastModifiedAt: lastModifiedAtTimestamp,
+        mimeType,
+        name,
+        size,
+        typeId: 'object'
+    };
 }
 
 //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -1,6 +1,6 @@
 {
     "name": "datapos-connector-file-store-emulator",
-    "version": "0.2.415",
+    "version": "0.2.416",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "private": false,
@@ -26,15 +26,15 @@
     ],
     "prettier": "@datapos/datapos-development/prettierrc",
     "dependencies": {
-        "@datapos/datapos-shared": "^0.3.501",
+        "@datapos/datapos-shared": "^0.3.507",
         "nanoid": "^5.1.6"
     },
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.438",
         "@datapos/datapos-tool-csv-parse": "^0.0.128",
         "@datapos/datapos-tool-file-operators": "^0.0.16",
-        "@datapos/eslint-config-datapos": "^1.0.35",
-        "@types/node": "^25.0.3",
+        "@datapos/eslint-config-datapos": "^1.0.40",
+        "@types/node": "^25.0.5",
         "@typescript-eslint/eslint-plugin": "^8.52.0",
         "@typescript-eslint/parser": "^8.52.0",
         "eslint": "^9.39.2",
