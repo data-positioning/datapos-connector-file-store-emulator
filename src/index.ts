@@ -30,6 +30,7 @@ import { ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord, type PreviewConfig } f
 import config from '~/config.json';
 import fileStoreFolderPathData from '@/fileStoreFolderPaths.json';
 
+// TODO
 import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
 
 /**
@@ -38,9 +39,15 @@ import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
 type FileStoreFolderNode =
     | ({ typeId: 'folder'; childCount: number } & { name: string })
     | ({ typeId: 'object'; id: string; lastModifiedAt: number; size: number } & { name: string });
+
+/**
+ *
+ */
 type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>;
 
-// Constants.
+/**
+ *
+ */
 const URL_PREFIX = 'https://sample-data-eu.datapos.app';
 
 /**
@@ -156,7 +163,7 @@ class Connector implements ConnectorInterface {
             const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
             const parseTextResult = await csvParseTool.parseText(filePreviewResult.text, ORDERED_VALUE_DELIMITER_IDS);
 
-            // Infer and cast values for each string value record.
+            // Infer and cast values for each parsed record.
             const inferenceSummary = this.engineUtilities.inferDataTypes(parseTextResult.parsedRecords);
 
             return {
