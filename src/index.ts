@@ -9,6 +9,7 @@ import { nanoid } from 'nanoid';
 import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import type { EngineUtilities } from '@datapos/datapos-shared/engine';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
+import type { Tool as RustCsvCoreTool } from '@datapos/datapos-tool-rust-csv-core';
 import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
     ConnectionNodeConfig,
@@ -77,6 +78,37 @@ class Connector implements ConnectorInterface {
         if (!this.abortController) return;
         this.abortController.abort();
         this.abortController = undefined;
+    }
+
+    /**
+     * Audit the content of a CSV file using Rust CSV parser.
+     * Automatically selects the appropriate processing mode based on browser capabilities.
+     */
+    async auditContent(path: string, supportsTransferableStreams: boolean, onProgress?: (rowCount: number) => void): Promise<{ processedRowCount: number; durationMs?: number }> {
+        this.abortController = new AbortController();
+
+        try {
+            // Get the readable stream
+            const stream = await this.getReadableStream({ path });
+
+            // Load the Rust CSV core tool
+            const rustCsvTool = await loadTool<RustCsvCoreTool>(this.toolConfigs, 'rust-csv-core');
+
+            // Choose processing mode based on browser capability
+            const options = { delimiter: ',', hasHeaders: true };
+            const result = supportsTransferableStreams
+                ? await rustCsvTool.processWithTransferableStream(stream, options, onProgress)
+                : await rustCsvTool.processWithChunks(stream, options, onProgress);
+
+            return {
+                processedRowCount: result.processedRowCount,
+                durationMs: result.durationMs
+            };
+        } catch (error) {
+            throw normalizeToError(error);
+        } finally {
+            this.abortController = undefined;
+        }
     }
 
     /**

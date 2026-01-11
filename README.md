@@ -2,7 +2,9 @@
 
 <span><!-- OWASP_BADGES_START -->
 [![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://data-positioning.github.io/datapos-connector-file-store-emulator/dependency-check-reports/dependency-check-report.html)
+
 <!-- OWASP_BADGES_END --></span>
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 A TypeScript library that implements the File Store Emulator connector. It provides easy access to a curated set of files for demonstration and evaluation purposes.
@@ -32,10 +34,11 @@ The OWASP Dependency Check Report identifies known vulnerabilities in project de
 The following table lists top-level production and peer dependencies. All these dependencies (including transitive ones) have been recursively verified to use Apache-2.0, CC0-1.0, or MIT—commercially friendly licenses with minimal restrictions. Developers cloning this repository should independently verify dev and optional dependencies; users of the uploaded library are covered by these checks.
 
 <!-- DEPENDENCY_LICENSES_START -->
-|Name|Type|Installed|Latest|Latest Released|Deps|Document|
-|:-|:-|:-:|:-:|:-|-:|:-|
-|@datapos/datapos-shared|MIT|0.3.396|0.3.396|this month: 2025-12-23|3|[LICENSE](https://raw.githubusercontent.com/data-positioning/datapos-shared/main/LICENSE)|
-|nanoid|MIT|5.1.6|5.1.6|3 months ago: 2025-09-22|0|[LICENSE](https://raw.githubusercontent.com/ai/nanoid/main/LICENSE)|
+
+| Name                    | Type | Installed | Latest  | Latest Released          | Deps | Document                                                                                  |
+| :---------------------- | :--- | :-------: | :-----: | :----------------------- | ---: | :---------------------------------------------------------------------------------------- |
+| @datapos/datapos-shared | MIT  |  0.3.396  | 0.3.396 | this month: 2025-12-23   |    3 | [LICENSE](https://raw.githubusercontent.com/data-positioning/datapos-shared/main/LICENSE) |
+| nanoid                  | MIT  |   5.1.6   |  5.1.6  | 3 months ago: 2025-09-22 |    0 | [LICENSE](https://raw.githubusercontent.com/ai/nanoid/main/LICENSE)                       |
 
 <!-- DEPENDENCY_LICENSES_END -->
 
