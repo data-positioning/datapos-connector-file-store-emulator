@@ -1,5 +1,5 @@
 import { EngineUtilities } from '@datapos/datapos-shared/engine';
-import { ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RetrieveRecordsOptions, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
+import { AuditObjectContentOptions2, AuditObjectContentResult2, ConnectorConfig, ConnectorInterface, FindObjectFolderPathOptions, GetReadableStreamOptions, ListNodesOptions, ListNodesResult, PreviewObjectOptions, RetrieveRecordsOptions, RetrieveRecordsSummary } from '@datapos/datapos-shared/component/connector';
 import { ToolConfig } from '@datapos/datapos-shared/component/tool';
 import { ParsingRecord, PreviewConfig } from '@datapos/datapos-shared/component/dataView';
 /**
@@ -23,6 +23,10 @@ declare class Connector implements ConnectorInterface {
         processedRowCount: number;
         durationMs?: number;
     }>;
+    /**
+     * Audit object content.
+     */
+    auditObjectContent(options: AuditObjectContentOptions2, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult2>;
     /**
      * Find the folder path containing the specified object node.
      */
