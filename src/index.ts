@@ -1,5 +1,5 @@
 /**
- * File store emulator connector class.
+ * File store emulator connector.
  */
 
 // Vendor dependencies.
@@ -10,8 +10,9 @@ import type { Tool as CSVParseTool } from '@datapos/datapos-tool-csv-parse';
 import type { EngineUtilities } from '@datapos/datapos-shared/engine';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
 import type { Tool as RustCsvCoreTool } from '@datapos/datapos-tool-rust-csv-core';
-import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import type {
+    AuditObjectContentOptions2,
+    AuditObjectContentResult2,
     ConnectionNodeConfig,
     ConnectorConfig,
     ConnectorInterface,
@@ -23,6 +24,7 @@ import type {
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@datapos/datapos-shared/component/connector';
+import { buildFetchError, normalizeToError, OperationalError } from '@datapos/datapos-shared/errors';
 import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtension } from '@datapos/datapos-shared/utilities';
 import { loadTool, type ToolConfig } from '@datapos/datapos-shared/component/tool';
 import { ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord, type PreviewConfig } from '@datapos/datapos-shared/component/dataView';
@@ -89,7 +91,7 @@ class Connector implements ConnectorInterface {
 
         try {
             // Get the readable stream
-            const stream = await this.getReadableStream({ path });
+            const stream = await this.getReadableStream({ id: '', path });
 
             // Load the Rust CSV core tool
             const rustCsvTool = await loadTool<RustCsvCoreTool>(this.toolConfigs, 'rust-csv-core');
@@ -102,7 +104,37 @@ class Connector implements ConnectorInterface {
 
             return {
                 processedRowCount: result.processedRowCount,
-                durationMs: result.durationMs
+                durationMs: result.durationMs ?? 0
+            };
+        } catch (error) {
+            throw normalizeToError(error);
+        } finally {
+            this.abortController = undefined;
+        }
+    }
+
+    /**
+     * Audit object content.
+     */
+    async auditObjectContent(options: AuditObjectContentOptions2, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult2> {
+        this.abortController = new AbortController();
+
+        try {
+            // Get the readable stream
+            const stream = await this.getReadableStream({ id: '', path: options.path });
+
+            // Load the Rust CSV core tool
+            const rustCsvTool = await loadTool<RustCsvCoreTool>(this.toolConfigs, 'rust-csv-core');
+
+            // Choose processing mode based on browser capability
+            const options2 = { delimiter: ',', hasHeaders: true };
+            const result = options.supportsTransferableStreams
+                ? await rustCsvTool.processWithTransferableStream(stream, options2, chunk)
+                : await rustCsvTool.processWithChunks(stream, options2, chunk);
+
+            return {
+                processedRowCount: result.processedRowCount,
+                durationMs: result.durationMs ?? 0
             };
         } catch (error) {
             throw normalizeToError(error);
@@ -292,5 +324,5 @@ function constructObjectNodeConfig(folderPath: string, id: string, fullName: str
 
 //#endregion ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-// Exports.
+// Exposures.
 export { Connector };

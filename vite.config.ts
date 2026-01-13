@@ -16,7 +16,7 @@ import config from './config.json';
 // Initialisation.
 const wasmPlugin = wasm() as PluginOption;
 
-// Exports.
+// Exposures.
 export default defineConfig({
     base: '',
     build: {
