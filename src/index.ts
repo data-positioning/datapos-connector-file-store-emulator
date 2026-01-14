@@ -120,7 +120,7 @@ class Connector implements ConnectorInterface {
         this.abortController = new AbortController();
 
         try {
-            if (options.parsingToolName === 'datapos-tool-rust-csv-core') {
+            if (options.parsingToolName === 'rust-csv-core') {
                 // Get the readable stream
                 const stream = await this.getReadableStream({ id: '', path: options.path });
 
@@ -137,7 +137,7 @@ class Connector implements ConnectorInterface {
             }
 
             const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
-            const parseStreamOptions = { delimiter: options.valueDelimiterId, info: false, relax_column_count: true, relax_quotes: true };
+            const parseStreamOptions = { delimiter: options.valueDelimiterId, relax_column_count: true, relax_quotes: true };
             const url = `${URL_PREFIX}/fileStore${options.path}`;
             const summary = await csvParseTool.parseStream(options, parseStreamOptions, url, this.abortController, chunk);
             console.log('summary', summary);
