@@ -82,36 +82,36 @@ class Connector implements ConnectorInterface {
         this.abortController = undefined;
     }
 
-    /**
-     * Audit the content of a CSV file using Rust CSV parser.
-     * Automatically selects the appropriate processing mode based on browser capabilities.
-     */
-    async auditContent(path: string, supportsTransferableStreams: boolean, onProgress?: (rowCount: number) => void): Promise<{ processedRowCount: number; durationMs?: number }> {
-        this.abortController = new AbortController();
+    // /**
+    //  * Audit the content of a CSV file using Rust CSV parser.
+    //  * Automatically selects the appropriate processing mode based on browser capabilities.
+    //  */
+    // async auditContent(path: string, supportsTransferableStreams: boolean, onProgress?: (rowCount: number) => void): Promise<{ processedRowCount: number; durationMs?: number }> {
+    //     this.abortController = new AbortController();
 
-        try {
-            // Get the readable stream
-            const stream = await this.getReadableStream({ id: '', path });
+    //     try {
+    //         // Get the readable stream
+    //         const stream = await this.getReadableStream({ id: '', path });
 
-            // Load the Rust CSV core tool
-            const rustCsvTool = await loadTool<RustCsvCoreTool>(this.toolConfigs, 'rust-csv-core');
+    //         // Load the Rust CSV core tool
+    //         const rustCsvTool = await loadTool<RustCsvCoreTool>(this.toolConfigs, 'rust-csv-core');
 
-            // Choose processing mode based on browser capability
-            const options = { delimiter: ',', hasHeaders: true };
-            const result = supportsTransferableStreams
-                ? await rustCsvTool.processWithTransferableStream(stream, options, onProgress)
-                : await rustCsvTool.processWithChunks(stream, options, onProgress);
+    //         // Choose processing mode based on browser capability
+    //         const options = { delimiter: ',', hasHeaders: true };
+    //         const result = supportsTransferableStreams
+    //             ? await rustCsvTool.processWithTransferableStream(stream, options, onProgress)
+    //             : await rustCsvTool.processWithChunks(stream, options, onProgress);
 
-            return {
-                processedRowCount: result.processedRowCount,
-                durationMs: result.durationMs ?? 0
-            };
-        } catch (error) {
-            throw normalizeToError(error);
-        } finally {
-            this.abortController = undefined;
-        }
-    }
+    //         return {
+    //             processedRowCount: result.processedRowCount,
+    //             durationMs: result.durationMs ?? 0
+    //         };
+    //     } catch (error) {
+    //         throw normalizeToError(error);
+    //     } finally {
+    //         this.abortController = undefined;
+    //     }
+    // }
 
     /**
      * Audit object content.

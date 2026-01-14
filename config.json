@@ -19,7 +19,6 @@
     "lastUpdatedAt": null,
     "operations": [
         "abortOperation",
-        "auditContent",
         "auditObjectContent",
         "findObjectFolderPath",
         "getReadableStream",
@@ -34,5 +33,5 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.441"
+    "version": "0.2.443"
 }

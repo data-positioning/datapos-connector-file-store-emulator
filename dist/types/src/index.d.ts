@@ -16,14 +16,6 @@ declare class Connector implements ConnectorInterface {
      */
     abortOperation(): void;
     /**
-     * Audit the content of a CSV file using Rust CSV parser.
-     * Automatically selects the appropriate processing mode based on browser capabilities.
-     */
-    auditContent(path: string, supportsTransferableStreams: boolean, onProgress?: (rowCount: number) => void): Promise<{
-        processedRowCount: number;
-        durationMs?: number;
-    }>;
-    /**
      * Audit object content.
      */
     auditObjectContent(options: AuditObjectContentOptions, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult>;
