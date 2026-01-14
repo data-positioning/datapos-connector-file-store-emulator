@@ -121,7 +121,7 @@ class Connector implements ConnectorInterface {
 
         try {
             console.log(3333, options);
-            if (options.parsingToolName === 'rust-csv-core') {
+            if (options.parsingToolName === 'datapos-tool-rust-csv-core') {
                 // Get the readable stream
                 const stream = await this.getReadableStream({ id: '', path: options.path });
 
