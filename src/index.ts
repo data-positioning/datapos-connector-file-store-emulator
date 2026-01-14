@@ -120,22 +120,29 @@ class Connector implements ConnectorInterface {
         this.abortController = new AbortController();
 
         try {
-            // Get the readable stream
-            const stream = await this.getReadableStream({ id: '', path: options.path });
+            if (options.parsingToolName === 'datapos-tool-rust-csv-core') {
+                // Get the readable stream
+                const stream = await this.getReadableStream({ id: '', path: options.path });
 
-            // Load the Rust CSV core tool
-            const rustCsvTool = await loadTool<RustCsvCoreTool>(this.toolConfigs, 'rust-csv-core');
+                // Load the Rust CSV core tool
+                const rustCsvTool = await loadTool<RustCsvCoreTool>(this.toolConfigs, 'rust-csv-core');
 
-            // Choose processing mode based on browser capability
-            const options2 = { delimiter: ',', hasHeaders: true };
-            const result = options.supportsTransferableStreams
-                ? await rustCsvTool.processWithTransferableStream(stream, options2, chunk)
-                : await rustCsvTool.processWithChunks(stream, options2, chunk);
+                // Choose processing mode based on browser capability
+                const options2 = { delimiter: ',', hasHeaders: true };
+                const result = options.supportsTransferableStreams
+                    ? await rustCsvTool.processWithTransferableStream(stream, options2, chunk)
+                    : await rustCsvTool.processWithChunks(stream, options2, chunk);
 
-            return {
-                processedRowCount: result.processedRowCount,
-                durationMs: result.durationMs ?? 0
-            };
+                return { processedRowCount: result.processedRowCount, durationMs: result.durationMs ?? 0 };
+            }
+
+            const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
+            const parseStreamOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
+            const url = `${URL_PREFIX}/fileStore${options.path}`;
+            const summary = await csvParseTool.parseStream(options, parseStreamOptions, url, this.abortController, chunk);
+            // complete(summary);
+
+            return { processedRowCount: 0, durationMs: 0 };
         } catch (error) {
             throw normalizeToError(error);
         } finally {
