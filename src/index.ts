@@ -137,7 +137,7 @@ class Connector implements ConnectorInterface {
             }
 
             const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
-            const parseStreamOptions = { delimiter: options.valueDelimiterId, info: true, relax_column_count: true, relax_quotes: true };
+            const parseStreamOptions = { delimiter: options.valueDelimiterId, info: false, relax_column_count: true, relax_quotes: true };
             const url = `${URL_PREFIX}/fileStore${options.path}`;
             const summary = await csvParseTool.parseStream(options, parseStreamOptions, url, this.abortController, chunk);
             console.log('summary', summary);
