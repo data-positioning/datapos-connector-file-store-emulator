@@ -124,7 +124,7 @@ class Connector implements ConnectorInterface {
             const stream = await this.getReadableStream({ id: '', path: options.path });
 
             // Load the Rust CSV core tool
-            const rustCsvTool = await loadTool<RustCsvCoreTool>(this.toolConfigs, 'rust-csv-core');
+            const rustCsvTool = await loadTool<RustCsvCoreTool>(this.toolConfigs, 'datapos-tool-rust-csv-core');
 
             // Choose processing mode based on browser capability
             const options2 = { delimiter: ',', hasHeaders: true };
