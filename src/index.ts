@@ -11,8 +11,8 @@ import type { EngineUtilities } from '@datapos/datapos-shared/engine';
 import type { Tool as FileOperatorsTool } from '@datapos/datapos-tool-file-operators';
 import type { Tool as RustCsvCoreTool } from '@datapos/datapos-tool-rust-csv-core';
 import type {
-    AuditObjectContentOptions2,
-    AuditObjectContentResult2,
+    AuditObjectContentOptions,
+    AuditObjectContentResult,
     ConnectionNodeConfig,
     ConnectorConfig,
     ConnectorInterface,
@@ -116,7 +116,7 @@ class Connector implements ConnectorInterface {
     /**
      * Audit object content.
      */
-    async auditObjectContent(options: AuditObjectContentOptions2, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult2> {
+    async auditObjectContent(options: AuditObjectContentOptions, chunk: (rowCount: number) => void): Promise<AuditObjectContentResult> {
         this.abortController = new AbortController();
 
         try {
