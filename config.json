@@ -15,9 +15,9 @@
             "maxConnectionCount": 1
         }
     },
-    "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-swatch-book-icon lucide-swatch-book\"><path d=\"M16.7 13H19a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H7\" style=\"stroke: rgb(20, 184, 166); fill: rgb(20, 184, 166);\"/><path d=\"m11 8 2.3-2.3a2.4 2.4 0 0 1 3.404.004L18.6 7.6a2.4 2.4 0 0 1 .026 3.434L9.9 19.8\" style=\"fill: rgb(245, 158, 11); stroke: rgb(245, 158, 11);\"/><path d=\"M11 17a4 4 0 0 1-8 0V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Z\" style=\"stroke: rgb(96, 165, 250); fill: rgb(96, 165, 250);\"/><path d=\"M 7 17h.01\" style=\"stroke: rgb(255, 255, 255);\"/><ellipse style=\"fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);\" cx=\"6.876\" cy=\"17.139\" rx=\"0.852\" ry=\"0.846\"/></svg>",
+    "icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-folder-cog-icon lucide-folder-cog\"><path d=\"M10.3 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.98a2 2 0 0 1 1.69.9l.66 1.2A2 2 0 0 0 12 6h8a2 2 0 0 1 2 2v3.3\"/><path d=\"m14.305 19.53.923-.382\"/><path d=\"m15.228 16.852-.923-.383\"/><path d=\"m16.852 15.228-.383-.923\"/><path d=\"m16.852 20.772-.383.924\"/><path d=\"m19.148 15.228.383-.923\"/><path d=\"m19.53 21.696-.382-.924\"/><path d=\"m20.772 16.852.924-.383\"/><path d=\"m20.772 19.148.924.383\"/><circle cx=\"18\" cy=\"18\" r=\"3\"/></svg>",
     "iconDark": "",
-    "iconNeutral": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-swatch-book-icon lucide-swatch-book\"><path d=\"M16.7 13H19a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H7\" style=\"stroke: currentColor; fill: currentColor;\"/><path d=\"m11 8 2.3-2.3a2.4 2.4 0 0 1 3.404.004L18.6 7.6a2.4 2.4 0 0 1 .026 3.434L9.9 19.8\" style=\"fill: currentColor; stroke: currentColor;\"/><path d=\"M11 17a4 4 0 0 1-8 0V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Z\" style=\"stroke: currentColor; fill: currentColor;\"/><path d=\"M 7 17h.01\" style=\"stroke: rgb(255, 255, 255);\"/><ellipse style=\"fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);\" cx=\"6.876\" cy=\"17.139\" rx=\"0.852\" ry=\"0.846\"/></svg>",
+    "iconNeutral": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-folder-cog-icon lucide-folder-cog\"><path d=\"M10.3 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.98a2 2 0 0 1 1.69.9l.66 1.2A2 2 0 0 0 12 6h8a2 2 0 0 1 2 2v3.3\"/><path d=\"m14.305 19.53.923-.382\"/><path d=\"m15.228 16.852-.923-.383\"/><path d=\"m16.852 15.228-.383-.923\"/><path d=\"m16.852 20.772-.383.924\"/><path d=\"m19.148 15.228.383-.923\"/><path d=\"m19.53 21.696-.382-.924\"/><path d=\"m20.772 16.852.924-.383\"/><path d=\"m20.772 19.148.924.383\"/><circle cx=\"18\" cy=\"18\" r=\"3\"/></svg>",
     "lastUpdatedAt": null,
     "operations": [
         "abortOperation",
@@ -35,5 +35,5 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.491"
+    "version": "0.2.492"
 }
