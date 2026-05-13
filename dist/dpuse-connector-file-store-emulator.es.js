@@ -95,7 +95,7 @@ var m = [
 ], h = {
 	id: "dpuse-connector-file-store-emulator",
 	label: { en: "File Store Emulator" },
-	description: { "en-gb": "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." },
+	description: { en: "Imitates a cloud-based file storage solution. It hosts a read-only set of files for demonstration, evaluation and testing purposes and is freely available to all users." },
 	category: null,
 	categoryId: "fileStore",
 	firstCreatedAt: null,
@@ -123,7 +123,7 @@ var m = [
 	vendorAccountURL: null,
 	vendorDocumentationURL: null,
 	vendorHomeURL: null,
-	version: "0.2.495"
+	version: "0.2.496"
 }, g = {
 	"": [
 		{
