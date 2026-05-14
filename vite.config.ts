@@ -30,7 +30,7 @@ export default defineConfig({
         sourcemap: true,
         target: 'ESNext'
     },
-    plugins: [dts({ outDir: 'dist/types' }), wasmPlugin],
+    plugins: [dts({ outDirs: 'dist/types' }), wasmPlugin],
     resolve: {
         alias: {
             '~': fileURLToPath(new URL('./', import.meta.url)),

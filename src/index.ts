@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 // DPUse Framework
 import type { ConnectionNodeConfig } from '@dpuse/dpuse-shared/component/connection';
-import type { EngineUtilities } from '@dpuse/dpuse-shared/engine';
+import type { ConnectorUtilities } from '@dpuse/dpuse-shared/component/module/connector';
 import type {
     AuditObjectContentOptions,
     AuditObjectContentResult,
@@ -57,13 +57,13 @@ const URL_PREFIX = 'https://sample-data-eu.dpuse.app/fileStore';
 export class Connector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
-    engineUtilities: EngineUtilities;
+    connectorUtilities: ConnectorUtilities;
     readonly toolConfigs;
 
-    constructor(engineUtilities: EngineUtilities, toolConfigs: ToolConfig[]) {
+    constructor(engineUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) {
         this.abortController = undefined;
         this.config = config as ConnectorConfig;
-        this.engineUtilities = engineUtilities;
+        this.connectorUtilities = engineUtilities;
         this.toolConfigs = toolConfigs;
     }
 
@@ -188,7 +188,7 @@ export class Connector implements ConnectorInterface {
             const parseTextResult = await csvParseTool.parseText(filePreviewResult.text, ORDERED_VALUE_DELIMITER_IDS);
 
             // Infer and cast values for each parsed record.
-            const inferenceSummary = this.engineUtilities.inferDataTypes(parseTextResult.parsedRecords);
+            const inferenceSummary = this.connectorUtilities.inferDataTypes(parseTextResult.parsedRecords);
 
             return {
                 asAt,
