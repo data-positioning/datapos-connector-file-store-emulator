@@ -3,12 +3,12 @@ import { nanoid } from 'nanoid';
 
 // DPUse Framework
 import type { ConnectionNodeConfig } from '@dpuse/dpuse-shared/component/connection';
-import type { ConnectorUtilities } from '@dpuse/dpuse-shared/component/module/connector';
 import type {
     AuditObjectContentOptions,
     AuditObjectContentResult,
     ConnectorConfig,
     ConnectorInterface,
+    ConnectorUtilities,
     FindObjectOptions,
     FindObjectResult,
     GetReadableStreamOptions,
@@ -60,10 +60,10 @@ export class Connector implements ConnectorInterface {
     connectorUtilities: ConnectorUtilities;
     readonly toolConfigs;
 
-    constructor(engineUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) {
+    constructor(connectorUtilities: ConnectorUtilities, toolConfigs: ToolConfig[]) {
         this.abortController = undefined;
         this.config = config as ConnectorConfig;
-        this.connectorUtilities = engineUtilities;
+        this.connectorUtilities = connectorUtilities;
         this.toolConfigs = toolConfigs;
     }
 
@@ -205,7 +205,7 @@ export class Connector implements ConnectorInterface {
                 size: filePreviewResult.bytes.length,
                 text: filePreviewResult.text,
                 valueDelimiterId: parseTextResult.valueDelimiterId
-            } as PreviewConfig;
+            };
         } catch (error) {
             throw normalizeToError(error);
         } finally {
