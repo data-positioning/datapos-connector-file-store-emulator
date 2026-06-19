@@ -128,7 +128,7 @@ var h = [
 	vendorAccountURL: null,
 	vendorDocumentationURL: null,
 	vendorHomeURL: null,
-	version: "0.2.499"
+	version: "0.2.500"
 }, _ = {
 	"": [
 		{

@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.499",
+    "version": "0.2.500",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "private": false,
@@ -58,7 +58,8 @@
         "vite": "^8.0.13",
         "vite-plugin-dts": "^5.0.0",
         "vite-plugin-wasm": "^3.6.0",
-        "vitest": "^4.1.6"
+        "vitest": "^4.1.6",
+        "wrangler": "^4.103.0"
     },
     "scripts": {
         "audit": "op run --env-file=.env -- node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
