@@ -5,11 +5,11 @@
         "dataSource": [
 {
                 "name": "NVD API Last Checked",
-                "timestamp": "2026-04-20T18:38:37+02"
+                "timestamp": "2026-06-14T14:39:33+02"
             }
 ,{
                 "name": "NVD API Last Modified",
-                "timestamp": "2026-04-20T16:37:57Z"
+                "timestamp": "2026-06-14T12:16:23Z"
             }
         ]
 
@@ -17,7 +17,7 @@
     },
     "projectInfo": {
         "name": "@dpuse\/dpuse-connector-file-store-emulator",
-        "reportDate": "2026-04-20T16:39:15.349164Z",
+        "reportDate": "2026-06-21T14:59:07.594082Z",
         "credits": {
             "NVD": "This product uses the NVD API but is not endorsed or certified by the NVD. This report contains data retrieved from the National Vulnerability Database: https://nvd.nist.gov",
             "CISA": "This report may contain data retrieved from the CISA Known Exploited Vulnerability Catalog: https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
@@ -30,16 +30,16 @@
 {
             "isVirtual": true,
             "fileName": "@borewit\/text-codec:0.2.2",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/token-types:6.1.2\/@borewit\/text-codec:^0.2.1"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/token-types:6.1.2\/@borewit\/text-codec:^0.2.1"
 ,"description": "Text Decoder","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/token-types:6.1.2"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/token-types:6.1.2"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "@borewit\/text-codec:0.2.2",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@borewit\/text-codec:0.2.2"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@borewit\/text-codec:0.2.2"
 ,
                     "packageIds": [
                             {
@@ -112,45 +112,45 @@
             ]
         },{
             "isVirtual": true,
-            "fileName": "@dpuse\/dpuse-shared:0.3.632",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-rust-csv-core:0.1.20\/@dpuse\/dpuse-shared:^0.3.595"
+            "fileName": "@dpuse\/dpuse-shared:0.3.674",
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-rust-csv-core:0.1.21\/@dpuse\/dpuse-shared:^0.3.642"
 ,"description": "Common constants, types and utilities used across all DPUse projects.","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-csv-parse:0.0.142"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-file-operators:0.0.17"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-rust-csv-core:0.1.20"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-csv-parse:0.0.143"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-rust-csv-core:0.1.21"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-file-operators:0.0.24"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
-                    "fileName": "@dpuse\/dpuse-shared:0.3.632",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-shared:0.3.632"
+                    "fileName": "@dpuse\/dpuse-shared:0.3.674",
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-shared:0.3.674"
 ,
                     "packageIds": [
                             {
-                                "id": "pkg:npm/%40dpuse%2Fdpuse-shared@0.3.632"
+                                "id": "pkg:npm/%40dpuse%2Fdpuse-shared@0.3.674"
                             }
                     ]
                 }
  , {
                     "isVirtual": true,
-                    "fileName": "@dpuse\/dpuse-shared:0.3.632",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-csv-parse:0.0.142\/@dpuse\/dpuse-shared:^0.3.622"
+                    "fileName": "@dpuse\/dpuse-shared:0.3.674",
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-csv-parse:0.0.143\/@dpuse\/dpuse-shared:^0.3.641"
 ,
                     "packageIds": [
                             {
-                                "id": "pkg:npm/%40dpuse%2Fdpuse-shared@0.3.632"
+                                "id": "pkg:npm/%40dpuse%2Fdpuse-shared@0.3.674"
                             }
                     ]
                 }
  , {
                     "isVirtual": true,
-                    "fileName": "@dpuse\/dpuse-shared:0.3.632",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-file-operators:0.0.17\/@dpuse\/dpuse-shared:^0.3.595"
+                    "fileName": "@dpuse\/dpuse-shared:0.3.674",
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-file-operators:0.0.24\/@dpuse\/dpuse-shared:^0.3.641"
 ,
                     "packageIds": [
                             {
-                                "id": "pkg:npm/%40dpuse%2Fdpuse-shared@0.3.632"
+                                "id": "pkg:npm/%40dpuse%2Fdpuse-shared@0.3.674"
                             }
                     ]
                 }
@@ -215,21 +215,21 @@
                         "confidence": "HIGHEST",
                         "source": "package.json",
                         "name": "version",
-                        "value": "0.3.632"
+                        "value": "0.3.674"
                     }
                 ]
             }
                 ,"packages": [
                     {
-                        "id": "pkg:npm\/%40dpuse%2Fdpuse-shared@0.3.632"
+                        "id": "pkg:npm\/%40dpuse%2Fdpuse-shared@0.3.674"
 ,"confidence": "HIGHEST"                    }
             ]
         },{
             "isVirtual": true,
-            "fileName": "@dpuse\/dpuse-tool-csv-parse:0.0.142",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-csv-parse:0.0.142"
+            "fileName": "@dpuse\/dpuse-tool-csv-parse:0.0.143",
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-csv-parse:0.0.143"
 ,"license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"evidenceCollected": {
                 "vendorEvidence": [
@@ -284,21 +284,21 @@
                         "confidence": "HIGHEST",
                         "source": "package.json",
                         "name": "version",
-                        "value": "0.0.142"
+                        "value": "0.0.143"
                     }
                 ]
             }
                 ,"packages": [
                     {
-                        "id": "pkg:npm\/%40dpuse%2Fdpuse-tool-csv-parse@0.0.142"
+                        "id": "pkg:npm\/%40dpuse%2Fdpuse-tool-csv-parse@0.0.143"
 ,"confidence": "HIGHEST"                    }
             ]
         },{
             "isVirtual": true,
-            "fileName": "@dpuse\/dpuse-tool-file-operators:0.0.17",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-file-operators:0.0.17"
+            "fileName": "@dpuse\/dpuse-tool-file-operators:0.0.24",
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-file-operators:0.0.24"
 ,"license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"evidenceCollected": {
                 "vendorEvidence": [
@@ -353,21 +353,21 @@
                         "confidence": "HIGHEST",
                         "source": "package.json",
                         "name": "version",
-                        "value": "0.0.17"
+                        "value": "0.0.24"
                     }
                 ]
             }
                 ,"packages": [
                     {
-                        "id": "pkg:npm\/%40dpuse%2Fdpuse-tool-file-operators@0.0.17"
+                        "id": "pkg:npm\/%40dpuse%2Fdpuse-tool-file-operators@0.0.24"
 ,"confidence": "HIGHEST"                    }
             ]
         },{
             "isVirtual": true,
-            "fileName": "@dpuse\/dpuse-tool-rust-csv-core:0.1.20",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-rust-csv-core:0.1.20"
+            "fileName": "@dpuse\/dpuse-tool-rust-csv-core:0.1.21",
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-rust-csv-core:0.1.21"
 ,"description": "CSV parser tool with Rust\/WASM core for high-performance streaming","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"evidenceCollected": {
                 "vendorEvidence": [
@@ -422,28 +422,28 @@
                         "confidence": "HIGHEST",
                         "source": "package.json",
                         "name": "version",
-                        "value": "0.1.20"
+                        "value": "0.1.21"
                     }
                 ]
             }
                 ,"packages": [
                     {
-                        "id": "pkg:npm\/%40dpuse%2Fdpuse-tool-rust-csv-core@0.1.20"
+                        "id": "pkg:npm\/%40dpuse%2Fdpuse-tool-rust-csv-core@0.1.21"
 ,"confidence": "HIGHEST"                    }
             ]
         },{
             "isVirtual": true,
             "fileName": "@tokenizer\/inflate:0.4.1",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/file-type:21.3.4\/@tokenizer\/inflate:^0.4.1"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/file-type:22.0.1\/@tokenizer\/inflate:^0.4.1"
 ,"description": "Tokenized zip support","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/file-type:21.3.4"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/file-type:22.0.1"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "@tokenizer\/inflate:0.4.1",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@tokenizer\/inflate:0.4.1"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@tokenizer\/inflate:0.4.1"
 ,
                     "packageIds": [
                             {
@@ -524,17 +524,17 @@
         },{
             "isVirtual": true,
             "fileName": "@tokenizer\/token:0.3.0",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/token-types:6.1.2\/@tokenizer\/token:^0.3.0"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/token-types:6.1.2\/@tokenizer\/token:^0.3.0"
 ,"description": "TypeScript definition for strtok3 token","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/strtok3:10.3.5"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/token-types:6.1.2"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/token-types:6.1.2"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/strtok3:10.3.5"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "@tokenizer\/token:0.3.0",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@tokenizer\/token:0.3.0"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@tokenizer\/token:0.3.0"
 ,
                     "packageIds": [
                             {
@@ -545,7 +545,7 @@
  , {
                     "isVirtual": true,
                     "fileName": "@tokenizer\/token:0.3.0",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/strtok3:10.3.5\/@tokenizer\/token:^0.3.0"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/strtok3:10.3.5\/@tokenizer\/token:^0.3.0"
 ,
                     "packageIds": [
                             {
@@ -626,16 +626,16 @@
         },{
             "isVirtual": true,
             "fileName": "chardet:2.1.1",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/chardet:2.1.1"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/chardet:2.1.1"
 ,"description": "Character encoding detector","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-file-operators:0.0.17"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-file-operators:0.0.24"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "chardet:2.1.1",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-file-operators:0.0.17\/chardet:^2.1.1"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-file-operators:0.0.24\/chardet:^2.1.1"
 ,
                     "packageIds": [
                             {
@@ -718,21 +718,21 @@
                 ,"packages": [
                     {
                         "id": "pkg:npm\/chardet@2.1.1"
-,"confidence": "HIGHEST"                    }
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/chardet\/2.1.1?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]
         },{
             "isVirtual": true,
             "fileName": "csv-parse:6.2.1",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/csv-parse:6.2.1"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/csv-parse:6.2.1"
 ,"description": "CSV parsing implementing the Node.js `stream.Transform` API","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-csv-parse:0.0.142"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-csv-parse:0.0.143"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "csv-parse:6.2.1",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-csv-parse:0.0.142\/csv-parse:^6.2.1"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-csv-parse:0.0.143\/csv-parse:^6.2.1"
 ,
                     "packageIds": [
                             {
@@ -801,7 +801,7 @@
                 ,"packages": [
                     {
                         "id": "pkg:npm\/csv-parse@6.2.1"
-,"confidence": "HIGHEST"                    }
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/csv-parse\/6.2.1?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]                ,"vulnerabilityIds": [
                 {
                     "id": "cpe:2.3:a:csv-parse_project:csv-parse:6.2.1:*:*:*:*:*:*:*"
@@ -810,16 +810,16 @@
         },{
             "isVirtual": true,
             "fileName": "debug:4.4.3",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/debug:4.4.3"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/debug:4.4.3"
 ,"description": "Lightweight debugging utility for Node.js and the browser","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/@tokenizer\/inflate:0.4.1"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/@tokenizer\/inflate:0.4.1"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "debug:4.4.3",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@tokenizer\/inflate:0.4.1\/debug:^4.4.3"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@tokenizer\/inflate:0.4.1\/debug:^4.4.3"
 ,
                     "packageIds": [
                             {
@@ -881,7 +881,7 @@
                 ,"packages": [
                     {
                         "id": "pkg:npm\/debug@4.4.3"
-,"confidence": "HIGHEST"                    }
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/debug\/4.4.3?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]                ,"vulnerabilityIds": [
                 {
                     "id": "cpe:2.3:a:debug_project:debug:4.4.3:*:*:*:*:*:*:*"
@@ -889,21 +889,21 @@
             ]
         },{
             "isVirtual": true,
-            "fileName": "file-type:21.3.4",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/file-type:21.3.4"
+            "fileName": "file-type:22.0.1",
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/file-type:22.0.1"
 ,"description": "Detect the file type of a file, stream, or data","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-file-operators:0.0.17"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-file-operators:0.0.24"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
-                    "fileName": "file-type:21.3.4",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@dpuse\/dpuse-tool-file-operators:0.0.17\/file-type:^21.3.4"
+                    "fileName": "file-type:22.0.1",
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@dpuse\/dpuse-tool-file-operators:0.0.24\/file-type:^22.0.1"
 ,
                     "packageIds": [
                             {
-                                "id": "pkg:npm/file-type@21.3.4"
+                                "id": "pkg:npm/file-type@22.0.1"
                             }
                     ]
                 }
@@ -968,32 +968,32 @@
                         "confidence": "HIGHEST",
                         "source": "package.json",
                         "name": "version",
-                        "value": "21.3.4"
+                        "value": "22.0.1"
                     }
                 ]
             }
                 ,"packages": [
                     {
-                        "id": "pkg:npm\/file-type@21.3.4"
-,"confidence": "HIGHEST"                    }
+                        "id": "pkg:npm\/file-type@22.0.1"
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/file-type\/22.0.1?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]                ,"vulnerabilityIds": [
                 {
-                    "id": "cpe:2.3:a:sindresorhus:file-type:21.3.4:*:*:*:*:*:*:*"
-,"confidence": "HIGHEST","url": "https:\/\/nvd.nist.gov\/vuln\/search#\/nvd\/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Asindresorhus%3Afile-type%3A21.3.4%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"                }
+                    "id": "cpe:2.3:a:sindresorhus:file-type:22.0.1:*:*:*:*:*:*:*"
+,"confidence": "HIGHEST","url": "https:\/\/nvd.nist.gov\/vuln\/search#\/nvd\/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Asindresorhus%3Afile-type%3A22.0.1%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"                }
             ]
         },{
             "isVirtual": true,
             "fileName": "ieee754:1.2.1",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/token-types:6.1.2\/ieee754:^1.2.1"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/token-types:6.1.2\/ieee754:^1.2.1"
 ,"description": "Read\/write IEEE754 floating point numbers from\/to a Buffer or array-like object","license": "BSD-3-Clause"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/token-types:6.1.2"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/token-types:6.1.2"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "ieee754:1.2.1",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/ieee754:1.2.1"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/ieee754:1.2.1"
 ,
                     "packageIds": [
                             {
@@ -1069,21 +1069,21 @@
                 ,"packages": [
                     {
                         "id": "pkg:npm\/ieee754@1.2.1"
-,"confidence": "HIGHEST"                    }
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/ieee754\/1.2.1?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]
         },{
             "isVirtual": true,
             "fileName": "ms:2.1.3",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/ms:2.1.3"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/ms:2.1.3"
 ,"description": "Tiny millisecond conversion utility","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/debug:4.4.3"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/debug:4.4.3"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "ms:2.1.3",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/debug:4.4.3\/ms:^2.1.3"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/debug:4.4.3\/ms:^2.1.3"
 ,
                     "packageIds": [
                             {
@@ -1138,14 +1138,14 @@
                 ,"packages": [
                     {
                         "id": "pkg:npm\/ms@2.1.3"
-,"confidence": "HIGHEST"                    }
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/ms\/2.1.3?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]
         },{
             "isVirtual": true,
-            "fileName": "nanoid:5.1.9",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/nanoid:5.1.9"
+            "fileName": "nanoid:5.1.15",
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/nanoid:5.1.15"
 ,"description": "A tiny (118 bytes), secure URL-friendly unique string ID generator","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"evidenceCollected": {
                 "vendorEvidence": [
@@ -1193,32 +1193,32 @@
                         "confidence": "HIGHEST",
                         "source": "package.json",
                         "name": "version",
-                        "value": "5.1.9"
+                        "value": "5.1.15"
                     }
                 ]
             }
                 ,"packages": [
                     {
-                        "id": "pkg:npm\/nanoid@5.1.9"
-,"confidence": "HIGHEST"                    }
+                        "id": "pkg:npm\/nanoid@5.1.15"
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/nanoid\/5.1.15?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]                ,"vulnerabilityIds": [
                 {
-                    "id": "cpe:2.3:a:nanoid_project:nanoid:5.1.9:*:*:*:*:*:*:*"
-,"confidence": "HIGHEST","url": "https:\/\/nvd.nist.gov\/vuln\/search#\/nvd\/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Ananoid_project%3Ananoid%3A5.1.9%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"                }
+                    "id": "cpe:2.3:a:nanoid_project:nanoid:5.1.15:*:*:*:*:*:*:*"
+,"confidence": "HIGHEST","url": "https:\/\/nvd.nist.gov\/vuln\/search#\/nvd\/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Ananoid_project%3Ananoid%3A5.1.15%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"                }
             ]
         },{
             "isVirtual": true,
             "fileName": "strtok3:10.3.5",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/strtok3:10.3.5"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/strtok3:10.3.5"
 ,"description": "A promise based streaming tokenizer","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/file-type:21.3.4"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/file-type:22.0.1"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "strtok3:10.3.5",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/file-type:21.3.4\/strtok3:^10.3.4"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/file-type:22.0.1\/strtok3:^10.3.5"
 ,
                     "packageIds": [
                             {
@@ -1294,22 +1294,22 @@
                 ,"packages": [
                     {
                         "id": "pkg:npm\/strtok3@10.3.5"
-,"confidence": "HIGHEST"                    }
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/strtok3\/10.3.5?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]
         },{
             "isVirtual": true,
             "fileName": "token-types:6.1.2",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/token-types:6.1.2"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/token-types:6.1.2"
 ,"description": "Common token types for decoding and encoding numeric and string values","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/@tokenizer\/inflate:0.4.1"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/file-type:21.3.4"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/@tokenizer\/inflate:0.4.1"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/file-type:22.0.1"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "token-types:6.1.2",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/@tokenizer\/inflate:0.4.1\/token-types:^6.1.1"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/@tokenizer\/inflate:0.4.1\/token-types:^6.1.1"
 ,
                     "packageIds": [
                             {
@@ -1320,7 +1320,7 @@
  , {
                     "isVirtual": true,
                     "fileName": "token-types:6.1.2",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/file-type:21.3.4\/token-types:^6.1.1"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/file-type:22.0.1\/token-types:^6.1.2"
 ,
                     "packageIds": [
                             {
@@ -1396,21 +1396,21 @@
                 ,"packages": [
                     {
                         "id": "pkg:npm\/token-types@6.1.2"
-,"confidence": "HIGHEST"                    }
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/token-types\/6.1.2?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]
         },{
             "isVirtual": true,
             "fileName": "uint8array-extras:1.5.0",
-            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/uint8array-extras:1.5.0"
+            "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/uint8array-extras:1.5.0"
 ,"description": "Useful utilities for working with Uint8Array (and Buffer)","license": "MIT"            ,"projectReferences": [
-                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476"
-,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.476\/file-type:21.3.4"
+                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509\/file-type:22.0.1"
+,                "@dpuse\/dpuse-connector-file-store-emulator:0.2.509"
             ]
             ,"relatedDependencies": [
   {
                     "isVirtual": true,
                     "fileName": "uint8array-extras:1.5.0",
-                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.476\/file-type:21.3.4\/uint8array-extras:^1.4.0"
+                    "filePath": "\/Users\/jonathanterrell\/DPUse\/GitHub\/connectors\/dpuse-connector-file-store-emulator\/package-lock.json?dpuse-connector-file-store-emulator:0.2.509\/file-type:22.0.1\/uint8array-extras:^1.5.0"
 ,
                     "packageIds": [
                             {
@@ -1486,7 +1486,7 @@
                 ,"packages": [
                     {
                         "id": "pkg:npm\/uint8array-extras@1.5.0"
-,"confidence": "HIGHEST"                    }
+,"confidence": "HIGHEST","url": "https:\/\/guide.sonatype.com\/component\/npm\/uint8array-extras\/1.5.0?utm_source=dependency-check&utm_medium=integration&utm_content=12.2.0"                    }
             ]
         }    ]
 }

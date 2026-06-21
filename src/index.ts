@@ -1,8 +1,9 @@
-// External Dependencies
+// ── External Dependencies
 import { nanoid } from 'nanoid';
 
-// DPUse Framework
+// ── DPUse Framework
 import type { ConnectionNodeConfig } from '@dpuse/dpuse-shared/component/connection';
+import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
 import type {
     AuditObjectContentOptions,
     AuditObjectContentResult,
@@ -24,36 +25,30 @@ import { extractExtensionFromPath, extractNameFromPath, lookupMimeTypeForExtensi
 import { loadTool, type ToolConfig } from '@dpuse/dpuse-shared/component/module/tool';
 import { ORDERED_VALUE_DELIMITER_IDS, type ParsingRecord, type PreviewConfig } from '@dpuse/dpuse-shared/component/dataView';
 
-// DPUse Tools
+// ── DPUse Tools
 import type { Tool as CSVParseTool } from '@dpuse/dpuse-tool-csv-parse';
 import type { Tool as FileOperatorsTool } from '@dpuse/dpuse-tool-file-operators';
 import type { Tool as RustCsvCoreTool } from '@dpuse/dpuse-tool-rust-csv-core';
 
-// Data
+// ── Data
 import config from '~/config.json';
 import fileStoreFolderPathData from '@/fileStoreFolderPaths.json';
 
-// TODO
-import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
+// ── Types ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
-/**
- * File store folder paths.
- */
+// File store folder paths.
 type FileStoreFolderNode =
     | ({ typeId: 'folder'; childCount: number } & { name: string })
     | ({ typeId: 'object'; id: string; lastModifiedAt: number; size: number } & { name: string });
 
-/**
- * File store folder paths.
- */
-type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>;
+type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>; // File store folder paths.
 
-/**
- * Cloudflare R2 file store directory prefix.
- */
-const URL_PREFIX = 'https://sample-data-eu.dpuse.app/fileStore';
+// ── Constants ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-// Connectors
+const URL_PREFIX = 'https://sample-data-eu.dpuse.app/fileStore'; // Cloudflare R2 file store directory prefix.
+
+// ── Connectors ───────────────────────────────────────────────────────────────────────────────────────────────────────
+
 export class Connector implements ConnectorInterface {
     abortController: AbortController | undefined;
     readonly config: ConnectorConfig;
@@ -67,7 +62,7 @@ export class Connector implements ConnectorInterface {
         this.toolConfigs = toolConfigs;
     }
 
-    // Operations ──────────────────────────────────────────────────────────────────────────────────────────────────────
+    // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────
 
     // Abort the currently running operation
     abortOperation(): void {
@@ -100,7 +95,9 @@ export class Connector implements ConnectorInterface {
             const csvParseTool = await loadTool<CSVParseTool>(this.toolConfigs, 'csv-parse');
             const parseStreamOptions = { delimiter: options.valueDelimiterId, relax_column_count: true, relax_quotes: true };
             const url = `${URL_PREFIX}${options.path}`;
-            const summary = await csvParseTool.parseStream(options, parseStreamOptions, url, this.abortController, (parameter) => console.log(parameter));
+            const summary = await csvParseTool.parseStream(options, parseStreamOptions, url, this.abortController, (parameter) => {
+                console.log(parameter);
+            });
             console.log('summary', summary);
             // complete(summary);
 
@@ -233,7 +230,7 @@ export class Connector implements ConnectorInterface {
     }
 }
 
-// Helpers ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Construct folder node configuration.
 function constructFolderNodeConfig(folderPath: string, name: string, childCount: number): ConnectionNodeConfig {
