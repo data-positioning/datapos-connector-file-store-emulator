@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 <span><!-- OWASP_BADGES_START -->
 [![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://dpuse.github.io/dpuse-connector-file-store-emulator/dependency-check-reports/dependency-check-report.html)
+
 <!-- OWASP_BADGES_END --></span>
 
 A TypeScript library that implements the File Store Emulator connector. It provides easy access to a curated set of files for demonstration and evaluation purposes.
@@ -17,7 +18,7 @@ The connector now ships with a lightweight Rust crate located in [rust/dpuse-con
 
 ## Installation
 
-There’s no need to install this connector manually. Once released, it’s uploaded to the Data Positioning Engine cloud and becomes instantly available to all new instances of the browser app. A notification about the new version is also sent to all existing browser apps.
+There’s no need to install this connector manually. Once released, it’s uploaded to the DPUse Engine cloud and becomes instantly available to all new instances of the browser app. A notification about the new version is also sent to all existing browser apps.
 
 ## Reports & Compliance
 
@@ -32,13 +33,14 @@ The OWASP Dependency Check Report identifies known vulnerabilities in project de
 The following table lists top-level production and peer dependencies. All these dependencies (including transitive ones) have been recursively verified to use Apache-2.0, CC0-1.0, or MIT—commercially friendly licenses with minimal restrictions. Developers cloning this repository should independently verify dev and optional dependencies; users of the uploaded library are covered by these checks.
 
 <!-- DEPENDENCY_LICENSES_START -->
-|Name|Type|Installed|Latest|Latest Released|Deps|Document|
-|:-|:-|:-:|:-:|:-|-:|:-|
-|@dpuse/dpuse-shared|MIT|0.3.674|0.3.674|this month: 2026-06-21|0|[LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-shared/main/LICENSE)|
-|@dpuse/dpuse-tool-csv-parse|MIT|0.0.143|0.0.143|2 months ago: 2026-04-21|2|[LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-tool-csv-parse/main/LICENSE)|
-|@dpuse/dpuse-tool-file-operators|MIT|0.0.24|0.0.24|1 month ago: 2026-04-23|3|[LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-tool-file-operators/main/LICENSE)|
-|@dpuse/dpuse-tool-rust-csv-core|MIT|0.1.21|0.1.21|2 months ago: 2026-04-21|1|[LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-tool-rust-csv-core/main/LICENSE)|
-|nanoid|MIT|5.1.15|5.1.15|this month: 2026-06-20|0|[LICENSE](https://raw.githubusercontent.com/ai/nanoid/main/LICENSE)|
+
+| Name                             | Type | Installed | Latest  | Latest Released          | Deps | Document                                                                                  |
+| :------------------------------- | :--- | :-------: | :-----: | :----------------------- | ---: | :---------------------------------------------------------------------------------------- |
+| @dpuse/dpuse-shared              | MIT  |  0.3.674  | 0.3.674 | this month: 2026-06-21   |    0 | [LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-shared/main/LICENSE)              |
+| @dpuse/dpuse-tool-csv-parse      | MIT  |  0.0.143  | 0.0.143 | 2 months ago: 2026-04-21 |    2 | [LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-tool-csv-parse/main/LICENSE)      |
+| @dpuse/dpuse-tool-file-operators | MIT  |  0.0.24   | 0.0.24  | 1 month ago: 2026-04-23  |    3 | [LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-tool-file-operators/main/LICENSE) |
+| @dpuse/dpuse-tool-rust-csv-core  | MIT  |  0.1.21   | 0.1.21  | 2 months ago: 2026-04-21 |    1 | [LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-tool-rust-csv-core/main/LICENSE)  |
+| nanoid                           | MIT  |  5.1.15   | 5.1.15  | this month: 2026-06-20   |    0 | [LICENSE](https://raw.githubusercontent.com/ai/nanoid/main/LICENSE)                       |
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -54,21 +56,21 @@ The Bundle Analysis Report provides a detailed breakdown of the bundle's composi
 
 The following list details the repository management commands implementation by this project. For more details, please refer to the scripts section of the 'package.json' file in this project.
 
-| Name                 | VSCode Shortcuts | Notes                                                                                                           |
-| -------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- |
-| audit                | alt+ctrl+shift+a | Audit the project's dependencies for known security vulnerabilities.                                            |
-| build                | alt+ctrl+shift+b | Type-check, compile and minify for production. Output in '/dist' directory.                                     |
-| build:rust           |                  | Compile the Rust helper crate to WebAssembly via `wasm-pack`. Requires the `wasm-pack` CLI in your PATH.        |
-| buildConnectorConfig |                  |                                                                                                                 |
-| bumpVersion          | alt+ctrl+shift+v |                                                                                                                 |
-| check                | alt+ctrl+shift+c | List the dependencies in the project that are outdated.                                                         |
-| document             | alt+ctrl+shift+d | Identify the licenses of the project's dependencies.                                                            |
-| format               | alt+ctrl+shift+f | Enforce formatting style rules.                                                                                 |
-| lint                 | alt+ctrl+shift+l | Check the code for potential errors and enforces coding styles.                                                 |
-| publishToNPM         | alt+ctrl+shift+p | ❌ Not implemented.                                                                                             |
-| release              | alt+ctrl+shift+r | Synchronise local repository with the main GitHub repository and upload connector to Data Positioning platform. |
-| syncWithGitHub       | alt+ctrl+shift+s | Synchronise local repository with the main GitHub repository.                                                   |
-| updateDependencies   | alt+ctrl+shift+l | Install the latest version of all Data Positioning dependencies.                                                |
+| Name                 | VSCode Shortcuts | Notes                                                                                                    |
+| -------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| audit                | alt+ctrl+shift+a | Audit the project's dependencies for known security vulnerabilities.                                     |
+| build                | alt+ctrl+shift+b | Type-check, compile and minify for production. Output in '/dist' directory.                              |
+| build:rust           |                  | Compile the Rust helper crate to WebAssembly via `wasm-pack`. Requires the `wasm-pack` CLI in your PATH. |
+| buildConnectorConfig |                  |                                                                                                          |
+| bumpVersion          | alt+ctrl+shift+v |                                                                                                          |
+| check                | alt+ctrl+shift+c | List the dependencies in the project that are outdated.                                                  |
+| document             | alt+ctrl+shift+d | Identify the licenses of the project's dependencies.                                                     |
+| format               | alt+ctrl+shift+f | Enforce formatting style rules.                                                                          |
+| lint                 | alt+ctrl+shift+l | Check the code for potential errors and enforces coding styles.                                          |
+| publishToNPM         | alt+ctrl+shift+p | ❌ Not implemented.                                                                                      |
+| release              | alt+ctrl+shift+r | Synchronise local repository with the main GitHub repository and upload connector to PDUse platform.     |
+| syncWithGitHub       | alt+ctrl+shift+s | Synchronise local repository with the main GitHub repository.                                            |
+| updateDependencies   | alt+ctrl+shift+l | Install the latest version of all DPUse dependencies.                                                    |
 
 ## Compliance
 
@@ -76,4 +78,4 @@ The following badge reflects FOSSA's assessment of this repository's open-source
 
 ## License
 
-[MIT](./LICENSE) © 2026 Data Positioning Pty Ltd
+[MIT](./LICENSE) © 2026-present Jonathan Terrell
