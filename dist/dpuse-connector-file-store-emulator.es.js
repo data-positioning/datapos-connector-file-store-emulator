@@ -124,11 +124,11 @@ var h = [
 	status: null,
 	statusId: "beta",
 	typeId: "connector",
-	usageId: "source",
 	vendorAccountURL: null,
 	vendorDocumentationURL: null,
 	vendorHomeURL: null,
-	version: "0.2.507"
+	version: "0.2.508",
+	usageId: "source"
 }, _ = {
 	"": [
 		{
@@ -2538,7 +2538,7 @@ async function b(e) {
 	return t(e);
 }
 async function x() {
-	return v ??= import("./dpuse_connector_file_store_emulator_core-BAi7MHDS.js"), v;
+	return v ??= import("./dpuse_connector_file_store_emulator_core-BbpaeCh_.js"), v;
 }
 //#endregion
 //#region src/index.ts
