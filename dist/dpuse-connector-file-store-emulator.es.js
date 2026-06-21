@@ -3,31 +3,47 @@ var e = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict", t = 
 	let n = "", r = crypto.getRandomValues(new Uint8Array(t |= 0));
 	for (; t--;) n += e[r[t] & 63];
 	return n;
-}, n = 2048, r = class extends Error {
+}, n;
+async function r(e, t) {
+	let { add_my_numbers: n } = await a();
+	console.log(1111, e, t);
+	let r = n(Math.trunc(e), Math.trunc(t));
+	return console.log(2222, r), r;
+}
+async function i(e) {
+	let { checksum_from_rust: t } = await a();
+	return t(e);
+}
+async function a() {
+	return n ??= import("./dpuse_connector_file_store_emulator_core-BbpaeCh_.js"), n;
+}
+//#endregion
+//#region node_modules/@dpuse/dpuse-shared/dist/dpuse-shared-errors.es.js
+var o = 2048, s = class extends Error {
 	data;
 	locator;
 	constructor(e, t, n, r) {
 		super(e, r), this.name = "DPUseError", this.data = n, this.locator = t;
 	}
-}, i = class extends r {
+}, c = class extends s {
 	constructor(e, t, n, r) {
 		super(e, t, n, r), this.name = "ConnectorError";
 	}
-}, a = class extends r {
+}, l = class extends s {
 	constructor(e, t, n, r) {
 		super(e, t, n, r), this.name = "FetchError";
 	}
 };
-async function o(e, t, n) {
-	let r = ` - ${e.statusText}`, i = `${t} Response status '${e.status}${e.statusText ? r : ""}' received.`, o;
+async function u(e, t, n) {
+	let r = ` - ${e.statusText}`, i = `${t} Response status '${e.status}${e.statusText ? r : ""}' received.`, a;
 	try {
-		o = await e.text();
+		a = await e.text();
 	} catch (e) {
-		o = `<body unavailable: ${s(e).message}>`;
+		a = `<body unavailable: ${d(e).message}>`;
 	}
-	return new a(i, n, { body: c(o) });
+	return new l(i, n, { body: f(a) });
 }
-function s(e) {
+function d(e) {
 	if (e instanceof Error) return e;
 	if (typeof e == "string") return Error(e);
 	if (typeof e == "number" || typeof e == "boolean" || typeof e == "bigint") return Error(String(e));
@@ -39,25 +55,25 @@ function s(e) {
 	}
 	return /* @__PURE__ */ Error("Unknown error");
 }
-function c(e) {
-	if (!(e == null || e === "")) return e.length > n ? `${e.slice(0, n)}... [truncated]` : e;
+function f(e) {
+	if (!(e == null || e === "")) return e.length > o ? `${e.slice(0, o)}... [truncated]` : e;
 }
 //#endregion
 //#region node_modules/@dpuse/dpuse-shared/dist/dpuse-shared-utilities.es.js
-function l(e) {
+function p(e) {
 	if (e) {
 		let t = e.lastIndexOf("/") + 1, n = e.lastIndexOf(".");
 		return n <= t || n === -1 ? e : e.slice(0, Math.max(0, n));
 	}
 }
-function u(e) {
+function m(e) {
 	if (e) {
 		let t = e.lastIndexOf("/") + 1, n = e.lastIndexOf(".");
 		if (n <= t) return;
 		if (n !== -1) return e.slice(Math.max(0, n + 1));
 	}
 }
-function d(e) {
+function h(e) {
 	switch (e) {
 		case "csv": return "text/csv";
 		case "tab":
@@ -69,24 +85,24 @@ function d(e) {
 }
 //#endregion
 //#region node_modules/@dpuse/dpuse-shared/dist/dpuse-shared-componentModuleTool.es.js
-var f = "https://engine-eu.dpuse.app/tools";
-async function p(e, t) {
+var g = "https://engine-eu.dpuse.app/tools";
+async function _(e, t) {
 	let n = `dpuse-tool-${t}`, r = e.find((e) => e.id === n);
 	if (!r) throw Error(`Connector could not load unknown tool '${t}'.`);
 	return new (await (import(
 		/* @vite-ignore */
-		`${f}/${t}_v${r.version}/${n}.es.js`
+		`${g}/${t}_v${r.version}/${n}.es.js`
 ))).Tool();
 }
 //#endregion
 //#region node_modules/@dpuse/dpuse-shared/dist/dpuse-shared-locale.es.js
-function m(e) {
+function v(e) {
 	return new Map(Object.entries(e));
 }
 //#endregion
 //#region node_modules/@dpuse/dpuse-shared/dist/dpuse-shared-componentDataView.es.js
-m({ en: "Data Positioning Events" }), m({ en: "Delimited Text" }), m({ en: "JSON" }), m({ en: "SPSS" }), m({ en: "XLSX" }), m({ en: "XML" }), m({ en: "Newline" }), m({ en: "Carriage Return" }), m({ en: "Carriage Return/Newline" }), m({ en: "Colon" }), m({ en: "Comma" }), m({ en: "Exclamation Mark" }), m({ en: "Record Separator" }), m({ en: "Semicolon" }), m({ en: "Space" }), m({ en: "Tab" }), m({ en: "Underscore" }), m({ en: "Unit Separator" }), m({ en: "Vertical Bar" });
-var h = [
+v({ en: "Data Positioning Events" }), v({ en: "Delimited Text" }), v({ en: "JSON" }), v({ en: "SPSS" }), v({ en: "XLSX" }), v({ en: "XML" }), v({ en: "Newline" }), v({ en: "Carriage Return" }), v({ en: "Carriage Return/Newline" }), v({ en: "Colon" }), v({ en: "Comma" }), v({ en: "Exclamation Mark" }), v({ en: "Record Separator" }), v({ en: "Semicolon" }), v({ en: "Space" }), v({ en: "Tab" }), v({ en: "Underscore" }), v({ en: "Unit Separator" }), v({ en: "Vertical Bar" });
+var y = [
 	",",
 	";",
 	"	",
@@ -97,7 +113,7 @@ var h = [
 	"!",
 	"0x1F",
 	"0x1E"
-], g = {
+], b = {
 	id: "dpuse-connector-file-store-emulator",
 	label: { en: "DPUse File Store" },
 	description: { en: ["Provides access to a sample set of read-only data simulating a hypothetical cloud-based file storage solution. It is intended for demonstration, evaluation, and testing and is freely available to all users.", "It emulates services such as Google Drive, Dropbox, and Microsoft OneDrive."] },
@@ -127,8 +143,9 @@ var h = [
 	vendorAccountURL: null,
 	vendorDocumentationURL: null,
 	vendorHomeURL: null,
-	version: "0.2.509"
-}, _ = {
+	version: "0.2.515",
+	usageId: "source"
+}, x = {
 	"": [
 		{
 			childCount: 3,
@@ -2525,29 +2542,13 @@ var h = [
 			typeId: "object"
 		}
 	]
-}, v;
-async function y(e, t) {
-	let { add_my_numbers: n } = await x();
-	console.log(1111, e, t);
-	let r = n(Math.trunc(e), Math.trunc(t));
-	return console.log(2222, r), r;
-}
-async function b(e) {
-	let { checksum_from_rust: t } = await x();
-	return t(e);
-}
-async function x() {
-	return v ??= import("./dpuse_connector_file_store_emulator_core-BbpaeCh_.js"), v;
-}
-//#endregion
-//#region src/index.ts
-var S = "https://sample-data-eu.dpuse.app/fileStore", C = class {
+}, S = "https://sample-data-eu.dpuse.app/fileStore", C = class {
 	abortController;
 	config;
 	connectorUtilities;
 	toolConfigs;
 	constructor(e, t) {
-		this.abortController = void 0, this.config = g, this.connectorUtilities = e, this.toolConfigs = t;
+		this.abortController = void 0, this.config = b, this.connectorUtilities = e, this.toolConfigs = t;
 	}
 	abortOperation() {
 		this.abortController &&= (this.abortController.abort(), void 0);
@@ -2559,7 +2560,7 @@ var S = "https://sample-data-eu.dpuse.app/fileStore", C = class {
 				let n = await this.getReadableStream({
 					id: "",
 					path: e.path
-				}), r = await p(this.toolConfigs, "rust-csv-core"), i = {
+				}), r = await _(this.toolConfigs, "rust-csv-core"), i = {
 					delimiter: ",",
 					hasHeaders: !0
 				}, a = e.supportsTransferableStreams ? await r.processWithTransferableStream(n, i, t) : await r.processWithChunks(n, i, t);
@@ -2568,23 +2569,25 @@ var S = "https://sample-data-eu.dpuse.app/fileStore", C = class {
 					durationMs: a.durationMs ?? 0
 				};
 			}
-			let n = await p(this.toolConfigs, "csv-parse"), r = {
+			let n = await _(this.toolConfigs, "csv-parse"), r = {
 				delimiter: e.valueDelimiterId,
 				relax_column_count: !0,
 				relax_quotes: !0
-			}, i = `${S}${e.path}`, a = await n.parseStream(e, r, i, this.abortController, (e) => console.log(e));
+			}, i = `${S}${e.path}`, a = await n.parseStream(e, r, i, this.abortController, (e) => {
+				console.log(e);
+			});
 			return console.log("summary", a), {
 				processedRowCount: 0,
 				durationMs: 0
 			};
 		} catch (e) {
-			throw s(e);
+			throw d(e);
 		} finally {
 			this.abortController = void 0;
 		}
 	}
 	findObject(e) {
-		let t = _;
+		let t = x;
 		for (let n in t) if (Object.hasOwn(t, n) && t[n]?.find((t) => t.typeId === "object" && t.id === e.nodeId)) return Promise.resolve({
 			path: n,
 			object: void 0
@@ -2595,18 +2598,18 @@ var S = "https://sample-data-eu.dpuse.app/fileStore", C = class {
 		let { signal: t } = this.abortController = new AbortController();
 		try {
 			let n = await fetch(`${S}${e.path}`, { signal: t });
-			if (!n.ok) throw await o(n, `Failed to fetch '${e.path}' file.`, "dpuse-connector-file-store-emulator|Connector|getReadableStream");
-			if (n.body == null) throw new i("Readable streams are not supported in this runtime.", "dpuse-connector-file-store-emulator|Connector|getReadableStream.unsupported");
-			let r = await y(12, 56), a = await b(this.config.version);
-			return console.log("sum", a, r), await Promise.resolve(n.body);
+			if (!n.ok) throw await u(n, `Failed to fetch '${e.path}' file.`, "dpuse-connector-file-store-emulator|Connector|getReadableStream");
+			if (n.body == null) throw new c("Readable streams are not supported in this runtime.", "dpuse-connector-file-store-emulator|Connector|getReadableStream.unsupported");
+			let a = await r(12, 56), o = await i(this.config.version);
+			return console.log("sum", o, a), await Promise.resolve(n.body);
 		} catch (e) {
-			throw s(e);
+			throw d(e);
 		} finally {
 			this.abortController = void 0;
 		}
 	}
 	listNodes(e) {
-		let t = _[e.folderPath] ?? [], n = [];
+		let t = x[e.folderPath] ?? [], n = [];
 		for (let r of t) r.typeId === "folder" ? n.push(w(e.folderPath, r.name, r.childCount)) : n.push(T(e.folderPath, r.id, r.name, r.lastModifiedAt, r.size));
 		return Promise.resolve({
 			cursor: void 0,
@@ -2618,10 +2621,10 @@ var S = "https://sample-data-eu.dpuse.app/fileStore", C = class {
 	async previewObject(e) {
 		let { signal: t } = this.abortController = new AbortController();
 		try {
-			let n = Date.now(), r = performance.now(), i = await (await p(this.toolConfigs, "file-operators")).previewFile(`${S}${e.path}`, t, e.chunkSize);
+			let n = Date.now(), r = performance.now(), i = await (await _(this.toolConfigs, "file-operators")).previewFile(`${S}${e.path}`, t, e.chunkSize);
 			if (i.dataFormatId == null) throw Error(`File '${e.path}' has unknown type.`);
 			if (i.text == null) throw Error(`File '${e.path}' is empty.`);
-			let a = await (await p(this.toolConfigs, "csv-parse")).parseText(i.text, h), o = this.connectorUtilities.inferDataTypes(a.parsedRecords);
+			let a = await (await _(this.toolConfigs, "csv-parse")).parseText(i.text, y), o = this.connectorUtilities.inferDataTypes(a.parsedRecords);
 			return {
 				asAt: n,
 				columnConfigs: o.columnConfigs,
@@ -2639,7 +2642,7 @@ var S = "https://sample-data-eu.dpuse.app/fileStore", C = class {
 				valueDelimiterId: a.valueDelimiterId
 			};
 		} catch (e) {
-			throw s(e);
+			throw d(e);
 		} finally {
 			this.abortController = void 0;
 		}
@@ -2647,7 +2650,7 @@ var S = "https://sample-data-eu.dpuse.app/fileStore", C = class {
 	async retrieveRecords(e, t, n) {
 		this.abortController = new AbortController();
 		try {
-			let r = await p(this.toolConfigs, "csv-parse"), i = {
+			let r = await _(this.toolConfigs, "csv-parse"), i = {
 				delimiter: e.valueDelimiterId,
 				info: !0,
 				relax_column_count: !0,
@@ -2655,7 +2658,7 @@ var S = "https://sample-data-eu.dpuse.app/fileStore", C = class {
 			}, a = `${S}${e.path}`;
 			n(await r.parseStream(e, i, a, this.abortController, t));
 		} catch (e) {
-			throw s(e);
+			throw d(e);
 		} finally {
 			this.abortController = void 0;
 		}
@@ -2678,7 +2681,7 @@ function w(e, n, r) {
 	};
 }
 function T(e, t, n, r, i) {
-	let a = l(n) ?? "", o = u(n);
+	let a = p(n) ?? "", o = m(n);
 	return {
 		childCount: void 0,
 		childNodes: [],
@@ -2688,7 +2691,7 @@ function T(e, t, n, r, i) {
 		id: t,
 		label: n,
 		lastModifiedAt: r,
-		mimeType: d(o),
+		mimeType: h(o),
 		name: a,
 		size: i,
 		typeId: "object"
