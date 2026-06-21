@@ -100,7 +100,7 @@ var h = [
 ], g = {
 	id: "dpuse-connector-file-store-emulator",
 	label: { en: "DPUse File Store" },
-	description: { en: ["Provides access to a sample set of read-only data simulating a hypothetical cloud-based file storage solution. It is similar to services such as Google Drive, Dropbox, and Microsoft OneDrive. It is intended for demonstration, evaluation, and testing and is freely available to all users.", "No authentication is required and only a single connection is supported."] },
+	description: { en: ["Provides access to a sample set of read-only data simulating a hypothetical cloud-based file storage solution. It is intended for demonstration, evaluation, and testing and is freely available to all users.", "It is similar to services such as Google Drive, Dropbox, and Microsoft OneDrive."] },
 	category: null,
 	categoryId: "fileStore",
 	firstCreatedAt: null,
@@ -127,7 +127,7 @@ var h = [
 	vendorAccountURL: null,
 	vendorDocumentationURL: null,
 	vendorHomeURL: null,
-	version: "0.2.508",
+	version: "0.2.509",
 	usageId: "source"
 }, _ = {
 	"": [
