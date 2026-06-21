@@ -74,7 +74,13 @@ The following list details the repository management commands implementation by 
 
 ## Compliance
 
-The following badge reflects FOSSA's assessment of this repository's open-source license compliance.
+The following badge reflects an assessment of this repository's open-source practices.
+
+### OpenSSF Scorecard
+
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-connector-file-store-emulator/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
+
+[Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
 
 ## License
 
