@@ -40,7 +40,7 @@ The following table lists all production dependencies. These dependencies (inclu
 |Name|Version|License(s)|Document|
 |:-|:-|:-:|:-|
 |[@borewit/text-codec](https://github.com/Borewit/text-codec)|0.2.2|MIT|[LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt)|
-|[@dpuse/dpuse-connector-file-store-emulator](https://github.com/dpuse/dpuse-connector-file-store-emulator)|0.2.525|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-connector-file-store-emulator@0.2.525-LICENSE.txt)|
+|[@dpuse/dpuse-connector-file-store-emulator](https://github.com/dpuse/dpuse-connector-file-store-emulator)|0.2.526|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-connector-file-store-emulator@0.2.526-LICENSE.txt)|
 |[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)|0.3.674|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-shared@0.3.674-LICENSE.txt)|
 |[@dpuse/dpuse-tool-csv-parse](https://github.com/dpuse/dpuse-tool-csv-parse)|0.0.143|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-tool-csv-parse@0.0.143-LICENSE.txt)|
 |[@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators)|0.0.24|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-tool-file-operators@0.0.24-LICENSE.txt)|
@@ -64,10 +64,10 @@ The following table lists all production dependencies. These dependencies (inclu
 - **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.674 — this month: 2026-06-21
 - **[@dpuse/dpuse-tool-csv-parse](https://github.com/dpuse/dpuse-tool-csv-parse)** 0.0.143 — 2 months ago: 2026-04-21
   - **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.674 — this month: 2026-06-21
-  - **[csv-parse](https://github.com/adaltas/node-csv)** 6.2.1 — 3 months ago: 2026-03-20 → latest: 7.0.0 · this month: 2026-06-14 ⚠️
+  - **[csv-parse](https://github.com/adaltas/node-csv)** 6.2.1 — 3 months ago: 2026-03-20 → **latest**: 7.0.0 — this month: 2026-06-14 ⚠️
 - **[@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators)** 0.0.24 — 1 month ago: 2026-04-23
   - **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.674 — this month: 2026-06-21
-  - **[chardet](https://github.com/runk/node-chardet)** 2.1.1 — 7 months ago: 2025-10-29 ⚠️ → latest: 2.2.0 · this month: 2026-06-20 ⚠️
+  - **[chardet](https://github.com/runk/node-chardet)** 2.1.1 — 7 months ago: 2025-10-29 ⚠️ → **latest**: 2.2.0 — this month: 2026-06-20 ⚠️
   - **[file-type](https://github.com/sindresorhus/file-type)** 22.0.1 — 2 months ago: 2026-04-09
     - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — 7 months ago: 2025-11-18 ⚠️
       - **[debug](https://github.com/debug-js/debug)** 4.4.3 — 9 months ago: 2025-09-13 ⚠️
