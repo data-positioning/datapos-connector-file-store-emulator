@@ -143,7 +143,7 @@ var y = [
 	vendorAccountURL: null,
 	vendorDocumentationURL: null,
 	vendorHomeURL: null,
-	version: "0.2.519",
+	version: "0.2.521",
 	usageId: "source"
 }, x = {
 	"": [
