@@ -1,1 +1,122 @@
-[{"name":"@dpuse/dpuse-shared","installedVersion":"0.3.674","author":"Jonathan Terrell <terrell.jm@gmail.com>","licenseType":"MIT","link":"git+https://github.com/data-positioning/dpuse-shared.git","definedVersion":"^0.3.674","remoteVersion":"0.3.674","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"@dpuse/dpuse-tool-csv-parse","installedVersion":"0.0.143","author":"n/a","licenseType":"MIT","link":"git+https://github.com/dpuse/dpuse-tool-csv-parse.git","definedVersion":"^0.0.143","remoteVersion":"0.0.143","alias":"","requires":[{"name":"@dpuse/dpuse-shared","installedVersion":"0.3.674","author":"Jonathan Terrell <terrell.jm@gmail.com>","licenseType":"MIT","link":"git+https://github.com/data-positioning/dpuse-shared.git","definedVersion":"^0.3.641","remoteVersion":"0.3.674","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"csv-parse","installedVersion":"6.2.1","author":"David Worms <david@adaltas.com> (https://www.adaltas.com)","licenseType":"MIT","link":"git+https://github.com/adaltas/node-csv.git","definedVersion":"^6.2.1","remoteVersion":"6.2.1","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}],"department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"@dpuse/dpuse-tool-file-operators","installedVersion":"0.0.24","author":"n/a","licenseType":"MIT","link":"git+https://github.com/dpuse/dpuse-tool-file-operators.git","definedVersion":"^0.0.24","remoteVersion":"0.0.24","alias":"","requires":[{"name":"@dpuse/dpuse-shared","installedVersion":"0.3.674","author":"Jonathan Terrell <terrell.jm@gmail.com>","licenseType":"MIT","link":"git+https://github.com/data-positioning/dpuse-shared.git","definedVersion":"^0.3.641","remoteVersion":"0.3.674","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"chardet","installedVersion":"2.1.1","author":"Dmitry Shirokov <deadrunk@gmail.com>","licenseType":"MIT","link":"git+https://github.com/runk/node-chardet.git","definedVersion":"^2.1.1","remoteVersion":"2.2.0","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"file-type","installedVersion":"22.0.1","author":"Sindre Sorhus sindresorhus@gmail.com https://sindresorhus.com","licenseType":"MIT","link":"git+https://github.com/sindresorhus/file-type.git","definedVersion":"^22.0.1","remoteVersion":"22.0.1","alias":"","requires":[{"name":"@tokenizer/inflate","installedVersion":"0.4.1","author":"Borewit https://github.com/Borewit","licenseType":"MIT","link":"git+https://github.com/Borewit/tokenizer-inflate.git","definedVersion":"^0.4.1","remoteVersion":"0.4.1","alias":"","requires":[{"name":"debug","installedVersion":"4.4.3","author":"Josh Junon (https://github.com/qix-)","licenseType":"MIT","link":"git://github.com/debug-js/debug.git","definedVersion":"^4.4.3","remoteVersion":"4.4.3","alias":"","requires":[{"name":"ms","installedVersion":"2.1.3","author":"n/a","licenseType":"MIT","link":"git+https://github.com/vercel/ms.git","definedVersion":"^2.1.3","remoteVersion":"2.1.3","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}],"department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"token-types","installedVersion":"6.1.2","author":"Borewit https://github.com/Borewit","licenseType":"MIT","link":"git+https://github.com/Borewit/token-types.git","definedVersion":"^6.1.1","remoteVersion":"6.1.2","alias":"","requires":[{"name":"@borewit/text-codec","installedVersion":"0.2.2","author":"Borewit https://github.com/Borewit","licenseType":"MIT","link":"git+https://github.com/Borewit/text-codec.git","definedVersion":"^0.2.1","remoteVersion":"0.2.2","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"@tokenizer/token","installedVersion":"0.3.0","author":"Borewit https://github.com/Borewit","licenseType":"MIT","link":"git+https://github.com/Borewit/tokenizer-token.git","definedVersion":"^0.3.0","remoteVersion":"0.3.0","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"ieee754","installedVersion":"1.2.1","author":"Feross Aboukhadijeh feross@feross.org https://feross.org","licenseType":"BSD-3-Clause","link":"git://github.com/feross/ieee754.git","definedVersion":"^1.2.1","remoteVersion":"1.2.1","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}],"department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}],"department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"strtok3","installedVersion":"10.3.5","author":"Borewit https://github.com/Borewit","licenseType":"MIT","link":"git+https://github.com/Borewit/strtok3.git","definedVersion":"^10.3.5","remoteVersion":"10.3.5","alias":"","requires":[{"name":"@tokenizer/token","installedVersion":"0.3.0","author":"Borewit https://github.com/Borewit","licenseType":"MIT","link":"git+https://github.com/Borewit/tokenizer-token.git","definedVersion":"^0.3.0","remoteVersion":"0.3.0","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}],"department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"token-types","installedVersion":"6.1.2","author":"Borewit https://github.com/Borewit","licenseType":"MIT","link":"git+https://github.com/Borewit/token-types.git","definedVersion":"^6.1.2","remoteVersion":"6.1.2","alias":"","requires":[{"name":"@borewit/text-codec","installedVersion":"0.2.2","author":"Borewit https://github.com/Borewit","licenseType":"MIT","link":"git+https://github.com/Borewit/text-codec.git","definedVersion":"^0.2.1","remoteVersion":"0.2.2","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"@tokenizer/token","installedVersion":"0.3.0","author":"Borewit https://github.com/Borewit","licenseType":"MIT","link":"git+https://github.com/Borewit/tokenizer-token.git","definedVersion":"^0.3.0","remoteVersion":"0.3.0","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"ieee754","installedVersion":"1.2.1","author":"Feross Aboukhadijeh feross@feross.org https://feross.org","licenseType":"BSD-3-Clause","link":"git://github.com/feross/ieee754.git","definedVersion":"^1.2.1","remoteVersion":"1.2.1","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}],"department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"uint8array-extras","installedVersion":"1.5.0","author":"Sindre Sorhus sindresorhus@gmail.com https://sindresorhus.com","licenseType":"MIT","link":"git+https://github.com/sindresorhus/uint8array-extras.git","definedVersion":"^1.5.0","remoteVersion":"1.5.0","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}],"department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}],"department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"@dpuse/dpuse-tool-rust-csv-core","installedVersion":"0.1.21","author":"n/a","licenseType":"MIT","link":"git+https://github.com/dpuse/dpuse-tool-rust-csv-core.git","definedVersion":"^0.1.21","remoteVersion":"0.1.21","alias":"","requires":[{"name":"@dpuse/dpuse-shared","installedVersion":"0.3.674","author":"Jonathan Terrell <terrell.jm@gmail.com>","licenseType":"MIT","link":"git+https://github.com/data-positioning/dpuse-shared.git","definedVersion":"^0.3.642","remoteVersion":"0.3.674","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}],"department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"},{"name":"nanoid","installedVersion":"5.1.15","author":"Andrey Sitnik <andrey@sitnik.es>","licenseType":"MIT","link":"git+https://github.com/ai/nanoid.git","definedVersion":"^5.1.15","remoteVersion":"5.1.15","alias":"","department":"n/a","relatedTo":"n/a","licensePeriod":"n/a","material":"n/a"}]
+{
+  "version": "0.2.515",
+  "name": "@dpuse/dpuse-connector-file-store-emulator",
+  "dependencies": {
+    "@dpuse/dpuse-shared": {
+      "version": "0.3.674",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-0.3.674.tgz",
+      "overridden": false
+    },
+    "@dpuse/dpuse-tool-csv-parse": {
+      "version": "0.0.143",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-csv-parse/-/dpuse-tool-csv-parse-0.0.143.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@dpuse/dpuse-shared": {
+          "version": "0.3.674"
+        },
+        "csv-parse": {
+          "version": "6.2.1",
+          "resolved": "https://registry.npmjs.org/csv-parse/-/csv-parse-6.2.1.tgz",
+          "overridden": false
+        }
+      }
+    },
+    "@dpuse/dpuse-tool-file-operators": {
+      "version": "0.0.24",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-file-operators/-/dpuse-tool-file-operators-0.0.24.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@dpuse/dpuse-shared": {
+          "version": "0.3.674"
+        },
+        "chardet": {
+          "version": "2.1.1",
+          "resolved": "https://registry.npmjs.org/chardet/-/chardet-2.1.1.tgz",
+          "overridden": false
+        },
+        "file-type": {
+          "version": "22.0.1",
+          "resolved": "https://registry.npmjs.org/file-type/-/file-type-22.0.1.tgz",
+          "overridden": false,
+          "dependencies": {
+            "@tokenizer/inflate": {
+              "version": "0.4.1",
+              "resolved": "https://registry.npmjs.org/@tokenizer/inflate/-/inflate-0.4.1.tgz",
+              "overridden": false,
+              "dependencies": {
+                "debug": {
+                  "version": "4.4.3",
+                  "resolved": "https://registry.npmjs.org/debug/-/debug-4.4.3.tgz",
+                  "overridden": false,
+                  "dependencies": {
+                    "ms": {
+                      "version": "2.1.3",
+                      "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",
+                      "overridden": false
+                    }
+                  }
+                },
+                "token-types": {
+                  "version": "6.1.2"
+                }
+              }
+            },
+            "strtok3": {
+              "version": "10.3.5",
+              "resolved": "https://registry.npmjs.org/strtok3/-/strtok3-10.3.5.tgz",
+              "overridden": false,
+              "dependencies": {
+                "@tokenizer/token": {
+                  "version": "0.3.0",
+                  "resolved": "https://registry.npmjs.org/@tokenizer/token/-/token-0.3.0.tgz",
+                  "overridden": false
+                }
+              }
+            },
+            "token-types": {
+              "version": "6.1.2",
+              "resolved": "https://registry.npmjs.org/token-types/-/token-types-6.1.2.tgz",
+              "overridden": false,
+              "dependencies": {
+                "@borewit/text-codec": {
+                  "version": "0.2.2",
+                  "resolved": "https://registry.npmjs.org/@borewit/text-codec/-/text-codec-0.2.2.tgz",
+                  "overridden": false
+                },
+                "@tokenizer/token": {
+                  "version": "0.3.0"
+                },
+                "ieee754": {
+                  "version": "1.2.1",
+                  "resolved": "https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz",
+                  "overridden": false
+                }
+              }
+            },
+            "uint8array-extras": {
+              "version": "1.5.0",
+              "resolved": "https://registry.npmjs.org/uint8array-extras/-/uint8array-extras-1.5.0.tgz",
+              "overridden": false
+            }
+          }
+        }
+      }
+    },
+    "@dpuse/dpuse-tool-rust-csv-core": {
+      "version": "0.1.21",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-rust-csv-core/-/dpuse-tool-rust-csv-core-0.1.21.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@dpuse/dpuse-shared": {
+          "version": "0.3.674"
+        }
+      }
+    },
+    "nanoid": {
+      "version": "5.1.15",
+      "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-5.1.15.tgz",
+      "overridden": false
+    }
+  }
+}

@@ -2,9 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-connector-file-store-emulator/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-connector-file-store-emulator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator)
 <span><!-- OWASP_BADGES_START -->
 [![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://dpuse.github.io/dpuse-connector-file-store-emulator/dependency-check-reports/dependency-check-report.html)
-
 <!-- OWASP_BADGES_END --></span>
 
 A TypeScript library that implements the File Store Emulator connector. It provides easy access to a curated set of files for demonstration and evaluation purposes.
@@ -34,14 +34,26 @@ The OWASP Dependency Check Report identifies known vulnerabilities in project de
 The following table lists top-level production and peer dependencies. All these dependencies (including transitive ones) have been recursively verified to use Apache-2.0, CC0-1.0, or MIT—commercially friendly licenses with minimal restrictions. Developers cloning this repository should independently verify dev and optional dependencies; users of the uploaded library are covered by these checks.
 
 <!-- DEPENDENCY_LICENSES_START -->
-
-| Name                             | Type | Installed | Latest  | Latest Released          | Deps | Document                                                                                  |
-| :------------------------------- | :--- | :-------: | :-----: | :----------------------- | ---: | :---------------------------------------------------------------------------------------- |
-| @dpuse/dpuse-shared              | MIT  |  0.3.674  | 0.3.674 | this month: 2026-06-21   |    0 | [LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-shared/main/LICENSE)              |
-| @dpuse/dpuse-tool-csv-parse      | MIT  |  0.0.143  | 0.0.143 | 2 months ago: 2026-04-21 |    2 | [LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-tool-csv-parse/main/LICENSE)      |
-| @dpuse/dpuse-tool-file-operators | MIT  |  0.0.24   | 0.0.24  | 1 month ago: 2026-04-23  |    3 | [LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-tool-file-operators/main/LICENSE) |
-| @dpuse/dpuse-tool-rust-csv-core  | MIT  |  0.1.21   | 0.1.21  | 2 months ago: 2026-04-21 |    1 | [LICENSE](https://raw.githubusercontent.com/dpuse/dpuse-tool-rust-csv-core/main/LICENSE)  |
-| nanoid                           | MIT  |  5.1.15   | 5.1.15  | this month: 2026-06-20   |    0 | [LICENSE](https://raw.githubusercontent.com/ai/nanoid/main/LICENSE)                       |
+|Name|Type|Installed|Latest|Latest Released|Deps|Document|
+|:-|:-|:-:|:-:|:-|-:|:-|
+|@borewit/text-codec|MIT|0.2.2|0.2.2|3 months ago: 2026-03-11|n/a|[text-codec@0.2.2-LICENSE.txt](downloads/@borewit/text-codec@0.2.2-LICENSE.txt)|
+|@dpuse/dpuse-connector-file-store-emulator|MIT|0.2.515|0.2.515|this month: 2026-06-21|n/a|[dpuse-connector-file-store-emulator@0.2.515-LICENSE.txt](downloads/@dpuse/dpuse-connector-file-store-emulator@0.2.515-LICENSE.txt)|
+|@dpuse/dpuse-shared|MIT|0.3.674|0.3.674|this month: 2026-06-21|n/a|[dpuse-shared@0.3.674-LICENSE.txt](downloads/@dpuse/dpuse-shared@0.3.674-LICENSE.txt)|
+|@dpuse/dpuse-tool-csv-parse|MIT|0.0.143|0.0.143|2 months ago: 2026-04-21|n/a|[dpuse-tool-csv-parse@0.0.143-LICENSE.txt](downloads/@dpuse/dpuse-tool-csv-parse@0.0.143-LICENSE.txt)|
+|@dpuse/dpuse-tool-file-operators|MIT|0.0.24|0.0.24|1 month ago: 2026-04-23|n/a|[dpuse-tool-file-operators@0.0.24-LICENSE.txt](downloads/@dpuse/dpuse-tool-file-operators@0.0.24-LICENSE.txt)|
+|@dpuse/dpuse-tool-rust-csv-core|MIT|0.1.21|0.1.21|2 months ago: 2026-04-21|n/a|[dpuse-tool-rust-csv-core@0.1.21-LICENSE.txt](downloads/@dpuse/dpuse-tool-rust-csv-core@0.1.21-LICENSE.txt)|
+|@tokenizer/inflate|MIT|0.4.1|0.4.1|7 months ago: 2025-11-18 ⚠️|n/a|[inflate@0.4.1-LICENSE.txt](downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)|
+|@tokenizer/token|MIT|0.3.0|0.3.0|59 months ago: 2021-07-12❗|n/a|[token@0.3.0-LICENSE.txt](downloads/@tokenizer/token@0.3.0-LICENSE.txt)|
+|chardet|MIT|2.1.1|2.1.1|7 months ago: 2025-10-29 ⚠️|n/a|[chardet@2.1.1-LICENSE.txt](downloads/chardet@2.1.1-LICENSE.txt)|
+|csv-parse|MIT|6.2.1|6.2.1|3 months ago: 2026-03-20|n/a|[csv-parse@6.2.1-LICENSE.txt](downloads/csv-parse@6.2.1-LICENSE.txt)|
+|debug|MIT|4.4.3|4.4.3|9 months ago: 2025-09-13 ⚠️|n/a|[debug@4.4.3-LICENSE.txt](downloads/debug@4.4.3-LICENSE.txt)|
+|file-type|MIT|22.0.1|22.0.1|2 months ago: 2026-04-09|n/a|[file-type@22.0.1-LICENSE.txt](downloads/file-type@22.0.1-LICENSE.txt)|
+|ieee754|BSD-3-Clause|1.2.1|1.2.1|67 months ago: 2020-10-27❗|n/a|[ieee754@1.2.1-LICENSE.txt](downloads/ieee754@1.2.1-LICENSE.txt)|
+|ms|MIT|2.1.3|2.1.3|66 months ago: 2020-12-08❗|n/a|[ms@2.1.3-LICENSE.txt](downloads/ms@2.1.3-LICENSE.txt)|
+|nanoid|MIT|5.1.15|5.1.15|this month: 2026-06-20|n/a|[nanoid@5.1.15-LICENSE.txt](downloads/nanoid@5.1.15-LICENSE.txt)|
+|strtok3|MIT|10.3.5|10.3.5|3 months ago: 2026-03-21|n/a|[strtok3@10.3.5-LICENSE.txt](downloads/strtok3@10.3.5-LICENSE.txt)|
+|token-types|MIT|6.1.2|6.1.2|5 months ago: 2026-01-01|n/a|[token-types@6.1.2-LICENSE.txt](downloads/token-types@6.1.2-LICENSE.txt)|
+|uint8array-extras|MIT|1.5.0|1.5.0|10 months ago: 2025-08-22 ⚠️|n/a|[uint8array-extras@1.5.0-LICENSE.txt](downloads/uint8array-extras@1.5.0-LICENSE.txt)|
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -76,6 +88,10 @@ The following list details the repository management commands implementation by 
 ## Compliance
 
 The following badge reflects an assessment of this repository's open-source practices.
+
+### SonarCube
+
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=dpuse_dpuse-connector-file-store-emulator)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator)
 
 ### OpenSSF Scorecard
 

@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.515",
+    "version": "0.2.516",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "private": false,
@@ -40,7 +40,7 @@
         "nanoid": "^5.1.15"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.510",
+        "@dpuse/dpuse-development": "^0.3.520",
         "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
         "@types/eslint-plugin-security": "^3.0.1",
         "@types/node": "^26.0.0",
@@ -53,6 +53,7 @@
         "eslint-plugin-sonarjs": "^4.1.0",
         "eslint-plugin-unicorn": "^68.0.0",
         "jiti": "^2.7.0",
+        "license-checker-rseidelsohn": "^5.0.1",
         "license-downloader": "^2.0.0",
         "license-report": "^6.8.5",
         "license-report-check": "^1.0.0",
@@ -75,7 +76,7 @@
         "build": "npm run build:wasm && node -e \"import('@dpuse/dpuse-development').then(m => m.buildProject())\"",
         "build:wasm": "wasm-pack build ./rust/dpuse-connector-file-store-emulator-core --release --target bundler --out-dir pkg",
         "check": "node -e \"import('@dpuse/dpuse-development').then(m => m.checkDependencies())\"",
-        "document": "op run --env-file=.env -- node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies(['MIT']))\"",
+        "document": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies('BSD-3-Clause;MIT'))\"",
         "format": "node -e \"import('@dpuse/dpuse-development').then(m => m.formatCode())\"",
         "lint": "node -e \"import('@dpuse/dpuse-development').then(m => m.lintCode())\"",
         "release": "op run --env-file=.env -- node -e \"import('@dpuse/dpuse-development').then(m => m.releaseProject())\"",
