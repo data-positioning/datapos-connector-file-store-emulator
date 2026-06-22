@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.531",
+    "version": "0.2.532",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
     "private": false,
@@ -40,7 +40,7 @@
         "nanoid": "^5.1.15"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.533",
+        "@dpuse/dpuse-development": "^0.3.534",
         "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
         "@types/eslint-plugin-security": "^3.0.1",
         "@types/node": "^26.0.0",
