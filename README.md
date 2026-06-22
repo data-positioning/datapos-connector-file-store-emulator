@@ -81,31 +81,16 @@ The dependency tree below lists every package in this project — direct and tra
 - **[nanoid](https://github.com/ai/nanoid)** 5.1.15 — this month: 2026-06-20
   <!-- DEPENDENCY_TREE_END -->
 
-### Bundle Analysis Report
+### Bundle Analysis Reports
 
-The Bundle Analysis Report provides a detailed breakdown of the bundle's composition and module sizes, helping to identify which modules contribute most to the final build. It is generated automatically on each release using the npm package `rollup-plugin-visualizer`.
+The Bundle Analysis Reports provide detailed breakdowns of the bundle's composition and module sizes, helping to identify which modules contribute most to the final build. Two complementary reports are generated automatically on each release:
 
-[View the Bundle Analysis Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/stats/index.html)
+- **[rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer/tree/master)** — generates a static treemap/sunburst view based on pre-build module estimates, useful for a quick visual scan of overall bundle composition, including CSS assets.
+- **[Sonda](https://sonda.dev/)** — analyses final source maps to capture the effects of tree-shaking and minification, rather than relying on pre-build estimates. This gives a more accurate picture of what's actually shipped, traces module-level dependencies, and shows the size of each module after tree-shaking and minification for more precise insight into what's driving bundle size. Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS.
 
-## Repository Management Commands
+[View the rollup-plugin-visualizer Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/bundle-analysis-reports/rollup-visualiser/index.html).
 
-The following list details the repository management commands implementation by this project. For more details, please refer to the scripts section of the 'package.json' file in this project.
-
-| Name                 | VSCode Shortcuts | Notes                                                                                                    |
-| -------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
-| audit                | alt+ctrl+shift+a | Audit the project's dependencies for known security vulnerabilities.                                     |
-| build                | alt+ctrl+shift+b | Type-check, compile and minify for production. Output in '/dist' directory.                              |
-| build:rust           |                  | Compile the Rust helper crate to WebAssembly via `wasm-pack`. Requires the `wasm-pack` CLI in your PATH. |
-| buildConnectorConfig |                  |                                                                                                          |
-| bumpVersion          | alt+ctrl+shift+v |                                                                                                          |
-| check                | alt+ctrl+shift+c | List the dependencies in the project that are outdated.                                                  |
-| document             | alt+ctrl+shift+d | Identify the licenses of the project's dependencies.                                                     |
-| format               | alt+ctrl+shift+f | Enforce formatting style rules.                                                                          |
-| lint                 | alt+ctrl+shift+l | Check the code for potential errors and enforces coding styles.                                          |
-| publishToNPM         | alt+ctrl+shift+p | ❌ Not implemented.                                                                                      |
-| release              | alt+ctrl+shift+r | Synchronise local repository with the main GitHub repository and upload connector to PDUse platform.     |
-| syncWithGitHub       | alt+ctrl+shift+s | Synchronise local repository with the main GitHub repository.                                            |
-| updateDependencies   | alt+ctrl+shift+l | Install the latest version of all DPUse dependencies.                                                    |
+[View the Sonda Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/bundle-analysis-reports/sonda/index.html). |
 
 ## Compliance
 
