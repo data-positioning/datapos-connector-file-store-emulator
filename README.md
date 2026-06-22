@@ -1,7 +1,7 @@
 # DPUse File Store Emulator Connector
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![OpenSSF Baseline](https://www.bestpractices.dev/projects/13327/baseline)](https://www.bestpractices.dev/projects/13327)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13327/badge)](https://www.bestpractices.dev/projects/13327)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-connector-file-store-emulator/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-connector-file-store-emulator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator)
 <span><!-- OWASP_BADGES_START -->
@@ -84,7 +84,7 @@ The dependency tree below lists every package in this project — direct and tra
 - **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.21 — 2 months ago: 2026-04-21
     - **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.674 — this month: 2026-06-21
 - **[nanoid](https://github.com/ai/nanoid)** 5.1.15 — this month: 2026-06-20
-    <!-- DEPENDENCY_TREE_END -->
+      <!-- DEPENDENCY_TREE_END -->
 
 ### Bundle Analysis Reports
 
