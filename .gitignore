@@ -1,4 +1,5 @@
 # Common git ignore configuration for PUBLISHED Data Positioning projects.
+dist
 dist-scripts
 node_modules
 rust/*/pkg
