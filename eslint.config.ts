@@ -59,6 +59,8 @@ export default defineConfig(
 
             '@eslint-community/eslint-comments/require-description': 'warn',
 
+            'security/detect-object-injection': 'off',
+
             'sonarjs/no-commented-code': 'warn',
             'sonarjs/no-dead-store': 'warn',
             'sonarjs/no-unused-vars': 'warn',

@@ -114,11 +114,13 @@ export class Connector implements ConnectorInterface {
         const fileStoreFolderPaths = fileStoreFolderPathData as FileStoreFolderPaths;
         // Loop through the folder path data checking for an object entry with an identifier equal to the object name.
         for (const folderPath in fileStoreFolderPaths) {
-            if (Object.hasOwn(fileStoreFolderPaths, folderPath)) {
-                const folderPathNodes = fileStoreFolderPaths[folderPath];
-                const folderPathNode = folderPathNodes?.find((folderPathNode) => folderPathNode.typeId === 'object' && folderPathNode.id === options.nodeId);
-                if (folderPathNode) return Promise.resolve({ path: folderPath, object: undefined }); // Found, return folder path.
+            if (!Object.hasOwn(fileStoreFolderPaths, folderPath)) {
+                continue;
             }
+
+            const folderPathNodes = fileStoreFolderPaths[folderPath];
+            const folderPathNode = folderPathNodes?.find((folderPathNode) => folderPathNode.typeId === 'object' && folderPathNode.id === options.nodeId);
+            if (folderPathNode) return Promise.resolve({ path: folderPath, object: undefined }); // Found, return folder path.
         }
         return Promise.reject(new Error('Not found.')); // Not found.
     }
