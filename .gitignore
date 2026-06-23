@@ -2,7 +2,6 @@
 dependency-check-bin
 dist-scripts
 node_modules
-rust/*/pkg
 rust/*/target
 rust/target
 .env

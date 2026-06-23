@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.555",
+    "version": "0.2.556",
     "description": "File Store Emulator Connector for DPUse — provides read-only sample data simulating a cloud-based file storage solution such as Google Drive, Dropbox, or Microsoft OneDrive.",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
@@ -73,7 +73,8 @@
     },
     "scripts": {
         "audit": "op run --env-file=.env -- node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
-        "build": "npm run build:wasm && node -e \"import('@dpuse/dpuse-development').then(m => m.buildProject())\"",
+        "build": "npm run build:wasm && npm run build:ts",
+        "build:ts": "node -e \"import('@dpuse/dpuse-development').then(m => m.buildProject())\"",
         "build:wasm": "wasm-pack build ./rust/dpuse-connector-file-store-emulator-core --release --target bundler --out-dir pkg",
         "check": "node -e \"import('@dpuse/dpuse-development').then(m => m.checkDependencies())\"",
         "document": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies('BSD-3-Clause;MIT'))\"",
