@@ -19,7 +19,7 @@ Besides using the connector from the DPUse Engine cloud, developers can clone th
 
 ## Dependency Licenses
 
-License data is collected automatically on each release using [license-checker-rseidelsohn](https://github.com/RSeidelsohn/license-checker-everyforkever). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, CC0-1.0, or MIT — all permissive, commercially-friendly licenses. Developers cloning this repository should independently verify development dependencies; users of the uploaded library are covered by these checks.
+License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-everyforkever). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, CC0-1.0, or MIT — all permissive, commercially-friendly licenses. Developers cloning this repository should independently verify development dependencies; users of the uploaded library are covered by these checks.
 
 <!-- DEPENDENCY_LICENSES_START -->
 
@@ -72,7 +72,7 @@ The dependency tree below lists every package in this project — direct and tra
 - **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.21 — 2 months ago: 2026-04-21
     - **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.674 — this month: 2026-06-21
 - **[nanoid](https://github.com/ai/nanoid)** 5.1.15 — this month: 2026-06-20
-    <!-- DEPENDENCY_TREE_END -->
+      <!-- DEPENDENCY_TREE_END -->
 
 ## Bundle Analysis
 
@@ -87,6 +87,14 @@ The Bundle Analysis Reports provide detailed breakdowns of the bundle's composit
 
 ## Security & Quality
 
+### CodeQL
+
+[CodeQL](https://github.com/dpuse/dpuse-connector-file-store-emulator/security/code-scanning) static analysis runs on every push to `main` and on a weekly schedule, scanning TypeScript, JavaScript, Rust, and GitHub Actions workflow files for security vulnerabilities and coding errors.
+
+### SonarCloud
+
+[SonarCloud](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator) performs continuous code quality and security analysis on every push, detecting bugs, code smells, and security vulnerabilities in the TypeScript source.
+
 ### Vulnerability Scanning
 
 Two complementary tools continuously monitor dependencies for known vulnerabilities:
@@ -94,29 +102,16 @@ Two complementary tools continuously monitor dependencies for known vulnerabilit
 - **[GitHub Dependabot](https://docs.github.com/en/code-security/dependabot)** automatically raises pull requests to update vulnerable dependencies, drawing on the GitHub Advisory Database which combines NVD and npm-specific advisories.
 - **npm audit** runs on every push to `main` via the CI workflow, failing the build if any high or critical severity vulnerabilities are detected.
 
-### SonarCloud
-
-[SonarCloud](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator) performs continuous code quality and security analysis on every push, detecting bugs, code smells, and security vulnerabilities in the TypeScript source.
-
-### CodeQL
-
-[CodeQL](https://github.com/dpuse/dpuse-connector-file-store-emulator/security/code-scanning) static analysis runs on every push to `main` and on a weekly schedule, scanning TypeScript, JavaScript, Rust, and GitHub Actions workflow files for security vulnerabilities and coding errors.
-
 ### Supply Chain Security
 
 [Socket.dev](https://socket.dev) monitors all dependencies for supply chain risk — detecting malicious packages, dependency confusion, typosquatting, and suspicious behaviour that may not yet have a CVE.
 
-### OpenSSF Best Practices
+### OpenSSF 🚧
 
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13327/badge)](https://www.bestpractices.dev/projects/13327)
-
-This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev/en/projects/13327) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more.
-
-### OpenSSF Scorecard
-
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-connector-file-store-emulator/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
 
-[Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
+This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev/en/projects/13327) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. The [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
 
 ## License
 
