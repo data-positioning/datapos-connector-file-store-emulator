@@ -66,7 +66,6 @@ export default defineConfig(
             'sonarjs/no-unused-vars': 'warn',
             'sonarjs/todo-tag': 'warn',
 
-            'unicorn/filename-case': ['error', { cases: { camelCase: true, pascalCase: true }, ignore: ['updateDPUseDependencies'] }],
             'unicorn/no-null': 'off',
             'unicorn/switch-case-braces': ['warn', 'avoid']
         }
