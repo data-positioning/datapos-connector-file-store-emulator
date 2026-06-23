@@ -29,7 +29,7 @@ export default defineConfig(
     },
 
     // Ignores.
-    globalIgnores(['bundle-analysis-reports/**', 'dependency-check-bin/**', 'dependency-check-reports/**', 'dist/**', 'licenses/**']),
+    globalIgnores(['bundle-analysis-reports/**', 'dependency-check-bin/**', 'dependency-check-reports/**', 'dist/**', 'licenses/**', 'rust/**/pkg/**']),
 
     // Plugin configurations.
     {
