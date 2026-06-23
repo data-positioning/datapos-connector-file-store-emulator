@@ -23,7 +23,6 @@ export default defineConfig(
         settings: {
             'import-x/core-modules': ['cloudflare:workers'],
             'import-x/resolver': {
-                // node: { extensions: ['.js', '.mjs', '.ts'] }, TODO: Do not think this is required.
                 typescript: { project: ['./tsconfig.json'] }
             }
         }
