@@ -1,11 +1,9 @@
 # DPUse File Store Emulator Connector
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13327/badge)](https://www.bestpractices.dev/projects/13327)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-connector-file-store-emulator/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-connector-file-store-emulator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator)
 [![CI](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-connector-file-store-emulator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator)
 
 A TypeScript library that implements the File Store Emulator Connector.
 
@@ -19,9 +17,9 @@ There’s no need to install this connector manually. Once released, it is uploa
 
 Besides using the connector from the DPUse Engine cloud, developers can clone this repository to build a replacement or use it as the basis for a new connector.
 
-## Dependency Checks
+## Dependency Licenses
 
-The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, CC0-1.0, or MIT — all permissive, commercially-friendly licenses. Developers cloning this repository should independently verify development dependencies; users of the uploaded library are covered by these checks.
+License data is collected automatically on each release using [license-checker-rseidelsohn](https://github.com/RSeidelsohn/license-checker-everyforkever). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, CC0-1.0, or MIT — all permissive, commercially-friendly licenses. Developers cloning this repository should independently verify development dependencies; users of the uploaded library are covered by these checks.
 
 <!-- DEPENDENCY_LICENSES_START -->
 
@@ -74,9 +72,9 @@ The dependency tree below lists every package in this project — direct and tra
 - **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.21 — 2 months ago: 2026-04-21
     - **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.674 — this month: 2026-06-21
 - **[nanoid](https://github.com/ai/nanoid)** 5.1.15 — this month: 2026-06-20
-      <!-- DEPENDENCY_TREE_END -->
+    <!-- DEPENDENCY_TREE_END -->
 
-### Bundle Analysis Reports
+## Bundle Analysis
 
 The Bundle Analysis Reports provide detailed breakdowns of the bundle's composition and module sizes, helping to identify which modules contribute most to the final build. Two complementary reports are generated automatically on each release:
 
@@ -87,7 +85,7 @@ The Bundle Analysis Reports provide detailed breakdowns of the bundle's composit
 
 [View the Sonda Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/bundle-analysis-reports/sonda/index.html).
 
-## Compliance
+## Security & Quality
 
 ### Vulnerability Scanning
 
@@ -98,13 +96,9 @@ Two complementary tools continuously monitor dependencies for known vulnerabilit
 
 ### SonarCloud
 
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=dpuse_dpuse-connector-file-store-emulator)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator)
-
 [SonarCloud](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator) performs continuous code quality and security analysis on every push, detecting bugs, code smells, and security vulnerabilities in the TypeScript source.
 
 ### CodeQL
-
-[![CodeQL](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml)
 
 [CodeQL](https://github.com/dpuse/dpuse-connector-file-store-emulator/security/code-scanning) static analysis runs on every push to `main` and on a weekly schedule, scanning TypeScript, JavaScript, Rust, and GitHub Actions workflow files for security vulnerabilities and coding errors.
 
@@ -119,6 +113,8 @@ Two complementary tools continuously monitor dependencies for known vulnerabilit
 This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev/en/projects/13327) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more.
 
 ### OpenSSF Scorecard
+
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-connector-file-store-emulator/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
 
 [Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
 
