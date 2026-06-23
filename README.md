@@ -4,10 +4,8 @@
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13327/badge)](https://www.bestpractices.dev/projects/13327)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-connector-file-store-emulator/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-connector-file-store-emulator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator)
-<span><!-- OWASP_BADGES_START -->
-[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://dpuse.github.io/dpuse-connector-file-store-emulator/dependency-check-reports/dependency-check-report.html)
-
-<!-- OWASP_BADGES_END --></span>
+[![CI](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml)
 
 A TypeScript library that implements the File Store Emulator Connector.
 
@@ -21,15 +19,7 @@ There’s no need to install this connector manually. Once released, it is uploa
 
 Besides using the connector from the DPUse Engine cloud, developers can clone this repository to build a replacement or use it as the basis for a new connector.
 
-## Reports & Compliance
-
-### Dependency Check Report
-
-The OWASP Dependency Check Report identifies known vulnerabilities in project dependencies. It is generated automatically on each release using the npm package `owasp-dependency-check`. We also rely on GitHub Dependabot to continuously check for vulnerabilities across all dependencies.
-
-[View the OWASP Dependency Check Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/dependency-check-reports/dependency-check-report.html)
-
-### Dependency Licenses
+## Dependency Checks
 
 The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, CC0-1.0, or MIT — all permissive, commercially-friendly licenses. Developers cloning this repository should independently verify development dependencies; users of the uploaded library are covered by these checks.
 
@@ -99,11 +89,34 @@ The Bundle Analysis Reports provide detailed breakdowns of the bundle's composit
 
 ## Compliance
 
-The following badge reflects an assessment of this repository's open-source practices.
+### Vulnerability Scanning
 
-### SonarCube
+Two complementary tools continuously monitor dependencies for known vulnerabilities:
+
+- **[GitHub Dependabot](https://docs.github.com/en/code-security/dependabot)** automatically raises pull requests to update vulnerable dependencies, drawing on the GitHub Advisory Database which combines NVD and npm-specific advisories.
+- **npm audit** runs on every push to `main` via the CI workflow, failing the build if any high or critical severity vulnerabilities are detected.
+
+### SonarCloud
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=dpuse_dpuse-connector-file-store-emulator)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator)
+
+[SonarCloud](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator) performs continuous code quality and security analysis on every push, detecting bugs, code smells, and security vulnerabilities in the TypeScript source.
+
+### CodeQL
+
+[![CodeQL](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml)
+
+[CodeQL](https://github.com/dpuse/dpuse-connector-file-store-emulator/security/code-scanning) static analysis runs on every push to `main` and on a weekly schedule, scanning TypeScript, JavaScript, Rust, and GitHub Actions workflow files for security vulnerabilities and coding errors.
+
+### Supply Chain Security
+
+[Socket.dev](https://socket.dev) monitors all dependencies for supply chain risk — detecting malicious packages, dependency confusion, typosquatting, and suspicious behaviour that may not yet have a CVE.
+
+### OpenSSF Best Practices
+
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13327/badge)](https://www.bestpractices.dev/projects/13327)
+
+This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev/en/projects/13327) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more.
 
 ### OpenSSF Scorecard
 
