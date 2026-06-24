@@ -1,4 +1,4 @@
-// ── External Dependencies
+// ── External Dependencies & Registrations
 import { nanoid } from 'nanoid';
 
 // ── DPUse Framework
@@ -34,7 +34,7 @@ import type { Tool as RustCsvCoreTool } from '@dpuse/dpuse-tool-rust-csv-core';
 import config from '~/config.json';
 import fileStoreFolderPathData from '@/fileStoreFolderPaths.json';
 
-// ── Types ───────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 // File store folder paths.
 type FileStoreFolderNode =
