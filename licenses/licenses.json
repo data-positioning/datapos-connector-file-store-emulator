@@ -6,14 +6,6 @@
         "path": "node_modules/@borewit/text-codec",
         "licenseFile": "downloads/@borewit/text-codec@0.2.2-LICENSE.txt"
     },
-    "@dpuse/dpuse-connector-file-store-emulator@0.2.564": {
-        "licenses": "MIT",
-        "repository": "https://github.com/dpuse/dpuse-connector-file-store-emulator",
-        "publisher": "Jonathan Terrell",
-        "email": "terrell.jm@gmail.com",
-        "path": "",
-        "licenseFile": "downloads/@dpuse/dpuse-connector-file-store-emulator@0.2.564-LICENSE.txt"
-    },
     "@dpuse/dpuse-shared@0.3.675": {
         "licenses": "MIT",
         "repository": "https://github.com/data-positioning/dpuse-shared",
