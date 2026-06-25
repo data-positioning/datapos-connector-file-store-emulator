@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.575",
+    "version": "0.2.576",
     "private": false,
     "description": "File Store Emulator Connector for DPUse — provides read-only sample data simulating a cloud-based file storage solution such as Google Drive, Dropbox, or Microsoft OneDrive.",
     "license": "MIT",
@@ -47,10 +47,10 @@
         "document": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentOperations())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies('BSD-3-Clause;MIT'))\"",
         "format": "node -e \"import('@dpuse/dpuse-development').then(m => m.formatCode())\"",
         "lint": "node -e \"import('@dpuse/dpuse-development').then(m => m.lintCode())\"",
+        "publish": "node -e \"import('@dpuse/dpuse-development').then(m => m.publishProject())\"",
         "release": "npm run build && npm run sync && gh release create \"v$(npm pkg get version | tr -d '\"')\" --generate-notes --latest",
         "sync": "node -e \"import('@dpuse/dpuse-development').then(m => m.syncProjectWithGitHub())\"",
-        "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\"",
-        "update": "node -e \"import('@dpuse/dpuse-development').then(m => m.updateDPUseDependencies(['development', 'eslint', 'shared']))\""
+        "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "dependencies": {
         "@dpuse/dpuse-shared": "^0.3.675",
@@ -60,7 +60,7 @@
         "nanoid": "^5.1.15"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.547",
+        "@dpuse/dpuse-development": "^0.3.549",
         "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
         "@types/eslint-plugin-security": "^3.0.1",
         "@types/node": "^26.0.0",
@@ -72,6 +72,7 @@
         "eslint-plugin-security": "^4.0.1",
         "eslint-plugin-sonarjs": "^4.1.0",
         "eslint-plugin-unicorn": "^68.0.0",
+        "jiti": "^2.7.0",
         "license-checker-rseidelsohn": "^5.0.1",
         "npm-check-updates": "^22.2.7",
         "prettier": "^3.8.4",

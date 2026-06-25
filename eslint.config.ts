@@ -1,4 +1,4 @@
-// ── External Dependencies
+// ── External Dependencies & Registrations
 import type { Linter } from 'eslint';
 import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
 import { flatConfigs as pluginImportFlatConfigs } from 'eslint-plugin-import-x';

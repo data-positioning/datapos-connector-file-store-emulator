@@ -1,10 +1,12 @@
-# Common git ignore configuration for PUBLISHED Data Positioning projects.
+# Common git ignore configuration for UNPUBLISHED Data Positioning projects.
+.env
+.npmrc
+.wrangler
 dist
 dist-scripts
 node_modules
 rust/*/pkg
 rust/*/target
 rust/target
-.env
-.npmrc
+wrangler.jsonc
 **/.DS_Store
