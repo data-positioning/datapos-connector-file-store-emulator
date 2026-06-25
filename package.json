@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.576",
+    "version": "0.2.577",
     "private": false,
     "description": "File Store Emulator Connector for DPUse — provides read-only sample data simulating a cloud-based file storage solution such as Google Drive, Dropbox, or Microsoft OneDrive.",
     "license": "MIT",
@@ -36,7 +36,7 @@
         "fsevents@2.3.3": true,
         "sharp@0.34.5": true,
         "unrs-resolver@1.11.1": true,
-        "workerd@1.20260623.1": true
+        "workerd@1.20260625.1": true
     },
     "scripts": {
         "audit": "node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
@@ -53,17 +53,17 @@
         "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "dependencies": {
-        "@dpuse/dpuse-shared": "^0.3.675",
+        "@dpuse/dpuse-shared": "^0.3.688",
         "@dpuse/dpuse-tool-csv-parse": "^0.0.143",
         "@dpuse/dpuse-tool-file-operators": "^0.0.24",
         "@dpuse/dpuse-tool-rust-csv-core": "^0.1.21",
-        "nanoid": "^5.1.15"
+        "nanoid": "^5.1.16"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.549",
+        "@dpuse/dpuse-development": "^0.3.550",
         "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
         "@types/eslint-plugin-security": "^3.0.1",
-        "@types/node": "^26.0.0",
+        "@types/node": "^26.0.1",
         "eslint": "^10.5.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-import-resolver-typescript": "^4.4.5",
@@ -71,7 +71,7 @@
         "eslint-plugin-regexp": "^3.1.0",
         "eslint-plugin-security": "^4.0.1",
         "eslint-plugin-sonarjs": "^4.1.0",
-        "eslint-plugin-unicorn": "^68.0.0",
+        "eslint-plugin-unicorn": "^69.0.0",
         "jiti": "^2.7.0",
         "license-checker-rseidelsohn": "^5.0.1",
         "npm-check-updates": "^22.2.7",
@@ -84,6 +84,6 @@
         "vite-plugin-dts": "^5.0.3",
         "vite-plugin-wasm": "^3.6.0",
         "vitest": "^4.1.9",
-        "wrangler": "^4.104.0"
+        "wrangler": "^4.105.0"
     }
 }
