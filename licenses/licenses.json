@@ -6,13 +6,13 @@
         "path": "node_modules/@borewit/text-codec",
         "licenseFile": "downloads/@borewit/text-codec@0.2.2-LICENSE.txt"
     },
-    "@dpuse/dpuse-shared@0.3.675": {
+    "@dpuse/dpuse-shared@0.3.689": {
         "licenses": "MIT",
-        "repository": "https://github.com/data-positioning/dpuse-shared",
+        "repository": "https://github.com/dpuse/dpuse-shared",
         "publisher": "Jonathan Terrell",
         "email": "terrell.jm@gmail.com",
         "path": "node_modules/@dpuse/dpuse-shared",
-        "licenseFile": "downloads/@dpuse/dpuse-shared@0.3.675-LICENSE.txt"
+        "licenseFile": "downloads/@dpuse/dpuse-shared@0.3.689-LICENSE.txt"
     },
     "@dpuse/dpuse-tool-csv-parse@0.0.143": {
         "licenses": "MIT",
@@ -91,13 +91,13 @@
         "path": "node_modules/ms",
         "licenseFile": "downloads/ms@2.1.3-LICENSE.txt"
     },
-    "nanoid@5.1.15": {
+    "nanoid@5.1.16": {
         "licenses": "MIT",
         "repository": "https://github.com/ai/nanoid",
         "publisher": "Andrey Sitnik",
         "email": "andrey@sitnik.es",
         "path": "node_modules/nanoid",
-        "licenseFile": "downloads/nanoid@5.1.15-LICENSE.txt"
+        "licenseFile": "downloads/nanoid@5.1.16-LICENSE.txt"
     },
     "strtok3@10.3.5": {
         "licenses": "MIT",

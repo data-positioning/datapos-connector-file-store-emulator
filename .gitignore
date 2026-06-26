@@ -1,4 +1,4 @@
-# Common git ignore configuration for UNPUBLISHED Data Positioning projects.
+# Common git ignore configuration for UNPUBLISHED DPUse projects.
 .env
 .npmrc
 .wrangler

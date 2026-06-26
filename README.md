@@ -71,7 +71,7 @@ License data is collected automatically on each release using [license-checker](
 | Name                                                                                   | Version | License(s)   | Document                                                                          |
 | -------------------------------------------------------------------------------------- | :-----: | ------------ | --------------------------------------------------------------------------------- |
 | [@borewit/text-codec](https://github.com/Borewit/text-codec)                           |  0.2.2  | MIT          | [LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt)               |
-| [@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)                | 0.3.675 | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-shared@0.3.675-LICENSE.txt)             |
+| [@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)                           | 0.3.689 | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-shared@0.3.689-LICENSE.txt)             |
 | [@dpuse/dpuse-tool-csv-parse](https://github.com/dpuse/dpuse-tool-csv-parse)           | 0.0.143 | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-tool-csv-parse@0.0.143-LICENSE.txt)     |
 | [@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators) | 0.0.24  | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-tool-file-operators@0.0.24-LICENSE.txt) |
 | [@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)   | 0.1.21  | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-tool-rust-csv-core@0.1.21-LICENSE.txt)  |
@@ -83,23 +83,25 @@ License data is collected automatically on each release using [license-checker](
 | [file-type](https://github.com/sindresorhus/file-type)                                 | 22.0.1  | MIT          | [LICENSE](licenses/downloads/file-type@22.0.1-LICENSE.txt)                        |
 | [ieee754](https://github.com/feross/ieee754)                                           |  1.2.1  | BSD-3-Clause | [LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)                           |
 | [ms](https://github.com/vercel/ms)                                                     |  2.1.3  | MIT          | [LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)                                |
-| [nanoid](https://github.com/ai/nanoid)                                                 | 5.1.15  | MIT          | [LICENSE](licenses/downloads/nanoid@5.1.15-LICENSE.txt)                           |
+| [nanoid](https://github.com/ai/nanoid)                                                 | 5.1.16  | MIT          | [LICENSE](licenses/downloads/nanoid@5.1.16-LICENSE.txt)                           |
 | [strtok3](https://github.com/Borewit/strtok3)                                          | 10.3.5  | MIT          | [LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)                          |
 | [token-types](https://github.com/Borewit/token-types)                                  |  6.1.2  | MIT          | [LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)                       |
 | [uint8array-extras](https://github.com/sindresorhus/uint8array-extras)                 |  1.5.0  | MIT          | [LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)                 |
 
 <!-- DEPENDENCY_LICENSES_END -->
 
+### Dependency Tree
+
 The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are simply mature and stable, requiring no active development.
 
 <!-- DEPENDENCY_TREE_START -->
 
-- **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.675 — this month: 2026-06-23
+- **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.689 — this month: 2026-06-26
 - **[@dpuse/dpuse-tool-csv-parse](https://github.com/dpuse/dpuse-tool-csv-parse)** 0.0.143 — 2 months ago: 2026-04-21
-    - **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.675 — this month: 2026-06-23
+    - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.689 — this month: 2026-06-26
     - **[csv-parse](https://github.com/adaltas/node-csv)** 6.2.1 — 3 months ago: 2026-03-20 → **latest**: 7.0.0 — this month: 2026-06-14 ❗
 - **[@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators)** 0.0.24 — 2 months ago: 2026-04-23
-    - **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.675 — this month: 2026-06-23
+    - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.689 — this month: 2026-06-26
     - **[chardet](https://github.com/runk/node-chardet)** 2.1.1 — 7 months ago: 2025-10-29 ⚠️ → **latest**: 2.2.0 — this month: 2026-06-20 ❗
     - **[file-type](https://github.com/sindresorhus/file-type)** 22.0.1 — 2 months ago: 2026-04-09
         - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — 7 months ago: 2025-11-18 ⚠️
@@ -114,9 +116,9 @@ The dependency tree below lists every package in this project — direct and tra
             - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — 67 months ago: 2020-10-27 ⚠️
         - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — 10 months ago: 2025-08-22 ⚠️
 - **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.21 — 2 months ago: 2026-04-21
-    - **[@dpuse/dpuse-shared](https://github.com/data-positioning/dpuse-shared)** 0.3.675 — this month: 2026-06-23
-- **[nanoid](https://github.com/ai/nanoid)** 5.1.15 — this month: 2026-06-20
-    <!-- DEPENDENCY_TREE_END -->
+    - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.689 — this month: 2026-06-26
+- **[nanoid](https://github.com/ai/nanoid)** 5.1.16 — this month: 2026-06-24
+  <!-- DEPENDENCY_TREE_END -->
 
 ## Bundle Analysis
 
