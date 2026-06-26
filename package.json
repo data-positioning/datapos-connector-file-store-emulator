@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.580",
+    "version": "0.2.581",
     "private": false,
     "description": "File Store Emulator Connector for DPUse — provides read-only sample data simulating a cloud-based file storage solution such as Google Drive, Dropbox, or Microsoft OneDrive.",
     "license": "MIT",
@@ -48,7 +48,7 @@
         "format": "node -e \"import('@dpuse/dpuse-development').then(m => m.formatCode())\"",
         "lint": "node -e \"import('@dpuse/dpuse-development').then(m => m.lintCode())\"",
         "publish": "node -e \"import('@dpuse/dpuse-development').then(m => m.publishProject())\"",
-        "release": "npm run build && npm run sync && gh release create \"v$(npm pkg get version | tr -d '\"')\" --generate-notes --latest",
+        "release": "npm run sync && gh release create \"v$(npm pkg get version | tr -d '\"')\" --generate-notes --latest",
         "sync": "node -e \"import('@dpuse/dpuse-development').then(m => m.syncProjectWithGitHub())\"",
         "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
