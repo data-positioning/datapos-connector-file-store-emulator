@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.585",
+    "version": "0.2.586",
     "private": false,
     "description": "File Store Emulator Connector for DPUse — provides read-only sample data simulating a cloud-based file storage solution such as Google Drive, Dropbox, or Microsoft OneDrive.",
     "license": "MIT",
@@ -40,7 +40,7 @@
     },
     "scripts": {
         "audit": "node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
-        "build": "npm run build:wasm && npm run build:ts",
+        "build": "npm run build:wasm && npm run build:ts && node -e \"import('@dpuse/dpuse-development').then(m => m.documentBundleSizes())\"",
         "build:ts": "node -e \"import('@dpuse/dpuse-development').then(m => m.buildProject())\"",
         "build:wasm": "wasm-pack build ./rust/dpuse-connector-file-store-emulator-core --release --target bundler --out-dir pkg",
         "check": "node -e \"import('@dpuse/dpuse-development').then(m => m.checkConfigFiles())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.checkDependencies())\"",
@@ -60,7 +60,7 @@
         "nanoid": "^5.1.16"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.567",
+        "@dpuse/dpuse-development": "^0.3.570",
         "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
         "@types/eslint-plugin-security": "^3.0.1",
         "@types/node": "^26.0.1",

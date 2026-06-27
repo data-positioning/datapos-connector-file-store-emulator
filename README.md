@@ -120,7 +120,7 @@ The dependency tree below lists every package in this project — direct and tra
 - **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.21 — 2 months ago: 2026-04-21
     - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.689 — this month: 2026-06-26
 - **[nanoid](https://github.com/ai/nanoid)** 5.1.16 — this month: 2026-06-24
-    <!-- DEPENDENCY_TREE_END -->
+      <!-- DEPENDENCY_TREE_END -->
 
 ## Bundle Analysis
 
@@ -132,6 +132,55 @@ The Bundle Analysis Reports provide detailed breakdowns of the bundle's composit
 [View the rollup-plugin-visualizer Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/bundle-analysis-reports/rollup-visualiser/index.html).
 
 [View the Sonda Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/bundle-analysis-reports/sonda/index.html).
+
+### Output Chunks
+
+<!-- BUNDLE_CHUNKS_START -->
+
+| Module | Rendered | Gzip | Brotli |
+| ------ | -------: | ---: | -----: |
+| `dpuse-connector-file-store-emulator.es.js` | 65.3 kB | 16.4 kB | 14.3 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`src` | 61.5 kB | 14.4 kB | 12.6 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`@dpuse/dpuse-shared` | 3.4 kB | 1.7 kB | 1.4 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`nanoid` | 387 B | 364 B | 301 B |
+| `dpuse_connector_file_store_emulator_core-BbpaeCh_.js` | 26.4 kB | 12.1 kB | 10.9 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`wasm` | 26.0 kB | 11.9 kB | 10.7 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`(runtime)` | 348 B | 250 B | 220 B |
+| **Total** | **91.7 kB** | **28.5 kB** | **25.2 kB** |
+
+<!-- BUNDLE_CHUNKS_END -->
+
+### Module Sizes
+
+<!-- BUNDLE_SIZES_START -->
+
+| Module | Rendered | Gzip | Brotli |
+| ------ | -------: | ---: | -----: |
+| `src` | 61.5 kB | 14.4 kB | 12.6 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`fileStoreFolderPaths.json` | 51.2 kB | 11.3 kB | 9.9 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`index.ts` | 6.3 kB | 1.8 kB | 1.6 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`config.json` | 3.4 kB | 1020 B | 828 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`rustBridge.ts` | 605 B | 314 B | 277 B |
+| `wasm` | 26.0 kB | 11.9 kB | 10.7 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dpuse_connector_file_store_emulator_core_bg.wasm?url` | 20.6 kB | 9.6 kB | 8.7 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dpuse_connector_file_store_emulator_core_bg.js` | 3.0 kB | 1.1 kB | 1.0 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dpuse_connector_file_store_emulator_core_bg.wasm` | 1.2 kB | 460 B | 405 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`__vite-plugin-wasm-helper` | 1.1 kB | 558 B | 479 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dpuse_connector_file_store_emulator_core.js` | 206 B | 142 B | 117 B |
+| `@dpuse/dpuse-shared` | 3.4 kB | 1.7 kB | 1.4 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dist/dpuse-shared-errors.es.js` | 1.6 kB | 641 B | 553 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dist/dpuse-shared-utilities.es.js` | 722 B | 344 B | 286 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dist/dpuse-shared-componentDataView.es.js` | 653 B | 304 B | 261 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dist/dpuse-shared-componentModuleTool.es.js` | 386 B | 290 B | 242 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dist/dpuse-shared-locale.es.js` | 141 B | 134 B | 102 B |
+| `nanoid` | 387 B | 364 B | 301 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`index.browser.js` | 236 B | 204 B | 173 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`url-alphabet/index.js` | 151 B | 160 B | 128 B |
+| `(runtime)` | 348 B | 250 B | 220 B |
+| &nbsp;&nbsp;&nbsp;&nbsp;`rolldown/runtime.js` | 348 B | 250 B | 220 B |
+| **Total** | **91.7 kB** | **28.5 kB** | **25.2 kB** |
+
+<!-- BUNDLE_SIZES_END -->
 
 ## Security & Quality
 
