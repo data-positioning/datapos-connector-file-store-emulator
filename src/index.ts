@@ -99,7 +99,7 @@ export class Connector implements ConnectorInterface {
                 console.log(parameter);
             });
             console.log('summary', summary);
-            // complete(summary);
+            // TODO: complete(summary);
 
             return { processedRowCount: 0, durationMs: 0 };
         } catch (error) {
