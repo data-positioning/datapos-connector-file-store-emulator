@@ -133,6 +133,18 @@ The Bundle Analysis Reports provide detailed breakdowns of the bundle's composit
 
 [View the Sonda Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/bundle-analysis-reports/sonda/index.html).
 
+### Actual Output Files
+
+<!-- BUNDLE_ACTUAL_START -->
+
+| File | Size | Gzip | Brotli |
+| ---- | ---: | ---: | -----: |
+| `dpuse-connector-file-store-emulator.es.js` | 59.2 kB | 15.8 kB | 13.0 kB |
+| `dpuse_connector_file_store_emulator_core-BbpaeCh_.js` | 24.1 kB | 11.4 kB | 10.1 kB |
+| **Total** | **83.2 kB** | **27.2 kB** | **23.0 kB** |
+
+<!-- BUNDLE_ACTUAL_END -->
+
 ### Output Chunks
 
 <!-- BUNDLE_CHUNKS_START -->
