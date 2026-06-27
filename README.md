@@ -138,51 +138,51 @@ The Bundle Analysis Reports provide detailed breakdowns of the bundle's composit
 | Module | Composition |
 | ------ | ----------- |
 | dpuse-connector-file-store-emulator.es.js | 59.2 kB · gz 15.8 kB · br 13.0 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src | █████████████░░░░░░░ 67.1% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileStoreFolderPaths.json | <font color="gray">█████████████████░░░ 83.2%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | <font color="gray">██░░░░░░░░░░░░░░░░░░ 10.3%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;config.json | <font color="gray">█░░░░░░░░░░░░░░░░░░░ 5.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rustBridge.ts | <font color="gray">░░░░░░░░░░░░░░░░░░░░ 1.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;wasm | ██████░░░░░░░░░░░░░░ 28.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm?url | <font color="gray">████████████████░░░░ 79.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.js | <font color="gray">██░░░░░░░░░░░░░░░░░░ 11.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm | <font color="gray">█░░░░░░░░░░░░░░░░░░░ 4.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__vite-plugin-wasm-helper | <font color="gray">█░░░░░░░░░░░░░░░░░░░ 4.3%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js | <font color="gray">░░░░░░░░░░░░░░░░░░░░ 0.8%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;@dpuse/dpuse-shared | █░░░░░░░░░░░░░░░░░░░ 3.8% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-errors.es.js | <font color="gray">█████████░░░░░░░░░░░ 46.1%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-utilities.es.js | <font color="gray">████░░░░░░░░░░░░░░░░ 20.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentDataView.es.js | <font color="gray">████░░░░░░░░░░░░░░░░ 18.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentModuleTool.es.js | <font color="gray">██░░░░░░░░░░░░░░░░░░ 10.9%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-locale.es.js | <font color="gray">█░░░░░░░░░░░░░░░░░░░ 4.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;nanoid | ░░░░░░░░░░░░░░░░░░░░ 0.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.browser.js | <font color="gray">████████████░░░░░░░░ 61.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url-alphabet/index.js | <font color="gray">████████░░░░░░░░░░░░ 39.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;(runtime) | ░░░░░░░░░░░░░░░░░░░░ 0.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rolldown/runtime.js | <font color="gray">████████████████████ 100.0%</font> |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | <font color="black">█████████████</font><font color="lightgray">███████</font> 67.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileStoreFolderPaths.json | <font color="gray">█████████████████</font><font color="lightgray">███</font> 83.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | <font color="gray">██</font><font color="lightgray">██████████████████</font> 10.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;config.json | <font color="gray">█</font><font color="lightgray">███████████████████</font> 5.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rustBridge.ts | <font color="lightgray">████████████████████</font> 1.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;wasm | <font color="black">██████</font><font color="lightgray">██████████████</font> 28.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm?url | <font color="gray">████████████████</font><font color="lightgray">████</font> 79.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.js | <font color="gray">██</font><font color="lightgray">██████████████████</font> 11.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm | <font color="gray">█</font><font color="lightgray">███████████████████</font> 4.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__vite-plugin-wasm-helper | <font color="gray">█</font><font color="lightgray">███████████████████</font> 4.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js | <font color="lightgray">████████████████████</font> 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;@dpuse/dpuse-shared | <font color="black">█</font><font color="lightgray">███████████████████</font> 3.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-errors.es.js | <font color="gray">█████████</font><font color="lightgray">███████████</font> 46.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-utilities.es.js | <font color="gray">████</font><font color="lightgray">████████████████</font> 20.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentDataView.es.js | <font color="gray">████</font><font color="lightgray">████████████████</font> 18.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentModuleTool.es.js | <font color="gray">██</font><font color="lightgray">██████████████████</font> 10.9% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-locale.es.js | <font color="gray">█</font><font color="lightgray">███████████████████</font> 4.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;nanoid | <font color="lightgray">████████████████████</font> 0.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.browser.js | <font color="gray">████████████</font><font color="lightgray">████████</font> 61.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url-alphabet/index.js | <font color="gray">████████</font><font color="lightgray">████████████</font> 39.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(runtime) | <font color="lightgray">████████████████████</font> 0.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rolldown/runtime.js | <font color="gray">████████████████████</font> 100.0% |
 | dpuse_connector_file_store_emulator_core-BbpaeCh_.js | 24.1 kB · gz 11.4 kB · br 10.1 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src | █████████████░░░░░░░ 67.1% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileStoreFolderPaths.json | <font color="gray">█████████████████░░░ 83.2%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | <font color="gray">██░░░░░░░░░░░░░░░░░░ 10.3%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;config.json | <font color="gray">█░░░░░░░░░░░░░░░░░░░ 5.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rustBridge.ts | <font color="gray">░░░░░░░░░░░░░░░░░░░░ 1.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;wasm | ██████░░░░░░░░░░░░░░ 28.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm?url | <font color="gray">████████████████░░░░ 79.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.js | <font color="gray">██░░░░░░░░░░░░░░░░░░ 11.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm | <font color="gray">█░░░░░░░░░░░░░░░░░░░ 4.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__vite-plugin-wasm-helper | <font color="gray">█░░░░░░░░░░░░░░░░░░░ 4.3%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js | <font color="gray">░░░░░░░░░░░░░░░░░░░░ 0.8%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;@dpuse/dpuse-shared | █░░░░░░░░░░░░░░░░░░░ 3.8% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-errors.es.js | <font color="gray">█████████░░░░░░░░░░░ 46.1%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-utilities.es.js | <font color="gray">████░░░░░░░░░░░░░░░░ 20.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentDataView.es.js | <font color="gray">████░░░░░░░░░░░░░░░░ 18.5%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentModuleTool.es.js | <font color="gray">██░░░░░░░░░░░░░░░░░░ 10.9%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-locale.es.js | <font color="gray">█░░░░░░░░░░░░░░░░░░░ 4.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;nanoid | ░░░░░░░░░░░░░░░░░░░░ 0.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.browser.js | <font color="gray">████████████░░░░░░░░ 61.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url-alphabet/index.js | <font color="gray">████████░░░░░░░░░░░░ 39.0%</font> |
-| &nbsp;&nbsp;&nbsp;&nbsp;(runtime) | ░░░░░░░░░░░░░░░░░░░░ 0.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rolldown/runtime.js | <font color="gray">████████████████████ 100.0%</font> |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | <font color="black">█████████████</font><font color="lightgray">███████</font> 67.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileStoreFolderPaths.json | <font color="gray">█████████████████</font><font color="lightgray">███</font> 83.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | <font color="gray">██</font><font color="lightgray">██████████████████</font> 10.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;config.json | <font color="gray">█</font><font color="lightgray">███████████████████</font> 5.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rustBridge.ts | <font color="lightgray">████████████████████</font> 1.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;wasm | <font color="black">██████</font><font color="lightgray">██████████████</font> 28.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm?url | <font color="gray">████████████████</font><font color="lightgray">████</font> 79.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.js | <font color="gray">██</font><font color="lightgray">██████████████████</font> 11.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm | <font color="gray">█</font><font color="lightgray">███████████████████</font> 4.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__vite-plugin-wasm-helper | <font color="gray">█</font><font color="lightgray">███████████████████</font> 4.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js | <font color="lightgray">████████████████████</font> 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;@dpuse/dpuse-shared | <font color="black">█</font><font color="lightgray">███████████████████</font> 3.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-errors.es.js | <font color="gray">█████████</font><font color="lightgray">███████████</font> 46.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-utilities.es.js | <font color="gray">████</font><font color="lightgray">████████████████</font> 20.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentDataView.es.js | <font color="gray">████</font><font color="lightgray">████████████████</font> 18.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentModuleTool.es.js | <font color="gray">██</font><font color="lightgray">██████████████████</font> 10.9% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-locale.es.js | <font color="gray">█</font><font color="lightgray">███████████████████</font> 4.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;nanoid | <font color="lightgray">████████████████████</font> 0.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.browser.js | <font color="gray">████████████</font><font color="lightgray">████████</font> 61.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url-alphabet/index.js | <font color="gray">████████</font><font color="lightgray">████████████</font> 39.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(runtime) | <font color="lightgray">████████████████████</font> 0.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rolldown/runtime.js | <font color="gray">████████████████████</font> 100.0% |
 
 <!-- BUNDLE_END -->
 
