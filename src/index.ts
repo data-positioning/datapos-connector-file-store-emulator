@@ -16,7 +16,7 @@ import type {
     ListNodesOptions,
     ListNodesResult,
     PreviewObjectOptions,
-    RetrievalTypeId,
+    RecordRetrievalTypeId,
     RetrieveRecordsOptions,
     RetrieveRecordsSummary
 } from '@dpuse/dpuse-shared/component/module/connector';
@@ -214,7 +214,7 @@ export class Connector implements ConnectorInterface {
     // Retrieves all records from a CSV object node using streaming and chunked processing
     async retrieveRecords(
         options: RetrieveRecordsOptions,
-        chunk: (typeId: RetrievalTypeId, records: ParsingRecord[]) => void,
+        chunk: (typeId: RecordRetrievalTypeId, records: ParsingRecord[]) => void,
         complete: (result: RetrieveRecordsSummary) => void
     ): Promise<void> {
         this.abortController = new AbortController();

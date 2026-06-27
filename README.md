@@ -6,6 +6,8 @@
 [![CI](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml)
 [![Deployed On Cloudflare](https://img.shields.io/badge/Deployed_On-Cloudflare-f6821f)](https://www.cloudflare.io)
 
+## Introduction
+
 A TypeScript library that implements the File Store Emulator Connector.
 
 Provides access to a sample set of read-only data simulating a hypothetical cloud-based file storage solution. It is intended for demonstration, evaluation, and testing and is freely available to all users.
@@ -118,7 +120,7 @@ The dependency tree below lists every package in this project — direct and tra
 - **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.21 — 2 months ago: 2026-04-21
     - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.689 — this month: 2026-06-26
 - **[nanoid](https://github.com/ai/nanoid)** 5.1.16 — this month: 2026-06-24
-  <!-- DEPENDENCY_TREE_END -->
+      <!-- DEPENDENCY_TREE_END -->
 
 ## Bundle Analysis
 
@@ -160,7 +162,7 @@ Please do not open public GitHub issues for security vulnerabilities. Use [GitHu
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-connector-file-store-emulator/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
 
-This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. The [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-shared) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
+This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. The [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
 
 ## Contributing
 
