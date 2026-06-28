@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.596",
+    "version": "0.2.597",
     "private": false,
     "description": "File Store Emulator Connector for DPUse — provides read-only sample data simulating a cloud-based file storage solution such as Google Drive, Dropbox, or Microsoft OneDrive.",
     "license": "MIT",
@@ -44,7 +44,7 @@
         "build:ts": "node -e \"import('@dpuse/dpuse-development').then(m => m.buildProject())\"",
         "build:wasm": "wasm-pack build ./rust/dpuse-connector-file-store-emulator-core --release --target bundler --out-dir pkg",
         "check": "node -e \"import('@dpuse/dpuse-development').then(m => m.checkConfigFiles())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.checkDependencies())\"",
-        "document": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentOperations())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies('BSD-3-Clause;MIT'))\"",
+        "document": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentActions())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies('BSD-3-Clause;MIT'))\"",
         "format": "node -e \"import('@dpuse/dpuse-development').then(m => m.formatCode())\"",
         "lint": "node -e \"import('@dpuse/dpuse-development').then(m => m.lintCode())\"",
         "publish": "node -e \"import('@dpuse/dpuse-development').then(m => m.publishProject())\"",
@@ -53,14 +53,14 @@
         "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "dependencies": {
-        "@dpuse/dpuse-shared": "^0.3.710",
+        "@dpuse/dpuse-shared": "^0.3.711",
         "@dpuse/dpuse-tool-csv-parse": "^0.0.143",
         "@dpuse/dpuse-tool-file-operators": "^0.0.24",
         "@dpuse/dpuse-tool-rust-csv-core": "^0.1.21",
         "nanoid": "^5.1.16"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.589",
+        "@dpuse/dpuse-development": "^0.3.593",
         "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
         "@types/eslint-plugin-security": "^3.0.1",
         "@types/node": "^26.0.1",
