@@ -156,8 +156,7 @@ The Bundle Analysis Reports provide detailed breakdowns of the bundle's composit
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm | `░░░░░░░░░░░░░░░░░░░░` 1.3% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__vite-plugin-wasm-helper | `░░░░░░░░░░░░░░░░░░░░` 1.2% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(runtime) | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rolldown/runtime.js | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(runtime) → rolldown/runtime.js | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
 
 <!-- BUNDLE_END -->
 
