@@ -120,7 +120,7 @@ The dependency tree below lists every package in this project — direct and tra
 - **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.21 — 2 months ago: 2026-04-21
     - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.689 — this month: 2026-06-26
 - **[nanoid](https://github.com/ai/nanoid)** 5.1.16 — this month: 2026-06-24
-    <!-- DEPENDENCY_TREE_END -->
+      <!-- DEPENDENCY_TREE_END -->
 
 ## Bundle Analysis
 
@@ -135,54 +135,34 @@ The Bundle Analysis Reports provide detailed breakdowns of the bundle's composit
 
 <!-- BUNDLE_START -->
 
-| Module                                                                                               | Composition                       |
-| ---------------------------------------------------------------------------------------------------- | --------------------------------- |
-| dpuse-connector-file-store-emulator.es.js                                                            | 59.2 kB · gz 15.8 kB · br 13.0 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src                                                                          | `█████████████░░░░░░░` 67.1%      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileStoreFolderPaths.json                            | `███████████░░░░░░░░░` 55.8%      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts                                             | `█░░░░░░░░░░░░░░░░░░░` 6.9%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;config.json                                          | `█░░░░░░░░░░░░░░░░░░░` 3.7%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rustBridge.ts                                        | `░░░░░░░░░░░░░░░░░░░░` 0.6%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;wasm                                                                         | `██████░░░░░░░░░░░░░░` 28.4%      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm?url | `████░░░░░░░░░░░░░░░░` 22.4%      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.js       | `█░░░░░░░░░░░░░░░░░░░` 3.3%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm     | `░░░░░░░░░░░░░░░░░░░░` 1.3%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\_\_vite-plugin-wasm-helper                          | `░░░░░░░░░░░░░░░░░░░░` 1.2%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js          | `░░░░░░░░░░░░░░░░░░░░` 0.2%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;@dpuse/dpuse-shared                                                          | `█░░░░░░░░░░░░░░░░░░░` 3.8%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-errors.es.js                       | `░░░░░░░░░░░░░░░░░░░░` 1.7%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-utilities.es.js                    | `░░░░░░░░░░░░░░░░░░░░` 0.8%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentDataView.es.js            | `░░░░░░░░░░░░░░░░░░░░` 0.7%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentModuleTool.es.js          | `░░░░░░░░░░░░░░░░░░░░` 0.4%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-locale.es.js                       | `░░░░░░░░░░░░░░░░░░░░` 0.2%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;nanoid                                                                       | `░░░░░░░░░░░░░░░░░░░░` 0.4%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.browser.js                                     | `░░░░░░░░░░░░░░░░░░░░` 0.3%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url-alphabet/index.js                                | `░░░░░░░░░░░░░░░░░░░░` 0.2%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;(runtime)                                                                    | `░░░░░░░░░░░░░░░░░░░░` 0.4%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rolldown/runtime.js                                  | `░░░░░░░░░░░░░░░░░░░░` 0.4%       |
-| dpuse*connector_file_store_emulator_core-BbpaeCh*.js                                                 | 24.1 kB · gz 11.4 kB · br 10.1 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;src                                                                          | `█████████████░░░░░░░` 67.1%      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileStoreFolderPaths.json                            | `███████████░░░░░░░░░` 55.8%      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts                                             | `█░░░░░░░░░░░░░░░░░░░` 6.9%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;config.json                                          | `█░░░░░░░░░░░░░░░░░░░` 3.7%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rustBridge.ts                                        | `░░░░░░░░░░░░░░░░░░░░` 0.6%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;wasm                                                                         | `██████░░░░░░░░░░░░░░` 28.4%      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm?url | `████░░░░░░░░░░░░░░░░` 22.4%      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.js       | `█░░░░░░░░░░░░░░░░░░░` 3.3%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm     | `░░░░░░░░░░░░░░░░░░░░` 1.3%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\_\_vite-plugin-wasm-helper                          | `░░░░░░░░░░░░░░░░░░░░` 1.2%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js          | `░░░░░░░░░░░░░░░░░░░░` 0.2%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;@dpuse/dpuse-shared                                                          | `█░░░░░░░░░░░░░░░░░░░` 3.8%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-errors.es.js                       | `░░░░░░░░░░░░░░░░░░░░` 1.7%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-utilities.es.js                    | `░░░░░░░░░░░░░░░░░░░░` 0.8%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentDataView.es.js            | `░░░░░░░░░░░░░░░░░░░░` 0.7%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentModuleTool.es.js          | `░░░░░░░░░░░░░░░░░░░░` 0.4%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-locale.es.js                       | `░░░░░░░░░░░░░░░░░░░░` 0.2%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;nanoid                                                                       | `░░░░░░░░░░░░░░░░░░░░` 0.4%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.browser.js                                     | `░░░░░░░░░░░░░░░░░░░░` 0.3%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url-alphabet/index.js                                | `░░░░░░░░░░░░░░░░░░░░` 0.2%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;(runtime)                                                                    | `░░░░░░░░░░░░░░░░░░░░` 0.4%       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rolldown/runtime.js                                  | `░░░░░░░░░░░░░░░░░░░░` 0.4%       |
+| Module | Composition |
+| ------ | ----------- |
+| dpuse-connector-file-store-emulator.es.js | 59.2 kB · gz 15.8 kB · br 13.0 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | `█████████████░░░░░░░` 67.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileStoreFolderPaths.json | `███████████░░░░░░░░░` 55.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | `█░░░░░░░░░░░░░░░░░░░` 6.9% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;config.json | `█░░░░░░░░░░░░░░░░░░░` 3.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rustBridge.ts | `░░░░░░░░░░░░░░░░░░░░` 0.6% |
+| &nbsp;&nbsp;&nbsp;&nbsp;@dpuse/dpuse-shared | `█░░░░░░░░░░░░░░░░░░░` 3.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-errors.es.js | `░░░░░░░░░░░░░░░░░░░░` 1.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-utilities.es.js | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentDataView.es.js | `░░░░░░░░░░░░░░░░░░░░` 0.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentModuleTool.es.js | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-locale.es.js | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;nanoid | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.browser.js | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url-alphabet/index.js | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
+| dpuse_connector_file_store_emulator_core-BbpaeCh_.js | 24.1 kB · gz 11.4 kB · br 10.1 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;wasm | `██████░░░░░░░░░░░░░░` 28.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm?url | `████░░░░░░░░░░░░░░░░` 22.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.js | `█░░░░░░░░░░░░░░░░░░░` 3.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm | `░░░░░░░░░░░░░░░░░░░░` 1.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__vite-plugin-wasm-helper | `░░░░░░░░░░░░░░░░░░░░` 1.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js | `░░░░░░░░░░░░░░░░░░░░` 0.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(runtime) | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rolldown/runtime.js | `░░░░░░░░░░░░░░░░░░░░` 0.4% |
+
+<!-- BUNDLE_END -->
 
 ## Security & Quality
 
