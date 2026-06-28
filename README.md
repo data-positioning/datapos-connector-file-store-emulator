@@ -19,19 +19,19 @@ It emulates services such as Google Drive, Dropbox, and Microsoft OneDrive.
 <!-- CONNECTOR_ACTIONS_START -->
 |Action|Supported|
 |:----|:-------:|
-| Abort Operation |  |
-| Audit Object Content |  |
+| Abort Operation | ✓ |
+| Audit Object Content | ✓ |
 | Create Object |  |
 | Describe Connection |  |
 | Drop Object |  |
-| Find Object |  |
-| Get Readable Stream |  |
+| Find Object | ✓ |
+| Get Readable Stream | ✓ |
 | Get Record |  |
-| List Nodes |  |
-| Preview Object |  |
+| List Nodes | ✓ |
+| Preview Object | ✓ |
 | Remove Records |  |
 | Retrieve Chunks |  |
-| Retrieve Records |  |
+| Retrieve Records | ✓ |
 | Upsert Records |  |
 
 <!-- CONNECTOR_ACTIONS_END -->
