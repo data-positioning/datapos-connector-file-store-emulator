@@ -6,13 +6,13 @@
         "path": "node_modules/@borewit/text-codec",
         "licenseFile": "downloads/@borewit/text-codec@0.2.2-LICENSE.txt"
     },
-    "@dpuse/dpuse-shared@0.3.719": {
+    "@dpuse/dpuse-shared@0.3.727": {
         "licenses": "MIT",
         "repository": "https://github.com/dpuse/dpuse-shared",
         "publisher": "Jonathan Terrell",
         "email": "terrell.jm@gmail.com",
         "path": "node_modules/@dpuse/dpuse-shared",
-        "licenseFile": "downloads/@dpuse/dpuse-shared@0.3.719-LICENSE.txt"
+        "licenseFile": "downloads/@dpuse/dpuse-shared@0.3.727-LICENSE.txt"
     },
     "@dpuse/dpuse-tool-csv-parse@0.0.143": {
         "licenses": "MIT",
@@ -20,11 +20,11 @@
         "path": "node_modules/@dpuse/dpuse-tool-csv-parse",
         "licenseFile": "downloads/@dpuse/dpuse-tool-csv-parse@0.0.143-LICENSE.txt"
     },
-    "@dpuse/dpuse-tool-file-operators@0.0.24": {
+    "@dpuse/dpuse-tool-file-operators@0.0.35": {
         "licenses": "MIT",
         "repository": "https://github.com/dpuse/dpuse-tool-file-operators",
         "path": "node_modules/@dpuse/dpuse-tool-file-operators",
-        "licenseFile": "downloads/@dpuse/dpuse-tool-file-operators@0.0.24-LICENSE.txt"
+        "licenseFile": "downloads/@dpuse/dpuse-tool-file-operators@0.0.35-LICENSE.txt"
     },
     "@dpuse/dpuse-tool-rust-csv-core@0.1.21": {
         "licenses": "MIT",
@@ -46,13 +46,13 @@
         "path": "node_modules/@tokenizer/token",
         "licenseFile": "downloads/@tokenizer/token@0.3.0-LICENSE.txt"
     },
-    "chardet@2.1.1": {
+    "chardet@2.2.0": {
         "licenses": "MIT",
         "repository": "https://github.com/runk/node-chardet",
         "publisher": "Dmitry Shirokov",
         "email": "deadrunk@gmail.com",
         "path": "node_modules/chardet",
-        "licenseFile": "downloads/chardet@2.1.1-LICENSE.txt"
+        "licenseFile": "downloads/chardet@2.2.0-LICENSE.txt"
     },
     "csv-parse@6.2.1": {
         "licenses": "MIT",
