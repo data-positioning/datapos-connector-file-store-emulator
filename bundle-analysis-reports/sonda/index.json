@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.13.1",
-    "generatedAt": "2026-07-03T12:04:01.328Z",
+    "generatedAt": "2026-07-04T10:42:30.211Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -40,7 +40,7 @@
       "format": "other",
       "uncompressed": 53121,
       "gzip": 0,
-      "brotli": 10484,
+      "brotli": 10486,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {
@@ -74,7 +74,7 @@
       "type": "script",
       "uncompressed": 60583,
       "gzip": 0,
-      "brotli": 13306
+      "brotli": 13308
     },
     {
       "kind": "filesystem",
