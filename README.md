@@ -2,9 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![DPUse version](https://img.shields.io/github/v/release/dpuse/dpuse-connector-file-store-emulator?color=f6821f&label=DPUse)](https://github.com/dpuse/dpuse-connector-file-store-emulator/releases/latest)
+[![CI](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/codeql.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-connector-file-store-emulator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-connector-file-store-emulator)
-[![CI](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-connector-file-store-emulator/actions/workflows/ci.yml)
 
 [Documentation](https://www.dpuse.app) · [Report a Vulnerability](https://github.com/dpuse/dpuse-connector-file-store-emulator/security/advisories/new) · [Report an Issue](https://github.com/dpuse/dpuse-connector-file-store-emulator/issues)
 
@@ -59,8 +59,6 @@ _Requires [Node.js](https://nodejs.org/) 22 or later and [npm](https://www.npmjs
 
 ## Dependency Licenses
 
-License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, CC0-1.0, or MIT — all permissive, commercially-friendly licenses. Developers cloning this repository should independently verify development dependencies; users of the uploaded library are covered by these checks.
-
 <!-- DEPENDENCY_LICENSES_START -->
 
 | Dependency                                                                             | Version | License(s)   | Document                                                                          |
@@ -86,8 +84,6 @@ License data is collected automatically on each release using [license-checker](
 <!-- DEPENDENCY_LICENSES_END -->
 
 ### Dependency Tree
-
-The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are simply mature and stable, requiring no active development.
 
 <!-- DEPENDENCY_TREE_START -->
 
@@ -180,7 +176,7 @@ Please do not open public GitHub issues for security vulnerabilities. Use [GitHu
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-connector-file-store-emulator/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator)
 
-This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. The [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
+This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. Currently the [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-connector-file-store-emulator) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
 
 ## Contributing
 
