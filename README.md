@@ -47,7 +47,7 @@ This connector is a Source connector that supports only read actions. Connectors
 
 This connector is automatically uploaded to the DPUse Engine cloud once released and becomes instantly available to all new browser app instances, with existing instances notified of the update.
 
-You may view or clone this repository for your own purposes, though there is currently no process to accept third-party connectors into DPUse at this stage. Cloned or forked code is unsupported and isn't guaranteed to remain compatible with the DPUse Engine as it evolves.
+You may view or clone this repository for your own purposes, such as building a new, similar connector, though there is currently no process to accept third-party connectors into DPUse at this stage. Cloned or forked code is unsupported and isn't guaranteed to remain compatible with the DPUse Engine as it evolves.
 
 ```bash
 git clone https://github.com/dpuse/dpuse-connector-file-store-emulator.git
