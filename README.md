@@ -19,38 +19,35 @@ The File Store Emulator Connector is a read-only connector that provides access 
 ## Supported Actions
 
 <!-- CONNECTOR_ACTIONS_START -->
+
 Connectors conform to a unified interface contract by implementing a specific subset of standard actions. These standardised actions allow the DPUse application to interact with any underlying data source in the same way, enabling Connectors to be built independently and loaded dynamically at runtime.
 
 This connector is a Source connector that supports only read actions. Connectors can also function as a Destination (write-only) or Bidirectional (read/write), depending on the actions they support. The table below lists all connector actions and highlights those supported by this connector.
 
-|Action|Supported|
-|:----|:-------:|
-| Abort Operation | ✓ |
-| Audit Object Content | ✓ |
-| Create Object |  |
-| Describe Connection |  |
-| Drop Object |  |
-| Find Object | ✓ |
-| Get Readable Stream | ✓ |
-| Get Record |  |
-| List Nodes | ✓ |
-| Preview Object | ✓ |
-| Remove Records |  |
-| Retrieve Chunks |  |
-| Retrieve Records | ✓ |
-| Upsert Records |  |
+| Action               | Supported |
+| :------------------- | :-------: |
+| Abort Operation      |     ✓     |
+| Audit Object Content |     ✓     |
+| Create Object        |           |
+| Describe Connection  |           |
+| Drop Object          |           |
+| Find Object          |     ✓     |
+| Get Readable Stream  |     ✓     |
+| Get Record           |           |
+| List Nodes           |     ✓     |
+| Preview Object       |     ✓     |
+| Remove Records       |           |
+| Retrieve Chunks      |           |
+| Retrieve Records     |     ✓     |
+| Upsert Records       |           |
 
 <!-- CONNECTOR_ACTIONS_END -->
 
-## Installation
+## Usage
 
-There’s no need to install this connector manually. Once released, it is uploaded to the DPUse Engine cloud and becomes instantly available to all new browser app instances. A notification about the new version is also sent to all existing browser apps.
+This connector is automatically uploaded to the DPUse Engine cloud once released and becomes instantly available to all new browser app instances, with existing instances notified of the update.
 
-Besides using the connector from the DPUse Engine cloud, developers can clone this repository to build a replacement or use it as the basis for a new connector.
-
-## Development
-
-**Prerequisites:** [Node.js 22](https://nodejs.org/) or later and npm.
+You may view or clone this repository for your own purposes, though there is currently no process to accept third-party connectors into DPUse at this stage. Cloned or forked code is unsupported and isn't guaranteed to remain compatible with the DPUse Engine as it evolves.
 
 ```bash
 git clone https://github.com/dpuse/dpuse-connector-file-store-emulator.git
@@ -58,41 +55,33 @@ cd dpuse-connector-file-store-emulator
 npm install
 ```
 
-Key scripts:
-
-| Command          | Description        |
-| ---------------- | ------------------ |
-| `npm run build`  | Build the library  |
-| `npm test`       | Run the test suite |
-| `npm run lint`   | Lint the source    |
-| `npm run format` | Format the source  |
-
-> **Note:** `npm run build` also compiles the Rust WebAssembly module and requires [`wasm-pack`](https://rustwasm.github.io/wasm-pack/installer/).
+_Requires [Node.js](https://nodejs.org/) 22 or later and [npm](https://www.npmjs.com/) 11 or later._
 
 ## Dependency Licenses
 
 License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use Apache-2.0, BSD-3-Clause, CC0-1.0, or MIT — all permissive, commercially-friendly licenses. Developers cloning this repository should independently verify development dependencies; users of the uploaded library are covered by these checks.
 
 <!-- DEPENDENCY_LICENSES_START -->
-|Dependency|Version|License(s)|Document|
-|:-|:-:|:-|:-|
-|[@borewit/text-codec](https://github.com/Borewit/text-codec)|0.2.2|MIT|[LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt)|
-|[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)|0.3.735|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-shared@0.3.735-LICENSE.txt)|
-|[@dpuse/dpuse-tool-csv-parse](https://github.com/dpuse/dpuse-tool-csv-parse)|0.0.143|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-tool-csv-parse@0.0.143-LICENSE.txt)|
-|[@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators)|0.0.45|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-tool-file-operators@0.0.45-LICENSE.txt)|
-|[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)|0.1.21|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-tool-rust-csv-core@0.1.21-LICENSE.txt)|
-|[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)|0.4.1|MIT|[LICENSE](licenses/downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)|
-|[@tokenizer/token](https://github.com/Borewit/tokenizer-token)|0.3.0|MIT|[LICENSE](licenses/downloads/@tokenizer/token@0.3.0-LICENSE.txt)|
-|[chardet](https://github.com/runk/node-chardet)|2.2.0|MIT|[LICENSE](licenses/downloads/chardet@2.2.0-LICENSE.txt)|
-|[csv-parse](https://github.com/adaltas/node-csv)|6.2.1|MIT|[LICENSE](licenses/downloads/csv-parse@6.2.1-LICENSE.txt)|
-|[debug](https://github.com/debug-js/debug)|4.4.3|MIT|[LICENSE](licenses/downloads/debug@4.4.3-LICENSE.txt)|
-|[file-type](https://github.com/sindresorhus/file-type)|22.0.1|MIT|[LICENSE](licenses/downloads/file-type@22.0.1-LICENSE.txt)|
-|[ieee754](https://github.com/feross/ieee754)|1.2.1|BSD-3-Clause|[LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)|
-|[ms](https://github.com/vercel/ms)|2.1.3|MIT|[LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)|
-|[nanoid](https://github.com/ai/nanoid)|5.1.16|MIT|[LICENSE](licenses/downloads/nanoid@5.1.16-LICENSE.txt)|
-|[strtok3](https://github.com/Borewit/strtok3)|10.3.5|MIT|[LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)|
-|[token-types](https://github.com/Borewit/token-types)|6.1.2|MIT|[LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)|
-|[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)|1.5.0|MIT|[LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)|
+
+| Dependency                                                                             | Version | License(s)   | Document                                                                          |
+| :------------------------------------------------------------------------------------- | :-----: | :----------- | :-------------------------------------------------------------------------------- |
+| [@borewit/text-codec](https://github.com/Borewit/text-codec)                           |  0.2.2  | MIT          | [LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt)               |
+| [@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)                           | 0.3.735 | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-shared@0.3.735-LICENSE.txt)             |
+| [@dpuse/dpuse-tool-csv-parse](https://github.com/dpuse/dpuse-tool-csv-parse)           | 0.0.143 | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-tool-csv-parse@0.0.143-LICENSE.txt)     |
+| [@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators) | 0.0.45  | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-tool-file-operators@0.0.45-LICENSE.txt) |
+| [@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)   | 0.1.21  | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-tool-rust-csv-core@0.1.21-LICENSE.txt)  |
+| [@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)                     |  0.4.1  | MIT          | [LICENSE](licenses/downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)                |
+| [@tokenizer/token](https://github.com/Borewit/tokenizer-token)                         |  0.3.0  | MIT          | [LICENSE](licenses/downloads/@tokenizer/token@0.3.0-LICENSE.txt)                  |
+| [chardet](https://github.com/runk/node-chardet)                                        |  2.2.0  | MIT          | [LICENSE](licenses/downloads/chardet@2.2.0-LICENSE.txt)                           |
+| [csv-parse](https://github.com/adaltas/node-csv)                                       |  6.2.1  | MIT          | [LICENSE](licenses/downloads/csv-parse@6.2.1-LICENSE.txt)                         |
+| [debug](https://github.com/debug-js/debug)                                             |  4.4.3  | MIT          | [LICENSE](licenses/downloads/debug@4.4.3-LICENSE.txt)                             |
+| [file-type](https://github.com/sindresorhus/file-type)                                 | 22.0.1  | MIT          | [LICENSE](licenses/downloads/file-type@22.0.1-LICENSE.txt)                        |
+| [ieee754](https://github.com/feross/ieee754)                                           |  1.2.1  | BSD-3-Clause | [LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)                           |
+| [ms](https://github.com/vercel/ms)                                                     |  2.1.3  | MIT          | [LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)                                |
+| [nanoid](https://github.com/ai/nanoid)                                                 | 5.1.16  | MIT          | [LICENSE](licenses/downloads/nanoid@5.1.16-LICENSE.txt)                           |
+| [strtok3](https://github.com/Borewit/strtok3)                                          | 10.3.5  | MIT          | [LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)                          |
+| [token-types](https://github.com/Borewit/token-types)                                  |  6.1.2  | MIT          | [LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)                       |
+| [uint8array-extras](https://github.com/sindresorhus/uint8array-extras)                 |  1.5.0  | MIT          | [LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)                 |
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -101,40 +90,37 @@ License data is collected automatically on each release using [license-checker](
 The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are simply mature and stable, requiring no active development.
 
 <!-- DEPENDENCY_TREE_START -->
+
 - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.735 — this month: 2026-07-06
 - **[@dpuse/dpuse-tool-csv-parse](https://github.com/dpuse/dpuse-tool-csv-parse)** 0.0.143 — 2 months ago: 2026-04-21
-  - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.735 — this month: 2026-07-06
-  - **[csv-parse](https://github.com/adaltas/node-csv)** 6.2.1 — 3 months ago: 2026-03-20 → **latest**: 7.0.1 — this month: 2026-07-02 ❗
+    - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.735 — this month: 2026-07-06
+    - **[csv-parse](https://github.com/adaltas/node-csv)** 6.2.1 — 3 months ago: 2026-03-20 → **latest**: 7.0.1 — this month: 2026-07-02 ❗
 - **[@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators)** 0.0.45 — this month: 2026-07-04
-  - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.735 — this month: 2026-07-06
-  - **[chardet](https://github.com/runk/node-chardet)** 2.2.0 — this month: 2026-06-20
-  - **[file-type](https://github.com/sindresorhus/file-type)** 22.0.1 — 2 months ago: 2026-04-09
-    - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — 7 months ago: 2025-11-18 ⚠️ 
-      - **[debug](https://github.com/debug-js/debug)** 4.4.3 — 9 months ago: 2025-09-13 ⚠️ 
-        - **[ms](https://github.com/vercel/ms)** 2.1.3 — 66 months ago: 2020-12-08 ⚠️ 
-      - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — 6 months ago: 2026-01-01
-    - **[strtok3](https://github.com/Borewit/strtok3)** 10.3.5 — 3 months ago: 2026-03-21
-      - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — 59 months ago: 2021-07-12 ⚠️ 
-    - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — 6 months ago: 2026-01-01
-      - **[@borewit/text-codec](https://github.com/Borewit/text-codec)** 0.2.2 — 3 months ago: 2026-03-11
-      - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — 59 months ago: 2021-07-12 ⚠️ 
-      - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — 68 months ago: 2020-10-27 ⚠️ 
-    - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — 10 months ago: 2025-08-22 ⚠️ 
+    - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.735 — this month: 2026-07-06
+    - **[chardet](https://github.com/runk/node-chardet)** 2.2.0 — this month: 2026-06-20
+    - **[file-type](https://github.com/sindresorhus/file-type)** 22.0.1 — 2 months ago: 2026-04-09
+        - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — 7 months ago: 2025-11-18 ⚠️
+            - **[debug](https://github.com/debug-js/debug)** 4.4.3 — 9 months ago: 2025-09-13 ⚠️
+                - **[ms](https://github.com/vercel/ms)** 2.1.3 — 66 months ago: 2020-12-08 ⚠️
+            - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — 6 months ago: 2026-01-01
+        - **[strtok3](https://github.com/Borewit/strtok3)** 10.3.5 — 3 months ago: 2026-03-21
+            - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — 59 months ago: 2021-07-12 ⚠️
+        - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — 6 months ago: 2026-01-01
+            - **[@borewit/text-codec](https://github.com/Borewit/text-codec)** 0.2.2 — 3 months ago: 2026-03-11
+            - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — 59 months ago: 2021-07-12 ⚠️
+            - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — 68 months ago: 2020-10-27 ⚠️
+        - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — 10 months ago: 2025-08-22 ⚠️
 - **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.21 — 2 months ago: 2026-04-21
-  - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.735 — this month: 2026-07-06
+    - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.735 — this month: 2026-07-06
 - **[nanoid](https://github.com/ai/nanoid)** 5.1.16 — this month: 2026-06-24
+
 <!-- DEPENDENCY_TREE_END -->
 
 ## Bundle Analysis
 
 The Bundle Analysis Reports provide detailed breakdowns of the bundle's composition and module sizes, helping to identify which modules contribute most to the final build. Two complementary reports are generated automatically on each release:
 
-- **[rollup-plugin-visualizer](https://github.com/btd/rollup-plugin-visualizer/tree/master)** — generates a static treemap/sunburst view based on pre-build module estimates, useful for a quick visual scan of overall bundle composition, including CSS assets.
 - **[Sonda](https://sonda.dev/)** — analyses final source maps to capture the effects of tree-shaking and minification, rather than relying on pre-build estimates. This gives a more accurate picture of what's actually shipped, traces module-level dependencies, and shows the size of each module after tree-shaking and minification for more precise insight into what's driving bundle size. Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS.
-
-[View the rollup-plugin-visualizer Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/bundle-analysis-reports/rollup-visualiser/index.html).
-
-[View the Sonda Report](https://dpuse.github.io/dpuse-connector-file-store-emulator/bundle-analysis-reports/sonda/index.html).
 
 <!-- BUNDLE_START -->
 
@@ -198,20 +184,12 @@ This project is working towards the [OpenSSF Best Practices](https://www.bestpra
 
 ## Contributing
 
-This repository is maintained solely by its owner and does not accept external contributions. It is part of a larger closed application suite and is published for informational and cloning purposes only.
+This repository is maintained solely by its owner and does not, at present, accept external contributions into the canonical repo. Its source is published openly under the MIT License — every DPUse project is fully open source except DPUse Engine, which remains closed and proprietary.
 
-If you find a security vulnerability, see [Reporting Vulnerabilities](#reporting-vulnerabilities). For bugs, inconsistencies, or other feedback, you are welcome to [open a GitHub issue](https://github.com/dpuse/dpuse-connector-file-store-emulator/issues) — feedback is read, but responses and fixes are at the maintainer's discretion.
+For security vulnerabilities, see [Reporting Vulnerabilities](#reporting-vulnerabilities). For bugs, inconsistencies, or other feedback, [open a GitHub issue](https://github.com/dpuse/dpuse-connector-file-store-emulator/issues) — feedback is read, but responses and fixes are at the maintainer's discretion.
 
 ## License
 
 This project is licensed under the MIT License, permitting free use, modification, and distribution.
 
 [MIT](./LICENSE) © 2026-present Jonathan Terrell
-
-## Rust WebAssembly Helpers
-
-The connector now ships with a lightweight Rust crate located in [rust/dpuse-connector-file-store-emulator-core](rust/dpuse-connector-file-store-emulator-core). It is compiled to WebAssembly with `wasm-pack` so TypeScript can call native Rust logic.
-
-- Run `npm run build:rust` (requires the [`wasm-pack` CLI](https://rustwasm.github.io/wasm-pack/installer/)) whenever you change the Rust sources. The command rebuilds the package into [rust/dpuse-connector-file-store-emulator-core/pkg](rust/dpuse-connector-file-store-emulator-core/pkg).
-- The async wrapper in [src/rustBridge.ts](src/rustBridge.ts) lazy-loads the generated bindings and surfaces helpers like `addNumbersWithRust()` and `checksumWithRust()`.
-- `FileStoreEmulatorConnector` exposes `addUsingRust()` and `versionChecksumUsingRust()` so consumers can exercise the Rust-backed functionality without dealing with low-level WebAssembly plumbing.
