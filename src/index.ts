@@ -30,7 +30,7 @@ import type { Tool as CSVParseTool } from '@dpuse/dpuse-tool-csv-parse';
 import type { Tool as FileOperatorsTool } from '@dpuse/dpuse-tool-file-operators';
 import type { Tool as RustCsvCoreTool } from '@dpuse/dpuse-tool-rust-csv-core';
 
-// ── Data
+// Data
 import config from '~/config.json';
 import fileStoreFolderPathData from '@/fileStoreFolderPaths.json';
 
@@ -38,8 +38,7 @@ import fileStoreFolderPathData from '@/fileStoreFolderPaths.json';
 
 // File store folder paths.
 type FileStoreFolderNode =
-    | ({ typeId: 'folder'; childCount: number } & { name: string })
-    | ({ typeId: 'object'; id: string; lastModifiedAt: number; size: number } & { name: string });
+    ({ typeId: 'folder'; childCount: number } & { name: string }) | ({ typeId: 'object'; id: string; lastModifiedAt: number; size: number } & { name: string });
 
 type FileStoreFolderPaths = Record<string, FileStoreFolderNode[]>; // File store folder paths.
 
