@@ -36,7 +36,7 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.630",
+    "version": "0.2.631",
     "operations": [
         "abortOperation",
         "auditObjectContent",
@@ -45,6 +45,5 @@
         "listNodes",
         "previewObject",
         "retrieveRecords"
-    ],
-    "usageId": "source"
+    ]
 }
