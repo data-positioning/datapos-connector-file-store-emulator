@@ -36,14 +36,5 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.631",
-    "operations": [
-        "abortOperation",
-        "auditObjectContent",
-        "findObject",
-        "getReadableStream",
-        "listNodes",
-        "previewObject",
-        "retrieveRecords"
-    ]
+    "version": "0.2.632"
 }
