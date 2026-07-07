@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.635",
+    "version": "0.2.636",
     "private": false,
     "description": "Provides read-only sample data simulating a cloud-based file storage solution such as Google Drive, Dropbox, or Microsoft OneDrive.",
     "license": "MIT",
@@ -44,7 +44,12 @@
         "build:ts": "node -e \"import('@dpuse/dpuse-development').then(m => m.buildProject())\"",
         "build:wasm": "wasm-pack build ./rust/dpuse-connector-file-store-emulator-core --release --target bundler --out-dir pkg",
         "check": "node -e \"import('@dpuse/dpuse-development').then(m => m.checkConfigFiles())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.checkDependencies())\"",
-        "document": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentActions())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.documentUsage())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.documentGovernance())\" && node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies('BSD-3-Clause;MIT'))\"",
+        "document": "npm run documentOpening && npm run documentActions && npm run documentUsage && npm run documentDependencies && npm run documentGovernance",
+        "documentActions": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentActions())\"",
+        "documentOpening": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentOpening())\"",
+        "documentDependencies": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentDependencies('BSD-3-Clause;MIT'))\"",
+        "documentGovernance": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentGovernance())\"",
+        "documentUsage": "node -e \"import('@dpuse/dpuse-development').then(m => m.documentUsage())\"",
         "format": "node -e \"import('@dpuse/dpuse-development').then(m => m.formatCode())\"",
         "lint": "node -e \"import('@dpuse/dpuse-development').then(m => m.lintCode())\"",
         "publish": "node -e \"import('@dpuse/dpuse-development').then(m => m.publishProject())\"",
@@ -60,7 +65,7 @@
         "nanoid": "^5.1.16"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.676",
+        "@dpuse/dpuse-development": "^0.3.678",
         "@dpuse/eslint-config-dpuse": "^1.0.105",
         "@types/node": "^26.1.0",
         "eslint": "^10.6.0",
