@@ -61,7 +61,7 @@ cd dpuse-connector-file-store-emulator
 npm install
 ```
 
-_Requires [Node.js](https://nodejs.org/) 22 or later, [npm](https://www.npmjs.com/) 11 or later, and [TypeScript](https://www.typescriptlang.org/) 6 or later._
+_Requires [Node.js](https://nodejs.org/) 23.11 or later, [npm](https://www.npmjs.com/) 11 or later, and [TypeScript](https://www.typescriptlang.org/) 6.0.3 or later._
 
 <!-- USAGE_END -->
 
