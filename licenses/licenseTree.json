@@ -1,10 +1,10 @@
 {
-  "version": "0.2.642",
+  "version": "0.2.646",
   "name": "@dpuse/dpuse-connector-file-store-emulator",
   "dependencies": {
     "@dpuse/dpuse-shared": {
-      "version": "0.3.737",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-0.3.737.tgz",
+      "version": "0.3.742",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-0.3.742.tgz",
       "overridden": false
     },
     "@dpuse/dpuse-tool-csv-parse": {
@@ -13,7 +13,7 @@
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.737"
+          "version": "0.3.742"
         },
         "csv-parse": {
           "version": "6.2.1",
@@ -28,7 +28,7 @@
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.737"
+          "version": "0.3.742"
         },
         "chardet": {
           "version": "2.2.0",
@@ -109,13 +109,13 @@
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.737"
+          "version": "0.3.742"
         }
       }
     },
     "nanoid": {
-      "version": "5.1.16",
-      "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-5.1.16.tgz",
+      "version": "6.0.0",
+      "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-6.0.0.tgz",
       "overridden": false
     }
   }
