@@ -59,7 +59,7 @@
     },
     "dependencies": {
         "@dpuse/dpuse-shared": "^0.3.742",
-        "@dpuse/dpuse-tool-csv-parse": "^0.0.143",
+        "@dpuse/dpuse-tool-csv-parse": "^0.0.148",
         "@dpuse/dpuse-tool-file-operators": "^0.0.45",
         "@dpuse/dpuse-tool-rust-csv-core": "^0.1.21",
         "nanoid": "^6.0.0"
