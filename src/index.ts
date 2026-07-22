@@ -32,7 +32,7 @@ import type { Tool as RustCsvCoreTool } from '@dpuse/dpuse-tool-rust-csv-core';
 
 // ── Data
 import config from '~/config.json';
-import fileStoreFolderPathData from '@/fileStoreFolderPaths.json';
+import fileStoreFolderPathData from '@/fileStoreIndex.json';
 
 // ── Types ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
