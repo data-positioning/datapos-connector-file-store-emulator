@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.671",
+    "version": "0.2.672",
     "private": false,
     "description": "Provides read-only sample data simulating a cloud-based file storage solution such as Google Drive, Dropbox, or Microsoft OneDrive.",
     "license": "MIT",
@@ -36,7 +36,7 @@
         "fsevents@2.3.3": true,
         "sharp@0.34.5": true,
         "unrs-resolver@1.11.1": true,
-        "workerd@1.20260721.1": true
+        "workerd@1.20260722.1": true
     },
     "scripts": {
         "audit": "node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
@@ -60,7 +60,7 @@
     "dependencies": {
         "@dpuse/dpuse-shared": "^0.3.748",
         "@dpuse/dpuse-tool-csv-parse": "^0.0.151",
-        "@dpuse/dpuse-tool-file-operators": "^0.0.56",
+        "@dpuse/dpuse-tool-file-operators": "^0.0.57",
         "@dpuse/dpuse-tool-rust-csv-core": "^0.1.36",
         "nanoid": "^6.0.0"
     },
@@ -68,7 +68,7 @@
         "sharp": "^0.35.3"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.693",
+        "@dpuse/dpuse-development": "^0.3.694",
         "@dpuse/eslint-config-dpuse": "^1.0.113",
         "@types/node": "^26.1.1",
         "eslint": "^10.7.0",
@@ -79,6 +79,6 @@
         "vite-plugin-dts": "^5.0.3",
         "vite-plugin-wasm": "^3.6.0",
         "vitest": "^4.1.10",
-        "wrangler": "^4.113.0"
+        "wrangler": "^4.114.0"
     }
 }
