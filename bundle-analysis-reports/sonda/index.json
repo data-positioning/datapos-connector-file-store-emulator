@@ -1,30 +1,13 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-07-07T11:11:53.857Z",
+    "generatedAt": "2026-07-23T16:43:45.482Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
     "brotli": true
   },
   "resources": [
-    {
-      "kind": "filesystem",
-      "name": "../../../../../../__vite-plugin-wasm-helper",
-      "type": "other",
-      "format": "other",
-      "uncompressed": 1635
-    },
-    {
-      "kind": "chunk",
-      "name": "../../../../../../__vite-plugin-wasm-helper",
-      "type": "other",
-      "format": "other",
-      "uncompressed": 760,
-      "gzip": 0,
-      "brotli": 346,
-      "parent": "dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js"
-    },
     {
       "kind": "sourcemap",
       "name": "[unassigned]",
@@ -38,43 +21,25 @@
       "name": "[unassigned]",
       "type": "other",
       "format": "other",
-      "uncompressed": 52280,
+      "uncompressed": 41638,
       "gzip": 0,
-      "brotli": 10468,
+      "brotli": 8794,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
-    },
-    {
-      "kind": "chunk",
-      "name": "[unassigned]",
-      "type": "other",
-      "format": "other",
-      "uncompressed": 995,
-      "gzip": 0,
-      "brotli": 461,
-      "parent": "dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js"
     },
     {
       "kind": "filesystem",
       "name": "config.json",
       "type": "script",
       "format": "esm",
-      "uncompressed": 2675
-    },
-    {
-      "kind": "asset",
-      "name": "dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js",
-      "type": "script",
-      "uncompressed": 24629,
-      "gzip": 0,
-      "brotli": 10298
+      "uncompressed": 2415
     },
     {
       "kind": "asset",
       "name": "dist/dpuse-connector-file-store-emulator.es.js",
       "type": "script",
-      "uncompressed": 59742,
+      "uncompressed": 48659,
       "gzip": 0,
-      "brotli": 13285
+      "brotli": 11385
     },
     {
       "kind": "filesystem",
@@ -90,7 +55,7 @@
       "format": "esm",
       "uncompressed": 545,
       "gzip": 0,
-      "brotli": 226,
+      "brotli": 216,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {
@@ -115,16 +80,16 @@
       "name": "node_modules/@dpuse/dpuse-shared/dist/dpuse-shared-errors.es.js",
       "type": "script",
       "format": "esm",
-      "uncompressed": 3598
+      "uncompressed": 3622
     },
     {
       "kind": "chunk",
       "name": "node_modules/@dpuse/dpuse-shared/dist/dpuse-shared-errors.es.js",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1175,
+      "uncompressed": 1171,
       "gzip": 0,
-      "brotli": 448,
+      "brotli": 447,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {
@@ -132,7 +97,7 @@
       "name": "node_modules/@dpuse/dpuse-shared/dist/dpuse-shared-locale.es.js",
       "type": "script",
       "format": "esm",
-      "uncompressed": 859
+      "uncompressed": 987
     },
     {
       "kind": "chunk",
@@ -149,7 +114,7 @@
       "name": "node_modules/@dpuse/dpuse-shared/dist/dpuse-shared-utilities.es.js",
       "type": "script",
       "format": "esm",
-      "uncompressed": 3655
+      "uncompressed": 3652
     },
     {
       "kind": "chunk",
@@ -158,7 +123,7 @@
       "format": "esm",
       "uncompressed": 604,
       "gzip": 0,
-      "brotli": 244,
+      "brotli": 245,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {
@@ -166,7 +131,7 @@
       "name": "node_modules/nanoid/index.browser.js",
       "type": "script",
       "format": "esm",
-      "uncompressed": 1394
+      "uncompressed": 1336
     },
     {
       "kind": "chunk",
@@ -175,7 +140,7 @@
       "format": "esm",
       "uncompressed": 192,
       "gzip": 0,
-      "brotli": 164,
+      "brotli": 165,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {
@@ -197,131 +162,34 @@
     },
     {
       "kind": "filesystem",
-      "name": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core_bg.js",
+      "name": "src/fileStoreIndex.json",
       "type": "script",
       "format": "esm",
-      "uncompressed": 3707
-    },
-    {
-      "kind": "chunk",
-      "name": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core_bg.js",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 1578,
-      "gzip": 0,
-      "brotli": 649,
-      "parent": "dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js"
-    },
-    {
-      "kind": "filesystem",
-      "name": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core_bg.wasm",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 1067
-    },
-    {
-      "kind": "chunk",
-      "name": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core_bg.wasm",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 396,
-      "gzip": 0,
-      "brotli": 241,
-      "parent": "dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js"
-    },
-    {
-      "kind": "filesystem",
-      "name": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core_bg.wasm?url",
-      "type": "other",
-      "format": "other",
-      "uncompressed": 20898
-    },
-    {
-      "kind": "chunk",
-      "name": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core_bg.wasm?url",
-      "type": "other",
-      "format": "other",
-      "uncompressed": 20889,
-      "gzip": 0,
-      "brotli": 8585,
-      "parent": "dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js"
-    },
-    {
-      "kind": "filesystem",
-      "name": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core.js",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 272
-    },
-    {
-      "kind": "chunk",
-      "name": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core.js",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 11,
-      "gzip": 0,
-      "brotli": 15,
-      "parent": "dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js"
-    },
-    {
-      "kind": "filesystem",
-      "name": "src/fileStoreFolderPaths.json",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 41868
+      "uncompressed": 33079
     },
     {
       "kind": "filesystem",
       "name": "src/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 7635
+      "uncompressed": 7418
     },
     {
       "kind": "chunk",
       "name": "src/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 4281,
+      "uncompressed": 4196,
       "gzip": 0,
-      "brotli": 1303,
-      "parent": "dist/dpuse-connector-file-store-emulator.es.js"
-    },
-    {
-      "kind": "filesystem",
-      "name": "src/rustBridge.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 655
-    },
-    {
-      "kind": "chunk",
-      "name": "src/rustBridge.ts",
-      "type": "script",
-      "format": "esm",
-      "uncompressed": 352,
-      "gzip": 0,
-      "brotli": 198,
+      "brotli": 1286,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     }
   ],
   "connections": [
     {
-      "kind": "dynamic-import",
-      "source": "src/rustBridge.ts",
-      "target": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core.js",
-      "original": null
-    },
-    {
       "kind": "entrypoint",
       "source": "dist/dpuse-connector-file-store-emulator.es.js",
       "target": "src/index.ts",
-      "original": null
-    },
-    {
-      "kind": "entrypoint",
-      "source": "dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js",
-      "target": "rust/dpuse-connector-file-store-emulator-core/pkg/dpuse_connector_file_store_emulator_core.js",
       "original": null
     }
   ],

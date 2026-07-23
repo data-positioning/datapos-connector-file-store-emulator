@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 // ── DPUse Framework
 import type { ConnectionNodeConfig } from '@dpuse/dpuse-shared/component/connection';
-// import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
+import { addNumbersWithRust, checksumWithRust } from '@/rustBridge';
 import type {
     AuditObjectContentOptions,
     AuditObjectContentResult,
@@ -139,9 +139,9 @@ export class Connector implements ConnectorInterface {
             }
 
             // TODO: Remove after testing.
-            // const xxx = await addNumbersWithRust(12, 56);
-            // const sum = await checksumWithRust(this.config.version);
-            // console.log('sum', sum, xxx);
+            const xxx = await addNumbersWithRust(12, 56);
+            const sum = await checksumWithRust(this.config.version);
+            console.log('sum', sum, xxx);
 
             return await Promise.resolve(response.body);
         } catch (error) {
