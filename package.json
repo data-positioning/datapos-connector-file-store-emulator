@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-connector-file-store-emulator",
-    "version": "0.2.663",
+    "version": "0.2.664",
     "private": false,
     "description": "Provides read-only sample data simulating a cloud-based file storage solution such as Google Drive, Dropbox, or Microsoft OneDrive.",
     "license": "MIT",
@@ -59,13 +59,13 @@
     },
     "dependencies": {
         "@dpuse/dpuse-shared": "^0.3.748",
-        "@dpuse/dpuse-tool-csv-parse": "^0.0.148",
-        "@dpuse/dpuse-tool-file-operators": "^0.0.53",
-        "@dpuse/dpuse-tool-rust-csv-core": "^0.1.27",
+        "@dpuse/dpuse-tool-csv-parse": "^0.0.151",
+        "@dpuse/dpuse-tool-file-operators": "^0.0.56",
+        "@dpuse/dpuse-tool-rust-csv-core": "^0.1.34",
         "nanoid": "^6.0.0"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.692",
+        "@dpuse/dpuse-development": "^0.3.693",
         "@dpuse/eslint-config-dpuse": "^1.0.113",
         "@types/node": "^26.1.1",
         "eslint": "^10.7.0",
