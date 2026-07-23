@@ -1,7 +1,7 @@
 {
     "id": "dpuse-connector-file-store-emulator",
     "label": {
-        "en": "DPUse File Store Emulator"
+        "en": "File Store Emulator"
     },
     "description": {
         "en": [
@@ -37,5 +37,5 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.659"
+    "version": "0.2.660"
 }
