@@ -6,31 +6,37 @@
         "path": "node_modules/@borewit/text-codec",
         "licenseFile": "downloads/@borewit/text-codec@0.2.2-LICENSE.txt"
     },
-    "@dpuse/dpuse-shared@0.3.742": {
+    "@dpuse/dpuse-shared@0.3.748": {
         "licenses": "MIT",
         "repository": "https://github.com/dpuse/dpuse-shared",
         "publisher": "Jonathan Terrell",
         "email": "terrell.jm@gmail.com",
         "path": "node_modules/@dpuse/dpuse-shared",
-        "licenseFile": "downloads/@dpuse/dpuse-shared@0.3.742-LICENSE.txt"
+        "licenseFile": "downloads/@dpuse/dpuse-shared@0.3.748-LICENSE.txt"
     },
-    "@dpuse/dpuse-tool-csv-parse@0.0.143": {
+    "@dpuse/dpuse-tool-csv-parse@0.0.151": {
         "licenses": "MIT",
         "repository": "https://github.com/dpuse/dpuse-tool-csv-parse",
+        "publisher": "Jonathan Terrell",
+        "email": "terrell.jm@gmail.com",
         "path": "node_modules/@dpuse/dpuse-tool-csv-parse",
-        "licenseFile": "downloads/@dpuse/dpuse-tool-csv-parse@0.0.143-LICENSE.txt"
+        "licenseFile": "downloads/@dpuse/dpuse-tool-csv-parse@0.0.151-LICENSE.txt"
     },
-    "@dpuse/dpuse-tool-file-operators@0.0.45": {
+    "@dpuse/dpuse-tool-file-operators@0.0.57": {
         "licenses": "MIT",
         "repository": "https://github.com/dpuse/dpuse-tool-file-operators",
+        "publisher": "Jonathan Terrell",
+        "email": "terrell.jm@gmail.com",
         "path": "node_modules/@dpuse/dpuse-tool-file-operators",
-        "licenseFile": "downloads/@dpuse/dpuse-tool-file-operators@0.0.45-LICENSE.txt"
+        "licenseFile": "downloads/@dpuse/dpuse-tool-file-operators@0.0.57-LICENSE.txt"
     },
-    "@dpuse/dpuse-tool-rust-csv-core@0.1.21": {
+    "@dpuse/dpuse-tool-rust-csv-core@0.1.36": {
         "licenses": "MIT",
         "repository": "https://github.com/dpuse/dpuse-tool-rust-csv-core",
+        "publisher": "Jonathan Terrell",
+        "email": "terrell.jm@gmail.com",
         "path": "node_modules/@dpuse/dpuse-tool-rust-csv-core",
-        "licenseFile": "downloads/@dpuse/dpuse-tool-rust-csv-core@0.1.21-LICENSE.txt"
+        "licenseFile": "downloads/@dpuse/dpuse-tool-rust-csv-core@0.1.36-LICENSE.txt"
     },
     "@tokenizer/inflate@0.4.1": {
         "licenses": "MIT",
@@ -54,13 +60,13 @@
         "path": "node_modules/chardet",
         "licenseFile": "downloads/chardet@2.2.0-LICENSE.txt"
     },
-    "csv-parse@6.2.1": {
+    "csv-parse@7.0.1": {
         "licenses": "MIT",
         "repository": "https://github.com/adaltas/node-csv",
         "publisher": "David Worms",
         "email": "david@adaltas.com",
         "path": "node_modules/csv-parse",
-        "licenseFile": "downloads/csv-parse@6.2.1-LICENSE.txt"
+        "licenseFile": "downloads/csv-parse@7.0.1-LICENSE.txt"
     },
     "debug@4.4.3": {
         "licenses": "MIT",

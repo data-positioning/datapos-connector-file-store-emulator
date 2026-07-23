@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-07-23T16:57:24.234Z",
+    "generatedAt": "2026-07-23T20:26:34.261Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -74,7 +74,7 @@
       "type": "script",
       "uncompressed": 49197,
       "gzip": 0,
-      "brotli": 11555
+      "brotli": 11549
     },
     {
       "kind": "filesystem",
@@ -90,7 +90,7 @@
       "format": "esm",
       "uncompressed": 545,
       "gzip": 0,
-      "brotli": 225,
+      "brotli": 224,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {
@@ -124,7 +124,7 @@
       "format": "esm",
       "uncompressed": 1175,
       "gzip": 0,
-      "brotli": 447,
+      "brotli": 446,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {
@@ -141,7 +141,7 @@
       "format": "esm",
       "uncompressed": 53,
       "gzip": 0,
-      "brotli": 55,
+      "brotli": 54,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {
@@ -175,7 +175,7 @@
       "format": "esm",
       "uncompressed": 192,
       "gzip": 0,
-      "brotli": 164,
+      "brotli": 163,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {
@@ -284,7 +284,7 @@
       "format": "esm",
       "uncompressed": 4281,
       "gzip": 0,
-      "brotli": 1299,
+      "brotli": 1296,
       "parent": "dist/dpuse-connector-file-store-emulator.es.js"
     },
     {

@@ -1,34 +1,34 @@
 {
-  "version": "0.2.646",
+  "version": "0.2.676",
   "name": "@dpuse/dpuse-connector-file-store-emulator",
   "dependencies": {
     "@dpuse/dpuse-shared": {
-      "version": "0.3.742",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-0.3.742.tgz",
+      "version": "0.3.748",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-0.3.748.tgz",
       "overridden": false
     },
     "@dpuse/dpuse-tool-csv-parse": {
-      "version": "0.0.143",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-csv-parse/-/dpuse-tool-csv-parse-0.0.143.tgz",
+      "version": "0.0.151",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-csv-parse/-/dpuse-tool-csv-parse-0.0.151.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.742"
+          "version": "0.3.748"
         },
         "csv-parse": {
-          "version": "6.2.1",
-          "resolved": "https://registry.npmjs.org/csv-parse/-/csv-parse-6.2.1.tgz",
+          "version": "7.0.1",
+          "resolved": "https://registry.npmjs.org/csv-parse/-/csv-parse-7.0.1.tgz",
           "overridden": false
         }
       }
     },
     "@dpuse/dpuse-tool-file-operators": {
-      "version": "0.0.45",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-file-operators/-/dpuse-tool-file-operators-0.0.45.tgz",
+      "version": "0.0.57",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-file-operators/-/dpuse-tool-file-operators-0.0.57.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.742"
+          "version": "0.3.748"
         },
         "chardet": {
           "version": "2.2.0",
@@ -104,12 +104,12 @@
       }
     },
     "@dpuse/dpuse-tool-rust-csv-core": {
-      "version": "0.1.21",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-rust-csv-core/-/dpuse-tool-rust-csv-core-0.1.21.tgz",
+      "version": "0.1.36",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-rust-csv-core/-/dpuse-tool-rust-csv-core-0.1.36.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.742"
+          "version": "0.3.748"
         }
       }
     },
