@@ -4,9 +4,7 @@
         "en": "File Store Emulator"
     },
     "description": {
-        "en": [
-            "The File Store Emulator Connector is a read-only connector that provides access to a sample dataset simulating a hypothetical cloud-based file storage service such as Google Drive, Dropbox, or Microsoft OneDrive. It is intended for demonstration, evaluation, and testing, and is freely available to all users."
-        ]
+        "en": "The File Store Emulator Connector is a read-only connector that provides access to a sample dataset simulating a hypothetical cloud-based file storage service such as Google Drive, Dropbox, or Microsoft OneDrive. It is intended for demonstration, evaluation, and testing, and is freely available to all users."
     },
     "actionNames": [
         "abortOperation",
@@ -37,5 +35,5 @@
     "vendorAccountURL": null,
     "vendorDocumentationURL": null,
     "vendorHomeURL": null,
-    "version": "0.2.678"
+    "version": "0.2.679"
 }

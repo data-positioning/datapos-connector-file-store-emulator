@@ -1,19 +1,19 @@
 {
-  "version": "0.2.676",
+  "version": "0.2.678",
   "name": "@dpuse/dpuse-connector-file-store-emulator",
   "dependencies": {
     "@dpuse/dpuse-shared": {
-      "version": "0.3.748",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-0.3.748.tgz",
+      "version": "0.3.760",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-shared/-/dpuse-shared-0.3.760.tgz",
       "overridden": false
     },
-    "@dpuse/dpuse-tool-csv-parse": {
-      "version": "0.0.151",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-csv-parse/-/dpuse-tool-csv-parse-0.0.151.tgz",
+    "@dpuse/dpuse-tool-adaltas-csv-parser": {
+      "version": "0.0.155",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-adaltas-csv-parser/-/dpuse-tool-adaltas-csv-parser-0.0.155.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.748"
+          "version": "0.3.760"
         },
         "csv-parse": {
           "version": "7.0.1",
@@ -28,7 +28,7 @@
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.748"
+          "version": "0.3.760"
         },
         "chardet": {
           "version": "2.2.0",
@@ -104,12 +104,12 @@
       }
     },
     "@dpuse/dpuse-tool-rust-csv-core": {
-      "version": "0.1.36",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-rust-csv-core/-/dpuse-tool-rust-csv-core-0.1.36.tgz",
+      "version": "0.1.37",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-rust-csv-core/-/dpuse-tool-rust-csv-core-0.1.37.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
-          "version": "0.3.748"
+          "version": "0.3.760"
         }
       }
     },

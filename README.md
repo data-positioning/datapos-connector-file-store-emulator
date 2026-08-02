@@ -28,23 +28,23 @@ Connectors conform to a unified interface contract by implementing a specific su
 
 This connector is a Source connector that supports only read actions. Connectors can also function as a Destination (write-only) or Bidirectional (read/write), depending on the actions they support. The table below lists all connector actions and highlights those supported by this connector.
 
-| Action               | Supported |
-| :------------------- | :-------: |
-| Abort Operation      |     ✓     |
-| Audit Object Content |     ✓     |
-| Create Object        |           |
-| Describe Connection  |           |
-| Drop Object          |           |
-| Find Object          |     ✓     |
-| Get Info             |           |
-| Get Readable Stream  |     ✓     |
-| Get Record           |           |
-| List Nodes           |     ✓     |
-| Preview Object       |     ✓     |
-| Remove Records       |           |
-| Retrieve Chunks      |           |
-| Retrieve Records     |     ✓     |
-| Upsert Records       |           |
+|Action|Supported|
+|:----|:-------:|
+| Abort Operation | ✓ |
+| Audit Object Content | ✓ |
+| Create Object |  |
+| Describe Connection |  |
+| Drop Object |  |
+| Find Object | ✓ |
+| Get Info |  |
+| Get Readable Stream | ✓ |
+| Get Record |  |
+| List Nodes | ✓ |
+| Preview Object | ✓ |
+| Remove Records |  |
+| Retrieve Chunks |  |
+| Retrieve Records | ✓ |
+| Upsert Records |  |
 
 <!-- CONNECTOR_ACTIONS_END -->
 
@@ -72,25 +72,25 @@ _Requires [Node.js](https://nodejs.org/) 23.11 or later, [npm](https://www.npmjs
 
 License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use BSD-3-Clause or MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
 
-| Dependency                                                                             | Version | License(s)   | Document                                                                          |
-| :------------------------------------------------------------------------------------- | :-----: | :----------- | :-------------------------------------------------------------------------------- |
-| [@borewit/text-codec](https://github.com/Borewit/text-codec)                           |  0.2.2  | MIT          | [LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt)               |
-| [@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)                           | 0.3.748 | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-shared@0.3.748-LICENSE.txt)             |
-| [@dpuse/dpuse-tool-csv-parse](https://github.com/dpuse/dpuse-tool-csv-parse)           | 0.0.151 | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-tool-csv-parse@0.0.151-LICENSE.txt)     |
-| [@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators) | 0.0.57  | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-tool-file-operators@0.0.57-LICENSE.txt) |
-| [@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)   | 0.1.36  | MIT          | [LICENSE](licenses/downloads/@dpuse/dpuse-tool-rust-csv-core@0.1.36-LICENSE.txt)  |
-| [@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)                     |  0.4.1  | MIT          | [LICENSE](licenses/downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)                |
-| [@tokenizer/token](https://github.com/Borewit/tokenizer-token)                         |  0.3.0  | MIT          | [LICENSE](licenses/downloads/@tokenizer/token@0.3.0-LICENSE.txt)                  |
-| [chardet](https://github.com/runk/node-chardet)                                        |  2.2.0  | MIT          | [LICENSE](licenses/downloads/chardet@2.2.0-LICENSE.txt)                           |
-| [csv-parse](https://github.com/adaltas/node-csv)                                       |  7.0.1  | MIT          | [LICENSE](licenses/downloads/csv-parse@7.0.1-LICENSE.txt)                         |
-| [debug](https://github.com/debug-js/debug)                                             |  4.4.3  | MIT          | [LICENSE](licenses/downloads/debug@4.4.3-LICENSE.txt)                             |
-| [file-type](https://github.com/sindresorhus/file-type)                                 | 22.0.1  | MIT          | [LICENSE](licenses/downloads/file-type@22.0.1-LICENSE.txt)                        |
-| [ieee754](https://github.com/feross/ieee754)                                           |  1.2.1  | BSD-3-Clause | [LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)                           |
-| [ms](https://github.com/vercel/ms)                                                     |  2.1.3  | MIT          | [LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)                                |
-| [nanoid](https://github.com/ai/nanoid)                                                 |  6.0.0  | MIT          | [LICENSE](licenses/downloads/nanoid@6.0.0-LICENSE.txt)                            |
-| [strtok3](https://github.com/Borewit/strtok3)                                          | 10.3.5  | MIT          | [LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)                          |
-| [token-types](https://github.com/Borewit/token-types)                                  |  6.1.2  | MIT          | [LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)                       |
-| [uint8array-extras](https://github.com/sindresorhus/uint8array-extras)                 |  1.5.0  | MIT          | [LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)                 |
+|Dependency|Version|License(s)|Document|
+|:-|:-:|:-|:-|
+|[@borewit/text-codec](https://github.com/Borewit/text-codec)|0.2.2|MIT|[LICENSE](licenses/downloads/@borewit/text-codec@0.2.2-LICENSE.txt)|
+|[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)|0.3.760|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-shared@0.3.760-LICENSE.txt)|
+|[@dpuse/dpuse-tool-adaltas-csv-parser](https://github.com/dpuse/dpuse-tool-adaltas-csv-parser)|0.0.155|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-tool-adaltas-csv-parser@0.0.155-LICENSE.txt)|
+|[@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators)|0.0.57|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-tool-file-operators@0.0.57-LICENSE.txt)|
+|[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)|0.1.37|MIT|[LICENSE](licenses/downloads/@dpuse/dpuse-tool-rust-csv-core@0.1.37-LICENSE.txt)|
+|[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)|0.4.1|MIT|[LICENSE](licenses/downloads/@tokenizer/inflate@0.4.1-LICENSE.txt)|
+|[@tokenizer/token](https://github.com/Borewit/tokenizer-token)|0.3.0|MIT|[LICENSE](licenses/downloads/@tokenizer/token@0.3.0-LICENSE.txt)|
+|[chardet](https://github.com/runk/node-chardet)|2.2.0|MIT|[LICENSE](licenses/downloads/chardet@2.2.0-LICENSE.txt)|
+|[csv-parse](https://github.com/adaltas/node-csv)|7.0.1|MIT|[LICENSE](licenses/downloads/csv-parse@7.0.1-LICENSE.txt)|
+|[debug](https://github.com/debug-js/debug)|4.4.3|MIT|[LICENSE](licenses/downloads/debug@4.4.3-LICENSE.txt)|
+|[file-type](https://github.com/sindresorhus/file-type)|22.0.1|MIT|[LICENSE](licenses/downloads/file-type@22.0.1-LICENSE.txt)|
+|[ieee754](https://github.com/feross/ieee754)|1.2.1|BSD-3-Clause|[LICENSE](licenses/downloads/ieee754@1.2.1-LICENSE.txt)|
+|[ms](https://github.com/vercel/ms)|2.1.3|MIT|[LICENSE](licenses/downloads/ms@2.1.3-LICENSE.txt)|
+|[nanoid](https://github.com/ai/nanoid)|6.0.0|MIT|[LICENSE](licenses/downloads/nanoid@6.0.0-LICENSE.txt)|
+|[strtok3](https://github.com/Borewit/strtok3)|10.3.5|MIT|[LICENSE](licenses/downloads/strtok3@10.3.5-LICENSE.txt)|
+|[token-types](https://github.com/Borewit/token-types)|6.1.2|MIT|[LICENSE](licenses/downloads/token-types@6.1.2-LICENSE.txt)|
+|[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)|1.5.0|MIT|[LICENSE](licenses/downloads/uint8array-extras@1.5.0-LICENSE.txt)|
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -100,27 +100,27 @@ License data is collected automatically on each release using [license-checker](
 
 The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are simply mature and stable, requiring no active development.
 
-- **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.748 — this month: 2026-07-21
-- **[@dpuse/dpuse-tool-csv-parse](https://github.com/dpuse/dpuse-tool-csv-parse)** 0.0.151 — this month: 2026-07-23
-    - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.748 — this month: 2026-07-21
-    - **[csv-parse](https://github.com/adaltas/node-csv)** 7.0.1 — this month: 2026-07-02
+- **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.760 — this month: 2026-08-02
+- **[@dpuse/dpuse-tool-adaltas-csv-parser](https://github.com/dpuse/dpuse-tool-adaltas-csv-parser)** 0.0.155 — this month: 2026-08-02
+  - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.760 — this month: 2026-08-02
+  - **[csv-parse](https://github.com/adaltas/node-csv)** 7.0.1 — **1 month** ago: 2026-07-02
 - **[@dpuse/dpuse-tool-file-operators](https://github.com/dpuse/dpuse-tool-file-operators)** 0.0.57 — this month: 2026-07-23
-    - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.748 — this month: 2026-07-21
-    - **[chardet](https://github.com/runk/node-chardet)** 2.2.0 — **1** month ago: 2026-06-20
-    - **[file-type](https://github.com/sindresorhus/file-type)** 22.0.1 — **3** months ago: 2026-04-09
-        - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — **8** months ago: 2025-11-18 ⚠️
-            - **[debug](https://github.com/debug-js/debug)** 4.4.3 — **10** months ago: 2025-09-13 ⚠️
-                - **[ms](https://github.com/vercel/ms)** 2.1.3 — **67** months ago: 2020-12-08 ⚠️
-            - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **6** months ago: 2026-01-01
-        - **[strtok3](https://github.com/Borewit/strtok3)** 10.3.5 — **4** months ago: 2026-03-21
-            - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **60** months ago: 2021-07-12 ⚠️
-        - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **6** months ago: 2026-01-01
-            - **[@borewit/text-codec](https://github.com/Borewit/text-codec)** 0.2.2 — **4** months ago: 2026-03-11
-            - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **60** months ago: 2021-07-12 ⚠️
-            - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — **68** months ago: 2020-10-27 ⚠️
-        - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — **11** months ago: 2025-08-22 ⚠️
-- **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.36 — this month: 2026-07-23
-    - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.748 — this month: 2026-07-21
+  - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.760 — this month: 2026-08-02
+  - **[chardet](https://github.com/runk/node-chardet)** 2.2.0 — **1 month** ago: 2026-06-20
+  - **[file-type](https://github.com/sindresorhus/file-type)** 22.0.1 — **3 months** ago: 2026-04-09
+    - **[@tokenizer/inflate](https://github.com/Borewit/tokenizer-inflate)** 0.4.1 — **8 months** ago: 2025-11-18 ⚠️
+      - **[debug](https://github.com/debug-js/debug)** 4.4.3 — **10 months** ago: 2025-09-13 ⚠️
+        - **[ms](https://github.com/vercel/ms)** 2.1.3 — **67 months** ago: 2020-12-08 ⚠️
+      - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **7 months** ago: 2026-01-01 ⚠️
+    - **[strtok3](https://github.com/Borewit/strtok3)** 10.3.5 — **4 months** ago: 2026-03-21
+      - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **60 months** ago: 2021-07-12 ⚠️
+    - **[token-types](https://github.com/Borewit/token-types)** 6.1.2 — **7 months** ago: 2026-01-01 ⚠️
+      - **[@borewit/text-codec](https://github.com/Borewit/text-codec)** 0.2.2 — **4 months** ago: 2026-03-11
+      - **[@tokenizer/token](https://github.com/Borewit/tokenizer-token)** 0.3.0 — **60 months** ago: 2021-07-12 ⚠️
+      - **[ieee754](https://github.com/feross/ieee754)** 1.2.1 — **69 months** ago: 2020-10-27 ⚠️
+    - **[uint8array-extras](https://github.com/sindresorhus/uint8array-extras)** 1.5.0 — **11 months** ago: 2025-08-22 ⚠️
+- **[@dpuse/dpuse-tool-rust-csv-core](https://github.com/dpuse/dpuse-tool-rust-csv-core)** 0.1.37 — this month: 2026-08-02
+  - **[@dpuse/dpuse-shared](https://github.com/dpuse/dpuse-shared)** 0.3.760 — this month: 2026-08-02
 - **[nanoid](https://github.com/ai/nanoid)** 6.0.0 — this month: 2026-07-12
 
 <!-- DEPENDENCY_TREE_END -->
@@ -133,30 +133,30 @@ The Bundle Analysis Report is generated automatically on each release using [Son
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
-| Chunk/Module/File                                                                                    | Composition                  |
-| :--------------------------------------------------------------------------------------------------- | :--------------------------- |
-| dist/dpuse-connector-file-store-emulator.es.js                                                       | 48.0 kB · brotli 11.3 kB     |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                                                  | `███████████░░░░░░░░░` 56.5% |
-| &nbsp;&nbsp;&nbsp;&nbsp;src                                                                          | `█░░░░░░░░░░░░░░░░░░░` 6.3%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts                                             | `█░░░░░░░░░░░░░░░░░░░` 5.8%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rustBridge.ts                                        | `░░░░░░░░░░░░░░░░░░░░` 0.5%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;@dpuse/dpuse-shared                                                          | `█░░░░░░░░░░░░░░░░░░░` 3.6%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-errors.es.js                       | `░░░░░░░░░░░░░░░░░░░░` 1.6%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-utilities.es.js                    | `░░░░░░░░░░░░░░░░░░░░` 0.8%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentDataView.es.js            | `░░░░░░░░░░░░░░░░░░░░` 0.7%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentModuleTool.es.js          | `░░░░░░░░░░░░░░░░░░░░` 0.3%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-locale.es.js                       | `░░░░░░░░░░░░░░░░░░░░` 0.1%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;nanoid                                                                       | `░░░░░░░░░░░░░░░░░░░░` 0.3%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.browser.js                                     | `░░░░░░░░░░░░░░░░░░░░` 0.3%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url-alphabet/index.js                                | `░░░░░░░░░░░░░░░░░░░░` 0.0%  |
-| dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js                                            | 24.1 kB · brotli 10.1 kB     |
-| &nbsp;&nbsp;&nbsp;&nbsp;wasm                                                                         | `██████░░░░░░░░░░░░░░` 32.0% |
+|Chunk/Module/File|Composition|
+|:------ |:-----------|
+| dist/dpuse-connector-file-store-emulator.es.js | 48.0 kB · brotli 11.3 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `███████████░░░░░░░░░` 56.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src | `█░░░░░░░░░░░░░░░░░░░` 6.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.ts | `█░░░░░░░░░░░░░░░░░░░` 5.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rustBridge.ts | `░░░░░░░░░░░░░░░░░░░░` 0.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;@dpuse/dpuse-shared | `█░░░░░░░░░░░░░░░░░░░` 3.6% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-errors.es.js | `░░░░░░░░░░░░░░░░░░░░` 1.6% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-utilities.es.js | `░░░░░░░░░░░░░░░░░░░░` 0.8% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentDataView.es.js | `░░░░░░░░░░░░░░░░░░░░` 0.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-componentModuleTool.es.js | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist/dpuse-shared-locale.es.js | `░░░░░░░░░░░░░░░░░░░░` 0.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;nanoid | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index.browser.js | `░░░░░░░░░░░░░░░░░░░░` 0.3% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url-alphabet/index.js | `░░░░░░░░░░░░░░░░░░░░` 0.0% |
+| dist/dpuse_connector_file_store_emulator_core-BbpaeCh_.js | 24.1 kB · brotli 10.1 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;wasm | `██████░░░░░░░░░░░░░░` 32.0% |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm?url | `██████░░░░░░░░░░░░░░` 28.3% |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.js       | `░░░░░░░░░░░░░░░░░░░░` 2.1%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__vite-plugin-wasm-helper                            | `░░░░░░░░░░░░░░░░░░░░` 1.0%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm     | `░░░░░░░░░░░░░░░░░░░░` 0.5%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js          | `░░░░░░░░░░░░░░░░░░░░` 0.0%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned]                                                  | `░░░░░░░░░░░░░░░░░░░░` 1.3%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.js | `░░░░░░░░░░░░░░░░░░░░` 2.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__vite-plugin-wasm-helper | `░░░░░░░░░░░░░░░░░░░░` 1.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core_bg.wasm | `░░░░░░░░░░░░░░░░░░░░` 0.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dpuse_connector_file_store_emulator_core.js | `░░░░░░░░░░░░░░░░░░░░` 0.0% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `░░░░░░░░░░░░░░░░░░░░` 1.3% |
 
 (unassigned) = bytes Sonda can't trace to a specific source line (whitespace, stray keywords, bundler-injected region markers) — not actual missing/unknown code.
 
