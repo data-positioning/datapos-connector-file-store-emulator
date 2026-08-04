@@ -176,7 +176,7 @@ export class Connector implements ConnectorInterface {
             const startedAt = performance.now();
 
             // Preview file to determine file format and decode text.
-            const fileOperatorsTool = await loadTool<FileOperatorsTool>(this.toolConfigs, 'file-preview');
+            const fileOperatorsTool = await loadTool<FileOperatorsTool>(this.toolConfigs, 'file-previewer');
             const filePreviewResult = await fileOperatorsTool.previewFile(`${URL_PREFIX}${options.path}`, signal, options.chunkSize);
             if (filePreviewResult.dataFormatId == null) throw new Error(`File '${options.path}' has unknown type.`);
             if (filePreviewResult.text == null) throw new Error(`File '${options.path}' is empty.`);
