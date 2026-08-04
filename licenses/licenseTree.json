@@ -1,5 +1,5 @@
 {
-  "version": "0.2.678",
+  "version": "0.2.681",
   "name": "@dpuse/dpuse-connector-file-store-emulator",
   "dependencies": {
     "@dpuse/dpuse-shared": {
@@ -22,9 +22,9 @@
         }
       }
     },
-    "@dpuse/dpuse-tool-file-operators": {
-      "version": "0.0.57",
-      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-file-operators/-/dpuse-tool-file-operators-0.0.57.tgz",
+    "@dpuse/dpuse-tool-file-previewer": {
+      "version": "0.0.58",
+      "resolved": "https://registry.npmjs.org/@dpuse/dpuse-tool-file-previewer/-/dpuse-tool-file-previewer-0.0.58.tgz",
       "overridden": false,
       "dependencies": {
         "@dpuse/dpuse-shared": {
@@ -114,8 +114,8 @@
       }
     },
     "nanoid": {
-      "version": "6.0.0",
-      "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-6.0.0.tgz",
+      "version": "6.0.1",
+      "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-6.0.1.tgz",
       "overridden": false
     }
   }
